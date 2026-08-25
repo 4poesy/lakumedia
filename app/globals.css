@@ -55,7 +55,7 @@ body {
   --primary-color: #2A2E7F;
 }
 
-/* Solid Sharp Panel & Navigation Utilities (No Glassmorphism, No Gradients) */
+/* Solid Sharp Panel & Navigation Utilities (No Glassmorphism, No Gradients, No Opacity) */
 .glass-panel, .solid-panel {
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -68,18 +68,33 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
 }
 
+/* Infinite Marquee Animation for Top Live Scores Bar */
+@keyframes ticker-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker-marquee 30s linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 0px;
+  width: 0px;
+  display: none;
 }
-::-webkit-scrollbar-track {
-  background: #ffffff;
-}
-::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
