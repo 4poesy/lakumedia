@@ -29,12 +29,12 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
     <section className="space-y-4 py-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <div className="w-2.5 h-6 rounded-full bg-[#D9541E] shadow-sm shadow-[#D9541E]/50" />
-          <h2 className="text-xl font-bold text-white tracking-tight">{genreName}</h2>
+          <div className="w-2.5 h-6 rounded-full bg-[#D9541E] shadow-sm" />
+          <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">{genreName}</h2>
         </div>
         <Link
           href={`/multimedia/${genreSlug}`}
-          className="text-xs font-semibold text-[#D9541E] hover:underline flex items-center gap-1 group"
+          className="text-xs font-bold text-[#D9541E] hover:underline flex items-center gap-1 group"
         >
           Explore All ({items.length}) <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
         </Link>
