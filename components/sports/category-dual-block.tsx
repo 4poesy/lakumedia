@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, MessageSquare } from 'lucide-react';
@@ -51,35 +53,7 @@ export function CategoryDualBlock({
         </div>
 
         {/* Lead Feature Top Card */}
-        {lead && (
-          <div className="space-y-2 group">
-            <div className="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
-              <Image
-                src={lead.cover_image_url || defaultImage}
-                alt={lead.title}
-                fill
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-            <h4 className="text-sm font-extrabold text-slate-900 group-hover:text-[#D9541E] transition-colors line-clamp-2 leading-snug">
-              <Link href={`/article/${lead.slug}`}>
-                {lead.title}
-              </Link>
-            </h4>
-            <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-medium">
-              <span>{lead.published_at ? new Date(lead.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recently'}</span>
-              <span>•</span>
-              <span className="flex items-center gap-0.5">
-                <MessageSquare className="w-3 h-3 text-slate-400" /> 0
-              </span>
-            </div>
-            {lead.excerpt && (
-              <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium pt-1">
-                {lead.excerpt}
-              </p>
-            )}
-          </div>
-        )}
+        {lead && <LeadFeatureCard lead={lead} defaultImage={defaultImage} />}
 
         {/* Compact Horizontal Cards Below */}
         <div className="pt-2 divide-y divide-slate-100">
@@ -101,6 +75,41 @@ export function CategoryDualBlock({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-6">
       {renderColumn(leftColumn)}
       {renderColumn(rightColumn)}
+    </div>
+  );
+}
+
+function LeadFeatureCard({ lead, defaultImage }: { lead: ArticleItem; defaultImage: string }) {
+  const [imgSrc, setImgSrc] = useState(lead.cover_image_url || defaultImage);
+
+  return (
+    <div className="space-y-2 group">
+      <div className="relative h-44 sm:h-48 w-full rounded-xl overflow-hidden bg-slate-100 border border-slate-200 shadow-sm">
+        <Image
+          src={imgSrc}
+          alt={lead.title}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          onError={() => setImgSrc(defaultImage)}
+        />
+      </div>
+      <h4 className="text-sm font-extrabold text-slate-900 group-hover:text-[#D9541E] transition-colors line-clamp-2 leading-snug">
+        <Link href={`/article/${lead.slug}`}>
+          {lead.title}
+        </Link>
+      </h4>
+      <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-medium">
+        <span>{lead.published_at ? new Date(lead.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recently'}</span>
+        <span>•</span>
+        <span className="flex items-center gap-0.5">
+          <MessageSquare className="w-3 h-3 text-slate-400" /> 0
+        </span>
+      </div>
+      {lead.excerpt && (
+        <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium pt-1">
+          {lead.excerpt}
+        </p>
+      )}
     </div>
   );
 }
