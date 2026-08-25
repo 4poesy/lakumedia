@@ -41,9 +41,9 @@ export function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
-          {/* Brand Logo & Wordmark - Official Laku Media Colors (#2A2E7F Deep Navy & #D9541E Burnt Orange) */}
+          {/* Brand Logo & Wordmark */}
           <div className="flex items-center space-x-3">
-            <Link href="/" className="flex items-center space-x-2.5 group">
+            <Link href="/" prefetch={true} className="flex items-center space-x-2.5 group">
               <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
@@ -75,7 +75,8 @@ export function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-lg text-xs font-extrabold transition-colors flex items-center space-x-1.5 ${
+                  prefetch={true}
+                  className={`relative px-3.5 py-2 rounded-lg text-xs font-extrabold transition-colors flex items-center space-x-1.5 active:scale-95 ${
                     isActive
                       ? 'text-white bg-[#D9541E] shadow-sm'
                       : 'text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100'
@@ -97,7 +98,8 @@ export function Navigation() {
           <div className="hidden md:flex items-center space-x-3">
             <Link
               href="/sign-in"
-              className="px-4 py-2 rounded-lg text-xs font-extrabold bg-[#2A2E7F] hover:bg-[#1f2260] text-white transition-all flex items-center space-x-1.5 shadow-sm"
+              prefetch={true}
+              className="px-4 py-2 rounded-lg text-xs font-extrabold bg-[#2A2E7F] hover:bg-[#1f2260] text-white transition-all flex items-center space-x-1.5 shadow-sm active:scale-95"
             >
               <User className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -123,7 +125,8 @@ export function Navigation() {
             {/* Live Scores Button */}
             <Link
               href="/live-scores"
-              className="px-3 py-1 rounded-md bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider"
+              prefetch={true}
+              className="px-3 py-1 rounded-md bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider active:scale-95"
             >
               <span className="w-2 h-2 rounded-full bg-white" />
               <span>LIVE SCORES</span>
@@ -134,7 +137,8 @@ export function Navigation() {
               <Link
                 key={idx}
                 href={filter.href}
-                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px]"
+                prefetch={true}
+                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95"
               >
                 {filter.label}
               </Link>
@@ -153,6 +157,7 @@ export function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
+                prefetch={true}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold ${
                   isActive
@@ -175,6 +180,7 @@ export function Navigation() {
           <div className="pt-4 border-t border-slate-200">
             <Link
               href="/sign-in"
+              prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="w-full block text-center px-4 py-2.5 rounded-lg text-sm font-bold bg-[#2A2E7F] text-white"
             >
