@@ -6,17 +6,25 @@ export { INITIAL_FEED_SOURCES, FALLBACK_AGGREGATED_NEWS };
 export async function getAggregatedNews(): Promise<AggregatedNewsItem[]> {
   try {
     const supabase = await createClient();
+
+    // Query active items from Supabase aggregated_news
     const { data: dbItems } = await (supabase.from('aggregated_news' as any) as any)
       .select('*')
-      .order('published_at', { ascending: false });
+      .order('published_at', { ascending: false })
+      .limit(12);
 
     if (dbItems && dbItems.length > 0) {
-      return dbItems.filter((item: AggregatedNewsItem) => Boolean(item.thumbnail_url));
+      // Filter strictly for valid thumbnail_url according to legal image enforcement rule
+      const validItems = dbItems.filter((item: AggregatedNewsItem) => Boolean(item.thumbnail_url));
+      if (validItems.length > 0) {
+        return validItems;
+      }
     }
   } catch (err) {
     console.error('Supabase query fallback for aggregated_news:', err);
   }
 
+  // Fallback items with 100% valid images
   return FALLBACK_AGGREGATED_NEWS.filter((item) => Boolean(item.thumbnail_url));
 }
 
