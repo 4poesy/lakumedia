@@ -11,18 +11,37 @@ export function NewsletterPopupModal() {
   const [submitted, setSubmitted] = useState(false);
 
   useEffect(() => {
-    // Show popup after 3 seconds if user has not already dismissed or subscribed
+    // Frequency control: Only show after 10 seconds if user has not subscribed or dismissed in the last 7 days
     const timer = setTimeout(() => {
-      const hasSubscribed = localStorage.getItem('laku_media_subscribed');
-      if (!hasSubscribed) {
+      try {
+        const hasSubscribed = localStorage.getItem('laku_media_subscribed');
+        const lastDismissed = localStorage.getItem('laku_newsletter_dismissed');
+
+        if (hasSubscribed) return;
+
+        if (lastDismissed) {
+          const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+          const timeSinceDismissed = Date.now() - parseInt(lastDismissed, 10);
+          if (timeSinceDismissed < sevenDaysInMs) {
+            return;
+          }
+        }
+
         setIsOpen(true);
+      } catch (err) {
+        console.error('Error checking newsletter popup frequency:', err);
       }
-    }, 3000);
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);
 
   const handleClose = () => {
+    try {
+      localStorage.setItem('laku_newsletter_dismissed', Date.now().toString());
+    } catch (e) {
+      console.error(e);
+    }
     setIsOpen(false);
   };
 
@@ -30,7 +49,11 @@ export function NewsletterPopupModal() {
     e.preventDefault();
     if (!email) return;
 
-    localStorage.setItem('laku_media_subscribed', 'true');
+    try {
+      localStorage.setItem('laku_media_subscribed', 'true');
+    } catch (e) {
+      console.error(e);
+    }
     setSubmitted(true);
     setTimeout(() => {
       setIsOpen(false);
@@ -40,19 +63,22 @@ export function NewsletterPopupModal() {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-      <div className="relative w-full max-w-lg">
-        <NeonBorder color="#D9541E" rounded={28} thickness={4} borderSize={60} glow={90}>
-          <div className="bg-slate-950 p-8 rounded-3xl border border-slate-800 shadow-2xl relative space-y-6">
-            
-            {/* Close Button */}
-            <button
-              onClick={handleClose}
-              className="absolute top-4 right-4 p-2 rounded-full bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            >
-              <X className="w-5 h-5" />
-            </button>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-md overflow-y-auto animate-fade-in">
+      <div className="relative w-full max-w-md my-auto max-h-[92vh] flex flex-col justify-center">
+        
+        {/* Prominent Mobile-First Touch Close Button */}
+        <button
+          onClick={handleClose}
+          type="button"
+          aria-label="Close modal"
+          className="absolute -top-3 -right-3 z-30 w-11 h-11 rounded-full bg-slate-900 border-2 border-slate-700 text-white flex items-center justify-center shadow-2xl hover:bg-[#D9541E] hover:border-orange-400 transition-all active:scale-90"
+        >
+          <X className="w-6 h-6 stroke-[2.5]" />
+        </button>
 
+        <NeonBorder color="#D9541E" rounded={28} thickness={4} borderSize={60} glow={90}>
+          <div className="bg-slate-950 p-5 sm:p-8 rounded-3xl border border-slate-800 shadow-2xl relative space-y-5 overflow-y-auto max-h-[85vh]">
+            
             {submitted ? (
               <div className="py-8 text-center space-y-4">
                 <div className="w-16 h-16 rounded-full bg-[#10B981]/20 border border-[#10B981] flex items-center justify-center mx-auto">
@@ -65,22 +91,22 @@ export function NewsletterPopupModal() {
               </div>
             ) : (
               <>
-                <div className="space-y-2 text-center pt-2">
+                <div className="space-y-2 text-center pt-1">
                   <div className="w-12 h-12 rounded-2xl bg-[#D9541E] flex items-center justify-center mx-auto shadow-lg">
                     <Gift className="w-6 h-6 text-white" />
                   </div>
                   <span className="text-[10px] font-black text-[#10B981] uppercase tracking-widest block">
                     EXCLUSIVE STUDIO INVITATION
                   </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white uppercase leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-black text-white uppercase leading-tight">
                     GET 15% OFF YOUR FIRST PRODUCTION
                   </h3>
-                  <p className="text-xs text-slate-300 font-medium leading-relaxed max-w-sm mx-auto">
-                    Subscribe to Laku Media VIP newsletter to receive exclusive rates, private cinema screening passes, and live stream notifications.
+                  <p className="text-xs text-slate-300 font-medium leading-relaxed max-w-xs mx-auto">
+                    Subscribe to Laku Media VIP newsletter to receive exclusive rates, private screening passes, and live stream alerts.
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 pt-2">
+                <form onSubmit={handleSubmit} className="space-y-3 pt-1">
                   <div className="space-y-1">
                     <label className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider block">
                       Email Address
@@ -122,9 +148,16 @@ export function NewsletterPopupModal() {
                   </button>
                 </form>
 
-                <p className="text-[10px] text-center text-slate-500 font-medium">
-                  100% Privacy Guaranteed. Zero spam. Unsubscribe anytime.
-                </p>
+                {/* Secondary Touch Dismiss Link for Small Mobile Screens */}
+                <div className="text-center pt-1">
+                  <button
+                    onClick={handleClose}
+                    type="button"
+                    className="text-[11px] font-bold text-slate-400 hover:text-white underline p-1 active:scale-95"
+                  >
+                    No thanks, continue browsing
+                  </button>
+                </div>
               </>
             )}
           </div>
@@ -141,11 +174,16 @@ export function StudioSubscriberSection() {
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
+    try {
+      localStorage.setItem('laku_media_subscribed', 'true');
+    } catch (e) {
+      console.error(e);
+    }
     setSubmitted(true);
   };
 
   return (
-    <section className="bg-slate-950 p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 relative overflow-hidden my-10">
+    <section className="bg-slate-950 p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 relative overflow-hidden my-10 max-w-7xl mx-auto">
       <div className="max-w-3xl mx-auto text-center space-y-4">
         <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">
           JOIN LAKU MEDIA STUDIO NETWORK
