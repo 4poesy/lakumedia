@@ -1,23 +1,25 @@
+// Coverflow Gallery — Originkit
+// Originkit — defaults rewritten to match preview.
 "use client"
 
-import {
+import React, {
     useState,
     useEffect,
     useCallback,
     useRef,
     type CSSProperties,
 } from "react"
+const useIsStaticRenderer = () => false
 
-interface Slide {
+export interface Slide {
     image?: { src?: string; srcSet?: string; alt?: string }
     title?: string
-    subtitle?: string
 }
 
-type AutoplayDir = "leftToRight" | "rightToLeft"
-type TitleCorner = "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
+export type AutoplayDir = "leftToRight" | "rightToLeft"
+export type TitleCorner = "topLeft" | "topRight" | "bottomLeft" | "bottomRight"
 
-interface Smooth3DSlideshowProps {
+export interface Smooth3DSlideshowProps {
     slides?: Slide[]
     cardWidth?: number
     cardHeight?: number
@@ -45,35 +47,93 @@ interface Smooth3DSlideshowProps {
 const DEFAULT_SLIDES: Slide[] = [
     {
         image: {
-            src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75",
+            src: "https://imagedelivery.net/IEUjvl3YUlxY-MrTpOAWDQ/316d1761-fd79-4ca9-b8d4-f2bb20521a00/w=800",
         },
-        title: "Adebayo Samuel Olaku\nChief Executive Officer & Founder",
+        title: "For Sitting\nMetal\nMinimal",
     },
     {
         image: {
-            src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75",
+            src: "https://imagedelivery.net/IEUjvl3YUlxY-MrTpOAWDQ/aeaa0756-9647-4f6c-d900-204bd25e4a00/w=800",
         },
-        title: "Kemi Adebisi\nHead of Broadcast Operations",
+        title: "For Living\nConcrete\nForm",
     },
     {
         image: {
-            src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop&q=75",
+            src: "https://imagedelivery.net/IEUjvl3YUlxY-MrTpOAWDQ/34ce1842-4b7a-4d52-0302-38582c341700/w=800",
         },
-        title: "Chidi Chukwuma\nDirector of Cinematography",
-    },
-    {
-        image: {
-            src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75",
-        },
-        title: "Zainab Bello\nBrand Strategy Lead",
+        title: "For Working\nSteel\nClean",
     },
 ]
 
-const PERSPECTIVE = 1400
-const SCALE_STEP = 0.14
-const MAX_VISIBLE = 2
-const DEPTH = 200
+const COMPONENT_DEFAULTS: Smooth3DSlideshowProps = {
+    slides: [
+        {
+            image: {
+                src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75",
+            },
+            title: "Adebayo Samuel Olaku\nChief Executive Officer & Founder",
+        },
+        {
+            image: {
+                src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75",
+            },
+            title: "Kemi Adebisi\nHead of Satellite Broadcast MCR",
+        },
+        {
+            image: {
+                src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75",
+            },
+            title: "Chidi Chukwuma\nDirector of Cinematography",
+        },
+        {
+            image: {
+                src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75",
+            },
+            title: "Zainab Bello\nBrand Strategy Lead",
+        },
+    ],
+    cardWidth: 420,
+    cardHeight: 440,
+    radius: 6,
+    tilt: 12,
+    sideTilt: 8,
+    gap: 8,
+    opacity: 60,
+    autoplay: true,
+    autoplayDirection: "rightToLeft" as AutoplayDir,
+    transition: {
+        type: "tween",
+        duration: 0.6,
+        delay: 2.8,
+        ease: [0.22, 1, 0.36, 1],
+    },
+    showTitle: true,
+    titleFont: {
+        fontFamily: "Inter, sans-serif",
+        variant: "Bold",
+        fontSize: "24px",
+        letterSpacing: "-0.02em",
+        lineHeight: "1.1em",
+    } as any,
+    titleColor: "#ffffff",
+    titlePosition: {
+        position: "bottomLeft" as TitleCorner,
+        paddingLeft: 22,
+        paddingRight: 22,
+        paddingTop: 24,
+        paddingBottom: 24,
+    },
+}
 
+// Fixed internals (no longer exposed as controls).
+const PERSPECTIVE = 1600
+const SCALE_STEP = 0.16
+const MAX_VISIBLE = 2
+// In a preserve-3d context paint order follows 3D position, not z-index, so the
+// centre is pushed nearest the viewer and neighbours fall back behind it.
+const DEPTH = 240
+
+// Derive a CSS transition (duration + easing) from a Framer Transition value.
 function cssTransition(t: any): { dur: number; ease: string } {
     const dur = t && typeof t.duration === "number" ? t.duration : 0.6
     let ease = "cubic-bezier(0.22, 1, 0.36, 1)"
@@ -92,76 +152,59 @@ function cssTransition(t: any): { dur: number; ease: string } {
     return { dur, ease }
 }
 
+/**
+ * Smooth 3D Slideshow
+ *
+ * A 3D coverflow: the active card sits upright in the spotlight while its
+ * neighbours tilt back in perspective. Click any card to smoothly bring it to
+ * centre. Recreated after Tanya Prokofieva's Framer original.
+ */
 export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
+    props = { ...COMPONENT_DEFAULTS, ...props }
     const {
         slides = DEFAULT_SLIDES,
-        cardWidth: initialWidth = 420,
-        cardHeight: initialHeight = 440,
-        radius = 8,
-        tilt = 12,
-        sideTilt = 8,
-        gap = 6,
-        opacity = 60,
-        transition = {
-            type: "tween",
-            duration: 0.6,
-            delay: 2.8,
-            ease: [0.22, 1, 0.36, 1],
-        },
-        autoplay = true,
+        cardWidth = 557,
+        cardHeight = 420,
+        radius = 0,
+        tilt = 7,
+        sideTilt = 7,
+        gap = 7,
+        opacity = 65,
+        transition,
+        autoplay = false,
         autoplayDirection = "rightToLeft",
-        showTitle = true,
-        titleFont = {
-            fontFamily: "Inter, sans-serif",
-            fontSize: "18px",
-            fontWeight: "800",
-            letterSpacing: "-0.02em",
-            lineHeight: "1.2em",
-        },
+        showTitle = false,
+        titleFont,
         titleColor = "#ffffff",
-        titlePosition = {
-            position: "bottomLeft",
-            paddingLeft: 20,
-            paddingRight: 20,
-            paddingTop: 20,
-            paddingBottom: 20,
-        },
+        titlePosition,
         style,
     } = props
 
-    const [screenW, setScreenW] = useState<number>(375)
-
-    useEffect(() => {
-        const updateWidth = () => {
-            setScreenW(window.innerWidth)
-        }
-        updateWidth()
-        window.addEventListener("resize", updateWidth)
-        return () => window.removeEventListener("resize", updateWidth)
-    }, [])
-
-    // Calculate mobile responsive card dimensions
-    const isMobile = screenW < 640
-    const cardWidth = isMobile ? Math.min(initialWidth, screenW - 48) : initialWidth
-    const cardHeight = isMobile ? 380 : initialHeight
-
     const tp = titlePosition || {}
     const corner: TitleCorner = tp.position || "bottomLeft"
+    const isTop = corner === "topLeft" || corner === "topRight"
     const isRight = corner === "topRight" || corner === "bottomRight"
-    const padLeft = tp.paddingLeft ?? 18
-    const padRight = tp.paddingRight ?? 18
-    const padBottom = tp.paddingBottom ?? 18
+    const padLeft = tp.paddingLeft ?? 22
+    const padRight = tp.paddingRight ?? 22
+    const padTop = tp.paddingTop ?? 24
+    const padBottom = tp.paddingBottom ?? 24
 
+    const isStatic = useIsStaticRenderer()
     const list = slides && slides.length ? slides : DEFAULT_SLIDES
     const n = list.length
 
+    // Loop is always on.
     const loop = true
     const [active, setActive] = useState(0)
 
+    // Keep active valid if the slide list changes.
     useEffect(() => {
         setActive((a) => Math.max(0, Math.min(n - 1, a)))
     }, [n])
 
+    // Lock input while a card is mid-move; release once it settles, so rapid
+    // clicks/keys don't stack up and look jittery. Duration comes from the
+    // transition (default 0.6s).
     const moveDur =
         transition && typeof transition.duration === "number"
             ? transition.duration
@@ -188,24 +231,25 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
 
     const handleCardClick = useCallback(
         (i: number) => {
-            if (lockRef.current) return
+            if (isStatic || autoplay || lockRef.current) return
             lock()
             setActive((a) => (i === a ? (a + 1) % n : i))
         },
-        [n, lock]
+        [isStatic, autoplay, n, lock]
     )
 
+    // Autoplay — the transition's Delay drives the time each card holds.
     const delay =
         transition && typeof transition.delay === "number"
             ? transition.delay
-            : 2.8
+            : 2.5
     useEffect(() => {
-        if (!autoplay || n < 2) return
+        if (isStatic || !autoplay || n < 2) return
         const ms = Math.max(0.3, delay) * 1000
         const dir = autoplayDirection === "leftToRight" ? -1 : 1
         const id = window.setInterval(() => step(dir), ms)
         return () => window.clearInterval(id)
-    }, [autoplay, autoplayDirection, delay, n, step])
+    }, [isStatic, autoplay, autoplayDirection, delay, n, step])
 
     const onKeyDown = useCallback(
         (e: React.KeyboardEvent) => {
@@ -223,16 +267,20 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
     const { dur, ease } = cssTransition(transition)
     const transitionCss = `transform ${dur}s ${ease}, opacity ${dur}s ${ease}`
 
+    // Rounded scale 0–20: boxy at 0, fully rounded (pill on the short axis) at 20.
     const effectiveRadius =
         (Math.max(0, Math.min(20, radius)) / 20) *
         (Math.min(cardWidth, cardHeight) / 2)
+    // Inactive opacity: 100% = fully visible, 0% = hidden. Overlay is the inverse.
     const dim = 1 - Math.max(0, Math.min(100, opacity)) / 100
 
     const rootStyle: CSSProperties = {
         ...(style || {}),
         position: "relative",
         width: "100%",
-        height: cardHeight + 30,
+        height: cardHeight + 40,
+        minWidth: 320,
+        minHeight: 360,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -247,7 +295,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
             tabIndex={0}
             role="group"
             aria-roledescription="carousel"
-            onKeyDown={onKeyDown}
+            onKeyDown={isStatic ? undefined : onKeyDown}
         >
             <div
                 style={{
@@ -266,8 +314,9 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                     const ax = Math.abs(rel)
                     const visible = ax <= MAX_VISIBLE
                     const isActive = rel === 0
-                    const sc = Math.max(0.45, 1 - ax * SCALE_STEP)
-                    const tx = rel * (gap * (isMobile ? 18 : 28))
+                    const sc = Math.max(0.4, 1 - ax * SCALE_STEP)
+                    // Gap 0–20 → spacing 0 (stacked) to ~600px (far apart).
+                    const tx = rel * (gap * 30)
                     const tz = -ax * DEPTH
                     const ry = -rel * tilt
                     const rz = rel * sideTilt
@@ -286,18 +335,21 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                         transform: `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`,
                         transition: transitionCss,
                         opacity: visible ? 1 : 0,
-                        cursor: "pointer",
-                        pointerEvents: visible ? "auto" : "none",
-                        backgroundColor: "#090A0F",
-                        border: isActive ? "2px solid #D9541E" : "1px solid #1e293b",
-                        boxShadow: isActive ? "0 20px 40px rgba(217, 84, 30, 0.35)" : "none",
+                        cursor: autoplay || isActive ? "default" : "pointer",
+                        pointerEvents:
+                            visible && !isStatic && !autoplay ? "auto" : "none",
+                        backgroundColor: "#1a1a1a",
+                        border: isActive ? "2px solid #D9541E" : "1px solid #334155",
+                        boxShadow: isActive ? "0 20px 40px rgba(217, 84, 30, 0.4)" : "none",
                     }
 
                     return (
                         <div
                             key={i}
                             style={cardStyle}
-                            onClick={() => handleCardClick(i)}
+                            onClick={
+                                isStatic ? undefined : () => handleCardClick(i)
+                            }
                             aria-label={slide.title}
                             aria-hidden={!visible}
                         >
@@ -320,34 +372,43 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
 
                             {showTitle && (
                                 <>
+                                    {/* Gradient for legibility (matches corner) */}
                                     <div
                                         style={{
                                             position: "absolute",
                                             inset: 0,
-                                            background: "linear-gradient(180deg, rgba(9,10,15,0) 30%, rgba(9,10,15,0.95) 100%)",
+                                            background: isTop
+                                                ? "linear-gradient(0deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.7) 100%)"
+                                                : "linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,0.75) 100%)",
                                             pointerEvents: "none",
                                         }}
                                     />
 
+                                    {/* Title at chosen corner */}
                                     <div
                                         style={{
                                             position: "absolute",
                                             left: padLeft,
                                             right: padRight,
-                                            bottom: padBottom,
-                                            textAlign: isRight ? "right" : "left",
+                                            [isTop ? "top" : "bottom"]: isTop
+                                                ? padTop
+                                                : padBottom,
+                                            textAlign: isRight
+                                                ? "right"
+                                                : "left",
                                             pointerEvents: "none",
                                         }}
                                     >
                                         <span
                                             style={{
                                                 color: titleColor,
-                                                fontSize: isMobile ? 16 : 20,
-                                                fontWeight: 800,
-                                                lineHeight: "1.2em",
+                                                fontSize: 24,
+                                                fontWeight: 700,
+                                                lineHeight: "1.1em",
                                                 letterSpacing: "-0.02em",
                                                 whiteSpace: "pre-line",
-                                                textShadow: "0 2px 10px rgba(0,0,0,0.8)",
+                                                textShadow:
+                                                    "0 2px 10px rgba(0,0,0,0.8)",
                                                 ...(titleFont || {}),
                                             }}
                                         >
@@ -357,6 +418,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                                 </>
                             )}
 
+                            {/* Dim overlay (darkens inactive cards entirely) */}
                             <div
                                 style={{
                                     position: "absolute",

@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
@@ -8,9 +9,9 @@ import { StudioCollectionsHub } from '@/components/multimedia/studio-collections
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
 import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { StudioFaqSection } from '@/components/multimedia/studio-faq';
 import { NewsletterPopupModal, StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
-import { Radio, Film, Tv, Camera } from 'lucide-react';
+import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
+import { Radio, Film, Tv, Camera, Users, ArrowRight } from 'lucide-react';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
@@ -55,6 +56,33 @@ export default async function MultimediaHomePage() {
     'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
     'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
     'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
+  ];
+
+  const teamSlides = [
+    {
+      image: {
+        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Adebayo Samuel Olaku\nChief Executive Officer & Founder',
+    },
+    {
+      image: {
+        src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Kemi Adebisi\nHead of Satellite Broadcast MCR',
+    },
+    {
+      image: {
+        src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Chidi Chukwuma\nDirector of Cinematography',
+    },
+    {
+      image: {
+        src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Zainab Bello\nBrand Strategy Lead',
+    },
   ];
 
   const generateFiveCards = (genreName: string, genreSlug: string, dbItems: any[]) => {
@@ -142,7 +170,7 @@ export default async function MultimediaHomePage() {
       {/* Lead Gen Newsletter Popup Modal */}
       <NewsletterPopupModal />
 
-      {/* 1. PRIMARY HERO SECTION: 3-Slide Interactive Hero Slider at top (Zero Prev/Next Arrows) */}
+      {/* 1. PRIMARY HERO SECTION: 4-Slide Interactive Hero Slider at top */}
       <section className="pt-1">
         <MultimediaHeroSlider />
       </section>
@@ -271,10 +299,41 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 8. Frequently Asked Questions (FAQ) Section */}
-      <StudioFaqSection />
+      {/* 8. MEET OUR EXECUTIVE TEAM (3D Coverflow Gallery using exact Originkit component code) */}
+      <section className="max-w-7xl mx-auto space-y-8 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+          <div>
+            <span className="text-xs font-extrabold uppercase tracking-widest text-[#D9541E] flex items-center gap-1.5">
+              <Users className="w-4 h-4 text-[#D9541E]" /> EXECUTIVE LEADERSHIP & CREATIVE TEAM
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase">
+              MEET OUR EXECUTIVE TEAM
+            </h2>
+          </div>
+          <Link
+            href="/multimedia/about"
+            className="px-5 py-2.5 rounded-xl bg-[#2A2E7F] hover:bg-blue-900 text-white font-extrabold text-xs flex items-center gap-1.5 transition-colors self-start md:self-auto"
+          >
+            <span>About Studio</span> <ArrowRight className="w-4 h-4 text-emerald-400" />
+          </Link>
+        </div>
 
-      {/* 9. PARALLAX CINEMA SECTION (Screenshot 2: Red Curtain Theater) positioned BETWEEN FAQ & Subscriber Section */}
+        <div className="py-4">
+          <Smooth3DSlideshow
+            slides={teamSlides}
+            cardWidth={420}
+            cardHeight={440}
+            radius={6}
+            gap={8}
+            tilt={12}
+            sideTilt={8}
+            autoplay={true}
+            showTitle={true}
+          />
+        </div>
+      </section>
+
+      {/* 9. PARALLAX CINEMA SECTION */}
       <ParallaxCinemaSection
         title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
         subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
