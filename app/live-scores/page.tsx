@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
-import { Activity, Trophy, Calendar, Filter, ChevronRight } from 'lucide-react';
+import { Activity, Trophy, Calendar, ChevronRight } from 'lucide-react';
 
 export const revalidate = 10;
 
@@ -53,17 +53,17 @@ export default async function LiveScoresPage() {
   const finishedMatches = fixtures.filter((f) => f.status === 'finished');
 
   return (
-    <div className="space-y-8 theme-sports">
+    <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       {/* Header */}
-      <div className="space-y-4 pb-6 border-b border-slate-800">
+      <div className="space-y-4 pb-6 border-b border-slate-200">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-extrabold text-xl">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 font-extrabold text-xl shadow-sm">
               <Activity className="w-6 h-6 animate-pulse" />
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold text-white">Live Scores & Match Center</h1>
-              <p className="text-xs text-slate-400 mt-1">
+              <h1 className="text-3xl font-extrabold text-slate-900">Live Scores & Match Center</h1>
+              <p className="text-xs text-slate-500 mt-1">
                 Realtime match score updates for NPFL, EPL, La Liga, and International Tournaments.
               </p>
             </div>
@@ -72,7 +72,7 @@ export default async function LiveScoresPage() {
           <div className="flex items-center space-x-2">
             <Link
               href="/admin/live-scores"
-              className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-colors flex items-center gap-1.5"
+              className="px-3.5 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-800 text-xs font-bold border border-slate-200 transition-colors flex items-center gap-1.5 shadow-sm"
             >
               CMS Editor Console <ChevronRight className="w-3.5 h-3.5" />
             </Link>
@@ -82,8 +82,8 @@ export default async function LiveScoresPage() {
 
       {/* 1. Live Now Section */}
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
+        <h2 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+          <span className="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping" />
           <span>Currently Playing ({liveMatches.length})</span>
         </h2>
 
@@ -108,7 +108,7 @@ export default async function LiveScoresPage() {
             ))}
           </div>
         ) : (
-          <div className="glass-panel p-8 rounded-2xl text-center text-slate-400 text-xs border border-slate-800">
+          <div className="bg-white p-8 rounded-2xl text-center text-slate-500 text-xs border border-slate-200 shadow-sm">
             No live matches currently in play. Check upcoming fixtures below!
           </div>
         )}
@@ -116,8 +116,8 @@ export default async function LiveScoresPage() {
 
       {/* 2. Upcoming Fixtures */}
       <section className="space-y-4">
-        <h2 className="text-lg font-bold text-white flex items-center gap-2">
-          <Calendar className="w-5 h-5 text-emerald-400" />
+        <h2 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+          <Calendar className="w-5 h-5 text-emerald-600" />
           <span>Upcoming Fixtures ({upcomingMatches.length})</span>
         </h2>
 
@@ -143,9 +143,9 @@ export default async function LiveScoresPage() {
       </section>
 
       {/* 3. Finished Results */}
-      <section className="space-y-4 pt-4 border-t border-slate-800">
-        <h2 className="text-lg font-bold text-slate-300 flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-slate-500" />
+      <section className="space-y-4 pt-4 border-t border-slate-200">
+        <h2 className="text-lg font-extrabold text-slate-800 flex items-center gap-2">
+          <Trophy className="w-5 h-5 text-slate-400" />
           <span>Recent Full-Time Results ({finishedMatches.length})</span>
         </h2>
 

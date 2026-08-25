@@ -113,21 +113,21 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       {/* Breadcrumbs */}
-      <nav className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
-        <Link href="/" className="hover:text-white">Home</Link>
-        <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-        <span className="text-emerald-400 font-bold">{humanizedTitle}</span>
+      <nav className="flex items-center space-x-2 text-xs font-bold text-slate-500">
+        <Link href="/" className="hover:text-slate-900">Home</Link>
+        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+        <span className="text-emerald-700 font-extrabold">{humanizedTitle}</span>
       </nav>
 
       {/* Category Header Banner */}
-      <div className="space-y-4 pb-6 border-b border-slate-800">
+      <div className="space-y-4 pb-6 border-b border-slate-200">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-extrabold text-xl">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 font-extrabold text-xl shadow-sm">
             <Trophy className="w-6 h-6" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white">{humanizedTitle}</h1>
-            <p className="text-xs text-slate-400 mt-1">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">{humanizedTitle}</h1>
+            <p className="text-xs text-slate-500 mt-1">
               Latest news, breaking reports, tactical analysis, and fixture updates for {humanizedTitle}.
             </p>
           </div>
@@ -136,14 +136,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         {/* Sub-Category Filter Pills */}
         {subCategories.length > 0 && (
           <div className="pt-3 flex items-center space-x-2 overflow-x-auto pb-1">
-            <span className="text-xs font-bold text-slate-400 flex items-center gap-1 shrink-0 mr-1">
-              <Layers className="w-3.5 h-3.5 text-emerald-400" /> Sub-Leagues:
+            <span className="text-xs font-bold text-slate-500 flex items-center gap-1 shrink-0 mr-1">
+              <Layers className="w-3.5 h-3.5 text-emerald-600" /> Sub-Leagues:
             </span>
             {subCategories.map((sub) => (
               <Link
                 key={sub.id}
                 href={`/${sub.slug}`}
-                className="px-3 py-1 rounded-lg text-xs font-semibold bg-slate-900 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors border border-slate-800 shrink-0"
+                className="px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 shrink-0 shadow-sm"
               >
                 {sub.name}
               </Link>
@@ -161,8 +161,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {/* Lead Story Spotlight */}
           {leadArticle && (
             <div className="space-y-3">
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 flex items-center gap-1.5">
-                <Flame className="w-4 h-4 text-emerald-400" /> Lead Story
+              <span className="text-xs font-extrabold uppercase tracking-wider text-emerald-700 flex items-center gap-1.5">
+                <Flame className="w-4 h-4 text-emerald-600" /> Lead Story
               </span>
               <ArticleCard
                 title={leadArticle.title}
@@ -178,9 +178,9 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
           {/* Secondary Stories Grid */}
           {secondaryArticles.length > 0 && (
-            <div className="space-y-4 pt-4 border-t border-slate-800">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <Newspaper className="w-5 h-5 text-emerald-400" /> More {humanizedTitle} Stories
+            <div className="space-y-4 pt-4 border-t border-slate-200">
+              <h3 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
+                <Newspaper className="w-5 h-5 text-emerald-600" /> More {humanizedTitle} Stories
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {secondaryArticles.map((art: any) => (
@@ -199,8 +199,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           )}
 
           {/* Sparse Content Notice */}
-          <div className="p-6 rounded-2xl bg-slate-900/60 border border-slate-800 text-center space-y-2">
-            <p className="text-xs font-bold text-slate-300">
+          <div className="p-6 rounded-2xl bg-white border border-slate-200 text-center space-y-2 shadow-sm">
+            <p className="text-xs font-bold text-slate-700">
               More {humanizedTitle} news & match coverage coming soon.
             </p>
             <p className="text-[11px] text-slate-500">
@@ -213,12 +213,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="lg:col-span-4 space-y-6">
           
           {/* Match Center Live Scores Widget */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
-                <Activity className="w-4 h-4 text-emerald-400" /> Live Match Center
+          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+              <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                <Activity className="w-4 h-4 text-emerald-600" /> Live Match Center
               </h3>
-              <Link href="/live-scores" className="text-[11px] font-bold text-emerald-400 hover:underline">
+              <Link href="/live-scores" className="text-[11px] font-bold text-emerald-700 hover:underline">
                 View All →
               </Link>
             </div>
@@ -240,23 +240,23 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           {/* Trending Stories Widget */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-4">
-            <div className="pb-3 border-b border-slate-800">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-white flex items-center gap-2">
-                <Flame className="w-4 h-4 text-amber-400" /> Most Read Headlines
+          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
+            <div className="pb-3 border-b border-slate-100">
+              <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-2">
+                <Flame className="w-4 h-4 text-amber-500" /> Most Read Headlines
               </h3>
             </div>
 
-            <div className="space-y-3 divide-y divide-slate-800/60">
+            <div className="space-y-3 divide-y divide-slate-100">
               {trendingArticles.map((art: any, index: number) => (
                 <div key={art.id} className="pt-3 first:pt-0 flex items-start space-x-3 group">
-                  <span className="w-6 h-6 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-extrabold text-xs flex items-center justify-center shrink-0">
+                  <span className="w-6 h-6 rounded-lg bg-emerald-100 border border-emerald-200 text-emerald-800 font-extrabold text-xs flex items-center justify-center shrink-0">
                     {index + 1}
                   </span>
                   <div className="space-y-1 flex-1">
                     <Link
                       href={`/article/${art.slug}`}
-                      className="text-xs font-bold text-slate-200 group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug"
+                      className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 leading-snug"
                     >
                       {art.title}
                     </Link>
@@ -270,26 +270,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           {/* Sports Categories Quick-Links */}
-          <div className="glass-panel p-5 rounded-2xl border border-slate-800 space-y-3">
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-300">
+          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
+            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-700">
               Sports Categories
             </h3>
             <div className="space-y-1.5 text-xs font-bold">
-              <Link href="/npfl" className="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+              <Link href="/npfl" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
                 <span>NPFL League</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
               </Link>
-              <Link href="/epl" className="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+              <Link href="/epl" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
                 <span>Premier League</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
               </Link>
-              <Link href="/transfers" className="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+              <Link href="/transfers" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
                 <span>Transfer News</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
               </Link>
-              <Link href="/world-football" className="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 hover:text-white transition-colors">
+              <Link href="/world-football" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
                 <span>World Football</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-400" />
+                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
               </Link>
             </div>
           </div>

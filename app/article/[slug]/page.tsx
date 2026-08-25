@@ -131,7 +131,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       <div>
         <Link
           href="/"
-          className="inline-flex items-center text-xs font-bold text-slate-400 hover:text-emerald-400 gap-1.5 transition-colors"
+          className="inline-flex items-center text-xs font-bold text-slate-600 hover:text-emerald-700 gap-1.5 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Sports Coverage
         </Link>
@@ -140,32 +140,32 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       {/* Header Info */}
       <div className="space-y-4">
         <div className="flex items-center space-x-3">
-          <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+          <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-emerald-600 text-white shadow-sm">
             {article.sports_categories?.name || 'Sports News'}
           </span>
-          <span className="text-xs text-slate-400 flex items-center gap-1">
+          <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" /> {formattedDate}
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 leading-tight">
           {article.title}
         </h1>
 
         {/* Author Bar */}
-        <div className="flex items-center justify-between py-4 border-y border-slate-800 text-xs text-slate-400">
+        <div className="flex items-center justify-between py-4 border-y border-slate-200 text-xs text-slate-600">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center font-bold text-slate-200">
-              <User className="w-4 h-4 text-emerald-400" />
+            <div className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-700">
+              <User className="w-4 h-4 text-emerald-600" />
             </div>
             <div>
-              <p className="font-bold text-slate-200">{article.profiles?.display_name || 'Lakumedia Desk'}</p>
+              <p className="font-bold text-slate-900">{article.profiles?.display_name || 'Lakumedia Desk'}</p>
               <p className="text-[11px] text-slate-500">Senior Football Reporter</p>
             </div>
           </div>
 
           <div className="flex items-center space-x-3">
-            <button className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center gap-1.5 font-semibold transition-colors">
+            <button className="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 flex items-center gap-1.5 font-bold transition-colors border border-slate-200">
               <Share2 className="w-3.5 h-3.5" /> Share
             </button>
           </div>
@@ -173,7 +173,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       </div>
 
       {/* Cover Image */}
-      <div className="relative h-80 sm:h-[450px] w-full rounded-2xl overflow-hidden border border-slate-800 glass-panel">
+      <div className="relative h-80 sm:h-[450px] w-full rounded-2xl overflow-hidden border border-slate-200 bg-slate-100 shadow-md">
         <Image
           src={
             article.cover_image_url ||
@@ -187,14 +187,14 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       </div>
 
       {/* Article Body */}
-      <div className="prose prose-invert max-w-none text-slate-300 text-base sm:text-lg leading-relaxed whitespace-pre-line space-y-4">
+      <div className="prose max-w-none text-slate-800 text-base sm:text-lg leading-relaxed whitespace-pre-line space-y-4 font-normal">
         {article.body}
       </div>
 
       {/* Related Articles Section */}
-      <section className="pt-8 border-t border-slate-800 space-y-4">
-        <h3 className="text-xl font-bold text-white flex items-center gap-2">
-          <Flame className="w-5 h-5 text-emerald-400" /> Related Headlines
+      <section className="pt-8 border-t border-slate-200 space-y-4">
+        <h3 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+          <Flame className="w-5 h-5 text-emerald-600" /> Related Headlines
         </h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {relatedArticles.map((rel: any) => (

@@ -91,14 +91,14 @@ export default async function SportsRootHomePage() {
   ];
 
   return (
-    <div className="space-y-8 theme-sports">
+    <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       {/* Sports Header Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <div className="flex items-center space-x-2 text-emerald-400 font-bold text-xs uppercase tracking-wider mb-1">
-            <Trophy className="w-4 h-4" /> Nigerian & World Sports Headquarters
+          <div className="flex items-center space-x-2 text-emerald-700 font-extrabold text-xs uppercase tracking-wider mb-1">
+            <Trophy className="w-4 h-4 text-emerald-600" /> Nigerian & World Sports Headquarters
           </div>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">
             Latest Headlines & Live Match Center
           </h1>
         </div>
@@ -107,7 +107,7 @@ export default async function SportsRootHomePage() {
         <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0">
           <Link
             href="/"
-            className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-emerald-500 text-slate-950 shadow"
+            className="px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-emerald-600 text-white shadow-sm"
           >
             All News
           </Link>
@@ -115,14 +115,14 @@ export default async function SportsRootHomePage() {
             <Link
               key={cat.id}
               href={`/${cat.slug}`}
-              className="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-slate-800/80 text-slate-300 hover:text-white hover:bg-slate-700 transition-colors border border-slate-700/60 whitespace-nowrap"
+              className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 whitespace-nowrap shadow-sm"
             >
               {cat.name}
             </Link>
           ))}
           <Link
             href="/multimedia"
-            className="px-3.5 py-1.5 rounded-lg text-xs font-bold bg-[#2A2E7F] text-white hover:bg-[#D9541E] transition-colors border border-purple-500/30 whitespace-nowrap flex items-center gap-1.5"
+            className="px-3.5 py-1.5 rounded-lg text-xs font-extrabold bg-[#2A2E7F] text-white hover:bg-[#D9541E] transition-colors border border-purple-200 whitespace-nowrap flex items-center gap-1.5 shadow-sm"
           >
             <Film className="w-3.5 h-3.5 text-[#D9541E]" /> Laku Media Watch
           </Link>
@@ -131,11 +131,11 @@ export default async function SportsRootHomePage() {
 
       {/* Match Center Realtime Ticker */}
       <section className="space-y-3">
-        <div className="flex items-center justify-between text-xs text-slate-400 font-bold">
-          <span className="flex items-center gap-1.5 text-emerald-400">
-            <Activity className="w-4 h-4" /> Live Scores & Match Ticker (Realtime Sync)
+        <div className="flex items-center justify-between text-xs text-slate-600 font-bold">
+          <span className="flex items-center gap-1.5 text-emerald-700 font-extrabold">
+            <Activity className="w-4 h-4 text-emerald-600" /> Live Scores & Match Ticker (Realtime Sync)
           </span>
-          <Link href="/live-scores" className="hover:text-white flex items-center gap-1">
+          <Link href="/live-scores" className="hover:text-emerald-700 flex items-center gap-1">
             Full Match Center <ChevronRight className="w-3.5 h-3.5" />
           </Link>
         </div>
@@ -176,8 +176,8 @@ export default async function SportsRootHomePage() {
 
       {/* Secondary Articles Grid */}
       <section className="space-y-4 pt-4">
-        <h2 className="text-xl font-bold text-white flex items-center gap-2">
-          <Flame className="w-5 h-5 text-emerald-400" /> Recent Editorial & Headlines
+        <h2 className="text-xl font-extrabold text-slate-900 flex items-center gap-2">
+          <Flame className="w-5 h-5 text-emerald-600" /> Recent Editorial & Headlines
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {articles.slice(1).map((art: any) => (

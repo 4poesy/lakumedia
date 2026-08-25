@@ -7,7 +7,7 @@ interface ScoreCardProps {
   awayTeam: string;
   homeScore?: number | null;
   awayScore?: number | null;
-  kickoffAt: string;
+  kickoffAt?: string;
   status: FixtureStatus;
   leagueName: string;
   homeLogo?: string | null;
@@ -19,7 +19,7 @@ export function ScoreCard({
   awayTeam,
   homeScore,
   awayScore,
-  kickoffAt,
+  kickoffAt = new Date().toISOString(),
   status,
   leagueName,
   homeLogo,
@@ -36,18 +36,18 @@ export function ScoreCard({
   });
 
   return (
-    <div className="glass-panel rounded-xl p-4 border border-slate-800 hover:border-emerald-500/40 transition-all duration-200 group">
-      <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 mb-3 border-b border-slate-800/80 pb-2">
-        <span className="text-emerald-400 font-bold uppercase tracking-wider">{leagueName}</span>
+    <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm hover:border-emerald-300 transition-all duration-200 group">
+      <div className="flex items-center justify-between text-[11px] font-semibold text-slate-500 mb-3 border-b border-slate-100 pb-2">
+        <span className="text-emerald-700 font-extrabold uppercase tracking-wider">{leagueName}</span>
         <div className="flex items-center space-x-1.5">
           {isLive && (
-            <span className="flex items-center gap-1 text-rose-400 font-bold px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/30 text-[10px] animate-pulse">
+            <span className="flex items-center gap-1 text-rose-700 font-extrabold px-2 py-0.5 rounded-full bg-rose-100 border border-rose-200 text-[10px] animate-pulse">
               <Activity className="w-3 h-3" /> LIVE
             </span>
           )}
-          {isFinished && <span className="text-slate-400 bg-slate-800 px-2 py-0.5 rounded text-[10px]">FT</span>}
+          {isFinished && <span className="text-slate-600 bg-slate-100 px-2 py-0.5 rounded text-[10px] font-bold">FT</span>}
           {!isLive && !isFinished && (
-            <span className="flex items-center gap-1 text-slate-400">
+            <span className="flex items-center gap-1 text-slate-500 font-medium">
               <Clock className="w-3 h-3 text-slate-400" /> {formattedDate}
             </span>
           )}
@@ -58,7 +58,7 @@ export function ScoreCard({
         {/* Home Team */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300 overflow-hidden">
+            <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 overflow-hidden shrink-0">
               {homeLogo ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={homeLogo} alt={homeTeam} className="w-full h-full object-cover" />
@@ -66,11 +66,11 @@ export function ScoreCard({
                 homeTeam.substring(0, 2).toUpperCase()
               )}
             </div>
-            <span className="font-semibold text-sm text-slate-100 group-hover:text-emerald-300 transition-colors">
+            <span className="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition-colors">
               {homeTeam}
             </span>
           </div>
-          <span className="font-mono text-base font-bold text-white">
+          <span className="font-mono text-base font-extrabold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
             {homeScore !== null && homeScore !== undefined ? homeScore : '-'}
           </span>
         </div>
@@ -78,7 +78,7 @@ export function ScoreCard({
         {/* Away Team */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-7 h-7 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-bold text-slate-300 overflow-hidden">
+            <div className="w-7 h-7 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-xs font-bold text-slate-700 overflow-hidden shrink-0">
               {awayLogo ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={awayLogo} alt={awayTeam} className="w-full h-full object-cover" />
@@ -86,11 +86,11 @@ export function ScoreCard({
                 awayTeam.substring(0, 2).toUpperCase()
               )}
             </div>
-            <span className="font-semibold text-sm text-slate-100 group-hover:text-emerald-300 transition-colors">
+            <span className="font-bold text-sm text-slate-900 group-hover:text-emerald-700 transition-colors">
               {awayTeam}
             </span>
           </div>
-          <span className="font-mono text-base font-bold text-white">
+          <span className="font-mono text-base font-extrabold text-slate-900 bg-slate-100 px-2 py-0.5 rounded">
             {awayScore !== null && awayScore !== undefined ? awayScore : '-'}
           </span>
         </div>
