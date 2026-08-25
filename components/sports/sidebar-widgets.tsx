@@ -2,7 +2,69 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MessageSquare } from 'lucide-react';
+import { Mail, MessageSquare, TrendingUp } from 'lucide-react';
+
+export function TrendingStoriesWidget() {
+  const trendingArticles = [
+    {
+      rank: '01',
+      title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
+      slug: 'konsa-will-bench-saliba-at-arsenal',
+      category: 'World Football',
+    },
+    {
+      rank: '02',
+      title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
+      slug: 'enyimba-thrilling-victory-npfl-derby',
+      category: 'NPFL League',
+    },
+    {
+      rank: '03',
+      title: 'Super Eagles Star Signs Multi-Year Extension Deal',
+      slug: 'super-eagles-star-signs-multi-year-extension',
+      category: 'Transfer News',
+    },
+    {
+      rank: '04',
+      title: 'Heskey: Why Kane Will Return To Premier League',
+      slug: 'heskey-why-kane-will-return-premier-league',
+      category: 'Transfers',
+    },
+  ];
+
+  return (
+    <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
+        <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
+          <TrendingUp className="w-4 h-4 text-[#D9541E]" /> Goal.com Style Trending
+        </h3>
+        <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#D9541E] bg-rose-50 px-2 py-0.5 rounded border border-rose-100">
+          TOP READ
+        </span>
+      </div>
+
+      <div className="space-y-3.5 divide-y divide-slate-100">
+        {trendingArticles.map((art) => (
+          <div key={art.rank} className="pt-3 first:pt-0 flex items-start space-x-3.5 group">
+            <span className="text-2xl font-black text-[#D9541E] font-mono shrink-0 group-hover:scale-110 transition-transform">
+              {art.rank}
+            </span>
+            <div className="space-y-1 flex-1">
+              <span className="text-[9px] font-extrabold uppercase tracking-wider text-[#2A2E7F] block">
+                {art.category}
+              </span>
+              <h4 className="text-xs font-extrabold text-slate-900 group-hover:text-[#D9541E] transition-colors leading-snug line-clamp-2">
+                <Link href={`/article/${art.slug}`} prefetch={true}>
+                  {art.title}
+                </Link>
+              </h4>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export function NewsletterWidget() {
   return (
@@ -121,7 +183,7 @@ export function LatestCommentsWidget() {
             <p className="text-xs font-extrabold text-slate-900">{c.author}</p>
             <p className="text-[11px] font-bold text-[#D9541E] leading-snug">
               on{' '}
-              <Link href={`/article/${c.articleSlug}`} className="hover:underline">
+              <Link href={`/article/${c.articleSlug}`} prefetch={true} className="hover:underline">
                 {c.articleTitle}
               </Link>
             </p>

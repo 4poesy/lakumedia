@@ -5,7 +5,7 @@ import { HeroSlider } from '@/components/sports/hero-slider';
 import { CategoryDualBlock } from '@/components/sports/category-dual-block';
 import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotlight';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
-import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
+import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { Activity, Flame } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -219,7 +219,7 @@ export default async function SportsRootHomePage() {
           <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
             <Flame className="w-4 h-4 text-[#D9541E]" /> FEATURED HEADLINES & SLIDER
           </h2>
-          <Link href="/world-football" className="text-xs font-bold text-[#D9541E] hover:underline">
+          <Link href="/world-football" prefetch={true} className="text-xs font-bold text-[#D9541E] hover:underline">
             View all news →
           </Link>
         </div>
@@ -269,19 +269,22 @@ export default async function SportsRootHomePage() {
         {/* Right Sidebar Column (4 cols / 32% desktop width) */}
         <div className="lg:col-span-4 space-y-6">
           
+          {/* Goal.com Style Numbered Trending Rail (01, 02, 03, 04) */}
+          <TrendingStoriesWidget />
+
           {/* Newsletter Subscription Widget */}
           <NewsletterWidget />
 
           {/* Social Counters Widget */}
           <SocialCountersWidget />
 
-          {/* Live Match Center Widget */}
+          {/* LiveScore.com Style Match Center Widget */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
                 <Activity className="w-4 h-4 text-[#D9541E]" /> Match Center
               </h3>
-              <Link href="/live-scores" className="text-[11px] font-bold text-[#D9541E] hover:underline">
+              <Link href="/live-scores" prefetch={true} className="text-[11px] font-bold text-[#D9541E] hover:underline">
                 Full Schedule →
               </Link>
             </div>

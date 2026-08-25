@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe } from 'lucide-react';
+import { LiveMatchTicker } from './live-match-ticker';
 
 export function Navigation() {
   const pathname = usePathname();
@@ -37,7 +38,10 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
       
-      {/* Top Header Bar */}
+      {/* 1. Goal.com + LiveScore.com Style Top Score Ticker */}
+      <LiveMatchTicker />
+
+      {/* 2. Top Header Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
@@ -128,7 +132,7 @@ export function Navigation() {
               prefetch={true}
               className="px-3 py-1 rounded-md bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider active:scale-95"
             >
-              <span className="w-2 h-2 rounded-full bg-white" />
+              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
               <span>LIVE SCORES</span>
             </Link>
 
