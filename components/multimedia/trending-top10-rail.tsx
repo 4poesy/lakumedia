@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Flame, Play, Sparkles } from 'lucide-react';
+import { Flame, Play } from 'lucide-react';
 
 export function TrendingTop10Rail() {
-  const top10Items = [
+  const top5Items = [
     {
       rank: 1,
       title: 'Giants of Africa: Football Origins',
@@ -49,59 +49,70 @@ export function TrendingTop10Rail() {
 
   return (
     <section className="space-y-4 py-4">
+      {/* Header */}
       <div className="flex items-center justify-between border-b border-slate-800 pb-2">
         <div className="flex items-center space-x-2">
           <Flame className="w-5 h-5 text-[#D9541E] animate-pulse" />
           <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
-            NETFLIX STYLE TOP 5 TRENDING TITLES TODAY
+            TOP 5 TRENDING TITLES TODAY
           </h2>
         </div>
         <span className="text-xs font-bold text-[#10B981]">Updated 10 Mins Ago</span>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-        {top10Items.map((item) => (
-          <div key={item.rank} className="relative flex items-center group">
-            {/* Number Rank Overlay (Netflix Style Giant Numbers) */}
-            <span className="text-7xl font-black text-slate-800 group-hover:text-[#D9541E] transition-colors shrink-0 -mr-4 z-10 select-none font-mono">
-              {item.rank}
-            </span>
+      {/* Grid Cards (Clean, 100% Aligned with Zero Text Overlaps) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+        {top5Items.map((item) => (
+          <Link
+            key={item.rank}
+            href={`/multimedia/watch/${item.slug}`}
+            className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-[#10B981] shadow-2xl transition-all duration-300 group flex flex-col justify-between hover:-translate-y-1"
+          >
+            {/* Image Thumbnail Container */}
+            <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
+              <Image
+                src={item.thumbnail}
+                alt={item.title}
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-slate-950/20" />
 
-            {/* Video Card */}
-            <div className="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 group-hover:border-[#10B981] shadow-2xl transition-all duration-300 flex-1 relative">
-              <div className="relative h-44 w-full bg-slate-900 overflow-hidden">
-                <Image
-                  src={item.thumbnail}
-                  alt={item.title}
-                  fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                />
-                <div className="absolute top-2 left-2">
-                  <span className="px-2 py-0.5 rounded bg-[#D9541E] text-white text-[8px] font-black uppercase tracking-wider">
-                    {item.badge}
-                  </span>
-                </div>
-                <div className="absolute inset-0 bg-slate-950/20" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Link
-                    href={`/multimedia/watch/${item.slug}`}
-                    className="w-10 h-10 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-0.5 shadow-2xl scale-95 group-hover:scale-100 transition-transform"
-                  >
-                    <Play className="w-5 h-5 fill-white" />
-                  </Link>
-                </div>
+              {/* Sleek Top Rank Badge (Gold Number Pill) */}
+              <div className="absolute top-2.5 left-2.5 flex items-center space-x-1">
+                <span className="w-7 h-7 rounded-full bg-[#D9541E] text-white font-black text-xs flex items-center justify-center shadow-lg border border-orange-400">
+                  #{item.rank}
+                </span>
+                <span className="px-2 py-0.5 rounded bg-slate-900/90 text-amber-300 text-[9px] font-black uppercase tracking-wider backdrop-blur-md border border-slate-700">
+                  {item.badge}
+                </span>
               </div>
 
-              <div className="p-3 bg-slate-950 space-y-1">
-                <span className="text-[9px] font-extrabold text-[#10B981] uppercase tracking-widest block">
+              {/* Play Button Overlay */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-slate-950/40">
+                <div className="w-12 h-12 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-0.5 shadow-2xl scale-90 group-hover:scale-100 transition-transform">
+                  <Play className="w-6 h-6 fill-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* Card Body Info (Padded & Clean) */}
+            <div className="p-4 space-y-1.5 bg-slate-950 flex-1 flex flex-col justify-between">
+              <div>
+                <span className="text-[10px] font-extrabold text-[#10B981] uppercase tracking-widest block">
                   {item.genre}
                 </span>
-                <h3 className="text-xs font-extrabold text-white group-hover:text-[#10B981] transition-colors truncate">
+                <h3 className="text-xs font-black text-white group-hover:text-[#10B981] transition-colors leading-tight line-clamp-2">
                   {item.title}
                 </h3>
               </div>
+
+              <div className="pt-2 border-t border-slate-900 text-[10px] font-extrabold text-slate-400 flex items-center justify-between">
+                <span>4K ULTRA HD</span>
+                <span className="text-[#D9541E] font-bold">Watch Reel →</span>
+              </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>

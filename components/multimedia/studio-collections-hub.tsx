@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Film, Radio, Tv, Sparkles, Trophy, Music } from 'lucide-react';
+import { Film, Tv, Sparkles, Trophy, Music } from 'lucide-react';
 
 export function StudioCollectionsHub() {
   const collections = [
@@ -55,9 +55,9 @@ export function StudioCollectionsHub() {
     <section className="space-y-4 py-4">
       <div className="flex items-center justify-between border-b border-slate-800 pb-2">
         <div className="flex items-center space-x-2">
-          <Sparkles className="w-5 h-5 text-amber-400" />
+          <div className="w-3 h-6 rounded-full bg-[#10B981] shadow-sm" />
           <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
-            DISNEY+ & HBO MAX STYLE STUDIO HUBS
+            FEATURED STUDIO HUBS
           </h2>
         </div>
         <span className="text-xs font-bold text-slate-400">5 Curated Collections</span>
