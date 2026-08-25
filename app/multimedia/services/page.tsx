@@ -57,7 +57,7 @@ export default function MultimediaServicesPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* High-Tech Studio Services Hero Header (Exact User Image 1: /assest/user_services_hero_cinema.jpg) */}
+      {/* High-Tech Studio Services Hero Header with Lighter Overlay for Image Clarity */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_services_hero_cinema.jpg"
@@ -66,14 +66,14 @@ export default function MultimediaServicesPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/80 to-[#090A0F]/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/50 to-[#090A0F]/20 opacity-90" />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
             WORLD-CLASS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#10B981] via-amber-300 to-[#D9541E]">MEDIA PRODUCTION</span> & ENTERTAINMENT SERVICES
           </h1>
 
-          <p className="text-sm sm:text-lg text-slate-200 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
+          <p className="text-sm sm:text-lg text-slate-100 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
             From blockbuster movies & music videos to live stadium concert broadcasting & corporate event staging, Laku Media delivers high-definition production excellence.
           </p>
 
@@ -141,15 +141,15 @@ export default function MultimediaServicesPage() {
         </div>
       </section>
 
-      {/* EXTENDED PARALLAX WRAPPER: Spans both FAQ and the Cinema Experience section with /assest/user_red_curtains_parallax.jpg */}
+      {/* EXTENDED PARALLAX WRAPPER with Reduced Overlay Darkness for Red Curtains Background Visibility */}
       <section className="relative rounded-3xl overflow-hidden max-w-7xl mx-auto my-12 border-2 border-slate-800 shadow-2xl p-6 sm:p-12 space-y-12">
         {/* Fixed Parallax Red Curtains Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: `url('/assest/user_red_curtains_parallax.jpg')` }}
         />
-        {/* Dark Obsidian & Deep Navy Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#090A0F]/95 via-[#090A0F]/90 to-[#090A0F]/95" />
+        {/* Transparent Dark Overlay for Parallax Image Clarity */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#090A0F]/75 via-[#090A0F]/60 to-[#090A0F]/75 backdrop-blur-[1px]" />
         
         {/* FAQ Section inside Extended Parallax Container */}
         <div className="relative z-10">
@@ -168,7 +168,7 @@ export default function MultimediaServicesPage() {
               WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES
             </h2>
 
-            <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+            <p className="text-sm sm:text-lg text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
               From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.
             </p>
 

@@ -17,7 +17,7 @@ export function ParallaxCinemaSection({
   title = "WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES",
   subtitle = "From RED 8K camera rigging and drone aerials to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.",
   badge = "HOLLYWOOD PRODUCTION GRADE",
-  imageUrl = "/assest/red_curtain_parallax.jpg",
+  imageUrl = "/assest/user_red_curtains_parallax.jpg",
   ctaText = "Explore Studio Services",
   ctaHref = "/multimedia/services",
 }: ParallaxSectionProps) {
@@ -29,9 +29,9 @@ export function ParallaxCinemaSection({
         style={{ backgroundImage: `url('${imageUrl}')` }}
       />
 
-      {/* Dark Obsidian & Deep Navy Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/95 via-[#090A0F]/80 to-[#2A2E7F]/70" />
-      <div className="absolute inset-0 bg-slate-950/40" />
+      {/* Lighter Gradient Overlays for High Image Visibility */}
+      <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/80 via-[#090A0F]/50 to-[#2A2E7F]/40" />
+      <div className="absolute inset-0 bg-slate-950/20" />
 
       {/* Glassmorphic Foreground Content */}
       <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-6">
@@ -44,7 +44,7 @@ export function ParallaxCinemaSection({
           {title}
         </h2>
 
-        <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+        <p className="text-sm sm:text-lg text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
           {subtitle}
         </p>
 

@@ -8,7 +8,7 @@ import { Play, Sparkles, ArrowRight } from 'lucide-react';
 export function MultimediaHeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // 4 Custom Banners Connected to Hero Slider (Including User Uploaded Cinema, Audio, Broadcast Sets + Stadium Pitch)
+  // 4 Custom Banners Connected to Hero Slider
   const slides = [
     {
       id: 'slide-1',
@@ -65,7 +65,7 @@ export function MultimediaHeroSlider() {
   return (
     <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[440px] sm:min-h-[480px] lg:min-h-[540px] flex items-center group">
       
-      {/* 4 Background Banners Carousel */}
+      {/* 4 Background Banners Carousel with Reduced Overlay Darkness for Maximum Visibility */}
       {slides.map((s, idx) => (
         <div
           key={s.id}
@@ -80,9 +80,9 @@ export function MultimediaHeroSlider() {
             className="object-cover transition-transform duration-10000 scale-105 group-hover:scale-100"
             priority={idx === 0}
           />
-          {/* Dual Dark Gradient Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/75 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/95 via-[#090A0F]/60 to-transparent" />
+          {/* Lighter Gradient Overlay for High Image Visibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/45 to-transparent opacity-85" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/80 via-[#090A0F]/30 to-transparent opacity-85" />
         </div>
       ))}
 
@@ -104,7 +104,7 @@ export function MultimediaHeroSlider() {
           {active.title}
         </h1>
 
-        <p className="text-xs sm:text-base text-slate-300 line-clamp-2 sm:line-clamp-3 leading-relaxed font-medium max-w-2xl drop-shadow-md">
+        <p className="text-xs sm:text-base text-slate-200 line-clamp-2 sm:line-clamp-3 leading-relaxed font-medium max-w-2xl drop-shadow-md">
           {active.synopsis}
         </p>
 

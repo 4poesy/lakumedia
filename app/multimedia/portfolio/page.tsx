@@ -69,7 +69,7 @@ export default function MultimediaPortfolioPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. STUDIO PORTFOLIO HERO HEADER (Exact User Image 1: /assest/user_portfolio_hero_stage.jpg) */}
+      {/* 1. STUDIO PORTFOLIO HERO HEADER with Lighter Overlay for Background Image Clarity */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_portfolio_hero_stage.jpg"
@@ -78,7 +78,7 @@ export default function MultimediaPortfolioPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/80 to-[#090A0F]/50" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/50 to-[#090A0F]/20 opacity-90" />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
@@ -90,7 +90,7 @@ export default function MultimediaPortfolioPage() {
             OUR RECENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">PRODUCTION JOBS</span> & REELS
           </h1>
 
-          <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+          <p className="text-sm sm:text-lg text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
             Explore completed music videos, live stadium broadcasts, corporate event keynotes, and cinema films produced by Laku Media.
           </p>
 
@@ -105,11 +105,11 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (Exact User Image 2 on LEFT, Content on RIGHT) */}
+      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (User Image 2 on LEFT, Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column (Exact User Image 2: /assest/user_portfolio_crew_set.jpg) */}
+          {/* Left Column */}
           <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
             <Image
               src="/assest/user_portfolio_crew_set.jpg"
@@ -117,7 +117,7 @@ export default function MultimediaPortfolioPage() {
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
               <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
                 ON-SET CINEMATOGRAPHY
@@ -126,7 +126,7 @@ export default function MultimediaPortfolioPage() {
             </div>
           </div>
 
-          {/* Right Column (Content) */}
+          {/* Right Column */}
           <div className="lg:col-span-6 space-y-6">
             <div className="space-y-2">
               <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700">
@@ -239,11 +239,11 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 3. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, Exact User Image 3 on RIGHT) */}
+      {/* 3. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, User Image 3 on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column (Content) */}
+          {/* Left Column */}
           <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
             <div className="space-y-2">
               <span className="px-3 py-1 rounded-md bg-[#D9541E]/20 text-[#D9541E] text-[10px] font-black uppercase tracking-widest border border-orange-500/40">
@@ -283,7 +283,7 @@ export default function MultimediaPortfolioPage() {
             </div>
           </div>
 
-          {/* Right Column (Exact User Image 3: /assest/user_portfolio_lighting_crew.jpg) */}
+          {/* Right Column */}
           <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
             <Image
               src="/assest/user_portfolio_lighting_crew.jpg"
@@ -291,7 +291,7 @@ export default function MultimediaPortfolioPage() {
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
             <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
               <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 block">
                 LIGHTING & SET DESIGN
