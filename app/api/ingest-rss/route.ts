@@ -1,11 +1,20 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { INITIAL_FEED_SOURCES, FALLBACK_AGGREGATED_NEWS } from '@/lib/types/rss';
 import { parseFeedSource } from '@/lib/rss-parser';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  // Optional security check: if CRON_SECRET is defined in env, enforce token match
+  const cronSecret = process.env.CRON_SECRET;
+  const authHeader = request.headers.get('authorization');
+  const querySecret = request.nextUrl.searchParams.get('secret');
+
+  if (cronSecret && authHeader !== `Bearer ${cronSecret}` && querySecret !== cronSecret) {
+    return NextResponse.json({ error: 'Unauthorized cron request' }, { status: 401 });
+  }
+
   let totalIngested = 0;
   let skippedNoImage = 0;
   const logs: string[] = [];

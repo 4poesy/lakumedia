@@ -2,17 +2,24 @@ import { AggregatedNewsItem, RssFeedSource } from './types/rss';
 
 /**
  * Robust XML regex parser for RSS 2.0, Atom 1.0, and YouTube Channel RSS Feeds
+ * Features strict 6-second timeout per feed to prevent hanging server execution
  */
 export async function parseFeedSource(source: RssFeedSource): Promise<AggregatedNewsItem[]> {
   const items: AggregatedNewsItem[] = [];
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000); // 6-second max timeout
+
     const res = await fetch(source.feed_url, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) LakumediaBot/1.0',
       },
+      signal: controller.signal,
       next: { revalidate: 1200 }, // 20-minute cache
     });
+
+    clearTimeout(timeoutId);
 
     if (!res.ok) {
       console.warn(`Failed to fetch feed ${source.name} (${source.feed_url}): ${res.statusText}`);
@@ -70,7 +77,7 @@ export async function parseFeedSource(source: RssFeedSource): Promise<Aggregated
         const linkMatch = itemXml.match(/<link>(.*?)<\/link>/i);
         const descMatch = itemXml.match(/<description>(.*?)<\/description>/i);
         const pubDateMatch = itemXml.match(/<pubDate>(.*?)<\/pubDate>/i) || itemXml.match(/<dc:date>(.*?)<\/dc:date>/i);
-        const mediaThumbMatch = itemXml.match(/<media:content[^>]+url=["'](.*?)["']/i) || itemXml.match(/<enclosure[^>]+url=["'](.*?)["']/i) || itemXml.match(/<media:thumbnail[^>]+url=["'](.*?)["']/i);
+        const mediaThumbMatch = itemXml.match(/<media:content[^>]+url=["'](.*?)["']/i) || itemXml.match(/<enclosure[^>]+url=["'](.*?)["']/i) || itemXml.match(/<media:thumbnail[^>]+url=["']<\/media:thumbnail>/i) || itemXml.match(/<media:thumbnail[^>]+url=["'](.*?)["']/i);
         const imgTagMatch = itemXml.match(/<img[^>]+src=["'](.*?)["']/i);
 
         const title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim() : '';
