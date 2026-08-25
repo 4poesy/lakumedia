@@ -24,15 +24,15 @@ export function Navigation() {
   ];
 
   const leagueQuickFilters = [
-    { label: 'SUPER EAGLES', href: '/world-football' },
-    { label: 'WORLD CUP 2026', href: '/world-football' },
-    { label: 'NPFL', href: '/npfl' },
-    { label: 'AFCON', href: '/world-football' },
-    { label: 'UCL', href: '/world-football' },
-    { label: 'EPL', href: '/epl' },
-    { label: 'LA LIGA', href: '/world-football' },
-    { label: 'SERIE A', href: '/world-football' },
-    { label: 'BUNDESLIGA', href: '/world-football' },
+    { label: 'SUPER EAGLES', href: '/world-football', icon: '/leagues/supereagles.jpg' },
+    { label: 'WORLD CUP 2026', href: '/world-football', icon: '/leagues/worldcup2026.png' },
+    { label: 'NPFL', href: '/npfl', icon: '/leagues/npfl.jpg' },
+    { label: 'AFCON', href: '/world-football', icon: '/leagues/afcon.png' },
+    { label: 'UCL', href: '/world-football', icon: '/leagues/ucl.png' },
+    { label: 'EPL', href: '/epl', icon: '/leagues/epl.png' },
+    { label: 'LA LIGA', href: '/world-football', icon: '/leagues/laliga.png' },
+    { label: 'SERIE A', href: '/world-football', icon: '/leagues/seriea.png' },
+    { label: 'BUNDESLIGA', href: '/world-football', icon: '/leagues/bundesliga.png' },
   ];
 
   return (
@@ -122,7 +122,7 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* Completesports-Style Sub-Bar for League Quick-Filters */}
+      {/* Completesports-Style Sub-Bar with Official League Logos */}
       {!isMultimedia && (
         <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] font-extrabold scrollbar-none">
@@ -136,15 +136,22 @@ export function Navigation() {
               <span>LIVE SCORES</span>
             </Link>
 
-            {/* League Pills */}
+            {/* League Pills with Official League Logos */}
             {leagueQuickFilters.map((filter, idx) => (
               <Link
                 key={idx}
                 href={filter.href}
                 prefetch={true}
-                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95"
+                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95 flex items-center gap-1.5"
               >
-                {filter.label}
+                {filter.icon && (
+                  <img
+                    src={filter.icon}
+                    alt={filter.label}
+                    className="w-4 h-4 object-contain rounded-full bg-white shrink-0"
+                  />
+                )}
+                <span>{filter.label}</span>
               </Link>
             ))}
           </div>

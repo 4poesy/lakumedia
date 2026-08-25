@@ -1,18 +1,24 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Trophy, Film, Shield, Heart, UserCheck } from 'lucide-react';
 
 export function Footer() {
+  const pathname = usePathname();
+  const isMultimedia = pathname.startsWith('/multimedia');
+
   return (
     <footer className="bg-[#2A2E7F] text-slate-200 text-sm mt-20 border-t border-slate-800 shadow-xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
           
-          {/* Brand Col with Laku Media Logo & CEO Credit */}
+          {/* Brand Col with Seamless Logo (No White Background Box) */}
           <div className="space-y-4">
             <Link href="/" prefetch={true} className="flex items-center space-x-2">
-              <div className="relative w-40 h-12 overflow-hidden rounded-xl bg-white p-1.5 shadow-md">
+              <div className="relative w-44 h-12 overflow-hidden bg-transparent">
                 <Image
                   src="/brand/laku-media/laku-media-logo-dark.jpeg"
                   alt="Laku Media Logo"
@@ -24,9 +30,13 @@ export function Footer() {
             <p className="text-xs text-slate-300 leading-relaxed font-medium">
               Nigeria&apos;s premier dual-vertical platform combining real-time sports coverage with immersive streaming multimedia entertainment & production services.
             </p>
-            <div className="text-[11px] text-[#D9541E] font-extrabold flex items-center gap-1.5 bg-slate-900/80 p-2.5 rounded-lg border border-slate-700/80">
-              <UserCheck className="w-4 h-4 text-[#D9541E]" /> Laku Media — Adebayo Samuel Olaku, CEO
-            </div>
+            
+            {/* Show CEO credit ONLY on Multimedia pages as requested */}
+            {isMultimedia && (
+              <div className="text-[11px] text-[#D9541E] font-extrabold flex items-center gap-1.5 bg-slate-900 p-2.5 rounded-lg border border-slate-700">
+                <UserCheck className="w-4 h-4 text-[#D9541E]" /> Laku Media — Adebayo Samuel Olaku, CEO
+              </div>
+            )}
           </div>
 
           {/* Sports Vertical Links */}
