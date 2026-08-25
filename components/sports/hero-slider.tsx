@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronLeft, ChevronRight, Calendar, Flame, ArrowRight, Sparkles } from 'lucide-react';
+import { Calendar, Flame, ArrowRight, Sparkles } from 'lucide-react';
 
 export interface SlideItem {
   id: string;
@@ -63,14 +63,6 @@ export function HeroSlider({ slides }: HeroSliderProps) {
     return () => clearInterval(timer);
   }, [isPaused, slideData.length]);
 
-  const handlePrev = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + slideData.length) % slideData.length);
-  };
-
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % slideData.length);
-  };
-
   const currentSlide = slideData[currentIndex];
 
   return (
@@ -79,7 +71,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* 100% Pure Crisp 8K Image Box (Zero Dark Overlay, Zero Opacity, Zero Navy Blue Fill) */}
+      {/* 100% Pure Crisp 8K Image Box (Zero Prev/Next Buttons) */}
       <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[440px] bg-slate-100 overflow-hidden">
         {slideData.map((slide, idx) => (
           <div
@@ -88,7 +80,6 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               currentIndex === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
             }`}
           >
-            {/* Standard HTML img to guarantee 100% immediate rendering without Next.js domain block */}
             <img
               src={slide.imageUrl}
               alt={slide.title}
@@ -110,22 +101,6 @@ export function HeroSlider({ slides }: HeroSliderProps) {
             <Sparkles className="w-3.5 h-3.5 text-amber-400" /> 8K ULTRA HD
           </span>
         </div>
-
-        {/* Manual Navigation Controls (Left / Right Arrow Buttons) */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white hover:bg-[#2A2E7F] text-[#2A2E7F] hover:text-white flex items-center justify-center shadow-xl transition-colors border border-slate-200 z-20"
-          aria-label="Previous Slide"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-        <button
-          onClick={handleNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white hover:bg-[#2A2E7F] text-[#2A2E7F] hover:text-white flex items-center justify-center shadow-xl transition-colors border border-slate-200 z-20"
-          aria-label="Next Slide"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
       </div>
 
       {/* Solid Sharp Bottom Content Box (Opaque Slate-900 with High-Contrast White Text) */}

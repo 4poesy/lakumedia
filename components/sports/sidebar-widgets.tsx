@@ -36,7 +36,7 @@ export function TrendingStoriesWidget() {
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
       <div className="pb-3 border-b border-slate-100 flex items-center justify-between">
         <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
-          <TrendingUp className="w-4 h-4 text-[#D9541E]" /> Goal.com Style Trending
+          <TrendingUp className="w-4 h-4 text-[#D9541E]" /> TRENDING STORIES
         </h3>
         <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#D9541E] bg-rose-50 px-2 py-0.5 rounded border border-rose-100">
           TOP READ
