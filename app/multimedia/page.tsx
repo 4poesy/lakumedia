@@ -8,7 +8,9 @@ import { StudioCollectionsHub } from '@/components/multimedia/studio-collections
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
 import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { Radio, Film, Tv, Camera, Sparkles } from 'lucide-react';
+import { StudioFaqSection } from '@/components/multimedia/studio-faq';
+import { NewsletterPopupModal, StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { Radio, Film, Tv, Camera } from 'lucide-react';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
@@ -136,8 +138,10 @@ export default async function MultimediaHomePage() {
   };
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 space-y-10">
-      
+    <div className="bg-[#090A0F] text-white min-h-screen space-y-10">
+      {/* Lead Gen Newsletter Popup Modal */}
+      <NewsletterPopupModal />
+
       {/* 1. Ultra-Cinematic WOW Studio Hero Title Banner (Using Uploaded Studio Background Image 5) */}
       <NeonBorder color="#D9541E" rounded={28} thickness={3} borderSize={40} glow={70}>
         <div className="relative rounded-3xl overflow-hidden min-h-[220px] sm:min-h-[260px] flex flex-col justify-center px-6 sm:px-10 py-8 border border-slate-800 shadow-2xl bg-slate-950">
@@ -276,7 +280,13 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 9. Book Us Now Agency Inquiry Section */}
+      {/* 9. Permanent Studio Subscriber Section */}
+      <StudioSubscriberSection />
+
+      {/* 10. Frequently Asked Questions (FAQ) Section */}
+      <StudioFaqSection />
+
+      {/* 11. Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />
 
     </div>

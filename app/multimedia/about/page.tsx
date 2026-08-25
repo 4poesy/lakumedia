@@ -6,6 +6,8 @@ import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
 import { NeonBorder } from '@/components/ui/neon-border';
+import { StudioFaqSection } from '@/components/multimedia/studio-faq';
+import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 
 export const dynamic = 'force-dynamic';
 
@@ -41,41 +43,6 @@ export default function MultimediaAboutPage() {
     },
   ];
 
-  const executiveTeam = [
-    {
-      id: 't1',
-      name: 'Adebayo Samuel Olaku',
-      role: 'Chief Executive Officer & Founder',
-      bio: 'Visionary media executive leading Laku Media’s dual-vertical expansion across sports journalism and high-definition cinema production.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&auto=format&fit=crop&q=75',
-      badge: 'FOUNDER & CEO',
-    },
-    {
-      id: 't2',
-      name: 'Kemi Adebisi',
-      role: 'Head of Broadcast & Live Operations',
-      bio: 'Veteran live television producer with 12+ years directing multi-camera satellite OB van stadium streams and concert broadcasts.',
-      image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&auto=format&fit=crop&q=75',
-      badge: 'LIVE BROADCAST',
-    },
-    {
-      id: 't3',
-      name: 'Chidi Chukwuma',
-      role: 'Director of Cinematography & Post-Production',
-      bio: 'Award-winning Nollywood cinematographer specializing in RED 8K camera rigging, lighting choreography, and color grading.',
-      image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=75',
-      badge: 'CINEMATOGRAPHY',
-    },
-    {
-      id: 't4',
-      name: 'Zainab Bello',
-      role: 'Brand Strategy & Creative Lead',
-      bio: 'Digital marketing strategist managing corporate reputation, influencer campaigns, and commercial advertising blitzes for global brands.',
-      image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&auto=format&fit=crop&q=75',
-      badge: 'BRAND MARKETING',
-    },
-  ];
-
   const teamSlides = [
     {
       image: {
@@ -108,7 +75,7 @@ export default function MultimediaAboutPage() {
   ];
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-20">
+    <div className="bg-[#090A0F] text-white min-h-screen space-y-20">
       
       {/* 1. Standalone Hero Section (Using Uploaded Digital Globe Space Background Image 1) */}
       <section className="relative rounded-3xl overflow-hidden min-h-[460px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
@@ -177,7 +144,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 3. Parallax Cinema Image Section (Using Uploaded Curved LED News Studio Image 2) */}
+      {/* 3. Parallax Cinema Image Section */}
       <div className="max-w-7xl mx-auto">
         <ParallaxCinemaSection
           title="HOLLYWOOD-GRADE CINEMATOGRAPHY IN WEST AFRICA"
@@ -235,7 +202,6 @@ export default function MultimediaAboutPage() {
           </Link>
         </div>
 
-        {/* 3D Coverflow Slideshow Component */}
         <div className="py-4">
           <Smooth3DSlideshow
             slides={teamSlides}
@@ -248,7 +214,17 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 6. Book Us Section */}
+      {/* 6. FAQ Section */}
+      <div className="max-w-7xl mx-auto">
+        <StudioFaqSection />
+      </div>
+
+      {/* 7. Newsletter Subscription */}
+      <div className="max-w-7xl mx-auto">
+        <StudioSubscriberSection />
+      </div>
+
+      {/* 8. Book Us Section */}
       <div className="max-w-7xl mx-auto">
         <BookUsNowSection />
       </div>
