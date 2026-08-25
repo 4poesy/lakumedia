@@ -9,10 +9,10 @@ export function NewsletterWidget() {
   return (
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
       <div className="space-y-1">
-        <h3 className="text-sm font-extrabold text-slate-900 flex items-center gap-1.5">
-          <Mail className="w-4 h-4 text-emerald-600" /> Sign up to Laku Media Sports Update!
+        <h3 className="text-sm font-extrabold text-[#2A2E7F] flex items-center gap-1.5">
+          <Mail className="w-4 h-4 text-[#D9541E]" /> Sign up to Laku Media Sports Update!
         </h3>
-        <p className="text-xs text-slate-500 font-medium">
+        <p className="text-xs text-slate-600 font-medium">
           Top sports stories, live match alerts & transfer news delivered straight to your inbox.
         </p>
       </div>
@@ -21,11 +21,11 @@ export function NewsletterWidget() {
         <input
           type="email"
           placeholder="Enter your email address"
-          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-emerald-600 font-medium"
+          className="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#D9541E] font-medium"
         />
         <button
           type="submit"
-          className="w-full py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-sm transition-colors"
+          className="w-full py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs shadow-sm transition-colors"
         >
           Sign Up
         </button>
@@ -38,7 +38,7 @@ export function NewsletterWidget() {
 export function SocialCountersWidget() {
   return (
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-      <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900">
+      <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F]">
         Follow Laku Media Sports
       </h3>
       <div className="grid grid-cols-2 gap-2 text-xs font-extrabold">
@@ -111,8 +111,8 @@ export function LatestCommentsWidget() {
   return (
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-4">
       <div className="pb-3 border-b border-slate-100">
-        <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-          <MessageSquare className="w-4 h-4 text-emerald-600" /> Latest Comments
+        <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
+          <MessageSquare className="w-4 h-4 text-[#D9541E]" /> Latest Comments
         </h3>
       </div>
 
@@ -120,7 +120,7 @@ export function LatestCommentsWidget() {
         {sampleComments.map((c) => (
           <div key={c.id} className="pt-3 first:pt-0 space-y-1.5">
             <p className="text-xs font-extrabold text-slate-900">{c.author}</p>
-            <p className="text-[11px] font-bold text-emerald-700 leading-snug">
+            <p className="text-[11px] font-bold text-[#D9541E] leading-snug">
               on{' '}
               <Link href={`/article/${c.articleSlug}`} className="hover:underline">
                 {c.articleTitle}

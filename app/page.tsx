@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
-import { HeroMosaic } from '@/components/sports/hero-mosaic';
+import { HeroSlider } from '@/components/sports/hero-slider';
 import { CategoryDualBlock } from '@/components/sports/category-dual-block';
 import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotlight';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
@@ -53,68 +53,69 @@ export default async function SportsRootHomePage() {
   const demoArticles = [
     {
       id: 'art1',
-      title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend',
-      slug: 'konsa-will-bench-saliba-at-arsenal',
-      excerpt: 'Former Chelsea star claims Ezri Konsa would easily start ahead of William Saliba at the Emirates Stadium.',
-      cover_image_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
-      categoryName: 'World Football',
-      published_at: new Date().toISOString(),
+      title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
+      slug: 'enyimba-thrilling-victory-npfl-derby',
+      excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity crowd.',
+      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2560&auto=format&fit=crop&q=100',
+      categoryName: 'NPFL League',
+      publishedAt: new Date().toISOString(),
     },
     {
       id: 'art2',
-      title: 'EPL: Iwobi, Bassey Begin New Campaign On Losing Note As Chelsea Edge Out Fulham',
-      slug: 'epl-iwobi-bassey-begin-new-campaign-chelsea',
-      excerpt: 'Nigerian duo Alex Iwobi and Calvin Bassey suffered defeat on opening day at Stamford Bridge.',
-      cover_image_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
-      categoryName: 'EPL',
-      published_at: new Date().toISOString(),
+      title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
+      slug: 'konsa-will-bench-saliba-at-arsenal',
+      excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
+      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=2560&auto=format&fit=crop&q=100',
+      categoryName: 'World Football',
+      publishedAt: new Date().toISOString(),
     },
     {
       id: 'art3',
-      title: 'NPFL: Abia Warriors Targeting Continental Return After Season Of Lessons — Ifeajiagwa',
-      slug: 'npfl-abia-warriors-targeting-continental-return',
-      excerpt: 'Abia Warriors goalkeeper shares high expectations ahead of the upcoming NPFL season kickoff.',
-      cover_image_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
-      categoryName: 'NPFL',
-      published_at: new Date().toISOString(),
+      title: 'Super Eagles Star Signs Multi-Year Extension Deal',
+      slug: 'super-eagles-star-signs-multi-year-extension',
+      excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension worth record wages.',
+      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=2560&auto=format&fit=crop&q=100',
+      categoryName: 'Transfer News',
+      publishedAt: new Date().toISOString(),
     },
     {
       id: 'art4',
       title: 'Heskey: Why Kane Will Return To Premier League',
       slug: 'heskey-why-kane-will-return-premier-league',
       excerpt: 'Emile Heskey believes Harry Kane still has unfinished business in England after his Bayern Munich spell.',
-      cover_image_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
+      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2560&auto=format&fit=crop&q=100',
       categoryName: 'Transfers',
-      published_at: new Date().toISOString(),
+      publishedAt: new Date().toISOString(),
     },
     {
       id: 'art5',
       title: 'Infantino Has Done Nothing Wrong — Eto\'o Backs FIFA President\'s Re-Election Bid',
       slug: 'infantino-done-nothing-wrong-etoo-backs-fifa',
       excerpt: 'FECAFOOT boss Samuel Eto\'o publicly pledges support for Gianni Infantino\'s continued presidency.',
-      cover_image_url: 'https://images.unsplash.com/photo-1543351611-c823945f1007?w=1200&auto=format&fit=crop',
+      imageUrl: 'https://images.unsplash.com/photo-1543351611-c823945f1007?w=2560&auto=format&fit=crop&q=100',
       categoryName: 'World Football',
-      published_at: new Date().toISOString(),
+      publishedAt: new Date().toISOString(),
     },
     {
       id: 'art6',
       title: 'Nigerian Government Should Stop Funding Sports — By Ehi Braimah',
       slug: 'nigerian-government-should-stop-funding-sports',
       excerpt: 'Opinion editorial on why public money funding of sports in Nigeria needs urgent commercial restructuring.',
-      cover_image_url: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop',
+      imageUrl: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=2560&auto=format&fit=crop&q=100',
       categoryName: 'Features',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art7',
-      title: 'U-20 WWC: Falconets Set To Depart For Poland',
-      slug: 'u20-wwc-falconets-set-to-depart-for-poland',
-      excerpt: 'Nigeria\'s Falconets prepare for international departure ahead of the FIFA U-20 Women\'s World Cup.',
-      cover_image_url: 'https://images.unsplash.com/photo-1517649763962-0c623266ddc0?w=1200&auto=format&fit=crop',
-      categoryName: 'Nigerian Football',
-      published_at: new Date().toISOString(),
+      publishedAt: new Date().toISOString(),
     },
   ];
+
+  const heroSlides = rawArticles.length >= 3 ? rawArticles.slice(0, 3).map((a: any) => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    excerpt: a.excerpt || 'Read the full sports news update on Laku Media.',
+    imageUrl: a.cover_image_url || 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2560&auto=format&fit=crop&q=100',
+    categoryName: a.sports_categories?.name || 'Sports',
+    publishedAt: a.published_at || new Date().toISOString(),
+  })) : demoArticles.slice(0, 3);
 
   const articles = rawArticles.length >= 5 ? rawArticles.map((a: any) => ({
     id: a.id,
@@ -188,18 +189,18 @@ export default async function SportsRootHomePage() {
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       
-      {/* 1. Completesports-Style 5-Article Hero Mosaic Collage */}
+      {/* 1. 8K 3-Slide Interactive Hero Slider Component */}
       <section className="space-y-2">
         <div className="flex items-center justify-between pb-1 border-b border-slate-200">
-          <h2 className="text-sm font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-            <Flame className="w-4 h-4 text-emerald-600" /> LATEST SPORTS NEWS
+          <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
+            <Flame className="w-4 h-4 text-[#D9541E]" /> FEATURED HEADLINES & SLIDER
           </h2>
-          <Link href="/world-football" className="text-xs font-bold text-emerald-700 hover:underline">
-            View all →
+          <Link href="/world-football" className="text-xs font-bold text-[#D9541E] hover:underline">
+            View all news →
           </Link>
         </div>
 
-        <HeroMosaic articles={articles} />
+        <HeroSlider slides={heroSlides} />
       </section>
 
       {/* Main Content Grid: Main News Stream (Left 68%) + Sidebar (Right 32%) */}
@@ -222,10 +223,10 @@ export default async function SportsRootHomePage() {
             }}
           />
 
-          {/* Featured Multimedia Video Spotlight Section (Matching Screenshot 7) */}
+          {/* Featured Multimedia Video Spotlight Section */}
           <FeaturedVideoSpotlight videos={videos} />
 
-          {/* Dual Category Block 2: FEATURES & LIFESTYLE (Matching Screenshot 8) */}
+          {/* Dual Category Block 2: FEATURES & LIFESTYLE */}
           <CategoryDualBlock
             leftColumn={{
               categoryTitle: 'FEATURES & OPINION',
@@ -253,10 +254,10 @@ export default async function SportsRootHomePage() {
           {/* Live Match Center Widget */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-1.5">
-                <Activity className="w-4 h-4 text-emerald-600" /> Match Center
+              <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
+                <Activity className="w-4 h-4 text-[#D9541E]" /> Match Center
               </h3>
-              <Link href="/live-scores" className="text-[11px] font-bold text-emerald-700 hover:underline">
+              <Link href="/live-scores" className="text-[11px] font-bold text-[#D9541E] hover:underline">
                 Full Schedule →
               </Link>
             </div>
@@ -281,7 +282,7 @@ export default async function SportsRootHomePage() {
             </div>
           </div>
 
-          {/* Latest Comments Widget (Matching Screenshots 6 & 9) */}
+          {/* Latest Comments Widget */}
           <LatestCommentsWidget />
 
         </div>
