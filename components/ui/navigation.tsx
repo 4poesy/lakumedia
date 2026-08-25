@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Calendar } from 'lucide-react';
+import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
 
 export function Navigation() {
@@ -15,7 +15,7 @@ export function Navigation() {
   // Determine active vertical
   const isMultimedia = pathname.startsWith('/multimedia');
 
-  // Sports Navigation Bar Links
+  // Clean Public Sports Navigation Bar Links (CMS Admin REMOVED from public nav)
   const sportsNavLinks = [
     { href: '/', label: 'Home', icon: Sparkles },
     { href: '/npfl', label: 'NPFL', icon: Trophy, active: pathname === '/npfl' },
@@ -97,20 +97,20 @@ export function Navigation() {
       {/* Top Ticker Bar */}
       <LiveMatchTicker />
 
-      {/* Centralized Brand Header Bar */}
-      <div className="bg-[#2A2E7F] text-white border-b border-slate-800 py-4 px-4 sm:px-6 lg:px-8 shadow-md">
+      {/* Crisp Header Bar with Official Laku Media Branding (Navy + Burnt Orange) */}
+      <div className="bg-[#2A2E7F] text-white border-b border-slate-800 py-3.5 px-4 sm:px-6 lg:px-8 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="hidden md:block w-32" />
 
-          {/* Centralized Brand Logo */}
+          {/* Centralized Crisp Brand Logo */}
           <Link href="/" prefetch={true} className="flex flex-col items-center group mx-auto">
             <div className="flex items-center space-x-3">
-              <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-white p-1 shadow-lg shrink-0 border border-slate-200">
+              <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-white p-1 shadow-lg shrink-0 border border-slate-200">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
-                  alt="Laku Media Official Logo"
-                  width={44}
-                  height={44}
+                  alt="Laku Media Official Logo Mark"
+                  width={40}
+                  height={40}
                   className="object-cover w-full h-full rounded-xl"
                   priority
                 />
@@ -119,8 +119,8 @@ export function Navigation() {
                 LAKU<span className="text-[#D9541E]">MEDIA</span>
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-widest text-amber-400 font-extrabold mt-1">
-              {isMultimedia ? 'Entertainment & Production' : "Nigeria's No.1 Sports & Multimedia"}
+            <span className="text-[10px] uppercase tracking-widest text-amber-300 font-black mt-0.5">
+              {isMultimedia ? 'Entertainment & Production' : "Nigeria's Premier Sports & Media Hub"}
             </span>
           </Link>
 
@@ -311,7 +311,7 @@ export function Navigation() {
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <Icon className="w-4 h-4 text-[#2A2E7F]" />
+                  <Icon className={`w-4 h-4 ${isActive || link.badge === 'SPORTS HOME' ? 'text-white' : 'text-[#2A2E7F]'}`} />
                   <span>{link.label}</span>
                 </div>
                 {link.badge && (

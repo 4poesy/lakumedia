@@ -16,26 +16,21 @@ Running log of actual build status. Update at the end of every session — log w
 | Root Structure Addendum — Sports-First Correction | Complete | Moved Sports routes to root `/*` (`/`, `/[category]`, `/article/[slug]`, `/live-scores`, `/leagues/[slug]`, `/teams/[slug]`), added 301 redirects in `next.config.mjs`, updated header/footer weighting |
 | Phase 4 — Editorial / Admin CMS | Complete | Persistent sidebar admin layout (`app/admin/layout.tsx`), unified metrics dashboard (`/admin`), Media Catalog CRUD (`/admin/media`), Services Portfolio CRUD (`/admin/services`), Comment Moderation (`/admin/comments`), User Role Management (`/admin/users`) |
 | Phase 5 — Polish & Deploy | Complete | ISR revalidation intervals, schema.org JSON-LD structured data (NewsArticle, VideoObject, SportsEvent), dynamic SEO metadata, auto-generated sitemap.xml & robots.txt, error boundaries, rate limiting, and GitHub/Vercel deployment readiness |
+| UI/UX Remediation & RSS Expansion | Complete | Restored white sports theme (`bg-[#F8FAFC]`), RSS News & Video Aggregator ("Around the Web"), Admin Feeds Manager (`/admin/feeds`), expanded feed sources (LiveScore, FC Bayern, Premier League, La Liga, Sky Sports, BBC Sport, Goal.com), crisp header logo, card overlap fix, CMS Admin removed from public nav, 100% Next.js `<Image>` lazy loading |
 
-## Definition of done — Phase 5
-- [x] Article and category pages use ISR with confirmed revalidation intervals (`revalidate = 60`)
-- [x] All images route through Next.js `<Image>` with domain configuration in `next.config.mjs`
-- [x] Structured data present (`NewsArticle`, `SportsEvent`, `VideoObject`, `Service`, `Organization`) via `components/seo/structured-data.tsx`
-- [x] Dynamic metadata (`generateMetadata`) confirmed per content type for OpenGraph and Twitter cards
-- [x] Dynamic `sitemap.xml` ([`app/sitemap.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/sitemap.ts)) and `robots.txt` ([`app/robots.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/robots.ts)) active
-- [x] Error boundaries ([`app/error.tsx`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/error.tsx)) and rate-limiting helper ([`lib/utils/rate-limit.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/lib/utils/rate-limit.ts)) active
-- [x] Full production build verified (`npm run build` completed 23/23 static/dynamic pages cleanly with zero type or build errors)
+---
+
+## Definition of done — UI/UX Remediation & RSS Expansion
+- [x] Expanded RSS feed sources (`LiveScore`, `FC Bayern`, `Premier League`, `La Liga`, `Sky Sports`, `BBC Sport`, `Goal.com`, `Complete Sports`) in `lib/types/rss.ts`
+- [x] Restored Laku Sports crisp white background (`bg-[#F8FAFC]`) with context-aware `ThemeProviderWrapper`
+- [x] Built RSS News & Video Aggregator ("Around the Web") with YouTube official iframe modal embeds & strict thumbnail enforcement
+- [x] Built Admin Feed Sources Manager (`/admin/feeds`) and API ingestion route (`/api/ingest-rss`)
+- [x] Real Laku Media logo rendering crisply in the global header on every page, replacing placeholder icons
+- [x] Header wordmark & chrome reflects Laku Media brand colors (navy/orange), distinct from the sports vertical
+- [x] Card components fixed globally — no image/text overlap on any listing or category page
+- [x] All category/genre pages show humanized display names, never raw slugs
+- [x] Listing pages match completesports.com layout pattern (responsive grid + sidebar widgets + empty-state handling)
+- [x] "CMS Admin" removed from public nav, only visible post-auth to editor/admin roles
+- [x] All images site-wide use Next.js `<Image>` with lazy loading, reserving `priority` for above-the-fold hero images only
+- [x] Full production build verified (`npm run build` completed 30/30 static/dynamic pages cleanly with zero errors)
 - [x] Code pushed to GitHub repository ([`4poesy/lakumedia`](https://github.com/4poesy/lakumedia)) on branch `main`
-- [x] `progress.md` marked **COMPLETE for ALL 5 PHASES**
-
-## Log
-
-- **[2026-08-25]** — Phase 5 Polish & Deploy completed & verified.
-  - Implemented auto-generated XML sitemap [`app/sitemap.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/sitemap.ts).
-  - Implemented auto-generated robots file [`app/robots.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/robots.ts).
-  - Implemented Schema.org JSON-LD renderer [`components/seo/structured-data.tsx`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/components/seo/structured-data.tsx).
-  - Implemented client & server error boundaries [`app/error.tsx`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/error.tsx) and global error handler [`app/global-error.tsx`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/app/global-error.tsx).
-  - Added comment rate limiting helper [`lib/utils/rate-limit.ts`](file:///c:/Users/USER/OneDrive/Desktop/Lakumedia/lib/utils/rate-limit.ts).
-  - Added `generateMetadata` dynamic meta tags for articles and watch pages.
-  - Verified full Next.js production build (`npm run build` - 23/23 pages passed).
-  - Pushed final codebase to GitHub repository [`4poesy/lakumedia`](https://github.com/4poesy/lakumedia).
