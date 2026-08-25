@@ -5,6 +5,7 @@ import { Camera, Film, Radio, Tv, Sparkles, CheckCircle2, ArrowRight, Video, Mus
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioFaqSection } from '@/components/multimedia/studio-faq';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,11 +58,11 @@ export default function MultimediaServicesPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* High-Tech Studio Services Hero Header (Using assest/studio_background_4.jpg) */}
-      <section className="relative rounded-3xl overflow-hidden min-h-[420px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
+      {/* High-Tech Studio Services Hero Header (Screenshot 1: Cinema House Hero) */}
+      <section className="relative rounded-3xl overflow-hidden min-h-[420px] sm:min-h-[480px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/assest/studio_background_4.jpg"
-          alt="Laku Media Production Studio Services"
+          src="/assest/cinema_house_hero.jpg"
+          alt="Laku Media Production Studio Services Cinema Theater"
           fill
           className="object-cover"
           priority
@@ -144,6 +145,18 @@ export default function MultimediaServicesPage() {
       {/* FAQ Section */}
       <div className="max-w-7xl mx-auto">
         <StudioFaqSection />
+      </div>
+
+      {/* Parallax Cinema Section (Screenshot 2: Red Curtain Theater) between FAQ & Subscriber Section */}
+      <div className="max-w-7xl mx-auto">
+        <ParallaxCinemaSection
+          title="WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES"
+          subtitle="From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking."
+          badge="THEATRICAL CINEMA EXPERIENCE"
+          imageUrl="/assest/red_curtain_parallax.jpg"
+          ctaText="Book Private Screening"
+          ctaHref="/contact"
+        />
       </div>
 
       {/* Subscriber Section */}

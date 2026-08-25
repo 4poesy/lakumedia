@@ -142,7 +142,7 @@ export default async function MultimediaHomePage() {
       {/* Lead Gen Newsletter Popup Modal */}
       <NewsletterPopupModal />
 
-      {/* 1. PRIMARY HERO SECTION: 4-Slide Interactive Hero Slider at top (Zero Prev/Next Arrows) */}
+      {/* 1. PRIMARY HERO SECTION: 3-Slide Interactive Hero Slider at top (Zero Prev/Next Arrows) */}
       <section className="pt-1">
         <MultimediaHeroSlider />
       </section>
@@ -249,17 +249,7 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 7. Parallax Cinema Banner Section (Using Uploaded Digital Space Globe Background Image 1) */}
-      <ParallaxCinemaSection
-        title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
-        subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
-        badge="AFRICAN MEDIA POWERHOUSE"
-        imageUrl="/studio/studio-about-hero.png"
-        ctaText="Book Studio Production"
-        ctaHref="/multimedia/services"
-      />
-
-      {/* 8. Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
+      {/* 7. Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
       <div className="space-y-12">
         {genres.slice(3).map((genre: any) => {
           const genreItems = items.filter(
@@ -281,11 +271,21 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 9. Permanent Studio Subscriber Section */}
-      <StudioSubscriberSection />
-
-      {/* 10. Frequently Asked Questions (FAQ) Section */}
+      {/* 8. Frequently Asked Questions (FAQ) Section */}
       <StudioFaqSection />
+
+      {/* 9. PARALLAX CINEMA SECTION (Screenshot 2: Red Curtain Theater) positioned BETWEEN FAQ & Subscriber Section */}
+      <ParallaxCinemaSection
+        title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
+        subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
+        badge="THEATRICAL CINEMA EXPERIENCE"
+        imageUrl="/assest/red_curtain_parallax.jpg"
+        ctaText="Book Studio Production"
+        ctaHref="/multimedia/services"
+      />
+
+      {/* 10. Permanent Studio Subscriber Section */}
+      <StudioSubscriberSection />
 
       {/* 11. Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />

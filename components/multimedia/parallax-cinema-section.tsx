@@ -17,7 +17,7 @@ export function ParallaxCinemaSection({
   title = "WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES",
   subtitle = "From RED 8K camera rigging and drone aerials to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.",
   badge = "HOLLYWOOD PRODUCTION GRADE",
-  imageUrl = "https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1600&auto=format&fit=crop&q=80",
+  imageUrl = "/assest/red_curtain_parallax.jpg",
   ctaText = "Explore Studio Services",
   ctaHref = "/multimedia/services",
 }: ParallaxSectionProps) {
