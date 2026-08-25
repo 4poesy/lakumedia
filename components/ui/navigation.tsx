@@ -34,10 +34,10 @@ export function Navigation() {
     { label: 'LA LIGA', href: '/world-football', icon: '/leagues/laliga.png' },
     { label: 'SERIE A', href: '/world-football', icon: '/leagues/seriea.png' },
     { label: 'BUNDESLIGA', href: '/world-football', icon: '/leagues/bundesliga.png' },
-    { label: 'LIGUE 1', href: '/world-football', icon: '/leagues/ucl.png' },
-    { label: 'MLS', href: '/world-football', icon: '/leagues/ucl.png' },
-    { label: 'SAUDI PRO LEAGUE', href: '/world-football', icon: '/leagues/ucl.png' },
-    { label: 'TURKISH SÜPER LIG', href: '/world-football', icon: '/leagues/ucl.png' },
+    { label: 'LIGUE 1', href: '/world-football', icon: '/leagues/ligue1.jpg' },
+    { label: 'MLS', href: '/world-football', icon: '/leagues/mls.jpg' },
+    { label: 'SAUDI PRO LEAGUE', href: '/world-football', icon: '/leagues/spl.png' },
+    { label: 'TURKISH SÜPER LIG', href: '/world-football', icon: '/leagues/turkishsuperlig.png' },
   ];
 
   // Continent & Sub-Divisions Hierarchy
@@ -83,77 +83,36 @@ export function Navigation() {
       {/* 1. Goal.com + LiveScore.com Style Top Score Ticker */}
       <LiveMatchTicker />
 
-      {/* 2. Top Header Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          
-          {/* Brand Logo & Wordmark */}
-          <div className="flex items-center space-x-3">
-            <Link href="/" prefetch={true} className="flex items-center space-x-2.5 group">
-              <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
+      {/* 2. Centralized CompleteSports-Style Logo Bar */}
+      <div className="bg-white border-b border-slate-100 py-3.5 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Spacer Left for desktop symmetry */}
+          <div className="hidden md:block w-32" />
+
+          {/* Centralized Brand Logo & Wordmark */}
+          <Link href="/" prefetch={true} className="flex flex-col items-center group mx-auto">
+            <div className="flex items-center space-x-2.5">
+              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
                   alt="Laku Media Official Logo"
-                  width={36}
-                  height={36}
+                  width={40}
+                  height={40}
                   className="object-cover w-full h-full"
                   priority
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-extrabold text-base sm:text-lg tracking-tight text-[#2A2E7F] flex items-center">
-                  LAKU<span className="text-[#D9541E]">MEDIA</span>
-                </span>
-                <span className="text-[9px] uppercase tracking-widest text-[#D9541E] font-extrabold">
-                  {isMultimedia ? 'Entertainment & Production' : "Nigeria's No.1 Sports & Multimedia"}
-                </span>
-              </div>
-            </Link>
-          </div>
+              <span className="font-black text-2xl sm:text-3xl tracking-tight text-[#2A2E7F]">
+                LAKU<span className="text-[#D9541E]">MEDIA</span>
+              </span>
+            </div>
+            <span className="text-[10px] uppercase tracking-widest text-[#D9541E] font-extrabold mt-0.5">
+              {isMultimedia ? 'Entertainment & Production' : "Nigeria's No.1 Sports & Multimedia"}
+            </span>
+          </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center space-x-1">
-            {navLinks.map((link) => {
-              const Icon = link.icon;
-              const isActive = link.active !== undefined ? link.active : (link.href === '/' ? pathname === '/' : pathname === link.href);
-              
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  prefetch={true}
-                  className={`relative px-3.5 py-2 rounded-lg text-xs font-extrabold transition-colors flex items-center space-x-1.5 active:scale-95 ${
-                    isActive
-                      ? 'text-white bg-[#D9541E] shadow-sm'
-                      : 'text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100'
-                  }`}
-                >
-                  <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#2A2E7F]'}`} />
-                  <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="ml-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full bg-[#D9541E] text-white shadow-sm animate-pulse">
-                      {link.badge}
-                    </span>
-                  )}
-                </Link>
-              );
-            })}
-
-            {/* All Divisions Mega-Menu Trigger Button */}
-            {!isMultimedia && (
-              <button
-                onClick={() => setLeaguesMenuOpen(!leaguesMenuOpen)}
-                className="px-3.5 py-2 rounded-lg text-xs font-extrabold text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100 flex items-center space-x-1 transition-colors"
-              >
-                <Globe className="w-3.5 h-3.5 text-[#2A2E7F]" />
-                <span>All Divisions</span>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform ${leaguesMenuOpen ? 'rotate-180' : ''}`} />
-              </button>
-            )}
-          </nav>
-
-          {/* Auth Actions */}
-          <div className="hidden md:flex items-center space-x-3">
+          {/* Right Auth Action */}
+          <div className="hidden md:flex items-center justify-end w-32">
             <Link
               href="/sign-in"
               prefetch={true}
@@ -173,6 +132,49 @@ export function Navigation() {
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
+        </div>
+      </div>
+
+      {/* 3. Horizontal Main Navigation Links Bar Below Logo */}
+      <div className="hidden md:block bg-white border-b border-slate-200 py-2">
+        <div className="max-w-7xl mx-auto flex items-center justify-center space-x-1">
+          {navLinks.map((link) => {
+            const Icon = link.icon;
+            const isActive = link.active !== undefined ? link.active : (link.href === '/' ? pathname === '/' : pathname === link.href);
+            
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                prefetch={true}
+                className={`relative px-4 py-2 rounded-lg text-xs font-extrabold transition-colors flex items-center space-x-1.5 active:scale-95 ${
+                  isActive
+                    ? 'text-white bg-[#D9541E] shadow-sm'
+                    : 'text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100'
+                }`}
+              >
+                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#2A2E7F]'}`} />
+                <span>{link.label}</span>
+                {link.badge && (
+                  <span className="ml-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full bg-[#D9541E] text-white shadow-sm animate-pulse">
+                    {link.badge}
+                  </span>
+                )}
+              </Link>
+            );
+          })}
+
+          {/* All Divisions Mega-Menu Trigger Button */}
+          {!isMultimedia && (
+            <button
+              onClick={() => setLeaguesMenuOpen(!leaguesMenuOpen)}
+              className="px-4 py-2 rounded-lg text-xs font-extrabold text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100 flex items-center space-x-1 transition-colors"
+            >
+              <Globe className="w-3.5 h-3.5 text-[#2A2E7F]" />
+              <span>All Divisions</span>
+              <ChevronDown className={`w-3.5 h-3.5 transition-transform ${leaguesMenuOpen ? 'rotate-180' : ''}`} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -232,10 +234,10 @@ export function Navigation() {
         </div>
       )}
 
-      {/* Completesports-Style Sub-Bar with Official League Logos (Including Ligue 1, MLS, Saudi, Turkish) */}
+      {/* 4. Completesports-Style Sub-Bar with Horizontal Scrolling League Pills & Official Logos */}
       {!isMultimedia && (
         <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] font-extrabold scrollbar-none">
+          <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] font-extrabold scrollbar-none py-0.5">
             {/* Live Scores Button */}
             <Link
               href="/live-scores"
@@ -246,19 +248,19 @@ export function Navigation() {
               <span>LIVE SCORES</span>
             </Link>
 
-            {/* League Pills with Official League Logos */}
+            {/* Horizontal Scrollable League Pills with Official League Logos */}
             {leagueQuickFilters.map((filter, idx) => (
               <Link
                 key={idx}
                 href={filter.href}
                 prefetch={true}
-                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95 flex items-center gap-1.5"
+                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95 flex items-center gap-1.5 shadow-xs"
               >
                 {filter.icon && (
                   <img
                     src={filter.icon}
                     alt={filter.label}
-                    className="w-4 h-4 object-contain rounded-full bg-white shrink-0"
+                    className="w-4 h-4 object-contain rounded-full bg-white shrink-0 border border-slate-100"
                   />
                 )}
                 <span>{filter.label}</span>
