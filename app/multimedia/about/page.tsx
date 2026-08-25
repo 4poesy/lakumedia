@@ -1,116 +1,105 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ArrowLeft, Camera, ChevronRight, UserCheck, ShieldAlert } from 'lucide-react';
+import { Award, UserCheck, Shield, Film, Sparkles, CheckCircle2, ArrowRight } from 'lucide-react';
 
-export default function AboutPage() {
+export const dynamic = 'force-dynamic';
+
+export default function MultimediaAboutPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-10 theme-multimedia py-6">
-      {/* Back Link */}
-      <div>
-        <Link
-          href="/multimedia"
-          className="inline-flex items-center text-xs font-bold text-slate-500 hover:text-[#D9541E] gap-1.5 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Multimedia Hub
-        </Link>
-      </div>
-
-      {/* Hero Section with Official Logo */}
-      <section className="bg-white p-8 lg:p-12 rounded-3xl border border-slate-200 shadow-sm space-y-6 text-center">
-        <div className="relative w-48 sm:w-64 h-24 mx-auto overflow-hidden rounded-2xl bg-slate-50 p-3 border border-slate-200 shadow-sm">
-          <Image
-            src="/brand/laku-media/laku-media-logo-dark.jpeg"
-            alt="Laku Media Logo"
-            fill
-            className="object-contain p-2"
-            priority
-          />
+    <div className="bg-[#0B0E14] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+      
+      {/* Hero Header */}
+      <section className="max-w-5xl mx-auto text-center space-y-6 pt-6">
+        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2A2E7F] border border-slate-700 text-amber-400 text-xs font-extrabold tracking-widest uppercase">
+          <Film className="w-4 h-4 text-emerald-400" />
+          <span>ABOUT LAKU MEDIA PRODUCTION & MARKETING AGENCY</span>
         </div>
 
-        <div className="space-y-2">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900">
-            About <span className="text-[#D9541E]">Laku Media</span>
-          </h1>
-          <p className="text-sm font-bold text-slate-700 flex items-center justify-center gap-1.5">
-            <UserCheck className="w-4 h-4 text-[#D9541E]" /> Executive Leadership: <span className="text-slate-900 font-extrabold">Adebayo Samuel Olaku, CEO</span>
-          </p>
-        </div>
+        <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
+          NIGERIA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">DUAL-VERTICAL MEDIA HOUSE</span>
+        </h1>
 
-        {/* Mission & Story Blurb (Marked as Placeholder for Client Input) */}
-        <div className="max-w-2xl mx-auto space-y-4 pt-4 text-left">
-          <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs font-bold flex items-center gap-2">
-            <ShieldAlert className="w-4 h-4 shrink-0" />
-            <span>Note for Client / Akinola: Placeholder company story below — pending final approved copy from client.</span>
+        <p className="text-sm sm:text-lg text-slate-300 max-w-3xl mx-auto font-medium leading-relaxed">
+          Combining real-time sports coverage with immersive streaming multimedia entertainment, commercial advertising, and live event production services.
+        </p>
+      </section>
+
+      {/* CEO Executive Spotlight Card */}
+      <section className="max-w-5xl mx-auto bg-slate-950 rounded-3xl p-8 sm:p-12 border-2 border-[#D9541E] shadow-2xl space-y-6">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+          <div className="relative w-40 h-40 rounded-full overflow-hidden border-4 border-[#D9541E] shadow-2xl shrink-0 bg-slate-900">
+            <Image
+              src="/brand/laku-media/laku-media-logo-dark.jpeg"
+              alt="Adebayo Samuel Olaku, CEO Laku Media"
+              fill
+              className="object-cover"
+            />
           </div>
 
-          <p className="text-slate-700 text-sm leading-relaxed font-medium">
-            Laku Media is a premier Nigerian multimedia production company specializing in high-definition video editing, television programming, live broadcast coverage, music video direction, and professional photography.
+          <div className="space-y-3 text-center md:text-left flex-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#2A2E7F] text-emerald-400 font-extrabold text-xs tracking-wider uppercase">
+              <UserCheck className="w-4 h-4 text-[#D9541E]" /> EXECUTIVE LEADERSHIP
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
+              Adebayo Samuel Olaku
+            </h2>
+            <p className="text-xs font-extrabold text-[#D9541E] uppercase tracking-widest">
+              Chief Executive Officer & Founder, Laku Media Platform
+            </p>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              &ldquo;At Laku Media, our goal is to build an unbeatable media ecosystem that empowers African sports, tells authentic high-definition stories, and provides world-class commercial production services for global brands.&rdquo;
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Three Pillars Section */}
+      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#2A2E7F] flex items-center justify-center">
+            <Award className="w-6 h-6 text-emerald-400" />
+          </div>
+          <h3 className="text-xl font-extrabold text-white">Broadcast Excellence</h3>
+          <p className="text-xs text-slate-300 leading-relaxed font-medium">
+            Deploying multi-camera OB vans, satellite uplinks, and real-time graphics for stadium sports and live entertainment concerts.
           </p>
-          <p className="text-slate-700 text-sm leading-relaxed font-medium">
-            Under the vision of CEO Adebayo Samuel Olaku, Laku Media bridges high-end commercial production services with on-demand digital entertainment streaming.
+        </div>
+
+        <div className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-[#D9541E] flex items-center justify-center">
+            <Film className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-xl font-extrabold text-white">Original Cinema</h3>
+          <p className="text-xs text-slate-300 leading-relaxed font-medium">
+            Producing high-impact documentary series, feature films, comedy specials, and podcasts that reach millions across Africa.
+          </p>
+        </div>
+
+        <div className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-4">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-600 flex items-center justify-center">
+            <Shield className="w-6 h-6 text-white" />
+          </div>
+          <h3 className="text-xl font-extrabold text-white">Brand Marketing</h3>
+          <p className="text-xs text-slate-300 leading-relaxed font-medium">
+            Helping top corporate brands execute high-converting marketing campaigns, commercial spot videos, and social media blitzes.
           </p>
         </div>
       </section>
 
-      {/* Production Services Summary */}
-      <section className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-extrabold text-slate-900 flex items-center gap-2">
-            <Camera className="w-6 h-6 text-[#D9541E]" /> Core Production Capabilities
-          </h2>
+      {/* Call To Action */}
+      <section className="max-w-5xl mx-auto text-center space-y-6 bg-gradient-to-r from-slate-950 via-[#2A2E7F] to-slate-950 p-10 rounded-3xl border border-slate-800">
+        <h2 className="text-3xl font-extrabold text-white">READY TO PRODUCE YOUR NEXT PROJECT WITH LAKU MEDIA?</h2>
+        <div className="flex justify-center">
           <Link
-            href="/multimedia/production"
-            className="text-xs font-bold text-[#D9541E] hover:underline flex items-center gap-1"
+            href="/multimedia/services"
+            className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm shadow-2xl flex items-center gap-2 transition-transform hover:scale-105"
           >
-            Explore Full Portfolio <ChevronRight className="w-3.5 h-3.5" />
+            <span>Explore Agency Services</span> <ArrowRight className="w-5 h-5" />
           </Link>
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-            <h3 className="text-lg font-extrabold text-[#D9541E]">Music Video Production</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Full 4K/8K music video concept creation, set design, multi-angle camera direction, and visual effects editing.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-            <h3 className="text-lg font-extrabold text-[#D9541E]">Movie Editing</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              Professional post-production, theatrical sound design, color mastering, and editorial cutting for feature films.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-            <h3 className="text-lg font-extrabold text-[#D9541E]">Television Programme</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              End-to-end television studio show production, talk show recording, sports magazine programming, and multi-cam switching.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm space-y-2">
-            <h3 className="text-lg font-extrabold text-[#D9541E]">Commercial Photography</h3>
-            <p className="text-xs text-slate-600 leading-relaxed font-medium">
-              High-end studio photography, event red carpet portraits, corporate executive headshots, and editorial sports photography.
-            </p>
-          </div>
-        </div>
       </section>
 
-      {/* Contact CTA */}
-      <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center space-y-4 shadow-sm">
-        <h3 className="text-xl font-extrabold text-slate-900">Work With Laku Media</h3>
-        <p className="text-xs text-slate-600 max-w-md mx-auto">
-          Contact our production desk for inquiries regarding television programming, film editing, music video shoots, or photography bookings.
-        </p>
-        <Link
-          href="/multimedia/production"
-          className="inline-flex items-center px-6 py-3 rounded-xl font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white text-xs shadow-sm"
-        >
-          View Production Portfolio
-        </Link>
-      </div>
     </div>
   );
 }

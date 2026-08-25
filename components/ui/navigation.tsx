@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown } from 'lucide-react';
+import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
 
 export function Navigation() {
@@ -21,7 +21,7 @@ export function Navigation() {
     { href: '/world-football', label: 'World Football', icon: Globe, active: pathname === '/world-football' },
     { href: '/transfers', label: 'Transfers', icon: Flame, active: pathname === '/transfers' },
     { href: '/live-scores', label: 'Live Scores', icon: Activity, active: pathname === '/live-scores', badge: 'LIVE' },
-    { href: '/multimedia', label: 'Laku Media Watch', icon: Film, active: isMultimedia },
+    { href: '/multimedia', label: 'LAKU MEDIA AGENCY', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
 
   const leagueQuickFilters = [
@@ -159,7 +159,7 @@ export function Navigation() {
                 <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#2A2E7F]'}`} />
                 <span>{link.label}</span>
                 {link.badge && (
-                  <span className="ml-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full bg-[#D9541E] text-white shadow-sm animate-pulse">
+                  <span className={`ml-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full text-white shadow-sm ${link.badge === 'STUDIO' ? 'bg-[#10B981]' : 'bg-[#D9541E] animate-pulse'}`}>
                     {link.badge}
                   </span>
                 )}
