@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
-import { Film, Play, Radio, Sparkles, Camera, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
+import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -61,28 +61,28 @@ export default async function MultimediaHomePage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       
-      {/* 1. High-Impact Agency Header Sub-Bar */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
-        <div>
-          <div className="flex items-center space-x-2 text-[#10B981] font-extrabold text-xs uppercase tracking-widest mb-1">
+      {/* 1. Responsive Agency Header Banner */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+        <div className="space-y-2 max-w-3xl">
+          <div className="flex items-center space-x-2 text-[#10B981] font-extrabold text-xs uppercase tracking-widest">
             <Sparkles className="w-4 h-4 text-amber-400" /> LAKU MEDIA PRODUCTION & MARKETING STUDIO
           </div>
-          <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
             CINEMATIC FILMS, LIVE BROADCASTS & BRAND AGENCY
           </h1>
         </div>
 
-        {/* Agency Navigation Buttons */}
-        <div className="flex items-center space-x-2 overflow-x-auto pb-2 md:pb-0">
+        {/* Action Buttons Container (Wrapped properly so no text is ever cut off!) */}
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
           <Link
             href="/multimedia/services"
-            className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#D9541E] text-white shadow-lg flex items-center gap-1.5 shrink-0"
+            className="px-5 py-3 rounded-xl text-xs font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white shadow-lg flex items-center gap-2 transition-transform active:scale-95 border border-orange-400"
           >
             <Camera className="w-4 h-4" /> Agency Services
           </Link>
           <Link
             href="/multimedia/about"
-            className="px-4 py-2 rounded-xl text-xs font-bold bg-[#2A2E7F] text-white hover:bg-blue-900 border border-slate-700 transition-colors shrink-0"
+            className="px-5 py-3 rounded-xl text-xs font-extrabold bg-[#2A2E7F] hover:bg-blue-900 text-white border border-slate-700 transition-colors shadow-lg"
           >
             About Laku Media
           </Link>
@@ -150,7 +150,7 @@ export default async function MultimediaHomePage() {
         </div>
       </section>
 
-      {/* 3. Agency Production Services Cards (Lemon Green & Burnt Orange Accent) */}
+      {/* 3. Agency Production Services Cards */}
       <section className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
           <div>
@@ -165,7 +165,7 @@ export default async function MultimediaHomePage() {
             href="/multimedia/services"
             className="text-xs font-extrabold text-[#D9541E] hover:underline flex items-center gap-1"
           >
-            <span>View All Services</span> →
+            <span>View All 6 Services</span> →
           </Link>
         </div>
 
@@ -225,7 +225,7 @@ export default async function MultimediaHomePage() {
         </section>
       )}
 
-      {/* 5. On-Demand Catalog Genre Rails */}
+      {/* 5. On-Demand Catalog Genre Rails (Films, Documentaries, Comedy, etc.) */}
       <div className="space-y-8">
         {genres.map((genre: any) => {
           const genreItems = items.filter(
