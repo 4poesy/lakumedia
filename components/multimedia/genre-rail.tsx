@@ -42,8 +42,9 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {items.slice(0, 4).map((item) => (
+      {/* Grid displaying exactly 5 cards per rail on desktop */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+        {items.slice(0, 5).map((item) => (
           <VideoCard
             key={item.id}
             title={item.title}

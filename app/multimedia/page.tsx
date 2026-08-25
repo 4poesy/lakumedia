@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
-import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap } from 'lucide-react';
+import { BookUsNowSection } from '@/components/multimedia/book-us-now';
+import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap, Award, DollarSign, Briefcase } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,6 +59,95 @@ export default async function MultimediaHomePage() {
 
   const genres = genresData.length > 0 ? genresData : defaultGenres;
 
+  const sampleThumbnails = [
+    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
+  ];
+
+  // Helper generator to guarantee 5 video cards per genre rail
+  const generateFiveCards = (genreName: string, genreSlug: string, dbItems: any[]) => {
+    if (dbItems.length >= 5) return dbItems;
+
+    const dummyTitles: Record<string, string[]> = {
+      films: [
+        'The Royal Inheritance (Nollywood Feature Film)',
+        'Midnight Cinema: Lagos City Thriller',
+        'Echoes of the Delta (Award Winning Movie)',
+        'The Billionaire\'s Secret Bride',
+        'Sands of Time: West African Legend',
+      ],
+      documentaries: [
+        'Giants of Africa: Football Origins',
+        'Lagos Underground: Afrobeats Revolution',
+        'The Great NPFL Derby Story',
+        'Nollywood Rising: Behind The Lens',
+        'Voices of the Niger Delta',
+      ],
+      comedy: [
+        'Laku Media Stand-Up Special: Night of Laughter',
+        'Nollywood Kings of Comedy Live in Lagos',
+        'Crazy Campus Chronicles: Episode 1',
+        'Street Side Pranks & Laughs',
+        'The Laugh Factory Special',
+      ],
+      'talk-shows': [
+        'Laku Media Executive Talk: Interview With Industry Leaders',
+        'The Sports & Entertainment Roundtable',
+        'Nollywood Stars Spotlight Interview',
+        'Creative Directors Studio Panel',
+        'Afrobeats Global Music Talk',
+      ],
+      'drama-series': [
+        'Lagos Heights: Season 1 Drama',
+        'The Billionaire Clan: Episode 5',
+        'Shattered Dreams (Dramatic Television Series)',
+        'Rhythm & Passion Drama',
+        'Shadows of the City',
+      ],
+      'music-shows': [
+        'Lagos International Live Music Concert 2026',
+        'Afrobeats Unplugged Studio Session',
+        'Highlife Kings Live on Stage',
+        'Naija Gospel Hits Concert Stream',
+        'Soundwave Radio Live Session',
+      ],
+      'kids-shows': [
+        'Ananse The Spider (Animated Kids Special)',
+        'Naija Junior Storytime & Songs',
+        'Junior Champions Academy',
+        'Little Explorers West Africa',
+        'The Magic Drum Kids Show',
+      ],
+    };
+
+    const titles = dummyTitles[genreSlug] || [
+      `${genreName} Original Special Edition 1`,
+      `${genreName} Cinema Masterpiece 2`,
+      `${genreName} Studio Broadcast Release 3`,
+      `${genreName} High-Definition Feature 4`,
+      `${genreName} Production Showcase 5`,
+    ];
+
+    const result = [...dbItems];
+    for (let i = dbItems.length; i < 5; i++) {
+      result.push({
+        id: `card-${genreSlug}-${i + 1}`,
+        title: titles[i % titles.length],
+        slug: `${genreSlug}-release-${i + 1}`,
+        synopsis: `Exclusive high-definition ${genreName} video produced by Laku Media Creative Studio.`,
+        thumbnail_url: sampleThumbnails[i % sampleThumbnails.length],
+        media_type: 'film',
+        duration_seconds: 2400 + i * 300,
+        is_kid_safe: genreSlug === 'kids-shows',
+        media_genres: { name: genreName, slug: genreSlug },
+      });
+    }
+    return result;
+  };
+
   return (
     <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       
@@ -72,17 +162,29 @@ export default async function MultimediaHomePage() {
           </h1>
         </div>
 
-        {/* Action Buttons Container (Wrapped properly so no text is ever cut off!) */}
+        {/* Action Buttons Container */}
         <div className="flex flex-wrap items-center gap-3 shrink-0">
           <Link
             href="/multimedia/services"
-            className="px-5 py-3 rounded-xl text-xs font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white shadow-lg flex items-center gap-2 transition-transform active:scale-95 border border-orange-400"
+            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white shadow-lg flex items-center gap-1.5 transition-transform active:scale-95 border border-orange-400"
           >
             <Camera className="w-4 h-4" /> Agency Services
           </Link>
           <Link
+            href="/multimedia/portfolio"
+            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#10B981] text-slate-950 hover:bg-emerald-400 shadow-lg flex items-center gap-1.5 transition-transform active:scale-95"
+          >
+            <Briefcase className="w-4 h-4" /> Studio Portfolio
+          </Link>
+          <Link
+            href="/multimedia/pricing"
+            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-lg flex items-center gap-1.5 transition-transform active:scale-95"
+          >
+            <DollarSign className="w-4 h-4" /> Pricing & Rates
+          </Link>
+          <Link
             href="/multimedia/about"
-            className="px-5 py-3 rounded-xl text-xs font-extrabold bg-[#2A2E7F] hover:bg-blue-900 text-white border border-slate-700 transition-colors shadow-lg"
+            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#2A2E7F] hover:bg-blue-900 text-white border border-slate-700 transition-colors shadow-lg"
           >
             About Laku Media
           </Link>
@@ -150,83 +252,8 @@ export default async function MultimediaHomePage() {
         </div>
       </section>
 
-      {/* 3. Agency Production Services Cards */}
-      <section className="bg-slate-950 p-8 rounded-3xl border border-slate-800 space-y-6">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-800">
-          <div>
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#10B981] block">
-              LAKU MEDIA STUDIO SERVICES
-            </span>
-            <h3 className="text-xl sm:text-2xl font-extrabold text-white">
-              COMMERCIAL PRODUCTION & BRAND MARKETING
-            </h3>
-          </div>
-          <Link
-            href="/multimedia/services"
-            className="text-xs font-extrabold text-[#D9541E] hover:underline flex items-center gap-1"
-          >
-            <span>View All 6 Services</span> →
-          </Link>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-xs">
-          <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-2">
-            <Camera className="w-6 h-6 text-[#10B981]" />
-            <h4 className="font-extrabold text-white text-sm">4K/8K Film & Video Production</h4>
-            <p className="text-slate-400 leading-relaxed font-medium">
-              Commercial adverts, cinema documentaries, corporate video spots, and original TV shows.
-            </p>
-          </div>
-
-          <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-2">
-            <Radio className="w-6 h-6 text-[#D9541E]" />
-            <h4 className="font-extrabold text-white text-sm">24/7 Live Broadcast Streaming</h4>
-            <p className="text-slate-400 leading-relaxed font-medium">
-              OB van satellite broadcasting, stadium sports coverage, and live concert streaming.
-            </p>
-          </div>
-
-          <div className="bg-slate-900 p-5 rounded-2xl border border-slate-800 space-y-2">
-            <Zap className="w-6 h-6 text-amber-400" />
-            <h4 className="font-extrabold text-white text-sm">Digital Brand Marketing</h4>
-            <p className="text-slate-400 leading-relaxed font-medium">
-              Influencer talent management, viral social media blitzes, and corporate marketing campaigns.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Live Now Rail */}
-      {liveNowItems.length > 0 && (
-        <section className="space-y-4 pt-2">
-          <div className="flex items-center space-x-2 text-xs font-extrabold text-[#D9541E]">
-            <Radio className="w-4 h-4" /> Live Now Broadcasts (Realtime Sync)
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {liveNowItems.map((live: any) => (
-              <RealtimeLiveCard
-                key={live.id}
-                initialItem={{
-                  id: live.id,
-                  title: live.title,
-                  slug: live.slug,
-                  synopsis: live.synopsis,
-                  thumbnailUrl: live.thumbnail_url,
-                  genreName: live.media_genres?.name || 'Live',
-                  mediaType: live.media_type,
-                  durationSeconds: live.duration_seconds,
-                  isKidSafe: live.is_kid_safe,
-                  liveStatus: live.live_status,
-                  scheduledStartAt: live.scheduled_start_at,
-                }}
-              />
-            ))}
-          </div>
-        </section>
-      )}
-
-      {/* 5. On-Demand Catalog Genre Rails (Films, Documentaries, Comedy, etc.) */}
-      <div className="space-y-8">
+      {/* 3. On-Demand Catalog Genre Rails (Guaranteed 5 Video Cards per Rail!) */}
+      <div className="space-y-12">
         {genres.map((genre: any) => {
           const genreItems = items.filter(
             (item: any) =>
@@ -234,34 +261,21 @@ export default async function MultimediaHomePage() {
               item.media_genres?.name?.toLowerCase() === genre.name.toLowerCase()
           );
 
-          const displayItems =
-            genreItems.length > 0
-              ? genreItems
-              : [
-                  {
-                    id: `demo-${genre.slug}-1`,
-                    title: `Latest Release in ${genre.name}`,
-                    slug: `${genre.slug}-latest-release`,
-                    synopsis: `Exclusive high-definition content produced for the ${genre.name} collection on Laku Media.`,
-                    thumbnail_url:
-                      'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop',
-                    media_type: 'film' as const,
-                    duration_seconds: 3600,
-                    is_kid_safe: genre.slug === 'kids-shows',
-                    media_genres: { name: genre.name, slug: genre.slug },
-                  },
-                ];
+          const fiveCards = generateFiveCards(genre.name, genre.slug, genreItems);
 
           return (
             <GenreRail
               key={genre.id || genre.slug}
               genreName={genre.name}
               genreSlug={genre.slug}
-              items={displayItems as any}
+              items={fiveCards as any}
             />
           );
         })}
       </div>
+
+      {/* 4. Book Us Now Section */}
+      <BookUsNowSection />
 
     </div>
   );
