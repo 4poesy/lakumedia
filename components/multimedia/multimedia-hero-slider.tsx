@@ -8,15 +8,14 @@ import { Play, Sparkles, ArrowRight } from 'lucide-react';
 export function MultimediaHeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // 3 Custom 8K Ultra High-Definition Cinema Background Banners
+  // 3 Custom 8K Ultra High-Definition Cinema Background Banners Tailored to Content
   const slides = [
     {
       id: 'slide-1',
       title: 'GIANTS OF AFRICA: THE STORY OF NIGERIAN FOOTBALL',
       category: 'DOCUMENTARY FILM',
       synopsis: 'An inspiring 8K documentary tracing the evolution of Nigerian football from grassroots street academies in Aba to world cup stardom.',
-      imageUrl: '/assest/studio_background_2.jpeg',
-      fallbackUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2400&auto=format&fit=crop&q=95',
+      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2400&auto=format&fit=crop&q=95',
       badge: 'FEATURED ORIGINAL',
       slug: 'giants-of-africa-nigerian-football',
       badgeColor: 'bg-[#D9541E] text-white',
@@ -26,8 +25,7 @@ export function MultimediaHeroSlider() {
       title: 'LAGOS CITY THRILLER: 8K CINEMA BLOCKBUSTER',
       category: 'THEATRICAL FEATURE',
       synopsis: 'A high-octane Nollywood action thriller shot on location in Victoria Island with RED V-Raptor 8K cinema camera rigs.',
-      imageUrl: '/assest/studio_background_4.jpg',
-      fallbackUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2400&auto=format&fit=crop&q=95',
+      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2400&auto=format&fit=crop&q=95',
       badge: 'IN THEATRES 2026',
       slug: 'films-latest-release',
       badgeColor: 'bg-[#10B981] text-slate-950',
@@ -37,8 +35,7 @@ export function MultimediaHeroSlider() {
       title: 'AFROBEATS STADIUM CONCERT 24/7 LIVE STREAM',
       category: 'LIVE BROADCAST',
       synopsis: 'Multi-camera satellite OB van live concert streaming to 2.5 million fans across African television networks and digital web.',
-      imageUrl: '/assest/studio_background.jpg',
-      fallbackUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=2400&auto=format&fit=crop&q=95',
+      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=2400&auto=format&fit=crop&q=95',
       badge: 'LIVE CONCERT STREAM',
       slug: 'music-shows-latest-release',
       badgeColor: 'bg-purple-600 text-white',
