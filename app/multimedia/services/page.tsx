@@ -3,6 +3,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Camera, Film, Radio, Tv, Sparkles, CheckCircle2, ArrowRight, Video, Music, Calendar, Zap } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
+import { StudioFaqSection } from '@/components/multimedia/studio-faq';
+import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 
 export const dynamic = 'force-dynamic';
 
@@ -53,12 +55,12 @@ export default function MultimediaServicesPage() {
   ];
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-16">
+    <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* High-Tech Studio Services Hero Header */}
+      {/* High-Tech Studio Services Hero Header (Using assest/studio_background_4.jpg) */}
       <section className="relative rounded-3xl overflow-hidden min-h-[420px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/studio/studio-services-hero.jpg"
+          src="/assest/studio_background_4.jpg"
           alt="Laku Media Production Studio Services"
           fill
           className="object-cover"
@@ -138,6 +140,16 @@ export default function MultimediaServicesPage() {
           })}
         </div>
       </section>
+
+      {/* FAQ Section */}
+      <div className="max-w-7xl mx-auto">
+        <StudioFaqSection />
+      </div>
+
+      {/* Subscriber Section */}
+      <div className="max-w-7xl mx-auto">
+        <StudioSubscriberSection />
+      </div>
 
       {/* Book Us Section */}
       <div className="max-w-7xl mx-auto">

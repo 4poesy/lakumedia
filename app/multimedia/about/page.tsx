@@ -77,10 +77,10 @@ export default function MultimediaAboutPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-20">
       
-      {/* 1. Standalone Hero Section (Using Uploaded Digital Globe Space Background Image 1) */}
+      {/* 1. Standalone Hero Section (Using Uploaded Image from assest/studio_background_2.jpeg) */}
       <section className="relative rounded-3xl overflow-hidden min-h-[460px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/studio/studio-about-hero.png"
+          src="/assest/studio_background_2.jpeg"
           alt="Laku Media High-Tech Broadcast Studio"
           fill
           className="object-cover"
@@ -150,7 +150,7 @@ export default function MultimediaAboutPage() {
           title="HOLLYWOOD-GRADE CINEMATOGRAPHY IN WEST AFRICA"
           subtitle="Operating multi-cam satellite OB broadcast vans, 8K RED cinema rigs, and Dolby Atmos audio mixing suites under the leadership of CEO Adebayo Samuel Olaku."
           badge="STUDIO INFRASTRUCTURE"
-          imageUrl="/studio/studio-services-hero.jpg"
+          imageUrl="/assest/studio_background_4.jpg"
           ctaText="Explore Studio Portfolio"
           ctaHref="/multimedia/portfolio"
         />
