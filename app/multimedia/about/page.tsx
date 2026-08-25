@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Award, UserCheck, Shield, Film, Sparkles, CheckCircle2, ArrowRight, Target, Eye, Heart, Users, Star, Camera } from 'lucide-react';
+import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 
@@ -75,46 +75,68 @@ export default function MultimediaAboutPage() {
   ];
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-20">
       
-      {/* 1. Hero Header */}
-      <section className="max-w-5xl mx-auto text-center space-y-6 pt-4">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2A2E7F] border border-slate-700 text-[#10B981] text-xs font-extrabold tracking-widest uppercase">
-          <Film className="w-4 h-4 text-amber-400" />
-          <span>ABOUT LAKU MEDIA CREATIVE STUDIO</span>
+      {/* 1. Standalone Hero Section (Distinct & Separated) */}
+      <section className="relative rounded-3xl overflow-hidden min-h-[460px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
+        <Image
+          src="/studio/studio-about-hero.png"
+          alt="Laku Media High-Tech Broadcast Studio"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/80 to-[#090A0F]/50" />
+        
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
+            NIGERIA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">MEDIA PRODUCTION POWERHOUSE</span>
+          </h1>
+
+          <p className="text-sm sm:text-lg text-slate-200 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
+            Pioneering high-definition cinema films, music videos, 24/7 live concert broadcasting, documentaries, and corporate event production.
+          </p>
         </div>
-
-        <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
-          NIGERIA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">MEDIA PRODUCTION POWERHOUSE</span>
-        </h1>
-
-        <p className="text-sm sm:text-lg text-slate-300 max-w-3xl mx-auto font-medium leading-relaxed">
-          Pioneering high-definition cinema films, music videos, 24/7 live concert broadcasting, documentaries, and corporate event production.
-        </p>
       </section>
 
-      {/* 2. Vision & Mission Section */}
-      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-4 relative overflow-hidden group hover:border-emerald-400 transition-all">
-          <div className="w-14 h-14 rounded-2xl bg-[#2A2E7F] flex items-center justify-center shadow-lg">
-            <Eye className="w-7 h-7 text-[#10B981]" />
-          </div>
-          <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">OUR VISION</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">To Be Africa&apos;s Foremost Multimedia Studio</h2>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-            To establish Laku Media as the leading African media ecosystem, renowned globally for cinema-grade film production, satellite live broadcasting, and high-impact commercial brand campaigns.
-          </p>
+      {/* Visual Separation Divider */}
+      <div className="border-b border-slate-800/80 max-w-7xl mx-auto" />
+
+      {/* 2. Standalone Vision & Mission Section (Separated Block) */}
+      <section className="max-w-7xl mx-auto space-y-8 pt-2">
+        <div className="text-center space-y-2 max-w-2xl mx-auto">
+          <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981]">
+            THE FOUNDATION OF LAKU MEDIA
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-black text-white uppercase">
+            OUR VISION & MISSION STATEMENTS
+          </h2>
         </div>
 
-        <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#D9541E] shadow-2xl space-y-4 relative overflow-hidden group hover:border-orange-400 transition-all">
-          <div className="w-14 h-14 rounded-2xl bg-[#D9541E] flex items-center justify-center shadow-lg">
-            <Target className="w-7 h-7 text-white" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+          {/* Vision Card */}
+          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-4 relative overflow-hidden group hover:border-emerald-400 transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-[#2A2E7F] flex items-center justify-center shadow-lg">
+              <Eye className="w-7 h-7 text-[#10B981]" />
+            </div>
+            <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">OUR VISION</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">To Be Africa&apos;s Foremost Multimedia Studio</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              To establish Laku Media as the leading African media ecosystem, renowned globally for cinema-grade film production, satellite live broadcasting, and high-impact commercial brand campaigns.
+            </p>
           </div>
-          <span className="text-xs font-extrabold text-[#D9541E] uppercase tracking-widest block">OUR MISSION</span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">Empowering African Stories & Global Brands</h2>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-            To deliver world-class 4K/8K video production, multi-camera live stream coverage, theatrical movies, and strategic digital marketing that captivate millions of viewers worldwide.
-          </p>
+
+          {/* Mission Card */}
+          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#D9541E] shadow-2xl space-y-4 relative overflow-hidden group hover:border-orange-400 transition-all">
+            <div className="w-14 h-14 rounded-2xl bg-[#D9541E] flex items-center justify-center shadow-lg">
+              <Target className="w-7 h-7 text-white" />
+            </div>
+            <span className="text-xs font-extrabold text-[#D9541E] uppercase tracking-widest block">OUR MISSION</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">Empowering African Stories & Global Brands</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              To deliver world-class 4K/8K video production, multi-camera live stream coverage, theatrical movies, and strategic digital marketing that captivate millions of viewers worldwide.
+            </p>
+          </div>
         </div>
       </section>
 
@@ -136,7 +158,7 @@ export default function MultimediaAboutPage() {
           <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981]">
             OUR GUIDING PRINCIPLES
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white uppercase">
             THE 4 CORE VALUES OF LAKU MEDIA
           </h2>
         </div>
@@ -164,7 +186,7 @@ export default function MultimediaAboutPage() {
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#D9541E] flex items-center gap-1.5">
               <Users className="w-4 h-4 text-[#D9541E]" /> EXECUTIVE LEADERSHIP & CREATIVE DIRECTORS
             </span>
-            <h2 className="text-3xl sm:text-4xl font-black text-white">
+            <h2 className="text-3xl sm:text-4xl font-black text-white uppercase">
               MEET OUR EXECUTIVE TEAM
             </h2>
           </div>

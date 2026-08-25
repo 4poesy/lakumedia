@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
@@ -8,7 +7,7 @@ import { StudioCollectionsHub } from '@/components/multimedia/studio-collections
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
 import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { Camera, Briefcase, DollarSign, Radio } from 'lucide-react';
+import { Radio } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -135,41 +134,13 @@ export default async function MultimediaHomePage() {
   };
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4 space-y-8">
       
-      {/* Clean Studio Header Banner */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight uppercase">
+      {/* Clean Compact Heading Banner with Small Padding */}
+      <div className="pt-2 pb-4 border-b border-slate-800">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight uppercase">
           CINEMATIC FILMS, LIVE BROADCASTS & BRAND AGENCY
         </h1>
-
-        {/* Action Buttons Container */}
-        <div className="flex flex-wrap items-center gap-3 shrink-0">
-          <Link
-            href="/multimedia/services"
-            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white shadow-lg flex items-center gap-1.5 transition-transform active:scale-95 border border-orange-400"
-          >
-            <Camera className="w-4 h-4" /> Agency Services
-          </Link>
-          <Link
-            href="/multimedia/portfolio"
-            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#10B981] text-slate-950 hover:bg-emerald-400 shadow-lg flex items-center gap-1.5 transition-transform active:scale-95"
-          >
-            <Briefcase className="w-4 h-4" /> Studio Portfolio
-          </Link>
-          <Link
-            href="/multimedia/pricing"
-            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-amber-500 text-slate-950 hover:bg-amber-400 shadow-lg flex items-center gap-1.5 transition-transform active:scale-95"
-          >
-            <DollarSign className="w-4 h-4" /> Pricing & Rates
-          </Link>
-          <Link
-            href="/multimedia/about"
-            className="px-4 py-2.5 rounded-xl text-xs font-extrabold bg-[#2A2E7F] hover:bg-blue-900 text-white border border-slate-700 transition-colors shadow-lg"
-          >
-            About Laku Media
-          </Link>
-        </div>
       </div>
 
       {/* 4-Slide Interactive Hero Slider Component (Zero Prev/Next Arrows) */}

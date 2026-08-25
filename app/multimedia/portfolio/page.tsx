@@ -1,7 +1,6 @@
 import React from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { Play, Sparkles, Film, ArrowRight, Award, Radio, Tv, Camera } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 
 export const dynamic = 'force-dynamic';
@@ -65,22 +64,28 @@ export default function MultimediaPortfolioPage() {
   ];
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-16">
       
-      {/* Header Banner */}
-      <section className="max-w-4xl mx-auto text-center space-y-6 pt-4">
-        <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#2A2E7F] border border-slate-700 text-[#10B981] text-xs font-extrabold tracking-widest uppercase">
-          <Award className="w-4 h-4 text-amber-400" />
-          <span>LAKU MEDIA STUDIO PORTFOLIO & CASE STUDIES</span>
+      {/* Studio Portfolio Hero Header */}
+      <section className="relative rounded-3xl overflow-hidden min-h-[420px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
+        <Image
+          src="/studio/studio-portfolio-hero.jpg"
+          alt="Laku Media Production Portfolio"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/80 to-[#090A0F]/50" />
+        
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
+          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
+            OUR RECENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">PRODUCTION JOBS</span> & REELS
+          </h1>
+
+          <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+            Explore completed music videos, live stadium broadcasts, corporate event keynotes, and cinema films produced by Laku Media.
+          </p>
         </div>
-
-        <h1 className="text-4xl sm:text-6xl font-black text-white tracking-tight leading-tight">
-          OUR RECENT <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">PRODUCTION JOBS</span> & REELS
-        </h1>
-
-        <p className="text-sm sm:text-lg text-slate-300 font-medium leading-relaxed max-w-2xl mx-auto">
-          Explore completed music videos, live stadium broadcasts, corporate event keynotes, and cinema films produced by Laku Media.
-        </p>
       </section>
 
       {/* Portfolio Projects Grid */}
