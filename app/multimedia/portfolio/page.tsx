@@ -69,10 +69,10 @@ export default function MultimediaPortfolioPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. STUDIO PORTFOLIO HERO HEADER (Using 1st Image: /assest/portfolio_hero_stage.jpg) */}
+      {/* 1. STUDIO PORTFOLIO HERO HEADER (Exact User Image 1: /assest/user_portfolio_hero_stage.jpg) */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/assest/portfolio_hero_stage.jpg"
+          src="/assest/user_portfolio_hero_stage.jpg"
           alt="Laku Media Production Studio Stage & Camera Equipment Hero"
           fill
           className="object-cover"
@@ -105,14 +105,14 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (2nd Image on LEFT, Content on RIGHT) */}
+      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (Exact User Image 2 on LEFT, Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          {/* Left Column (2nd Image: Studio Camera Crew Filming Set) */}
+          {/* Left Column (Exact User Image 2: /assest/user_portfolio_crew_set.jpg) */}
           <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
             <Image
-              src="/assest/portfolio_crew_set.jpg"
+              src="/assest/user_portfolio_crew_set.jpg"
               alt="Laku Media Camera Crew Filming On Studio Set"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -239,7 +239,7 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 3. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, 3rd Image on RIGHT) */}
+      {/* 3. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, Exact User Image 3 on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
@@ -283,10 +283,10 @@ export default function MultimediaPortfolioPage() {
             </div>
           </div>
 
-          {/* Right Column (3rd Image: Studio Lighting & Crew Setup) */}
+          {/* Right Column (Exact User Image 3: /assest/user_portfolio_lighting_crew.jpg) */}
           <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
             <Image
-              src="/assest/portfolio_lighting_setup.jpg"
+              src="/assest/user_portfolio_lighting_crew.jpg"
               alt="Laku Media Studio Lighting & Crew Production Setup"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
