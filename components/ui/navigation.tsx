@@ -40,6 +40,9 @@ export function Navigation() {
     { label: 'TURKISH SÜPER LIG', href: '/world-football', icon: '/leagues/turkishsuperlig.png' },
   ];
 
+  // Duplicate for seamless 100% infinite marquee loop
+  const infiniteLeagueFilters = [...leagueQuickFilters, ...leagueQuickFilters];
+
   // Continent & Sub-Divisions Hierarchy
   const globalDivisions = [
     {
@@ -234,38 +237,46 @@ export function Navigation() {
         </div>
       )}
 
-      {/* 4. Completesports-Style Sub-Bar with Horizontal Scrolling League Pills & Official Logos */}
+      {/* 4. Completesports-Style AUTOMATIC CONTINUOUS HORIZONTAL MARQUEE Sub-Bar with All 13 Official League Logos */}
       {!isMultimedia && (
-        <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] font-extrabold scrollbar-none py-0.5">
-            {/* Live Scores Button */}
-            <Link
-              href="/live-scores"
-              prefetch={true}
-              className="px-3 py-1 rounded-md bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider active:scale-95"
-            >
-              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
-              <span>LIVE SCORES</span>
-            </Link>
-
-            {/* Horizontal Scrollable League Pills with Official League Logos */}
-            {leagueQuickFilters.map((filter, idx) => (
+        <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
+          <div className="max-w-7xl mx-auto flex items-center justify-between">
+            
+            {/* Fixed Live Scores Indicator Left */}
+            <div className="shrink-0 pr-3 z-10 bg-slate-50">
               <Link
-                key={idx}
-                href={filter.href}
+                href="/live-scores"
                 prefetch={true}
-                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-[#2A2E7F] hover:text-[#D9541E] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] active:scale-95 flex items-center gap-1.5 shadow-xs"
+                className="px-3 py-1 rounded-md bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider text-[11px] font-extrabold active:scale-95"
               >
-                {filter.icon && (
-                  <img
-                    src={filter.icon}
-                    alt={filter.label}
-                    className="w-4 h-4 object-contain rounded-full bg-white shrink-0 border border-slate-100"
-                  />
-                )}
-                <span>{filter.label}</span>
+                <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+                <span>LIVE SCORES</span>
               </Link>
-            ))}
+            </div>
+
+            {/* Continuous Infinite Horizontal Marquee Stream for all 13 League Pills */}
+            <div className="overflow-hidden flex-1 relative">
+              <div className="animate-league-ticker space-x-2 flex items-center py-0.5">
+                {infiniteLeagueFilters.map((filter, idx) => (
+                  <Link
+                    key={`${filter.label}-${idx}`}
+                    href={filter.href}
+                    prefetch={true}
+                    className="px-2.5 py-1 rounded-md bg-white hover:bg-[#2A2E7F] hover:text-white text-[#2A2E7F] border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px] font-extrabold active:scale-95 flex items-center gap-1.5 shadow-xs"
+                  >
+                    {filter.icon && (
+                      <img
+                        src={filter.icon}
+                        alt={filter.label}
+                        className="w-4 h-4 object-contain rounded-full bg-white shrink-0 border border-slate-100"
+                      />
+                    )}
+                    <span>{filter.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
           </div>
         </div>
       )}

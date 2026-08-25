@@ -88,6 +88,26 @@ body {
   animation-play-state: paused;
 }
 
+/* Infinite Marquee Animation for League Quick-Filter Bar */
+@keyframes league-marquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-league-ticker {
+  display: flex;
+  width: max-content;
+  animation: league-marquee 35s linear infinite;
+}
+
+.animate-league-ticker:hover {
+  animation-play-state: paused;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
   height: 0px;
