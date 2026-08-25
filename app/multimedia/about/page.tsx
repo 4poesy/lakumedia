@@ -2,10 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv } from 'lucide-react';
-import { BookUsNowSection } from '@/components/multimedia/book-us-now';
-import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { NeonBorder } from '@/components/ui/neon-border';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
 
@@ -83,7 +81,7 @@ export default function MultimediaAboutPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. STANDALONE ABOUT HERO SECTION with Lighter Overlay for Image Clarity */}
+      {/* 1. STANDALONE ABOUT HERO SECTION */}
       <section className="relative rounded-3xl overflow-hidden min-h-[460px] sm:min-h-[520px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_portfolio_hero_stage.jpg"
@@ -297,49 +295,9 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 6. WOW FACTOR BOOKING CALLOUT: BOOK LAKU MEDIA CREATIVE STUDIO */}
-      <section className="max-w-7xl mx-auto">
-        <NeonBorder color="#D9541E" rounded={28} thickness={4} borderSize={60} glow={100}>
-          <div className="relative rounded-3xl overflow-hidden p-8 sm:p-14 bg-gradient-to-r from-slate-950 via-[#2A2E7F]/90 to-slate-950 border border-slate-800 shadow-2xl text-center space-y-6">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#D9541E]/20 border border-[#D9541E]/50 text-[#D9541E] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>BOOK LAKU MEDIA CREATIVE STUDIO</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-tight drop-shadow-2xl">
-              READY TO PRODUCE YOUR NEXT <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">BLOCKBUSTER PROJECT?</span>
-            </h2>
-
-            <p className="text-sm sm:text-lg text-slate-200 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-              Whether you are pitching a theatrical movie, directing a global music video, or streaming a stadium live concert, our executive production team is ready to execute your vision.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="px-9 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm sm:text-base shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-orange-400 uppercase tracking-wider"
-              >
-                <span>Hire Laku Media Studio Now</span> <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/multimedia/pricing"
-                className="px-8 py-4 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-extrabold text-sm sm:text-base border border-slate-700 backdrop-blur-md transition-colors uppercase tracking-wider"
-              >
-                View Production Rates
-              </Link>
-            </div>
-          </div>
-        </NeonBorder>
-      </section>
-
-      {/* 7. Permanent Studio Subscriber Section */}
+      {/* 6. Studio Subscriber Section */}
       <div className="max-w-7xl mx-auto">
         <StudioSubscriberSection />
-      </div>
-
-      {/* 8. Book Us Now Section */}
-      <div className="max-w-7xl mx-auto">
-        <BookUsNowSection />
       </div>
 
     </div>
