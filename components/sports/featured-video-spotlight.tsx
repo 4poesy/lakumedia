@@ -1,7 +1,8 @@
-import React from 'react';
-import Link from 'next/link';
+'use client';
+
+import React, { useState } from 'react';
 import Image from 'next/image';
-import { Play, Film, ChevronRight, Clock, Youtube } from 'lucide-react';
+import { Play, Film, ChevronRight, Clock, Youtube, X } from 'lucide-react';
 
 interface VideoItem {
   id: string;
@@ -10,6 +11,7 @@ interface VideoItem {
   thumbnail_url?: string | null;
   duration_seconds?: number | null;
   published_at?: string | null;
+  youtubeId?: string;
 }
 
 interface FeaturedVideoSpotlightProps {
@@ -19,13 +21,21 @@ interface FeaturedVideoSpotlightProps {
 export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) {
   if (!videos || videos.length === 0) return null;
 
-  const leadVideo = videos[0];
-  const sideVideos = videos.slice(1, 4);
-
   const defaultImage =
     'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop';
 
-  const officialYoutubeUrl = 'https://www.youtube.com/channel/UCJLbr72xlR__9dlypiV4x4g/featured';
+  const defaultYoutubeIds = ['3Q06g9O0J-Y', 'dQw4w9WgXcQ', 'L_LUpnjgPso', 'kXYiU_JCYtU'];
+
+  const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
+  const [activeVideoTitle, setActiveVideoTitle] = useState<string>('');
+
+  const leadVideo = videos[0];
+  const sideVideos = videos.slice(1, 4);
+
+  const handlePlayInline = (youtubeId: string, title: string) => {
+    setActiveVideoId(youtubeId);
+    setActiveVideoTitle(title);
+  };
 
   return (
     <section className="bg-slate-900 rounded-3xl p-6 lg:p-8 space-y-6 shadow-xl border border-slate-800 my-8">
@@ -37,17 +47,30 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
             <Film className="w-5 h-5 text-[#D9541E]" /> OFFICIAL LAKU MEDIA YOUTUBE & VIDEOS
           </h2>
         </div>
-        <a
-          href={officialYoutubeUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors self-start sm:self-auto"
-        >
+        <div className="px-3 py-1 rounded-xl bg-rose-600/90 text-white font-extrabold text-xs flex items-center gap-1.5 self-start sm:self-auto border border-rose-500">
           <Youtube className="w-4 h-4 fill-white" />
-          <span>Subscribe on YouTube</span>
-          <ChevronRight className="w-4 h-4" />
-        </a>
+          <span>INLINE EMBEDDED PLAYER</span>
+        </div>
       </div>
+
+      {/* Active Modal / Inline Video Player if triggered */}
+      {activeVideoId && (
+        <div className="relative w-full h-[360px] sm:h-[480px] rounded-2xl overflow-hidden bg-black border-2 border-rose-600 shadow-2xl mb-6">
+          <iframe
+            src={`https://www.youtube.com/embed/${activeVideoId}?autoplay=1&rel=0&modestbranding=1`}
+            title={activeVideoTitle}
+            className="w-full h-full border-0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+          <button
+            onClick={() => setActiveVideoId(null)}
+            className="absolute top-4 right-4 px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs shadow-xl flex items-center gap-1.5 z-30"
+          >
+            <X className="w-4 h-4" /> Close Player
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
@@ -60,42 +83,51 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            {/* Play Button Overlay linking to Official YouTube Channel */}
-            <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
-              <a
-                href={officialYoutubeUrl}
-                target="_blank"
-                rel="noreferrer"
+            {/* Play Button Overlay triggers INLINE player inside page (NO tab navigation!) */}
+            <div className="absolute inset-0 bg-slate-950/30 flex items-center justify-center">
+              <button
+                onClick={() =>
+                  handlePlayInline(leadVideo.youtubeId || defaultYoutubeIds[0], leadVideo.title)
+                }
                 className="w-16 h-16 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center pl-1 shadow-xl hover:scale-110 transition-transform"
+                aria-label="Play Inline"
               >
                 <Play className="w-7 h-7 fill-white" />
-              </a>
+              </button>
             </div>
           </div>
 
           <div className="p-5 space-y-2 bg-slate-950 text-white flex-1 flex flex-col justify-between">
             <div className="flex items-center space-x-2">
               <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-[#D9541E] text-white shadow-sm">
-                Official YouTube Stream
+                Inline Video Stream
               </span>
               <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-rose-600 text-white shadow-sm flex items-center gap-1">
-                <Youtube className="w-3 h-3 fill-white" /> Laku Media Channel
+                <Youtube className="w-3 h-3 fill-white" /> Click to Play Here
               </span>
             </div>
             <h3 className="text-lg sm:text-2xl font-extrabold text-white leading-snug hover:text-[#D9541E] transition-colors">
-              <a href={officialYoutubeUrl} target="_blank" rel="noreferrer">
+              <button
+                onClick={() =>
+                  handlePlayInline(leadVideo.youtubeId || defaultYoutubeIds[0], leadVideo.title)
+                }
+                className="text-left font-extrabold text-white hover:text-[#D9541E]"
+              >
                 {leadVideo.title}
-              </a>
+              </button>
             </h3>
           </div>
         </div>
 
         {/* Right Stacked Video List (5 cols / 40% width on desktop) */}
         <div className="lg:col-span-5 space-y-3 flex flex-col justify-between">
-          {sideVideos.map((vid) => (
+          {sideVideos.map((vid, idx) => (
             <div
               key={vid.id}
-              className="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950 border border-slate-800 hover:border-[#D9541E] transition-all group"
+              className="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950 border border-slate-800 hover:border-[#D9541E] transition-all group cursor-pointer"
+              onClick={() =>
+                handlePlayInline(vid.youtubeId || defaultYoutubeIds[idx + 1] || defaultYoutubeIds[0], vid.title)
+              }
             >
               {/* Thumbnail Left */}
               <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-900 shrink-0 border border-slate-800">
@@ -105,7 +137,7 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
                   fill
                   className="object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
+                <div className="absolute inset-0 bg-slate-950/30 flex items-center justify-center">
                   <Play className="w-4 h-4 text-white fill-white" />
                 </div>
               </div>
@@ -113,12 +145,10 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
               {/* Title Right */}
               <div className="space-y-1 flex-1">
                 <span className="text-[9px] font-extrabold uppercase tracking-wider text-[#D9541E] block">
-                  LAKU MEDIA YOUTUBE
+                  PLAY INLINE
                 </span>
                 <h4 className="text-xs font-bold text-white group-hover:text-[#D9541E] transition-colors line-clamp-2 leading-snug">
-                  <a href={officialYoutubeUrl} target="_blank" rel="noreferrer">
-                    {vid.title}
-                  </a>
+                  {vid.title}
                 </h4>
                 <span className="text-[10px] text-slate-400 font-mono block">
                   <Clock className="w-3 h-3 inline mr-1" />

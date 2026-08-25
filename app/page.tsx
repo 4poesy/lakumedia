@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/server';
 import { HeroSlider } from '@/components/sports/hero-slider';
 import { CategoryDualBlock } from '@/components/sports/category-dual-block';
 import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotlight';
+import { FcBayernNewsHub } from '@/components/sports/fc-bayern-news-hub';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { Activity, Flame } from 'lucide-react';
@@ -181,6 +182,7 @@ export default async function SportsRootHomePage() {
       slug: 'victor-ikpeba-christian-chukwu-super-eagles',
       thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
       duration_seconds: 1800,
+      youtubeId: '3Q06g9O0J-Y',
     },
     {
       id: 'v2',
@@ -188,6 +190,7 @@ export default async function SportsRootHomePage() {
       slug: 'football-league-season-preview',
       thumbnail_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop',
       duration_seconds: 1200,
+      youtubeId: 'dQw4w9WgXcQ',
     },
     {
       id: 'v3',
@@ -195,6 +198,7 @@ export default async function SportsRootHomePage() {
       slug: 'justin-madugu-super-falcons-coach',
       thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
       duration_seconds: 900,
+      youtubeId: 'L_LUpnjgPso',
     },
     {
       id: 'v4',
@@ -202,6 +206,7 @@ export default async function SportsRootHomePage() {
       slug: 'super-eagles-stars-trophies',
       thumbnail_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop',
       duration_seconds: 1500,
+      youtubeId: 'kXYiU_JCYtU',
     },
   ];
 
@@ -247,7 +252,10 @@ export default async function SportsRootHomePage() {
             }}
           />
 
-          {/* Featured Multimedia Video Spotlight Section */}
+          {/* FC Bayern Munich Inspired Tactical Breakdown Hub */}
+          <FcBayernNewsHub />
+
+          {/* Featured Multimedia Video Spotlight Section (Inline YouTube Player) */}
           <FeaturedVideoSpotlight videos={videos} />
 
           {/* Dual Category Block 2: FEATURES & LIFESTYLE */}
