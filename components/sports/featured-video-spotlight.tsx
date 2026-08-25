@@ -46,30 +46,30 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Main Featured Video Left (7 cols / 60% width on desktop) */}
-        <div className="lg:col-span-7 relative h-[280px] sm:h-[380px] rounded-2xl overflow-hidden shadow-lg group border border-slate-800 bg-slate-950">
-          <Image
-            src={leadVideo.thumbnail_url || defaultImage}
-            alt={leadVideo.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-
-          {/* Play Button Overlay */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Link
-              href={`/multimedia/watch/${leadVideo.slug}`}
-              className="w-16 h-16 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-1 shadow-xl hover:scale-110 transition-transform"
-            >
-              <Play className="w-7 h-7 fill-white" />
-            </Link>
+        <div className="lg:col-span-7 flex flex-col rounded-2xl overflow-hidden shadow-lg group border border-slate-800 bg-slate-950">
+          <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900">
+            <Image
+              src={leadVideo.thumbnail_url || defaultImage}
+              alt={leadVideo.title}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            {/* Play Button Overlay */}
+            <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
+              <Link
+                href={`/multimedia/watch/${leadVideo.slug}`}
+                className="w-16 h-16 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-1 shadow-xl hover:scale-110 transition-transform"
+              >
+                <Play className="w-7 h-7 fill-white" />
+              </Link>
+            </div>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 p-6 space-y-2">
-            <span className="px-2.5 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded bg-[#D9541E] text-white shadow-sm">
+          <div className="p-5 space-y-2 bg-slate-950 text-white flex-1 flex flex-col justify-between">
+            <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-[#D9541E] text-white shadow-sm inline-block self-start">
               Featured Stream
             </span>
-            <h3 className="text-lg sm:text-2xl font-extrabold text-white leading-snug group-hover:text-emerald-300 transition-colors">
+            <h3 className="text-lg sm:text-2xl font-extrabold text-white leading-snug group-hover:text-emerald-400 transition-colors">
               <Link href={`/multimedia/watch/${leadVideo.slug}`}>
                 {leadVideo.title}
               </Link>
@@ -82,7 +82,7 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
           {sideVideos.map((vid) => (
             <div
               key={vid.id}
-              className="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950/80 border border-slate-800/80 hover:border-[#D9541E]/50 transition-all group"
+              className="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950 border border-slate-800 hover:border-[#D9541E] transition-all group"
             >
               {/* Thumbnail Left */}
               <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-900 shrink-0 border border-slate-800">
@@ -92,7 +92,7 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
                   fill
                   className="object-cover group-hover:scale-105 transition-transform"
                 />
-                <div className="absolute inset-0 bg-slate-950/30 flex items-center justify-center">
+                <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
                   <Play className="w-4 h-4 text-white fill-white" />
                 </div>
               </div>

@@ -37,7 +37,7 @@ export function VideoCard({
     .replace(/\b\w/g, (l) => l.toUpperCase());
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md hover:border-[#D9541E]/40 transition-all duration-300 flex flex-col group h-full">
+    <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-md hover:border-[#D9541E] transition-all duration-300 flex flex-col group h-full">
       {/* Thumbnail + Overlay */}
       <div className="relative h-48 w-full overflow-hidden bg-slate-100 shrink-0">
         <Image
@@ -51,15 +51,15 @@ export function VideoCard({
         <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
           <Link
             href={`/multimedia/watch/${slug}`}
-            className="w-12 h-12 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-1 shadow-md hover:scale-110 transition-all"
+            className="w-12 h-12 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-1 shadow-md hover:scale-110 transition-transform"
           >
             <Play className="w-5 h-5 fill-white" />
           </Link>
         </div>
 
-        {/* Badges */}
+        {/* Solid Badges */}
         <div className="absolute top-3 left-3 flex items-center gap-1.5">
-          <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded bg-slate-900/90 text-white border border-slate-700 backdrop-blur-md">
+          <span className="px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider rounded bg-slate-900 text-white shadow-sm">
             {genreName}
           </span>
           {isKidSafe && (
@@ -70,7 +70,7 @@ export function VideoCard({
         </div>
 
         <div className="absolute bottom-3 right-3">
-          <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded bg-slate-900/80 text-white backdrop-blur-md flex items-center gap-1">
+          <span className="px-2 py-0.5 text-[10px] font-mono font-bold rounded bg-slate-900 text-white flex items-center gap-1 shadow-sm">
             <Clock className="w-3 h-3 text-slate-300" /> {formattedDuration}
           </span>
         </div>
@@ -82,13 +82,13 @@ export function VideoCard({
           <span className="text-[10px] font-extrabold text-[#D9541E] uppercase tracking-widest block mb-1">
             {formattedMediaType}
           </span>
-          <h3 className="text-base font-bold text-slate-900 group-hover:text-[#D9541E] transition-colors line-clamp-1 leading-snug">
+          <h3 className="text-base font-extrabold text-slate-900 group-hover:text-[#D9541E] transition-colors line-clamp-1 leading-snug">
             <Link href={`/multimedia/watch/${slug}`}>
               {title}
             </Link>
           </h3>
           {synopsis && (
-            <p className="mt-2 text-xs text-slate-600 line-clamp-2 leading-relaxed">
+            <p className="mt-2 text-xs text-slate-600 line-clamp-2 leading-relaxed font-medium">
               {synopsis}
             </p>
           )}

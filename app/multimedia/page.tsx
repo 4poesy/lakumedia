@@ -9,22 +9,23 @@ import { Film, Play, Radio, Sparkles } from 'lucide-react';
 export const revalidate = 30;
 
 export default async function MultimediaHomePage() {
-  const supabase = await createClient();
+  let items: any[] = [];
+  let genresData: any[] = [];
 
-  // Query all media genres
-  const { data: genresData } = await supabase
-    .from('media_genres')
-    .select('*')
-    .order('name');
+  try {
+    const supabase = await createClient();
+    const { data: g } = await supabase.from('media_genres').select('*').order('name');
+    if (g) genresData = g;
 
-  // Query published media items
-  const { data: mediaData } = await supabase
-    .from('media_items')
-    .select('*, media_genres(name, slug)')
-    .eq('status', 'published')
-    .order('created_at', { ascending: false });
-
-  const items = (mediaData as any[]) || [];
+    const { data: m } = await supabase
+      .from('media_items')
+      .select('*, media_genres(name, slug)')
+      .eq('status', 'published')
+      .order('created_at', { ascending: false });
+    if (m) items = m;
+  } catch (error) {
+    console.error('Supabase query fallback on multimedia homepage:', error);
+  }
 
   // Hero Featured Spotlight item
   const heroItem: any =
@@ -56,7 +57,7 @@ export default async function MultimediaHomePage() {
     { name: 'Kids Shows', slug: 'kids-shows' },
   ];
 
-  const genres = genresData && genresData.length > 0 ? genresData : defaultGenres;
+  const genres = genresData.length > 0 ? genresData : defaultGenres;
 
   return (
     <div className="space-y-10 theme-multimedia max-w-7xl mx-auto">
@@ -91,50 +92,53 @@ export default async function MultimediaHomePage() {
         </div>
       </div>
 
-      {/* Hero Featured Spotlight */}
-      <section className="relative h-[380px] sm:h-[480px] w-full rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-lg group">
-        <Image
-          src={
-            heroItem.thumbnail_url ||
-            'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop'
-          }
-          alt={heroItem.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+      {/* Hero Featured Spotlight (Solid Sharp Card) */}
+      <section className="flex flex-col md:flex-row rounded-3xl overflow-hidden bg-white border border-slate-200 shadow-md group">
+        <div className="relative h-64 md:h-auto md:w-7/12 overflow-hidden bg-slate-100 shrink-0">
+          <Image
+            src={
+              heroItem.thumbnail_url ||
+              'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop'
+            }
+            alt={heroItem.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            priority
+          />
+        </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 space-y-4 max-w-3xl">
-          <div className="flex items-center space-x-3">
-            <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-sm">
-              <Sparkles className="w-3.5 h-3.5" /> Featured Spotlight
-            </span>
-            <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-slate-900/80 text-white border border-slate-700">
-              {heroItem.media_genres?.name || 'Documentary'}
-            </span>
+        <div className="p-6 sm:p-10 md:w-5/12 bg-slate-950 text-white flex flex-col justify-between space-y-6">
+          <div className="space-y-4">
+            <div className="flex items-center space-x-3">
+              <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-sm">
+                <Sparkles className="w-3.5 h-3.5" /> Featured Spotlight
+              </span>
+              <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-slate-800 text-slate-200 border border-slate-700">
+                {heroItem.media_genres?.name || 'Documentary'}
+              </span>
+            </div>
+
+            <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight">
+              {heroItem.title}
+            </h2>
+
+            <p className="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed font-medium">
+              {heroItem.synopsis}
+            </p>
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white leading-tight">
-            {heroItem.title}
-          </h2>
-
-          <p className="text-xs sm:text-sm text-slate-200 line-clamp-2 leading-relaxed max-w-2xl font-medium">
-            {heroItem.synopsis}
-          </p>
-
-          <div className="pt-2 flex items-center space-x-4">
+          <div className="pt-4 border-t border-slate-800 flex items-center space-x-3">
             <Link
               href={`/multimedia/watch/${heroItem.slug}`}
-              className="px-6 py-3 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-all"
+              className="px-6 py-3 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors"
             >
               <Play className="w-4 h-4 fill-white" /> Watch Now
             </Link>
             <Link
               href="/multimedia/about"
-              className="px-5 py-3 rounded-xl bg-white/90 hover:bg-white text-slate-900 font-bold text-xs border border-slate-200 transition-colors shadow-sm"
+              className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-colors"
             >
-              Laku Media Production Info
+              Production Info
             </Link>
           </div>
         </div>
@@ -144,7 +148,7 @@ export default async function MultimediaHomePage() {
       {liveNowItems.length > 0 && (
         <section className="space-y-4 pt-2">
           <div className="flex items-center space-x-2 text-xs font-extrabold text-[#D9541E]">
-            <Radio className="w-4 h-4 animate-pulse" /> Live Now Broadcasts (Realtime Sync)
+            <Radio className="w-4 h-4" /> Live Now Broadcasts (Realtime Sync)
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {liveNowItems.map((live: any) => (

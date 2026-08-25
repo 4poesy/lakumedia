@@ -64,10 +64,10 @@ export function SocialCountersWidget() {
           href="https://instagram.com"
           target="_blank"
           rel="noreferrer"
-          className="p-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
+          className="p-2.5 rounded-xl bg-[#C13584] text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
         >
           <span>Instagram</span>
-          <span className="text-[10px] bg-purple-700 px-1.5 py-0.5 rounded font-mono">96K</span>
+          <span className="text-[10px] bg-pink-700 px-1.5 py-0.5 rounded font-mono">96K</span>
         </a>
         <a
           href="https://youtube.com"

@@ -43,33 +43,29 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom accent themes for Sports vs Multimedia */
+/* Custom solid accent themes for Sports vs Multimedia */
 .theme-sports {
   --accent-color: #059669;
-  --accent-glow: rgba(5, 150, 105, 0.08);
-  --accent-border: rgba(5, 150, 105, 0.2);
+  --accent-border: #059669;
 }
 
 .theme-multimedia {
   --accent-color: #D9541E;
-  --accent-glow: rgba(217, 84, 30, 0.08);
-  --accent-border: rgba(217, 84, 30, 0.2);
+  --accent-border: #D9541E;
   --primary-color: #2A2E7F;
 }
 
-/* Glassmorphism & Panel utilities for Pure White Light Mode */
-.glass-panel {
+/* Solid Sharp Panel & Navigation Utilities (No Glassmorphism, No Gradients) */
+.glass-panel, .solid-panel {
   background: #ffffff;
   border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.03), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
 }
 
-.glass-nav {
-  background: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+.glass-nav, .solid-nav {
+  background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.03);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
 }
 
 /* Custom Scrollbar */
