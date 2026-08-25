@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { VideoCard } from '@/components/multimedia/video-card';
-import { Film, ChevronRight, ArrowLeft, Filter } from 'lucide-react';
+import { Film, ChevronRight, Filter } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -10,6 +10,28 @@ interface GenrePageProps {
   params: {
     genre: string;
   };
+}
+
+function humanizeGenreSlug(slug: string): string {
+  const customMap: Record<string, string> = {
+    'films': 'Films',
+    'documentaries': 'Documentaries',
+    'comedy': 'Comedy',
+    'talk-shows': 'Talk Shows',
+    'drama-series': 'Drama Series',
+    'music-shows': 'Music Shows',
+    'kids-shows': 'Kids Shows',
+    'music-video': 'Music Videos',
+    'concert': 'Concerts',
+  };
+
+  if (customMap[slug.toLowerCase()]) {
+    return customMap[slug.toLowerCase()];
+  }
+
+  return slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 export default async function GenreListingPage({ params }: GenrePageProps) {
@@ -23,7 +45,7 @@ export default async function GenreListingPage({ params }: GenrePageProps) {
     .eq('slug', genreSlug)
     .single();
 
-  const genreName = (genreData as any)?.name || genreSlug.toUpperCase().replace('-', ' ');
+  const genreName = (genreData as any)?.name || humanizeGenreSlug(genreSlug);
 
   // Query media items for this genre
   const { data: mediaData } = await supabase
@@ -32,28 +54,29 @@ export default async function GenreListingPage({ params }: GenrePageProps) {
     .eq('status', 'published')
     .order('created_at', { ascending: false });
 
-  const filteredItems = mediaData
-    ? (mediaData as any[]).filter(
-        (m: any) =>
-          m.media_genres?.slug === genreSlug ||
-          m.media_genres?.name?.toLowerCase() === genreName.toLowerCase()
-      )
-    : [
-        {
-          id: 'demo-1',
-          title: `Featured ${genreName} Release`,
-          slug: `${genreSlug}-featured-release`,
-          synopsis: `Top-rated stream available in the ${genreName} catalog. High definition 4K audio and visuals.`,
-          thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop',
-          media_type: 'film' as const,
-          duration_seconds: 4500,
-          is_kid_safe: genreSlug === 'kids-shows',
-          media_genres: { name: genreName, slug: genreSlug },
-        },
-      ];
+  const allItems = mediaData ? (mediaData as any[]) : [];
+  const filteredItems = allItems.filter(
+    (m: any) =>
+      m.media_genres?.slug === genreSlug ||
+      m.media_genres?.name?.toLowerCase() === genreName.toLowerCase()
+  );
+
+  const displayItems = filteredItems.length > 0 ? filteredItems : [
+    {
+      id: 'demo-1',
+      title: `Featured ${genreName} Release`,
+      slug: `${genreSlug}-featured-release`,
+      synopsis: `Top-rated stream available in the ${genreName} catalog. High definition 4K audio and visuals.`,
+      thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop',
+      media_type: 'film' as const,
+      duration_seconds: 4500,
+      is_kid_safe: genreSlug === 'kids-shows',
+      media_genres: { name: genreName, slug: genreSlug },
+    },
+  ];
 
   return (
-    <div className="space-y-8 theme-multimedia">
+    <div className="space-y-8 theme-multimedia max-w-7xl mx-auto">
       {/* Breadcrumbs */}
       <nav className="flex items-center space-x-2 text-xs font-semibold text-slate-400">
         <Link href="/" className="hover:text-white">Home</Link>
@@ -71,16 +94,16 @@ export default async function GenreListingPage({ params }: GenrePageProps) {
               <Film className="w-6 h-6" />
             </div>
             <div>
-              <h1 className="text-3xl font-extrabold text-white">{genreName}</h1>
+              <h1 className="text-3xl font-extrabold text-white">{genreName} Catalog</h1>
               <p className="text-xs text-slate-400 mt-1">
-                Browse all on-demand titles and shows in the {genreName} collection.
+                Browse on-demand streaming titles and productions in the {genreName} collection.
               </p>
             </div>
           </div>
 
           <div className="flex items-center space-x-2">
             <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-400 flex items-center gap-1.5 font-semibold">
-              <Filter className="w-3.5 h-3.5 text-[#D9541E]" /> {filteredItems.length} Titles
+              <Filter className="w-3.5 h-3.5 text-[#D9541E]" /> {displayItems.length} Titles
             </div>
           </div>
         </div>
@@ -88,7 +111,7 @@ export default async function GenreListingPage({ params }: GenrePageProps) {
 
       {/* Grid View */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredItems.map((item: any) => (
+        {displayItems.map((item: any) => (
           <VideoCard
             key={item.id}
             title={item.title}

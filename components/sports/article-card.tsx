@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Calendar, Flame } from 'lucide-react';
+import { Calendar, Flame, ArrowRight } from 'lucide-react';
 
 interface ArticleCardProps {
   title: string;
@@ -35,80 +35,94 @@ export function ArticleCard({
 
   if (featured) {
     return (
-      <div className="relative h-[380px] sm:h-[450px] w-full rounded-2xl overflow-hidden glass-panel border border-slate-800 shadow-xl group">
-        <Image
-          src={coverImageUrl || defaultImage}
-          alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+      <div className="glass-panel rounded-2xl overflow-hidden border border-slate-800 shadow-xl group flex flex-col md:flex-row">
+        <div className="relative h-64 md:h-auto md:w-1/2 overflow-hidden bg-slate-900 shrink-0">
+          <Image
+            src={coverImageUrl || defaultImage}
+            alt={title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-700"
+            priority
+          />
+        </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 space-y-3">
-          <div className="flex items-center space-x-3">
-            <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-emerald-500 text-slate-950 flex items-center gap-1 shadow">
-              <Flame className="w-3.5 h-3.5" /> {categoryName}
-            </span>
-            <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5 text-slate-500" /> {formattedDate}
-            </span>
+        <div className="p-6 md:p-8 md:w-1/2 flex flex-col justify-between space-y-4 bg-slate-900/80">
+          <div className="space-y-3">
+            <div className="flex items-center space-x-3">
+              <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-emerald-500 text-slate-950 flex items-center gap-1 shadow">
+                <Flame className="w-3.5 h-3.5" /> {categoryName}
+              </span>
+              <span className="text-xs text-slate-400 font-medium flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5 text-slate-500" /> {formattedDate}
+              </span>
+            </div>
+
+            <h2 className="text-xl sm:text-3xl font-extrabold text-white group-hover:text-emerald-400 transition-colors leading-snug">
+              <Link href={`/article/${slug}`}>
+                {title}
+              </Link>
+            </h2>
+
+            {excerpt && (
+              <p className="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed">
+                {excerpt}
+              </p>
+            )}
           </div>
 
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-white group-hover:text-emerald-300 transition-colors leading-tight">
-            <Link href={`/article/${slug}`}>
-              {title}
+          <div className="pt-4 border-t border-slate-800/80 flex items-center justify-between">
+            <Link
+              href={`/article/${slug}`}
+              className="text-xs font-extrabold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5"
+            >
+              <span>Read Full Story</span> <ArrowRight className="w-3.5 h-3.5" />
             </Link>
-          </h2>
-
-          {excerpt && (
-            <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed max-w-3xl">
-              {excerpt}
-            </p>
-          )}
+          </div>
         </div>
       </div>
     );
   }
 
+  // Standard Contained Card Block (Image strictly separated above text content)
   return (
-    <div className="glass-panel rounded-xl overflow-hidden border border-slate-800/80 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group">
-      <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+    <div className="glass-panel rounded-2xl overflow-hidden border border-slate-800/80 hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group h-full">
+      {/* Top Image Container Block */}
+      <div className="relative h-48 w-full overflow-hidden bg-slate-900 shrink-0">
         <Image
           src={coverImageUrl || defaultImage}
           alt={title}
           fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent" />
-        <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded bg-slate-950/80 text-emerald-400 border border-emerald-500/30 backdrop-blur-md">
+        <div className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider rounded-md bg-slate-950/90 text-emerald-400 border border-emerald-500/30 backdrop-blur-md shadow">
           {categoryName}
-        </span>
+        </div>
       </div>
 
-      <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
-        <div>
-          <h3 className="text-base font-bold text-slate-100 group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug">
+      {/* Separate Text Content Block Below Image */}
+      <div className="p-5 flex-1 flex flex-col justify-between space-y-4 bg-slate-900/40">
+        <div className="space-y-2">
+          <h3 className="text-base font-bold text-white group-hover:text-emerald-400 transition-colors line-clamp-2 leading-snug">
             <Link href={`/article/${slug}`}>
               {title}
             </Link>
           </h3>
           {excerpt && (
-            <p className="mt-2 text-xs text-slate-400 line-clamp-2 leading-relaxed">
+            <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">
               {excerpt}
             </p>
           )}
         </div>
 
-        <div className="pt-3 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
-          <span className="flex items-center gap-1">
-            <Calendar className="w-3 h-3 text-slate-600" /> {formattedDate}
+        <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+          <span className="flex items-center gap-1 text-[11px] text-slate-500">
+            <Calendar className="w-3.5 h-3.5 text-slate-500" /> {formattedDate}
           </span>
           <Link
             href={`/article/${slug}`}
-            className="font-bold text-emerald-400 hover:underline text-[11px]"
+            className="font-bold text-emerald-400 hover:underline text-xs flex items-center gap-1"
           >
-            Read Full →
+            Read <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
       </div>
