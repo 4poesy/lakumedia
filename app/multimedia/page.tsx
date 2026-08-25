@@ -5,7 +5,9 @@ import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
-import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap, Award, DollarSign, Briefcase } from 'lucide-react';
+import { StudioCollectionsHub } from '@/components/multimedia/studio-collections-hub';
+import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
+import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap, Briefcase, DollarSign, Award } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -67,7 +69,6 @@ export default async function MultimediaHomePage() {
     'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
   ];
 
-  // Helper generator to guarantee 5 video cards per genre rail
   const generateFiveCards = (genreName: string, genreSlug: string, dbItems: any[]) => {
     if (dbItems.length >= 5) return dbItems;
 
@@ -151,7 +152,7 @@ export default async function MultimediaHomePage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       
-      {/* 1. Responsive Agency Header Banner */}
+      {/* 1. Header Studio Sub-Bar */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
         <div className="space-y-2 max-w-3xl">
           <div className="flex items-center space-x-2 text-[#10B981] font-extrabold text-xs uppercase tracking-widest">
@@ -252,7 +253,42 @@ export default async function MultimediaHomePage() {
         </div>
       </section>
 
-      {/* 3. On-Demand Catalog Genre Rails (Guaranteed 5 Video Cards per Rail!) */}
+      {/* 3. Disney+ & HBO Max Style Studio Collections Hub */}
+      <StudioCollectionsHub />
+
+      {/* 4. Netflix Style Top 5 Trending Titles Today */}
+      <TrendingTop10Rail />
+
+      {/* 5. Live Now Broadcast Stream Rail */}
+      {liveNowItems.length > 0 && (
+        <section className="space-y-4 pt-2">
+          <div className="flex items-center space-x-2 text-xs font-extrabold text-[#D9541E]">
+            <Radio className="w-4 h-4" /> Live Now Broadcasts (Realtime Sync)
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {liveNowItems.map((live: any) => (
+              <RealtimeLiveCard
+                key={live.id}
+                initialItem={{
+                  id: live.id,
+                  title: live.title,
+                  slug: live.slug,
+                  synopsis: live.synopsis,
+                  thumbnailUrl: live.thumbnail_url,
+                  genreName: live.media_genres?.name || 'Live',
+                  mediaType: live.media_type,
+                  durationSeconds: live.duration_seconds,
+                  isKidSafe: live.is_kid_safe,
+                  liveStatus: live.live_status,
+                  scheduledStartAt: live.scheduled_start_at,
+                }}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* 6. On-Demand Catalog Genre Rails (5 Video Cards per Rail across all 7 genres!) */}
       <div className="space-y-12">
         {genres.map((genre: any) => {
           const genreItems = items.filter(
@@ -274,7 +310,7 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 4. Book Us Now Section */}
+      {/* 7. Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />
 
     </div>
