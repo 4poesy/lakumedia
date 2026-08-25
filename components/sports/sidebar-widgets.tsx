@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MessageSquare, TrendingUp } from 'lucide-react';
+import { Mail, MessageSquare, TrendingUp, Youtube, Instagram } from 'lucide-react';
 
 export function TrendingStoriesWidget() {
   const trendingArticles = [
@@ -100,9 +100,27 @@ export function SocialCountersWidget() {
   return (
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
       <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F]">
-        Follow Laku Media Sports
+        Follow Official Laku Media
       </h3>
       <div className="grid grid-cols-2 gap-2 text-xs font-extrabold">
+        <a
+          href="https://www.instagram.com/laku_media"
+          target="_blank"
+          rel="noreferrer"
+          className="p-2.5 rounded-xl bg-[#C13584] text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
+        >
+          <span className="flex items-center gap-1"><Instagram className="w-3.5 h-3.5" /> Instagram</span>
+          <span className="text-[10px] bg-pink-700 px-1.5 py-0.5 rounded font-mono">Follow</span>
+        </a>
+        <a
+          href="https://www.youtube.com/channel/UCJLbr72xlR__9dlypiV4x4g/featured"
+          target="_blank"
+          rel="noreferrer"
+          className="p-2.5 rounded-xl bg-rose-600 text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
+        >
+          <span className="flex items-center gap-1"><Youtube className="w-3.5 h-3.5" /> YouTube</span>
+          <span className="text-[10px] bg-rose-700 px-1.5 py-0.5 rounded font-mono">Subscribe</span>
+        </a>
         <a
           href="https://facebook.com"
           target="_blank"
@@ -120,24 +138,6 @@ export function SocialCountersWidget() {
         >
           <span>Twitter / X</span>
           <span className="text-[10px] bg-sky-600 px-1.5 py-0.5 rounded font-mono">3.9K</span>
-        </a>
-        <a
-          href="https://instagram.com"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 rounded-xl bg-[#C13584] text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
-        >
-          <span>Instagram</span>
-          <span className="text-[10px] bg-pink-700 px-1.5 py-0.5 rounded font-mono">96K</span>
-        </a>
-        <a
-          href="https://youtube.com"
-          target="_blank"
-          rel="noreferrer"
-          className="p-2.5 rounded-xl bg-rose-600 text-white flex items-center justify-between shadow-sm hover:opacity-90 transition-opacity"
-        >
-          <span>YouTube</span>
-          <span className="text-[10px] bg-rose-700 px-1.5 py-0.5 rounded font-mono">125K</span>
         </a>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Play, Film, ChevronRight, Clock } from 'lucide-react';
+import { Play, Film, ChevronRight, Clock, Youtube } from 'lucide-react';
 
 interface VideoItem {
   id: string;
@@ -25,22 +25,28 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
   const defaultImage =
     'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop';
 
+  const officialYoutubeUrl = 'https://www.youtube.com/channel/UCJLbr72xlR__9dlypiV4x4g/featured';
+
   return (
     <section className="bg-slate-900 rounded-3xl p-6 lg:p-8 space-y-6 shadow-xl border border-slate-800 my-8">
       {/* Header */}
-      <div className="flex items-center justify-between pb-4 border-b border-slate-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-6 rounded-full bg-[#D9541E]" />
           <h2 className="text-xl sm:text-2xl font-extrabold text-white uppercase tracking-wider flex items-center gap-2">
-            <Film className="w-5 h-5 text-[#D9541E]" /> LAKU MEDIA VIDEOS & SPOTLIGHT
+            <Film className="w-5 h-5 text-[#D9541E]" /> OFFICIAL LAKU MEDIA YOUTUBE & VIDEOS
           </h2>
         </div>
-        <Link
-          href="/multimedia"
-          className="text-xs font-extrabold text-[#D9541E] hover:text-white flex items-center gap-1 transition-colors"
+        <a
+          href={officialYoutubeUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors self-start sm:self-auto"
         >
-          View All <ChevronRight className="w-4 h-4" />
-        </Link>
+          <Youtube className="w-4 h-4 fill-white" />
+          <span>Subscribe on YouTube</span>
+          <ChevronRight className="w-4 h-4" />
+        </a>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -54,25 +60,32 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
             />
-            {/* Play Button Overlay */}
+            {/* Play Button Overlay linking to Official YouTube Channel */}
             <div className="absolute inset-0 bg-slate-950/20 flex items-center justify-center">
-              <Link
-                href={`/multimedia/watch/${leadVideo.slug}`}
-                className="w-16 h-16 rounded-full bg-[#D9541E] text-white flex items-center justify-center pl-1 shadow-xl hover:scale-110 transition-transform"
+              <a
+                href={officialYoutubeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-16 h-16 rounded-full bg-rose-600 hover:bg-rose-700 text-white flex items-center justify-center pl-1 shadow-xl hover:scale-110 transition-transform"
               >
                 <Play className="w-7 h-7 fill-white" />
-              </Link>
+              </a>
             </div>
           </div>
 
           <div className="p-5 space-y-2 bg-slate-950 text-white flex-1 flex flex-col justify-between">
-            <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-[#D9541E] text-white shadow-sm inline-block self-start">
-              Featured Stream
-            </span>
-            <h3 className="text-lg sm:text-2xl font-extrabold text-white leading-snug group-hover:text-emerald-400 transition-colors">
-              <Link href={`/multimedia/watch/${leadVideo.slug}`}>
+            <div className="flex items-center space-x-2">
+              <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-[#D9541E] text-white shadow-sm">
+                Official YouTube Stream
+              </span>
+              <span className="px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-wider rounded bg-rose-600 text-white shadow-sm flex items-center gap-1">
+                <Youtube className="w-3 h-3 fill-white" /> Laku Media Channel
+              </span>
+            </div>
+            <h3 className="text-lg sm:text-2xl font-extrabold text-white leading-snug hover:text-[#D9541E] transition-colors">
+              <a href={officialYoutubeUrl} target="_blank" rel="noreferrer">
                 {leadVideo.title}
-              </Link>
+              </a>
             </h3>
           </div>
         </div>
@@ -100,16 +113,16 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
               {/* Title Right */}
               <div className="space-y-1 flex-1">
                 <span className="text-[9px] font-extrabold uppercase tracking-wider text-[#D9541E] block">
-                  MULTIMEDIA
+                  LAKU MEDIA YOUTUBE
                 </span>
                 <h4 className="text-xs font-bold text-white group-hover:text-[#D9541E] transition-colors line-clamp-2 leading-snug">
-                  <Link href={`/multimedia/watch/${vid.slug}`}>
+                  <a href={officialYoutubeUrl} target="_blank" rel="noreferrer">
                     {vid.title}
-                  </Link>
+                  </a>
                 </h4>
                 <span className="text-[10px] text-slate-400 font-mono block">
                   <Clock className="w-3 h-3 inline mr-1" />
-                  {vid.duration_seconds ? `${Math.floor(vid.duration_seconds / 60)} min` : 'HD Video'}
+                  {vid.duration_seconds ? `${Math.floor(vid.duration_seconds / 60)} min` : 'HD Stream'}
                 </span>
               </div>
             </div>
