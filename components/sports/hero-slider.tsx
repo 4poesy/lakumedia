@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Calendar, Flame, ArrowRight, Sparkles } from 'lucide-react';
+import { Calendar, Flame, ArrowRight } from 'lucide-react';
 
 export interface SlideItem {
   id: string;
@@ -28,7 +28,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
       slug: 'enyimba-thrilling-victory-npfl-derby',
       excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity stadium crowd.',
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=90',
+      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
       categoryName: 'NPFL League',
       publishedAt: new Date().toISOString(),
     },
@@ -37,7 +37,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
       slug: 'konsa-will-bench-saliba-at-arsenal',
       excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
-      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600&auto=format&fit=crop&q=90',
+      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
       categoryName: 'World Football',
       publishedAt: new Date().toISOString(),
     },
@@ -46,7 +46,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       title: 'Super Eagles Star Signs Multi-Year Extension Deal',
       slug: 'super-eagles-star-signs-multi-year-extension',
       excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension worth record wages.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&auto=format&fit=crop&q=90',
+      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
       categoryName: 'Transfer News',
       publishedAt: new Date().toISOString(),
     },
@@ -71,7 +71,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* 100% Pure Crisp 8K Image Box (Zero Prev/Next Buttons) */}
+      {/* Crisp Fast-Loading Image Box */}
       <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[440px] bg-slate-100 overflow-hidden">
         {slideData.map((slide, idx) => (
           <div
@@ -83,27 +83,25 @@ export function HeroSlider({ slides }: HeroSliderProps) {
             <img
               src={slide.imageUrl}
               alt={slide.title}
+              loading={idx === 0 ? 'eager' : 'lazy'}
               className="w-full h-full object-cover"
               onError={(e) => {
                 (e.target as HTMLImageElement).src =
-                  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=90';
+                  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75';
               }}
             />
           </div>
         ))}
 
-        {/* Floating Badges Top Left over Pure Image */}
+        {/* Category Badge Top Left */}
         <div className="absolute top-4 left-4 flex items-center space-x-2.5 z-20">
           <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-md">
             <Flame className="w-3.5 h-3.5" /> {currentSlide.categoryName}
           </span>
-          <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#2A2E7F] text-white shadow-md flex items-center gap-1">
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" /> 8K ULTRA HD
-          </span>
         </div>
       </div>
 
-      {/* Solid Sharp Bottom Content Box (Opaque Slate-900 with High-Contrast White Text) */}
+      {/* Solid Sharp Bottom Content Box */}
       <div className="p-6 sm:p-8 space-y-3 bg-[#0F172A] text-white border-t border-slate-800">
         <div className="flex items-center space-x-3 text-xs text-slate-300 font-bold">
           <span className="flex items-center gap-1">
@@ -116,7 +114,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
           </span>
         </div>
 
-        {/* Title with Glowing Accent Line on Left */}
+        {/* Title */}
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight border-l-4 border-[#D9541E] pl-4 hover:text-[#D9541E] transition-colors">
           <Link href={`/article/${currentSlide.slug}`} prefetch={true}>
             {currentSlide.title}

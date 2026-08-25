@@ -12,7 +12,6 @@ import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingS
 import { Activity, Flame } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 export default async function SportsRootHomePage() {
   let rawArticles: any[] = [];
@@ -53,13 +52,14 @@ export default async function SportsRootHomePage() {
     console.error('Supabase query fallback on page.tsx:', error);
   }
 
+  // Fast-loading web-optimized compressed imagery (w=800&q=75)
   const sampleImages = [
-    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=1200&auto=format&fit=crop',
-    'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
+    'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=75',
   ];
 
   const sanitizeImageUrl = (url?: string | null, index: number = 0) => {
@@ -182,7 +182,7 @@ export default async function SportsRootHomePage() {
       id: 'v1',
       title: 'Victor Ikpeba: Why Christian Chukwu Is Nigeria\'s Greatest Super Eagles Player',
       slug: 'victor-ikpeba-christian-chukwu-super-eagles',
-      thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
+      thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
       duration_seconds: 1800,
       youtubeId: '3Q06g9O0J-Y',
     },
@@ -190,7 +190,7 @@ export default async function SportsRootHomePage() {
       id: 'v2',
       title: 'The 2026/27 Football League Season Preview',
       slug: 'football-league-season-preview',
-      thumbnail_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop',
+      thumbnail_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
       duration_seconds: 1200,
       youtubeId: 'dQw4w9WgXcQ',
     },
@@ -198,7 +198,7 @@ export default async function SportsRootHomePage() {
       id: 'v3',
       title: 'Should Justin Madugu Continue As Super Falcons Head Coach?',
       slug: 'justin-madugu-super-falcons-coach',
-      thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
+      thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
       duration_seconds: 900,
       youtubeId: 'L_LUpnjgPso',
     },
@@ -206,7 +206,7 @@ export default async function SportsRootHomePage() {
       id: 'v4',
       title: '10 Super Eagles Stars Who Won Trophies In The 2025/26 Season',
       slug: 'super-eagles-stars-trophies',
-      thumbnail_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop',
+      thumbnail_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
       duration_seconds: 1500,
       youtubeId: 'kXYiU_JCYtU',
     },

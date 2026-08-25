@@ -86,30 +86,30 @@ export function Navigation() {
       {/* 1. Goal.com + LiveScore.com Style Top Score Ticker */}
       <LiveMatchTicker />
 
-      {/* 2. Centralized CompleteSports-Style Logo Bar */}
-      <div className="bg-white border-b border-slate-100 py-3.5 px-4 sm:px-6 lg:px-8">
+      {/* 2. Centralized Brand Header Bar with Rich Deep Navy (#2A2E7F) Background */}
+      <div className="bg-[#2A2E7F] text-white border-b border-slate-800 py-4 px-4 sm:px-6 lg:px-8 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Spacer Left for desktop symmetry */}
           <div className="hidden md:block w-32" />
 
           {/* Centralized Brand Logo & Wordmark */}
           <Link href="/" prefetch={true} className="flex flex-col items-center group mx-auto">
-            <div className="flex items-center space-x-2.5">
-              <div className="relative w-10 h-10 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex items-center justify-center shadow-sm shrink-0">
+            <div className="flex items-center space-x-3">
+              <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-white p-1 shadow-lg shrink-0 border border-slate-200">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
                   alt="Laku Media Official Logo"
-                  width={40}
-                  height={40}
-                  className="object-cover w-full h-full"
+                  width={44}
+                  height={44}
+                  className="object-cover w-full h-full rounded-xl"
                   priority
                 />
               </div>
-              <span className="font-black text-2xl sm:text-3xl tracking-tight text-[#2A2E7F]">
+              <span className="font-black text-2xl sm:text-3xl tracking-tight text-white">
                 LAKU<span className="text-[#D9541E]">MEDIA</span>
               </span>
             </div>
-            <span className="text-[10px] uppercase tracking-widest text-[#D9541E] font-extrabold mt-0.5">
+            <span className="text-[10px] uppercase tracking-widest text-amber-400 font-extrabold mt-1">
               {isMultimedia ? 'Entertainment & Production' : "Nigeria's No.1 Sports & Multimedia"}
             </span>
           </Link>
@@ -119,7 +119,7 @@ export function Navigation() {
             <Link
               href="/sign-in"
               prefetch={true}
-              className="px-4 py-2 rounded-lg text-xs font-extrabold bg-[#2A2E7F] hover:bg-[#1f2260] text-white transition-all flex items-center space-x-1.5 shadow-sm active:scale-95"
+              className="px-4 py-2 rounded-xl text-xs font-extrabold bg-[#D9541E] hover:bg-[#b84315] text-white transition-all flex items-center space-x-1.5 shadow-md active:scale-95 border border-orange-400"
             >
               <User className="w-3.5 h-3.5" />
               <span>Sign In</span>
@@ -130,7 +130,7 @@ export function Navigation() {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100 focus:outline-none"
+              className="p-2 rounded-lg text-white hover:text-[#D9541E] hover:bg-slate-800 focus:outline-none"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
