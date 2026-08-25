@@ -1,13 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioCollectionsHub } from '@/components/multimedia/studio-collections-hub';
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
-import { Film, Play, Radio, Sparkles, Camera, ArrowRight, Zap, Briefcase, DollarSign, Award } from 'lucide-react';
+import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
+import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
+import { Sparkles, Camera, Briefcase, DollarSign, Radio } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,22 +30,6 @@ export default async function MultimediaHomePage() {
   } catch (error) {
     console.error('Supabase query fallback on multimedia homepage:', error);
   }
-
-  // Hero Featured Spotlight item
-  const heroItem: any =
-    items.find((item: any) => item.is_featured) ||
-    items[0] || {
-      id: '50000000-0000-0000-0000-000000000001',
-      title: 'Giants of Africa: The Story of Nigerian Football',
-      slug: 'giants-of-africa-nigerian-football',
-      synopsis:
-        'An inspiring documentary tracing the evolution of Nigerian football from grassroot academies to the world stage.',
-      thumbnail_url:
-        'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
-      media_genres: { name: 'Documentaries', slug: 'documentaries' },
-      media_type: 'documentary' as const,
-      duration_seconds: 3240,
-    };
 
   // Live Now items
   const liveNowItems = items.filter((item: any) => item.is_live && item.live_status === 'live_now');
@@ -192,66 +177,8 @@ export default async function MultimediaHomePage() {
         </div>
       </div>
 
-      {/* 2. Ultra-Cinematic Studio Hero Spotlight Showcase */}
-      <section className="flex flex-col md:flex-row rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl group relative">
-        <div className="relative h-72 md:h-auto md:w-7/12 overflow-hidden bg-slate-900 shrink-0">
-          <Image
-            src={
-              heroItem.thumbnail_url ||
-              'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop'
-            }
-            alt={heroItem.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-            priority
-          />
-          <div className="absolute inset-0 bg-slate-950/20" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Link
-              href={`/multimedia/watch/${heroItem.slug}`}
-              className="w-20 h-20 rounded-full bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center justify-center pl-1 shadow-2xl hover:scale-110 transition-transform group/play"
-            >
-              <Play className="w-8 h-8 fill-white" />
-            </Link>
-          </div>
-        </div>
-
-        <div className="p-6 sm:p-10 md:w-5/12 bg-slate-950 text-white flex flex-col justify-between space-y-6">
-          <div className="space-y-4">
-            <div className="flex items-center space-x-3">
-              <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5" /> Featured Original
-              </span>
-              <span className="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-md bg-[#2A2E7F] text-[#10B981] border border-slate-700">
-                {heroItem.media_genres?.name || 'Documentary'}
-              </span>
-            </div>
-
-            <h2 className="text-2xl sm:text-3xl font-black text-white leading-tight">
-              {heroItem.title}
-            </h2>
-
-            <p className="text-xs sm:text-sm text-slate-300 line-clamp-3 leading-relaxed font-medium">
-              {heroItem.synopsis}
-            </p>
-          </div>
-
-          <div className="pt-4 border-t border-slate-800 flex items-center space-x-3">
-            <Link
-              href={`/multimedia/watch/${heroItem.slug}`}
-              className="px-6 py-3 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-lg transition-colors"
-            >
-              <Play className="w-4 h-4 fill-white" /> Stream Now
-            </Link>
-            <Link
-              href="/multimedia/services"
-              className="px-4 py-3 rounded-xl bg-[#2A2E7F] hover:bg-blue-900 text-white font-bold text-xs border border-slate-700 transition-colors flex items-center gap-1"
-            >
-              <span>Hire Studio</span> <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* 2. 4-Slide Interactive Cinematic Hero Slider Component */}
+      <MultimediaHeroSlider />
 
       {/* 3. Disney+ & HBO Max Style Studio Collections Hub */}
       <StudioCollectionsHub />
@@ -288,9 +215,9 @@ export default async function MultimediaHomePage() {
         </section>
       )}
 
-      {/* 6. On-Demand Catalog Genre Rails (5 Video Cards per Rail across all 7 genres!) */}
+      {/* 6. On-Demand Catalog Genre Rails (Films, Documentaries, Comedy) */}
       <div className="space-y-12">
-        {genres.map((genre: any) => {
+        {genres.slice(0, 3).map((genre: any) => {
           const genreItems = items.filter(
             (item: any) =>
               item.media_genres?.slug === genre.slug ||
@@ -310,7 +237,39 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 7. Book Us Now Agency Inquiry Section */}
+      {/* 7. High-Definition Parallax Cinema Banner Section */}
+      <ParallaxCinemaSection
+        title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
+        subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
+        badge="AFRICAN MEDIA POWERHOUSE"
+        imageUrl="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1600&auto=format&fit=crop&q=80"
+        ctaText="Book Studio Production"
+        ctaHref="/multimedia/services"
+      />
+
+      {/* 8. Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
+      <div className="space-y-12">
+        {genres.slice(3).map((genre: any) => {
+          const genreItems = items.filter(
+            (item: any) =>
+              item.media_genres?.slug === genre.slug ||
+              item.media_genres?.name?.toLowerCase() === genre.name.toLowerCase()
+          );
+
+          const fiveCards = generateFiveCards(genre.name, genre.slug, genreItems);
+
+          return (
+            <GenreRail
+              key={genre.id || genre.slug}
+              genreName={genre.name}
+              genreSlug={genre.slug}
+              items={fiveCards as any}
+            />
+          );
+        })}
+      </div>
+
+      {/* 9. Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />
 
     </div>

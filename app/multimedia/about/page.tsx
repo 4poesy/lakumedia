@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Award, UserCheck, Shield, Film, Sparkles, CheckCircle2, ArrowRight, Target, Eye, Heart, Users, Star, Camera } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
+import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 
 export const dynamic = 'force-dynamic';
 
@@ -94,8 +95,6 @@ export default function MultimediaAboutPage() {
 
       {/* 2. Vision & Mission Section */}
       <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* Vision Card */}
         <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-4 relative overflow-hidden group hover:border-emerald-400 transition-all">
           <div className="w-14 h-14 rounded-2xl bg-[#2A2E7F] flex items-center justify-center shadow-lg">
             <Eye className="w-7 h-7 text-[#10B981]" />
@@ -107,7 +106,6 @@ export default function MultimediaAboutPage() {
           </p>
         </div>
 
-        {/* Mission Card */}
         <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl border-2 border-[#D9541E] shadow-2xl space-y-4 relative overflow-hidden group hover:border-orange-400 transition-all">
           <div className="w-14 h-14 rounded-2xl bg-[#D9541E] flex items-center justify-center shadow-lg">
             <Target className="w-7 h-7 text-white" />
@@ -118,10 +116,21 @@ export default function MultimediaAboutPage() {
             To deliver world-class 4K/8K video production, multi-camera live stream coverage, theatrical movies, and strategic digital marketing that captivate millions of viewers worldwide.
           </p>
         </div>
-
       </section>
 
-      {/* 3. Core Values Section */}
+      {/* 3. Parallax Cinema Image Section */}
+      <div className="max-w-7xl mx-auto">
+        <ParallaxCinemaSection
+          title="HOLLYWOOD-GRADE CINEMATOGRAPHY IN WEST AFRICA"
+          subtitle="Operating multi-cam satellite OB broadcast vans, 8K RED cinema rigs, and Dolby Atmos audio mixing suites under the leadership of CEO Adebayo Samuel Olaku."
+          badge="STUDIO INFRASTRUCTURE"
+          imageUrl="https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=80"
+          ctaText="Explore Studio Portfolio"
+          ctaHref="/multimedia/portfolio"
+        />
+      </div>
+
+      {/* 4. Core Values Section */}
       <section className="max-w-7xl mx-auto space-y-10">
         <div className="text-center space-y-2 max-w-2xl mx-auto">
           <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981]">
@@ -148,7 +157,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 4. Executive CEO Spotlight & Meet Our Team Section */}
+      {/* 5. Executive Team Section */}
       <section className="max-w-7xl mx-auto space-y-12 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
           <div>
@@ -167,7 +176,6 @@ export default function MultimediaAboutPage() {
           </Link>
         </div>
 
-        {/* Team Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {executiveTeam.map((mem) => (
             <div
@@ -210,7 +218,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 5. Book Us Section */}
+      {/* 6. Book Us Section */}
       <div className="max-w-7xl mx-auto">
         <BookUsNowSection />
       </div>

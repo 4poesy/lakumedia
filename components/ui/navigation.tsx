@@ -25,14 +25,14 @@ export function Navigation() {
     { href: '/multimedia', label: 'LAKU MEDIA', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
 
-  // Multimedia Creative Studio Dedicated Navigation Bar Links
+  // Exact requested order for Laku Media Studio: Laku Media Hub, About Us, Services, Portfolio, Pricing, Laku Media Sport
   const multimediaNavLinks = [
     { href: '/multimedia', label: 'Laku Media Hub', icon: Film, active: pathname === '/multimedia' },
+    { href: '/multimedia/about', label: 'About Us', icon: Info, active: pathname === '/multimedia/about' },
     { href: '/multimedia/services', label: 'Services', icon: Camera, active: pathname === '/multimedia/services' },
     { href: '/multimedia/portfolio', label: 'Portfolio', icon: Briefcase, active: pathname === '/multimedia/portfolio' },
     { href: '/multimedia/pricing', label: 'Pricing', icon: DollarSign, active: pathname === '/multimedia/pricing' },
-    { href: '/multimedia/about', label: 'About Us', icon: Info, active: pathname === '/multimedia/about' },
-    { href: '/', label: '⚽ LAKU MEDIA SPORTS', icon: Trophy, active: false, badge: 'SPORTS HOME' },
+    { href: '/', label: '⚽ LAKU MEDIA SPORT', icon: Trophy, active: false, badge: 'SPORTS HOME' },
   ];
 
   const currentNavLinks = isMultimedia ? multimediaNavLinks : sportsNavLinks;
@@ -53,10 +53,8 @@ export function Navigation() {
     { label: 'TURKISH SÜPER LIG', href: '/world-football', icon: '/leagues/turkishsuperlig.png' },
   ];
 
-  // Duplicate for seamless 100% infinite marquee loop
   const infiniteLeagueFilters = [...leagueQuickFilters, ...leagueQuickFilters];
 
-  // Continent & Sub-Divisions Hierarchy
   const globalDivisions = [
     {
       continent: 'EUROPE (UEFA)',
@@ -96,16 +94,15 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
       
-      {/* 1. Goal.com + LiveScore.com Style Top Score Ticker */}
+      {/* Top Ticker Bar */}
       <LiveMatchTicker />
 
-      {/* 2. Centralized Brand Header Bar with Rich Deep Navy (#2A2E7F) Background */}
+      {/* Centralized Brand Header Bar */}
       <div className="bg-[#2A2E7F] text-white border-b border-slate-800 py-4 px-4 sm:px-6 lg:px-8 shadow-md">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          {/* Spacer Left for desktop symmetry */}
           <div className="hidden md:block w-32" />
 
-          {/* Centralized Brand Logo & Wordmark */}
+          {/* Centralized Brand Logo */}
           <Link href="/" prefetch={true} className="flex flex-col items-center group mx-auto">
             <div className="flex items-center space-x-3">
               <div className="relative w-11 h-11 rounded-2xl overflow-hidden bg-white p-1 shadow-lg shrink-0 border border-slate-200">
@@ -127,7 +124,7 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Right Auth Action / Switch Vertical Button */}
+          {/* Auth Action */}
           <div className="hidden md:flex items-center justify-end w-32 space-x-2">
             <Link
               href="/sign-in"
@@ -139,7 +136,7 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -151,7 +148,7 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* 3. Context-Aware Horizontal Main Navigation Links Bar Below Logo */}
+      {/* Horizontal Main Navigation Links Bar Below Logo */}
       <div className="hidden md:block bg-white border-b border-slate-200 py-2">
         <div className="max-w-7xl mx-auto flex items-center justify-center space-x-1">
           {currentNavLinks.map((link) => {
@@ -196,7 +193,7 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* Global Leagues & Sub-Divisions Mega Menu Overlay */}
+      {/* Global Leagues Overlay */}
       {leaguesMenuOpen && !isMultimedia && (
         <div className="bg-white border-t border-b border-slate-200 shadow-2xl py-6 px-4 sm:px-6 lg:px-8">
           <div className="max-w-7xl mx-auto space-y-6">
@@ -252,12 +249,10 @@ export function Navigation() {
         </div>
       )}
 
-      {/* 4. Completesports-Style AUTOMATIC CONTINUOUS HORIZONTAL MARQUEE Sub-Bar with All 13 Official League Logos (Sports Mode Only) */}
+      {/* Marquee Ticker (Sports Mode Only) */}
       {!isMultimedia && (
         <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            
-            {/* Fixed Live Scores Indicator Left */}
             <div className="shrink-0 pr-3 z-10 bg-slate-50">
               <Link
                 href="/live-scores"
@@ -269,7 +264,6 @@ export function Navigation() {
               </Link>
             </div>
 
-            {/* Continuous Infinite Horizontal Marquee Stream for all 13 League Pills */}
             <div className="overflow-hidden flex-1 relative">
               <div className="animate-league-ticker space-x-2 flex items-center py-0.5">
                 {infiniteLeagueFilters.map((filter, idx) => (
