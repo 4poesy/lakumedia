@@ -1,4 +1,3 @@
-'use me';
 'use client';
 
 import React, { useEffect, useState } from 'react';
@@ -23,10 +22,11 @@ interface RealtimeScoreCardProps {
 
 export function RealtimeScoreCard({ initialFixture }: RealtimeScoreCardProps) {
   const [fixture, setFixture] = useState(initialFixture);
-  const supabase = createClient();
 
   useEffect(() => {
-    // Subscribe to Postgres changes on fixtures table
+    const supabase = createClient();
+
+    // 1. Subscribe to Postgres changes on fixtures table via Supabase Realtime
     const channel = supabase
       .channel(`fixture_realtime_${fixture.id}`)
       .on(
@@ -51,10 +51,32 @@ export function RealtimeScoreCard({ initialFixture }: RealtimeScoreCardProps) {
       )
       .subscribe();
 
+    // 2. Mobile 30-second fallback polling interval in case WebSockets drop on 3G/4G network
+    const fallbackPollTimer = setInterval(async () => {
+      try {
+        const { data: updated } = await (supabase.from('fixtures' as any) as any)
+          .select('home_score, away_score, status')
+          .eq('id', fixture.id)
+          .single();
+
+        if (updated) {
+          setFixture((prev) => ({
+            ...prev,
+            homeScore: updated.home_score !== undefined ? updated.home_score : prev.homeScore,
+            awayScore: updated.away_score !== undefined ? updated.away_score : prev.awayScore,
+            status: (updated.status as FixtureStatus) || prev.status,
+          }));
+        }
+      } catch (err) {
+        // Silent fallback failure
+      }
+    }, 30000);
+
     return () => {
       supabase.removeChannel(channel);
+      clearInterval(fallbackPollTimer);
     };
-  }, [fixture.id, supabase]);
+  }, [fixture.id]);
 
   return (
     <ScoreCard
