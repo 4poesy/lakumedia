@@ -30,7 +30,7 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
       <div className="flex items-center justify-between border-b border-slate-800 pb-2">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-6 rounded-full bg-[#10B981] shadow-sm" />
-          <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase">
+          <h2 className="text-lg sm:text-2xl font-black text-white tracking-tight uppercase">
             {genreName}
           </h2>
         </div>
@@ -42,8 +42,8 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
         </Link>
       </div>
 
-      {/* Grid displaying exactly 5 cards per rail on desktop */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      {/* Mobile-first 2-column grid on mobile (<640px) scaling to 5-column on desktop */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
         {items.slice(0, 5).map((item) => (
           <VideoCard
             key={item.id}

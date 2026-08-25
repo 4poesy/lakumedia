@@ -45,7 +45,7 @@ interface Smooth3DSlideshowProps {
 const DEFAULT_SLIDES: Slide[] = [
     {
         image: {
-            src: "/brand/laku-media/laku-media-logo-dark.jpeg",
+            src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75",
         },
         title: "Adebayo Samuel Olaku\nChief Executive Officer & Founder",
     },
@@ -69,10 +69,10 @@ const DEFAULT_SLIDES: Slide[] = [
     },
 ]
 
-const PERSPECTIVE = 1600
-const SCALE_STEP = 0.16
+const PERSPECTIVE = 1400
+const SCALE_STEP = 0.14
 const MAX_VISIBLE = 2
-const DEPTH = 240
+const DEPTH = 200
 
 function cssTransition(t: any): { dur: number; ease: string } {
     const dur = t && typeof t.duration === "number" ? t.duration : 0.6
@@ -95,17 +95,17 @@ function cssTransition(t: any): { dur: number; ease: string } {
 export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
     const {
         slides = DEFAULT_SLIDES,
-        cardWidth = 420,
-        cardHeight = 440,
+        cardWidth: initialWidth = 420,
+        cardHeight: initialHeight = 440,
         radius = 8,
         tilt = 12,
         sideTilt = 8,
-        gap = 8,
+        gap = 6,
         opacity = 60,
         transition = {
             type: "tween",
             duration: 0.6,
-            delay: 2.5,
+            delay: 2.8,
             ease: [0.22, 1, 0.36, 1],
         },
         autoplay = true,
@@ -113,7 +113,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
         showTitle = true,
         titleFont = {
             fontFamily: "Inter, sans-serif",
-            fontSize: "20px",
+            fontSize: "18px",
             fontWeight: "800",
             letterSpacing: "-0.02em",
             lineHeight: "1.2em",
@@ -121,22 +121,36 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
         titleColor = "#ffffff",
         titlePosition = {
             position: "bottomLeft",
-            paddingLeft: 22,
-            paddingRight: 22,
-            paddingTop: 24,
-            paddingBottom: 24,
+            paddingLeft: 20,
+            paddingRight: 20,
+            paddingTop: 20,
+            paddingBottom: 20,
         },
         style,
     } = props
 
+    const [screenW, setScreenW] = useState<number>(375)
+
+    useEffect(() => {
+        const updateWidth = () => {
+            setScreenW(window.innerWidth)
+        }
+        updateWidth()
+        window.addEventListener("resize", updateWidth)
+        return () => window.removeEventListener("resize", updateWidth)
+    }, [])
+
+    // Calculate mobile responsive card dimensions
+    const isMobile = screenW < 640
+    const cardWidth = isMobile ? Math.min(initialWidth, screenW - 48) : initialWidth
+    const cardHeight = isMobile ? 380 : initialHeight
+
     const tp = titlePosition || {}
     const corner: TitleCorner = tp.position || "bottomLeft"
-    const isTop = corner === "topLeft" || corner === "topRight"
     const isRight = corner === "topRight" || corner === "bottomRight"
-    const padLeft = tp.paddingLeft ?? 22
-    const padRight = tp.paddingRight ?? 22
-    const padTop = tp.paddingTop ?? 24
-    const padBottom = tp.paddingBottom ?? 24
+    const padLeft = tp.paddingLeft ?? 18
+    const padRight = tp.paddingRight ?? 18
+    const padBottom = tp.paddingBottom ?? 18
 
     const list = slides && slides.length ? slides : DEFAULT_SLIDES
     const n = list.length
@@ -218,8 +232,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
         ...(style || {}),
         position: "relative",
         width: "100%",
-        height: cardHeight + 40,
-        minWidth: 320,
+        height: cardHeight + 30,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -253,8 +266,8 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                     const ax = Math.abs(rel)
                     const visible = ax <= MAX_VISIBLE
                     const isActive = rel === 0
-                    const sc = Math.max(0.4, 1 - ax * SCALE_STEP)
-                    const tx = rel * (gap * 30)
+                    const sc = Math.max(0.45, 1 - ax * SCALE_STEP)
+                    const tx = rel * (gap * (isMobile ? 18 : 28))
                     const tz = -ax * DEPTH
                     const ry = -rel * tilt
                     const rz = rel * sideTilt
@@ -277,7 +290,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                         pointerEvents: visible ? "auto" : "none",
                         backgroundColor: "#090A0F",
                         border: isActive ? "2px solid #D9541E" : "1px solid #1e293b",
-                        boxShadow: isActive ? "0 20px 40px rgba(217, 84, 30, 0.3)" : "none",
+                        boxShadow: isActive ? "0 20px 40px rgba(217, 84, 30, 0.35)" : "none",
                     }
 
                     return (
@@ -329,7 +342,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                                         <span
                                             style={{
                                                 color: titleColor,
-                                                fontSize: 20,
+                                                fontSize: isMobile ? 16 : 20,
                                                 fontWeight: 800,
                                                 lineHeight: "1.2em",
                                                 letterSpacing: "-0.02em",

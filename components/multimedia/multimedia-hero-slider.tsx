@@ -62,7 +62,7 @@ export function MultimediaHeroSlider() {
   const active = slides[currentSlide];
 
   return (
-    <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[480px] lg:min-h-[520px] flex items-center group">
+    <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] flex items-center group">
       
       {/* Background Image Carousel */}
       {slides.map((s, idx) => (
@@ -86,34 +86,34 @@ export function MultimediaHeroSlider() {
       ))}
 
       {/* Foreground Hero Content Card */}
-      <div className="relative z-20 max-w-3xl p-8 sm:p-12 space-y-6">
-        <div className="flex items-center space-x-3">
-          <span className={`px-3 py-1 text-[10px] font-black uppercase tracking-widest rounded-md ${active.badgeColor} shadow-md`}>
+      <div className="relative z-20 max-w-3xl p-6 sm:p-12 space-y-4 sm:space-y-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className={`px-2.5 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-md ${active.badgeColor} shadow-md`}>
             {active.badge}
           </span>
-          <span className="px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest rounded-md bg-[#2A2E7F] text-[#10B981] border border-slate-700">
+          <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest rounded-md bg-[#2A2E7F] text-[#10B981] border border-slate-700">
             {active.category}
           </span>
         </div>
 
-        <h1 className="text-3xl sm:text-5xl font-black text-white leading-tight tracking-tight uppercase drop-shadow-2xl">
+        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase drop-shadow-2xl">
           {active.title}
         </h1>
 
-        <p className="text-xs sm:text-base text-slate-300 line-clamp-3 leading-relaxed font-medium max-w-2xl drop-shadow-md">
+        <p className="text-xs sm:text-base text-slate-300 line-clamp-2 sm:line-clamp-3 leading-relaxed font-medium max-w-2xl drop-shadow-md">
           {active.synopsis}
         </p>
 
-        <div className="pt-4 flex items-center space-x-4">
+        <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-3">
           <Link
             href={`/multimedia/watch/${active.slug}`}
-            className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-2xl transition-transform hover:scale-105 active:scale-95 border border-orange-400"
+            className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-2xl transition-transform hover:scale-105 active:scale-95 border border-orange-400"
           >
-            <Play className="w-5 h-5 fill-white" /> <span>Watch Trailer & Reel</span>
+            <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-white" /> <span>Watch Trailer & Reel</span>
           </Link>
           <Link
             href="/multimedia/services"
-            className="px-6 py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 backdrop-blur-md transition-colors flex items-center gap-1.5"
+            className="px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 backdrop-blur-md transition-colors flex items-center gap-1.5"
           >
             <span>Book Studio</span> <ArrowRight className="w-4 h-4 text-emerald-400" />
           </Link>
@@ -121,7 +121,7 @@ export function MultimediaHeroSlider() {
       </div>
 
       {/* Sleek Minimalist Slider Indicator Dots (NO PREV/NEXT ARROWS) */}
-      <div className="absolute bottom-6 right-8 z-30 flex items-center space-x-2">
+      <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 z-30 flex items-center space-x-2">
         {slides.map((_, idx) => (
           <button
             key={idx}
