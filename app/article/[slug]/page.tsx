@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
 import { ArticleComments } from '@/components/sports/article-comments';
+import { StructuredData } from '@/components/seo/structured-data';
 import { ArrowLeft, Calendar, User, Share2, Flame } from 'lucide-react';
 
 export const revalidate = 60;
@@ -11,6 +13,33 @@ export const revalidate = 60;
 interface ArticleSlugPageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({ params }: ArticleSlugPageProps): Promise<Metadata> {
+  const supabase = await createClient();
+  const { data: rawData } = await (supabase.from('articles' as any) as any)
+    .select('title, excerpt, cover_image_url')
+    .eq('slug', params.slug)
+    .single();
+  const data = rawData as any;
+
+  const title = data?.title || 'Sports Headline | Laku Media';
+  const description = data?.excerpt || 'Read the latest sports news and match coverage on Laku Media.';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: data?.cover_image_url ? [data.cover_image_url] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
@@ -44,7 +73,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
     published_at: new Date().toISOString(),
   };
 
-  // Query related articles (same category, excluding current)
+  // Query related articles
   const { data: relatedData } = await supabase
     .from('articles')
     .select('*, sports_categories(name)')
@@ -62,15 +91,6 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       sports_categories: { name: 'EPL' },
       published_at: new Date().toISOString(),
     },
-    {
-      id: '40000000-0000-0000-0000-000000000003',
-      title: 'Super Eagles Star Signs Multi-Year Extension Deal',
-      slug: 'super-eagles-star-signs-multi-year-extension',
-      excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension.',
-      cover_image_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
-      sports_categories: { name: 'Transfers' },
-      published_at: new Date().toISOString(),
-    },
   ];
 
   const formattedDate = article.published_at
@@ -81,8 +101,32 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       })
     : 'Recently Published';
 
+  // Schema.org NewsArticle JSON-LD
+  const newsArticleSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'NewsArticle',
+    headline: article.title,
+    description: article.excerpt,
+    image: [article.cover_image_url],
+    datePublished: article.published_at,
+    author: {
+      '@type': 'Person',
+      name: article.profiles?.display_name || 'Lakumedia Editorial Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Laku Media',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://lakumedia.com/brand/laku-media/laku-media-logo-light.jpeg',
+      },
+    },
+  };
+
   return (
     <article className="max-w-4xl mx-auto space-y-8 theme-sports">
+      <StructuredData data={newsArticleSchema} />
+
       {/* Back Link */}
       <div>
         <Link

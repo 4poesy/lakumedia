@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { MediaComments } from '@/components/multimedia/media-comments';
+import { StructuredData } from '@/components/seo/structured-data';
 import { ArrowLeft, Play, Clock, ShieldCheck, Film, Radio, Calendar, Tv, Share2 } from 'lucide-react';
 
 export const revalidate = 60;
@@ -10,6 +12,33 @@ export const revalidate = 60;
 interface WatchPageProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({ params }: WatchPageProps): Promise<Metadata> {
+  const supabase = await createClient();
+  const { data: rawData } = await (supabase.from('media_items' as any) as any)
+    .select('title, synopsis, thumbnail_url')
+    .eq('slug', params.slug)
+    .single();
+  const data = rawData as any;
+
+  const title = data?.title || 'Watch Stream | Laku Media';
+  const description = data?.synopsis || 'Stream high-definition films, documentaries, and shows on Laku Media.';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: data?.thumbnail_url ? [data.thumbnail_url] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
@@ -62,24 +91,31 @@ export default async function WatchPage({ params }: WatchPageProps) {
       episode_number: 1,
       duration_seconds: 2400,
     },
-    {
-      id: '50000000-0000-0000-0000-000000000011',
-      title: 'The Golden Boot: Season 1 Episode 2 - Contract Signing',
-      slug: 'golden-boot-s1e2',
-      synopsis: 'Episode 2: Kelvin signs his first youth contract but faces intense rivalries inside the squad.',
-      thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
-      season_number: 1,
-      episode_number: 2,
-      duration_seconds: 2520,
-    },
   ];
 
   const formattedDuration = item.duration_seconds
     ? `${Math.floor(item.duration_seconds / 60)} minutes`
     : 'HD Stream';
 
+  // Schema.org VideoObject JSON-LD
+  const videoObjectSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: item.title,
+    description: item.synopsis,
+    thumbnailUrl: [item.thumbnail_url],
+    uploadDate: item.published_at || new Date().toISOString(),
+    contentUrl: item.video_url,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Laku Media',
+    },
+  };
+
   return (
     <div className="max-w-5xl mx-auto space-y-8 theme-multimedia">
+      <StructuredData data={videoObjectSchema} />
+
       {/* Back Link */}
       <div>
         <Link
@@ -141,7 +177,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+            <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
               {item.title}
             </h1>
 
