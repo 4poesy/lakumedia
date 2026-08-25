@@ -8,14 +8,14 @@ import { Play, Sparkles, ArrowRight } from 'lucide-react';
 export function MultimediaHeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  // Exact User Uploaded Studio Banners Connected to Hero Slider
+  // 4 Custom Banners Connected to Hero Slider (Including User Uploaded Cinema, Audio, Broadcast Sets + Stadium Pitch)
   const slides = [
     {
       id: 'slide-1',
       title: 'GIANTS OF AFRICA: THE STORY OF NIGERIAN FOOTBALL',
       category: 'DOCUMENTARY FILM',
       synopsis: 'An inspiring 8K documentary tracing the evolution of Nigerian football from grassroots street academies in Aba to world cup stardom.',
-      imageUrl: '/assest/user_hero_studio_1.jpg',
+      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2400&auto=format&fit=crop&q=95',
       badge: 'FEATURED ORIGINAL',
       slug: 'giants-of-africa-nigerian-football',
       badgeColor: 'bg-[#D9541E] text-white',
@@ -25,20 +25,30 @@ export function MultimediaHeroSlider() {
       title: 'LAGOS CITY THRILLER: 8K CINEMA BLOCKBUSTER',
       category: 'THEATRICAL FEATURE',
       synopsis: 'A high-octane Nollywood action thriller shot on location in Victoria Island with RED V-Raptor 8K cinema camera rigs.',
-      imageUrl: '/assest/user_hero_studio_2.jpg',
+      imageUrl: '/assest/hero_slide_cinema.jpg',
       badge: 'IN THEATRES 2026',
       slug: 'films-latest-release',
       badgeColor: 'bg-[#10B981] text-slate-950',
     },
     {
       id: 'slide-3',
-      title: 'AFROBEATS STADIUM CONCERT 24/7 LIVE STREAM',
-      category: 'LIVE BROADCAST',
-      synopsis: 'Multi-camera satellite OB van live concert streaming to 2.5 million fans across African television networks and digital web.',
-      imageUrl: '/assest/user_hero_studio_3.jpg',
-      badge: 'LIVE CONCERT STREAM',
+      title: 'AFROBEATS MASTERING & SOUNDTRACK AUDIO SUITE',
+      category: 'MUSIC & SOUNDTRACK',
+      synopsis: 'Master sound engineering, Dolby Atmos music production, and scoring for West Africa\'s top recording artists and film soundtracks.',
+      imageUrl: '/assest/hero_slide_recording.jpg',
+      badge: 'DOLBY ATMOS SUITE',
       slug: 'music-shows-latest-release',
       badgeColor: 'bg-purple-600 text-white',
+    },
+    {
+      id: 'slide-4',
+      title: '24/7 SATELLITE TV BROADCAST & LIVE NEWS STAGING',
+      category: 'SATELLITE BROADCAST',
+      synopsis: 'State-of-the-art virtual LED broadcast newsroom studio with real-time sports graphics and multi-camera OB van deployment.',
+      imageUrl: '/assest/hero_slide_broadcast.jpg',
+      badge: 'LIVE SATELLITE MCR',
+      slug: 'talk-shows-latest-release',
+      badgeColor: 'bg-blue-600 text-white',
     },
   ];
 
@@ -55,7 +65,7 @@ export function MultimediaHeroSlider() {
   return (
     <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[440px] sm:min-h-[480px] lg:min-h-[540px] flex items-center group">
       
-      {/* Exact User Uploaded Studio Banners */}
+      {/* 4 Background Banners Carousel */}
       {slides.map((s, idx) => (
         <div
           key={s.id}
@@ -114,7 +124,7 @@ export function MultimediaHeroSlider() {
         </div>
       </div>
 
-      {/* Sleek Minimalist Slider Indicator Dots (NO PREV/NEXT ARROWS) */}
+      {/* Sleek Minimalist 4-Slider Indicator Dots */}
       <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 z-30 flex items-center space-x-2">
         {slides.map((_, idx) => (
           <button
