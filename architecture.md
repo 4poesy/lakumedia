@@ -18,7 +18,7 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
       │   Sports Vertical │                         │Multimedia Vertical│
       │  (Root-Level /*)  │                         │  (/multimedia/*)  │
       │ Completesports    │                         │ Laku Media Brand  │
-      │ Emerald Theme     │                         │ Navy/Orange Theme │
+      │ Crisp White Theme │                         │ Dark Obsidian     │
       └─────────┬─────────┘                         └─────────┬─────────┘
                 │                                             │
                 └──────────────────────┬──────────────────────┘
@@ -35,8 +35,8 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 
 - **Framework**: Next.js 14 (App Router, Server Actions, Dynamic Server Rendering)
 - **Database**: Supabase PostgreSQL + Row-Level Security (RLS) + Realtime Postgres Changes
-- **Styling**: Tailwind CSS + Custom CSS Theme Tokens (`.theme-sports` Emerald Green `#10b981`, `.theme-multimedia` Navy `#2A2E7F` & Burnt Orange `#D9541E`)
-- **UI Components**: Glassmorphic custom component library
+- **Styling**: Tailwind CSS + Theme Provider Wrapper (Sports: Crisp White `#F8FAFC`, Studio: Dark Obsidian `#090A0F`)
+- **UI Components**: Glassmorphic custom component library + NeonBorder + Smooth3DSlideshow
 - **Branding**: Laku Media (CEO: Adebayo Samuel Olaku)
 - **Deployment**: Vercel (Frontend Next.js) + Railway / Supabase Cloud (Database)
 
@@ -45,7 +45,7 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 ## 3. Route Map (Sports-First Structure)
 
 ### 3.1 Public Sports Vertical (Root-Level `/*`)
-- `/` — Main Sports Homepage (Hero article, Live Match Ticker, Editorial Headlines, Category Pills)
+- `/` — Main Sports Homepage (Hero article, Live Match Ticker, Editorial Headlines, Category Pills, Around the Web Aggregator Rail)
 - `/[category]` — Category browsing & sub-category filters (NPFL, EPL, World Football, Transfers)
 - `/article/[slug]` — Reader article view with related headlines and interactive `comments` thread
 - `/live-scores` — Full match center with Supabase Realtime score ticker
@@ -53,24 +53,23 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 - `/teams/[slug]` — Dedicated team hubs (Enyimba FC, Kano Pillars, Arsenal FC, Chelsea FC)
 
 ### 3.2 Public Multimedia Vertical (`/multimedia/*`)
-- `/multimedia` — Multimedia Homepage (Hero Spotlight, Live Stream banner, 7 Genre Rails)
+- `/multimedia` — Multimedia Homepage (Hero Spotlight, Live Stream banner, 7 Genre Rails, FAQ & Newsletter Modal)
 - `/multimedia/[genre]` — Genre listings (Films, Documentaries, Comedy, Talk Shows, Drama Series, Music Shows, Kids Shows)
 - `/multimedia/watch/[slug]` — Video player embed, upcoming live countdown, series episode rail, and viewer reaction comments
 - `/multimedia/live` — Grouped live broadcasts (Live Now, Upcoming, Ended) with Realtime status updates
 - `/multimedia/production` — Laku Media production portfolio with filter tabs across all 7 service types
 - `/multimedia/production/[slug]` — Case study detail view with photo gallery and "Book This Service" CTA
-- `/multimedia/about` — Company page featuring Laku Media branding and CEO credit (Adebayo Samuel Olaku, CEO)
+- `/multimedia/about` — Company page featuring Laku Media branding, Executive 3D Coverflow Gallery, and CEO credit (Adebayo Samuel Olaku, CEO)
 
 ### 3.3 Admin & CMS (`/admin/*`)
 - `/admin` — Admin CMS Dashboard
 - `/admin/live-scores` — Match day live scores entry console
 - `/admin/articles` — Article inventory manager
-- `/admin/articles/new` — Create article form
-- `/admin/articles/[id]/edit` — Edit article form
+- `/admin/feeds` — RSS News & YouTube Feed Sources Manager
 
 ---
 
-## 4. Database Schema (11 Tables)
+## 4. Database Schema (13 Tables)
 
 1. `sports_categories` (id, name, slug, parent_id)
 2. `media_genres` (id, name, slug)
@@ -83,3 +82,5 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 9. `fixtures` (id, home_team_id, away_team_id, league_id, kickoff_at, home_score, away_score, status, external_ref_id)
 10. `comments` (id, user_id, commentable_type, commentable_id, body)
 11. `watch_history` (id, user_id, media_item_id, progress_seconds)
+12. `rss_feed_sources` (id, name, feed_url, feed_type ['news' | 'youtube_channel'], is_active, last_fetched_at)
+13. `aggregated_news` (id, content_type ['article' | 'video'], title, snippet, source_name, source_url, thumbnail_url, video_embed_id, category_id, published_at, fetched_at, feed_source_id)

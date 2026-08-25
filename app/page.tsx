@@ -9,6 +9,8 @@ import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
 import { FanPredictionsWidget } from '@/components/sports/fan-predictions-widget';
 import { FloatingPodcastPlayer } from '@/components/ui/floating-podcast-player';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
+import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
+import { getAggregatedNews } from '@/lib/rss-service';
 import { Activity, Flame } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
@@ -17,6 +19,7 @@ export default async function SportsRootHomePage() {
   let rawArticles: any[] = [];
   let fixturesData: any[] = [];
   let mediaData: any[] = [];
+  let aggregatedNewsItems: any[] = [];
 
   try {
     const supabase = await createClient();
@@ -48,8 +51,12 @@ export default async function SportsRootHomePage() {
       .limit(4);
 
     if (media) mediaData = media;
+
+    // Fetch RSS Aggregated News
+    aggregatedNewsItems = await getAggregatedNews();
   } catch (error) {
     console.error('Supabase query fallback on page.tsx:', error);
+    aggregatedNewsItems = await getAggregatedNews();
   }
 
   // Fast-loading web-optimized compressed imagery (w=800&q=75)
@@ -328,6 +335,9 @@ export default async function SportsRootHomePage() {
         </div>
 
       </div>
+
+      {/* Around the Web RSS & Video Aggregation Rail */}
+      <AroundTheWebRail items={aggregatedNewsItems} />
 
       {/* Floating 24/7 Radio & Podcast Player */}
       <FloatingPodcastPlayer />
