@@ -6,6 +6,8 @@ import { CategoryDualBlock } from '@/components/sports/category-dual-block';
 import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotlight';
 import { FcBayernNewsHub } from '@/components/sports/fc-bayern-news-hub';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
+import { FanPredictionsWidget } from '@/components/sports/fan-predictions-widget';
+import { FloatingPodcastPlayer } from '@/components/ui/floating-podcast-player';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { Activity, Flame } from 'lucide-react';
 
@@ -216,7 +218,7 @@ export default async function SportsRootHomePage() {
   const featureArticles = articles.filter((a) => a.categoryName === 'Features' || a.categoryName === 'Transfers');
 
   return (
-    <div className="space-y-8 theme-sports max-w-7xl mx-auto">
+    <div className="space-y-8 theme-sports max-w-7xl mx-auto relative pb-20">
       
       {/* 1. 8K 3-Slide Interactive Hero Slider Component */}
       <section className="space-y-2">
@@ -277,6 +279,9 @@ export default async function SportsRootHomePage() {
         {/* Right Sidebar Column (4 cols / 32% desktop width) */}
         <div className="lg:col-span-4 space-y-6">
           
+          {/* Fan Match Predictions & Odds Polling Widget */}
+          <FanPredictionsWidget />
+
           {/* Goal.com Style Numbered Trending Rail (01, 02, 03, 04) */}
           <TrendingStoriesWidget />
 
@@ -323,6 +328,9 @@ export default async function SportsRootHomePage() {
         </div>
 
       </div>
+
+      {/* Floating 24/7 Radio & Podcast Player */}
+      <FloatingPodcastPlayer />
 
     </div>
   );
