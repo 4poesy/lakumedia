@@ -8,13 +8,15 @@ import { Play, Sparkles, ArrowRight } from 'lucide-react';
 export function MultimediaHeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  // 3 Custom 8K Ultra High-Definition Cinema Background Banners
   const slides = [
     {
       id: 'slide-1',
       title: 'GIANTS OF AFRICA: THE STORY OF NIGERIAN FOOTBALL',
       category: 'DOCUMENTARY FILM',
-      synopsis: 'An inspiring 4K documentary tracing the evolution of Nigerian football from grassroots street academies in Aba to world cup stardom.',
-      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1600&auto=format&fit=crop&q=80',
+      synopsis: 'An inspiring 8K documentary tracing the evolution of Nigerian football from grassroots street academies in Aba to world cup stardom.',
+      imageUrl: '/assest/studio_background_2.jpeg',
+      fallbackUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2400&auto=format&fit=crop&q=95',
       badge: 'FEATURED ORIGINAL',
       slug: 'giants-of-africa-nigerian-football',
       badgeColor: 'bg-[#D9541E] text-white',
@@ -24,7 +26,8 @@ export function MultimediaHeroSlider() {
       title: 'LAGOS CITY THRILLER: 8K CINEMA BLOCKBUSTER',
       category: 'THEATRICAL FEATURE',
       synopsis: 'A high-octane Nollywood action thriller shot on location in Victoria Island with RED V-Raptor 8K cinema camera rigs.',
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=80',
+      imageUrl: '/assest/studio_background_4.jpg',
+      fallbackUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2400&auto=format&fit=crop&q=95',
       badge: 'IN THEATRES 2026',
       slug: 'films-latest-release',
       badgeColor: 'bg-[#10B981] text-slate-950',
@@ -34,20 +37,11 @@ export function MultimediaHeroSlider() {
       title: 'AFROBEATS STADIUM CONCERT 24/7 LIVE STREAM',
       category: 'LIVE BROADCAST',
       synopsis: 'Multi-camera satellite OB van live concert streaming to 2.5 million fans across African television networks and digital web.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1600&auto=format&fit=crop&q=80',
+      imageUrl: '/assest/studio_background.jpg',
+      fallbackUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=2400&auto=format&fit=crop&q=95',
       badge: 'LIVE CONCERT STREAM',
       slug: 'music-shows-latest-release',
       badgeColor: 'bg-purple-600 text-white',
-    },
-    {
-      id: 'slide-4',
-      title: 'COMMERCIAL ADVERTISING & BRAND MARKETING',
-      category: 'AGENCY PRODUCTIONS',
-      synopsis: 'High-converting television commercials, digital campaigns, and executive keynotes for Fortune 500 brands.',
-      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1600&auto=format&fit=crop&q=80',
-      badge: 'COMMERCIAL REEL',
-      slug: 'services',
-      badgeColor: 'bg-amber-500 text-slate-950',
     },
   ];
 
@@ -62,9 +56,9 @@ export function MultimediaHeroSlider() {
   const active = slides[currentSlide];
 
   return (
-    <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[440px] sm:min-h-[480px] lg:min-h-[520px] flex items-center group">
+    <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[440px] sm:min-h-[480px] lg:min-h-[540px] flex items-center group">
       
-      {/* Background Image Carousel */}
+      {/* 8K Ultra Background Image Carousel */}
       {slides.map((s, idx) => (
         <div
           key={s.id}
@@ -79,9 +73,9 @@ export function MultimediaHeroSlider() {
             className="object-cover transition-transform duration-10000 scale-105 group-hover:scale-100"
             priority={idx === 0}
           />
-          {/* Gradients */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/90 via-[#090A0F]/50 to-transparent" />
+          {/* Netflix-Style Dual Dark Gradient Overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/75 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F]/95 via-[#090A0F]/60 to-transparent" />
         </div>
       ))}
 
@@ -93,6 +87,9 @@ export function MultimediaHeroSlider() {
           </span>
           <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest rounded-md bg-[#2A2E7F] text-[#10B981] border border-slate-700">
             {active.category}
+          </span>
+          <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-md bg-emerald-950 text-emerald-400 border border-emerald-500/40">
+            8K ULTRA HD CINEMA
           </span>
         </div>
 
