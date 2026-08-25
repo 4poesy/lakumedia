@@ -142,19 +142,23 @@ export default async function MultimediaHomePage() {
       {/* Lead Gen Newsletter Popup Modal */}
       <NewsletterPopupModal />
 
-      {/* 1. Ultra-Cinematic WOW Studio Hero Title Banner (Using Uploaded Studio Background Image 5) */}
+      {/* 1. PRIMARY HERO SECTION: 4-Slide Interactive Hero Slider at top (Zero Prev/Next Arrows) */}
+      <section className="pt-1">
+        <MultimediaHeroSlider />
+      </section>
+
+      {/* 2. FEATURE BANNER SECTION: Studio Capabilities Banner placed right below Hero Slider */}
       <NeonBorder color="#D9541E" rounded={28} thickness={3} borderSize={40} glow={70}>
-        <div className="relative rounded-3xl overflow-hidden min-h-[220px] sm:min-h-[260px] flex flex-col justify-center px-6 sm:px-10 py-8 border border-slate-800 shadow-2xl bg-slate-950">
+        <div className="relative rounded-3xl overflow-hidden min-h-[200px] sm:min-h-[240px] flex flex-col justify-center px-6 sm:px-10 py-8 border border-slate-800 shadow-2xl bg-slate-950">
           <Image
             src="/studio/studio-hub-hero.png"
             alt="Laku Media Executive Studio Hub Background"
             fill
             className="object-cover opacity-35"
-            priority
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F] via-[#090A0F]/85 to-transparent" />
           
-          <div className="relative z-10 space-y-4 max-w-4xl">
+          <div className="relative z-10 space-y-3 max-w-4xl">
             {/* Studio Micro Badges */}
             <div className="flex flex-wrap items-center gap-2">
               <span className="px-3 py-1 rounded-md bg-[#10B981]/20 border border-[#10B981]/50 text-[#10B981] text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 backdrop-blur-md">
@@ -169,7 +173,7 @@ export default async function MultimediaHomePage() {
             </div>
 
             {/* WOW Redesigned Gradient Heading */}
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none uppercase drop-shadow-2xl">
+            <h2 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-none uppercase drop-shadow-2xl">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-[#10B981]">
                 CINEMATIC FILMS,{" "}
               </span>
@@ -179,7 +183,7 @@ export default async function MultimediaHomePage() {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
                 & BRAND AGENCY
               </span>
-            </h1>
+            </h2>
 
             <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed drop-shadow-md">
               Nigeria&apos;s premier dual-vertical studio: Delivering theatrical Nollywood blockbusters, OB satellite concert broadcasts, and commercial brand advertising.
@@ -187,9 +191,6 @@ export default async function MultimediaHomePage() {
           </div>
         </div>
       </NeonBorder>
-
-      {/* 2. 4-Slide Interactive Hero Slider Component (Zero Prev/Next Arrows) */}
-      <MultimediaHeroSlider />
 
       {/* 3. Featured Studio Hubs */}
       <StudioCollectionsHub />
