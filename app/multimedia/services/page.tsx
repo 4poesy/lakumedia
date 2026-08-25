@@ -5,7 +5,6 @@ import { Camera, Film, Radio, Tv, Sparkles, CheckCircle2, ArrowRight, Video, Mus
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioFaqSection } from '@/components/multimedia/studio-faq';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
-import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 
 export const dynamic = 'force-dynamic';
 
@@ -142,22 +141,54 @@ export default function MultimediaServicesPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <div className="max-w-7xl mx-auto">
-        <StudioFaqSection />
-      </div>
-
-      {/* Parallax Cinema Section (Exact User Image 2: /assest/user_red_curtains_parallax.jpg) between FAQ & Subscriber Section */}
-      <div className="max-w-7xl mx-auto">
-        <ParallaxCinemaSection
-          title="WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES"
-          subtitle="From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking."
-          badge="THEATRICAL CINEMA EXPERIENCE"
-          imageUrl="/assest/user_red_curtains_parallax.jpg"
-          ctaText="Book Private Screening"
-          ctaHref="/contact"
+      {/* EXTENDED PARALLAX WRAPPER: Spans both FAQ and the Cinema Experience section with /assest/user_red_curtains_parallax.jpg */}
+      <section className="relative rounded-3xl overflow-hidden max-w-7xl mx-auto my-12 border-2 border-slate-800 shadow-2xl p-6 sm:p-12 space-y-12">
+        {/* Fixed Parallax Red Curtains Background Image */}
+        <div
+          className="absolute inset-0 bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: `url('/assest/user_red_curtains_parallax.jpg')` }}
         />
-      </div>
+        {/* Dark Obsidian & Deep Navy Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#090A0F]/95 via-[#090A0F]/90 to-[#090A0F]/95" />
+        
+        {/* FAQ Section inside Extended Parallax Container */}
+        <div className="relative z-10">
+          <StudioFaqSection />
+        </div>
+
+        {/* Theatrical Cinema Experience Section inside Extended Parallax Container */}
+        <div className="relative z-10 pt-8 border-t border-slate-800/80">
+          <div className="max-w-4xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
+              <Sparkles className="w-4 h-4 text-amber-400" />
+              <span>THEATRICAL CINEMA EXPERIENCE</span>
+            </div>
+
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight uppercase drop-shadow-2xl">
+              WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES
+            </h2>
+
+            <p className="text-sm sm:text-lg text-slate-200 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+              From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.
+            </p>
+
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+              <Link
+                href="/contact"
+                className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-orange-400"
+              >
+                <span>Book Private Screening</span> <ArrowRight className="w-5 h-5" />
+              </Link>
+              <Link
+                href="/multimedia/portfolio"
+                className="px-8 py-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 text-white font-extrabold text-sm border border-slate-700 backdrop-blur-md transition-colors"
+              >
+                Watch Portfolio Reel
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Subscriber Section */}
       <div className="max-w-7xl mx-auto">
