@@ -55,16 +55,16 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Platform Info */}
+          {/* Legal & Platform Info */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-slate-300 mb-3 flex items-center gap-1.5">
               <Shield className="w-3.5 h-3.5 text-blue-400" /> Platform & Legal
             </h4>
             <ul className="space-y-2 text-xs">
+              <li><Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              <li><Link href="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
               <li><Link href="/admin" className="hover:text-white transition-colors">Editorial CMS Admin</Link></li>
-              <li><span className="text-slate-400">Powered by Next.js 14 & Supabase</span></li>
-              <li><span className="text-slate-400">Stream powered by Cloudflare / Mux</span></li>
-              <li><span className="text-slate-400">Laku Media Production Suite</span></li>
             </ul>
           </div>
 
