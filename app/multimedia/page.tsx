@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
@@ -7,7 +8,8 @@ import { StudioCollectionsHub } from '@/components/multimedia/studio-collections
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
 import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { Radio } from 'lucide-react';
+import { Radio, Film, Tv, Camera, Sparkles } from 'lucide-react';
+import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
 
@@ -134,25 +136,64 @@ export default async function MultimediaHomePage() {
   };
 
   return (
-    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4 space-y-8">
+    <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 space-y-10">
       
-      {/* Clean Compact Heading Banner with Small Padding */}
-      <div className="pt-2 pb-4 border-b border-slate-800">
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight uppercase">
-          CINEMATIC FILMS, LIVE BROADCASTS & BRAND AGENCY
-        </h1>
-      </div>
+      {/* 1. Ultra-Cinematic WOW Studio Hero Title Banner (Using Uploaded Studio Background Image 5) */}
+      <NeonBorder color="#D9541E" rounded={28} thickness={3} borderSize={40} glow={70}>
+        <div className="relative rounded-3xl overflow-hidden min-h-[220px] sm:min-h-[260px] flex flex-col justify-center px-6 sm:px-10 py-8 border border-slate-800 shadow-2xl bg-slate-950">
+          <Image
+            src="/studio/studio-hub-hero.png"
+            alt="Laku Media Executive Studio Hub Background"
+            fill
+            className="object-cover opacity-35"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F] via-[#090A0F]/85 to-transparent" />
+          
+          <div className="relative z-10 space-y-4 max-w-4xl">
+            {/* Studio Micro Badges */}
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="px-3 py-1 rounded-md bg-[#10B981]/20 border border-[#10B981]/50 text-[#10B981] text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 backdrop-blur-md">
+                <Film className="w-3.5 h-3.5 text-emerald-400" /> 4K/8K CINEMA
+              </span>
+              <span className="px-3 py-1 rounded-md bg-[#D9541E]/20 border border-[#D9541E]/50 text-[#D9541E] text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 backdrop-blur-md">
+                <Tv className="w-3.5 h-3.5 text-orange-400" /> SATELLITE BROADCAST
+              </span>
+              <span className="px-3 py-1 rounded-md bg-purple-500/20 border border-purple-500/50 text-purple-300 text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 backdrop-blur-md">
+                <Camera className="w-3.5 h-3.5 text-purple-400" /> CREATIVE BRAND AGENCY
+              </span>
+            </div>
 
-      {/* 4-Slide Interactive Hero Slider Component (Zero Prev/Next Arrows) */}
+            {/* WOW Redesigned Gradient Heading */}
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none uppercase drop-shadow-2xl">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-[#10B981]">
+                CINEMATIC FILMS,{" "}
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D9541E] via-amber-400 to-orange-500">
+                LIVE BROADCASTS{" "}
+              </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-300 to-purple-400">
+                & BRAND AGENCY
+              </span>
+            </h1>
+
+            <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed drop-shadow-md">
+              Nigeria&apos;s premier dual-vertical studio: Delivering theatrical Nollywood blockbusters, OB satellite concert broadcasts, and commercial brand advertising.
+            </p>
+          </div>
+        </div>
+      </NeonBorder>
+
+      {/* 2. 4-Slide Interactive Hero Slider Component (Zero Prev/Next Arrows) */}
       <MultimediaHeroSlider />
 
-      {/* Featured Studio Hubs */}
+      {/* 3. Featured Studio Hubs */}
       <StudioCollectionsHub />
 
-      {/* Top 5 Trending Titles Today */}
+      {/* 4. Top 5 Trending Titles Today */}
       <TrendingTop10Rail />
 
-      {/* Live Now Broadcast Stream Rail */}
+      {/* 5. Live Now Broadcast Stream Rail */}
       {liveNowItems.length > 0 && (
         <section className="space-y-4 pt-2">
           <div className="flex items-center space-x-2 text-xs font-extrabold text-[#D9541E]">
@@ -181,7 +222,7 @@ export default async function MultimediaHomePage() {
         </section>
       )}
 
-      {/* On-Demand Catalog Genre Rails (Films, Documentaries, Comedy) */}
+      {/* 6. On-Demand Catalog Genre Rails (Films, Documentaries, Comedy) */}
       <div className="space-y-12">
         {genres.slice(0, 3).map((genre: any) => {
           const genreItems = items.filter(
@@ -203,17 +244,17 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* Parallax Cinema Banner Section */}
+      {/* 7. Parallax Cinema Banner Section (Using Uploaded Digital Space Globe Background Image 1) */}
       <ParallaxCinemaSection
         title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
         subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
         badge="AFRICAN MEDIA POWERHOUSE"
-        imageUrl="https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1600&auto=format&fit=crop&q=80"
+        imageUrl="/studio/studio-about-hero.png"
         ctaText="Book Studio Production"
         ctaHref="/multimedia/services"
       />
 
-      {/* Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
+      {/* 8. Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
       <div className="space-y-12">
         {genres.slice(3).map((genre: any) => {
           const genreItems = items.filter(
@@ -235,7 +276,7 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* Book Us Now Agency Inquiry Section */}
+      {/* 9. Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />
 
     </div>
