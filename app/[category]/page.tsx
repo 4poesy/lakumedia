@@ -2,8 +2,10 @@ import React from 'react';
 import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
+import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
 import { ScoreCard } from '@/components/sports/score-card';
-import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper, ArrowRight } from 'lucide-react';
+import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
+import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -82,9 +84,29 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       sports_categories: { name: humanizedTitle },
       published_at: new Date().toISOString(),
     },
+    {
+      id: 'cat-2',
+      title: `Transfer Window Speculation Heats Up For ${humanizedTitle} Stars`,
+      slug: `${categorySlug}-transfer-speculation`,
+      excerpt: 'Scouting reports and contractual negotiations underway across top clubs.',
+      cover_image_url:
+        'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
+      sports_categories: { name: humanizedTitle },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'cat-3',
+      title: `Tactical Breakdown & Managerial Press Conference Highlights`,
+      slug: `${categorySlug}-tactical-breakdown`,
+      excerpt: 'Post-match press conference takeaways and strategic team selection analysis.',
+      cover_image_url:
+        'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop',
+      sports_categories: { name: humanizedTitle },
+      published_at: new Date().toISOString(),
+    },
   ];
 
-  // Lead story vs secondary stories
+  // Lead story vs horizontal list stories
   const leadArticle = articlesToRender[0];
   const secondaryArticles = articlesToRender.slice(1);
 
@@ -107,9 +129,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     },
   ];
 
-  // Trending stories for sidebar widget
-  const trendingArticles = allArticles.slice(0, 3);
-
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       {/* Breadcrumbs */}
@@ -127,7 +146,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
           <div>
             <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">{humanizedTitle}</h1>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-slate-500 mt-1 font-medium">
               Latest news, breaking reports, tactical analysis, and fixture updates for {humanizedTitle}.
             </p>
           </div>
@@ -152,10 +171,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         )}
       </div>
 
-      {/* Completesports.com Two-Column Layout (Main News Stream + Sidebar Widgets) */}
+      {/* Completesports.com Layout (Main News Stream + Right Sidebar Widgets) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        {/* Main Column (8 cols desktop - 66%) */}
+        {/* Main Column (8 cols desktop - 68%) */}
         <div className="lg:col-span-8 space-y-8">
           
           {/* Lead Story Spotlight */}
@@ -176,19 +195,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
           )}
 
-          {/* Secondary Stories Grid */}
+          {/* Secondary Compact Horizontal List Cards */}
           {secondaryArticles.length > 0 && (
-            <div className="space-y-4 pt-4 border-t border-slate-200">
-              <h3 className="text-lg font-extrabold text-slate-900 flex items-center gap-2">
-                <Newspaper className="w-5 h-5 text-emerald-600" /> More {humanizedTitle} Stories
+            <div className="space-y-4 pt-4 border-t border-slate-200 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+              <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2 border-b border-slate-100 pb-3">
+                <Newspaper className="w-5 h-5 text-emerald-600" /> More {humanizedTitle} Headlines
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div className="divide-y divide-slate-100">
                 {secondaryArticles.map((art: any) => (
-                  <ArticleCard
+                  <HorizontalArticleCard
                     key={art.id}
                     title={art.title}
                     slug={art.slug}
-                    excerpt={art.excerpt}
                     coverImageUrl={art.cover_image_url}
                     categoryName={art.sports_categories?.name || humanizedTitle}
                     publishedAt={art.published_at}
@@ -197,22 +215,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               </div>
             </div>
           )}
-
-          {/* Sparse Content Notice */}
-          <div className="p-6 rounded-2xl bg-white border border-slate-200 text-center space-y-2 shadow-sm">
-            <p className="text-xs font-bold text-slate-700">
-              More {humanizedTitle} news & match coverage coming soon.
-            </p>
-            <p className="text-[11px] text-slate-500">
-              Our editorial desk reports live updates throughout the match week.
-            </p>
-          </div>
         </div>
 
-        {/* Right Sidebar Column (4 cols desktop - 34%) */}
+        {/* Right Sidebar Column (4 cols desktop - 32%) */}
         <div className="lg:col-span-4 space-y-6">
           
-          {/* Match Center Live Scores Widget */}
+          {/* Newsletter Box */}
+          <NewsletterWidget />
+
+          {/* Social Counters */}
+          <SocialCountersWidget />
+
+          {/* Match Center Widget */}
           <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
             <div className="flex items-center justify-between pb-3 border-b border-slate-100">
               <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-2">
@@ -239,60 +253,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             </div>
           </div>
 
-          {/* Trending Stories Widget */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-4 shadow-sm">
-            <div className="pb-3 border-b border-slate-100">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-900 flex items-center gap-2">
-                <Flame className="w-4 h-4 text-amber-500" /> Most Read Headlines
-              </h3>
-            </div>
-
-            <div className="space-y-3 divide-y divide-slate-100">
-              {trendingArticles.map((art: any, index: number) => (
-                <div key={art.id} className="pt-3 first:pt-0 flex items-start space-x-3 group">
-                  <span className="w-6 h-6 rounded-lg bg-emerald-100 border border-emerald-200 text-emerald-800 font-extrabold text-xs flex items-center justify-center shrink-0">
-                    {index + 1}
-                  </span>
-                  <div className="space-y-1 flex-1">
-                    <Link
-                      href={`/article/${art.slug}`}
-                      className="text-xs font-bold text-slate-900 group-hover:text-emerald-700 transition-colors line-clamp-2 leading-snug"
-                    >
-                      {art.title}
-                    </Link>
-                    <span className="text-[10px] text-slate-500 block">
-                      {art.sports_categories?.name || 'Sports'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Sports Categories Quick-Links */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 space-y-3 shadow-sm">
-            <h3 className="text-xs font-extrabold uppercase tracking-wider text-slate-700">
-              Sports Categories
-            </h3>
-            <div className="space-y-1.5 text-xs font-bold">
-              <Link href="/npfl" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
-                <span>NPFL League</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
-              </Link>
-              <Link href="/epl" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
-                <span>Premier League</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
-              </Link>
-              <Link href="/transfers" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
-                <span>Transfer News</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
-              </Link>
-              <Link href="/world-football" className="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-800 hover:text-slate-900 transition-colors">
-                <span>World Football</span>
-                <ArrowRight className="w-3.5 h-3.5 text-emerald-600" />
-              </Link>
-            </div>
-          </div>
+          {/* Latest Comments Widget */}
+          <LatestCommentsWidget />
 
         </div>
       </div>

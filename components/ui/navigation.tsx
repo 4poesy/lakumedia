@@ -23,15 +23,29 @@ export function Navigation() {
     { href: '/multimedia', label: 'Laku Media Watch', icon: Film, active: isMultimedia },
   ];
 
+  const leagueQuickFilters = [
+    { label: 'SUPER EAGLES', href: '/world-football' },
+    { label: 'WORLD CUP 2026', href: '/world-football' },
+    { label: 'NPFL', href: '/npfl' },
+    { label: 'AFCON', href: '/world-football' },
+    { label: 'UCL', href: '/world-football' },
+    { label: 'EPL', href: '/epl' },
+    { label: 'LA LIGA', href: '/world-football' },
+    { label: 'SERIE A', href: '/world-football' },
+    { label: 'BUNDESLIGA', href: '/world-football' },
+  ];
+
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+    <header className="sticky top-0 z-50 bg-white/98 backdrop-blur-md border-b border-slate-200 shadow-sm transition-all duration-300">
+      
+      {/* Top Header Bar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           
           {/* Brand Logo & Wordmark - Laku Media Official Branding */}
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2.5 group">
-              <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden bg-slate-50 border border-slate-200 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform shrink-0">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
                   alt="Laku Media Official Logo"
@@ -46,7 +60,7 @@ export function Navigation() {
                   LAKU<span className="text-[#D9541E]">MEDIA</span>
                 </span>
                 <span className="text-[9px] uppercase tracking-widest text-slate-500 font-bold">
-                  {isMultimedia ? 'Entertainment & Production' : 'Sports & Entertainment'}
+                  {isMultimedia ? 'Entertainment & Production' : "Nigeria's No.1 Sports & Multimedia"}
                 </span>
               </div>
             </Link>
@@ -62,7 +76,7 @@ export function Navigation() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3.5 py-2 rounded-lg text-xs font-bold transition-all duration-200 flex items-center space-x-1.5 ${
+                  className={`relative px-3.5 py-2 rounded-lg text-xs font-extrabold transition-all duration-200 flex items-center space-x-1.5 ${
                     isActive
                       ? isMultimedia
                         ? 'text-[#D9541E] bg-[#D9541E]/10 border border-[#D9541E]/30 shadow-sm'
@@ -108,6 +122,33 @@ export function Navigation() {
           </div>
         </div>
       </div>
+
+      {/* Completesports-Style Sub-Bar for League Quick-Filters */}
+      {!isMultimedia && (
+        <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto flex items-center space-x-2 overflow-x-auto text-[11px] font-extrabold scrollbar-none">
+            {/* Live Scores Button */}
+            <Link
+              href="/live-scores"
+              className="px-3 py-1 rounded-md bg-rose-600 hover:bg-rose-700 text-white flex items-center gap-1.5 shrink-0 shadow-sm transition-colors uppercase tracking-wider"
+            >
+              <span className="w-2 h-2 rounded-full bg-white animate-ping" />
+              <span>LIVE SCORES</span>
+            </Link>
+
+            {/* League Pills */}
+            {leagueQuickFilters.map((filter, idx) => (
+              <Link
+                key={idx}
+                href={filter.href}
+                className="px-2.5 py-1 rounded-md bg-white hover:bg-slate-200 text-slate-700 hover:text-slate-900 border border-slate-200 shrink-0 transition-colors uppercase tracking-wider text-[10px]"
+              >
+                {filter.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
