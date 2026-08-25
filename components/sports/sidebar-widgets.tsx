@@ -1,6 +1,9 @@
+'use me';
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import { Mail, MessageSquare, Flame, Trophy, ExternalLink } from 'lucide-react';
+import { Mail, MessageSquare } from 'lucide-react';
 
 export function NewsletterWidget() {
   return (

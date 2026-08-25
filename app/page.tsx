@@ -6,36 +6,49 @@ import { CategoryDualBlock } from '@/components/sports/category-dual-block';
 import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotlight';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
-import { Trophy, Activity, Flame, ChevronRight, Newspaper } from 'lucide-react';
+import { Activity, Flame } from 'lucide-react';
 
-export const revalidate = 30;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SportsRootHomePage() {
-  const supabase = await createClient();
+  let rawArticles: any[] = [];
+  let fixturesData: any[] = [];
+  let mediaData: any[] = [];
 
-  // Query articles
-  const { data: articlesData } = await supabase
-    .from('articles')
-    .select('*, sports_categories(name, slug)')
-    .eq('status', 'published')
-    .order('created_at', { ascending: false });
+  try {
+    const supabase = await createClient();
 
-  // Query fixtures
-  const { data: fixturesData } = await supabase
-    .from('fixtures')
-    .select('*, home_team:teams!home_team_id(name, logo_url), away_team:teams!away_team_id(name, logo_url), league:leagues(name)')
-    .order('kickoff_at', { ascending: true })
-    .limit(3);
+    // Query articles safely
+    const { data: arts } = await supabase
+      .from('articles')
+      .select('*, sports_categories(name, slug)')
+      .eq('status', 'published')
+      .order('created_at', { ascending: false });
 
-  // Query media items for video spotlight
-  const { data: mediaData } = await supabase
-    .from('media_items')
-    .select('*')
-    .eq('status', 'published')
-    .order('created_at', { ascending: false })
-    .limit(4);
+    if (arts) rawArticles = arts;
 
-  const rawArticles = (articlesData as any[]) || [];
+    // Query fixtures safely
+    const { data: fixs } = await supabase
+      .from('fixtures')
+      .select('*, home_team:teams!home_team_id(name, logo_url), away_team:teams!away_team_id(name, logo_url), league:leagues(name)')
+      .order('kickoff_at', { ascending: true })
+      .limit(3);
+
+    if (fixs) fixturesData = fixs;
+
+    // Query media items safely
+    const { data: media } = await supabase
+      .from('media_items')
+      .select('*')
+      .eq('status', 'published')
+      .order('created_at', { ascending: false })
+      .limit(4);
+
+    if (media) mediaData = media;
+  } catch (error) {
+    console.error('Supabase query fallback on page.tsx:', error);
+  }
 
   const demoArticles = [
     {
@@ -113,7 +126,7 @@ export default async function SportsRootHomePage() {
     published_at: a.published_at,
   })) : demoArticles;
 
-  const fixtures = (fixturesData as any[]) || [
+  const fixtures = (fixturesData as any[]).length > 0 ? fixturesData : [
     {
       id: '30000000-0000-0000-0000-000000000001',
       home_team: { name: 'Enyimba FC', logo_url: null },
@@ -136,7 +149,7 @@ export default async function SportsRootHomePage() {
     },
   ];
 
-  const videos = (mediaData as any[]) || [
+  const videos = (mediaData as any[]).length > 0 ? mediaData : [
     {
       id: 'v1',
       title: 'Victor Ikpeba: Why Christian Chukwu Is Nigeria\'s Greatest Super Eagles Player',
