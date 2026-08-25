@@ -50,79 +50,103 @@ export default async function SportsRootHomePage() {
     console.error('Supabase query fallback on page.tsx:', error);
   }
 
+  const sampleImages = [
+    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=1200&auto=format&fit=crop',
+    'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop',
+  ];
+
+  const sanitizeImageUrl = (url?: string | null, index: number = 0) => {
+    if (!url || url.startsWith('/') || !url.startsWith('http')) {
+      return sampleImages[index % sampleImages.length];
+    }
+    return url;
+  };
+
   const demoArticles = [
     {
       id: 'art1',
       title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
       slug: 'enyimba-thrilling-victory-npfl-derby',
       excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity crowd.',
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[0],
       categoryName: 'NPFL League',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
     {
       id: 'art2',
       title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
       slug: 'konsa-will-bench-saliba-at-arsenal',
       excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
-      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[1],
       categoryName: 'World Football',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
     {
       id: 'art3',
       title: 'Super Eagles Star Signs Multi-Year Extension Deal',
       slug: 'super-eagles-star-signs-multi-year-extension',
       excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension worth record wages.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[2],
       categoryName: 'Transfer News',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
     {
       id: 'art4',
       title: 'Heskey: Why Kane Will Return To Premier League',
       slug: 'heskey-why-kane-will-return-premier-league',
       excerpt: 'Emile Heskey believes Harry Kane still has unfinished business in England after his Bayern Munich spell.',
-      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[3],
       categoryName: 'Transfers',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
     {
       id: 'art5',
       title: 'Infantino Has Done Nothing Wrong — Eto\'o Backs FIFA President\'s Re-Election Bid',
       slug: 'infantino-done-nothing-wrong-etoo-backs-fifa',
       excerpt: 'FECAFOOT boss Samuel Eto\'o publicly pledges support for Gianni Infantino\'s continued presidency.',
-      imageUrl: 'https://images.unsplash.com/photo-1543351611-c823945f1007?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[4],
       categoryName: 'World Football',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
     {
       id: 'art6',
       title: 'Nigerian Government Should Stop Funding Sports — By Ehi Braimah',
       slug: 'nigerian-government-should-stop-funding-sports',
       excerpt: 'Opinion editorial on why public money funding of sports in Nigeria needs urgent commercial restructuring.',
-      imageUrl: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=2560&auto=format&fit=crop&q=100',
+      cover_image_url: sampleImages[5],
       categoryName: 'Features',
-      publishedAt: new Date().toISOString(),
+      published_at: new Date().toISOString(),
     },
   ];
 
-  const heroSlides = rawArticles.length >= 3 ? rawArticles.slice(0, 3).map((a: any) => ({
+  const heroSlides = rawArticles.length >= 3 ? rawArticles.slice(0, 3).map((a: any, idx: number) => ({
     id: a.id,
     title: a.title,
     slug: a.slug,
     excerpt: a.excerpt || 'Read the full sports news update on Laku Media.',
-    imageUrl: a.cover_image_url || 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=2560&auto=format&fit=crop&q=100',
+    imageUrl: sanitizeImageUrl(a.cover_image_url, idx),
     categoryName: a.sports_categories?.name || 'Sports',
     publishedAt: a.published_at || new Date().toISOString(),
-  })) : demoArticles.slice(0, 3);
-
-  const articles = rawArticles.length >= 5 ? rawArticles.map((a: any) => ({
+  })) : demoArticles.slice(0, 3).map((a, idx) => ({
     id: a.id,
     title: a.title,
     slug: a.slug,
     excerpt: a.excerpt,
-    cover_image_url: a.cover_image_url,
+    imageUrl: a.cover_image_url,
+    categoryName: a.categoryName,
+    publishedAt: a.published_at,
+  }));
+
+  const articles = rawArticles.length >= 5 ? rawArticles.map((a: any, idx: number) => ({
+    id: a.id,
+    title: a.title,
+    slug: a.slug,
+    excerpt: a.excerpt,
+    cover_image_url: sanitizeImageUrl(a.cover_image_url, idx),
     categoryName: a.sports_categories?.name || 'Sports',
     published_at: a.published_at,
   })) : demoArticles;

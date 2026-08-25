@@ -74,33 +74,31 @@ export function HeroSlider({ slides }: HeroSliderProps) {
 
   const currentSlide = slideData[currentIndex];
 
-  const [imgSrc, setImgSrc] = useState(currentSlide.imageUrl);
-
-  useEffect(() => {
-    setImgSrc(currentSlide.imageUrl);
-  }, [currentSlide.imageUrl, currentIndex]);
-
   return (
     <div
       className="relative w-full h-[420px] sm:h-[500px] lg:h-[540px] rounded-3xl overflow-hidden shadow-xl border border-slate-200 bg-slate-900 group my-4"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Full-Bleed Background Image */}
-      <div className="relative w-full h-full">
-        <Image
-          src={imgSrc}
-          alt={currentSlide.title}
-          fill
-          className="object-cover transition-all duration-700 group-hover:scale-105"
-          priority
-          onError={() =>
-            setImgSrc('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&auto=format&fit=crop&q=90')
-          }
-        />
-        {/* Full-Bleed Bottom-to-Top Dark Gradient for Seamless Text Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
-      </div>
+      {/* Pre-loaded Smooth Cross-Fade Images (No Background Flashes) */}
+      {slideData.map((slide, idx) => (
+        <div
+          key={slide.id || idx}
+          className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+            currentIndex === idx ? 'opacity-100 z-0 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+          }`}
+        >
+          <Image
+            src={slide.imageUrl}
+            alt={slide.title}
+            fill
+            className="object-cover"
+            priority={idx === 0}
+          />
+          {/* Full-Bleed Dark Gradient for Text Legibility */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/60 to-transparent" />
+        </div>
+      ))}
 
       {/* Floating Badges Top Left */}
       <div className="absolute top-5 left-5 flex items-center space-x-2.5 z-10">
@@ -112,7 +110,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
         </span>
       </div>
 
-      {/* Content Overlay - Beautiful Full Width Gradient Text Overlay */}
+      {/* Content Overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-10 space-y-3 max-w-4xl z-10">
         <div className="flex items-center space-x-3 text-xs text-slate-300 font-bold">
           <span className="flex items-center gap-1">
