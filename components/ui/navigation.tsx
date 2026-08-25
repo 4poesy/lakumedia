@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera } from 'lucide-react';
+import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Calendar } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
 
 export function Navigation() {
@@ -12,17 +12,30 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [leaguesMenuOpen, setLeaguesMenuOpen] = useState(false);
 
-  // Determine active section
+  // Determine active vertical
   const isMultimedia = pathname.startsWith('/multimedia');
 
-  const navLinks = [
+  // Sports Navigation Bar Links
+  const sportsNavLinks = [
     { href: '/', label: 'Home', icon: Sparkles },
     { href: '/npfl', label: 'NPFL', icon: Trophy, active: pathname === '/npfl' },
     { href: '/world-football', label: 'World Football', icon: Globe, active: pathname === '/world-football' },
     { href: '/transfers', label: 'Transfers', icon: Flame, active: pathname === '/transfers' },
     { href: '/live-scores', label: 'Live Scores', icon: Activity, active: pathname === '/live-scores', badge: 'LIVE' },
-    { href: '/multimedia', label: 'LAKU MEDIA AGENCY', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
+    { href: '/multimedia', label: 'LAKU MEDIA', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
+
+  // Multimedia Creative Studio Dedicated Navigation Bar Links
+  const multimediaNavLinks = [
+    { href: '/multimedia', label: 'Laku Media Hub', icon: Film, active: pathname === '/multimedia' },
+    { href: '/multimedia/services', label: 'Services', icon: Camera, active: pathname === '/multimedia/services' },
+    { href: '/multimedia/portfolio', label: 'Portfolio', icon: Briefcase, active: pathname === '/multimedia/portfolio' },
+    { href: '/multimedia/pricing', label: 'Pricing', icon: DollarSign, active: pathname === '/multimedia/pricing' },
+    { href: '/multimedia/about', label: 'About Us', icon: Info, active: pathname === '/multimedia/about' },
+    { href: '/', label: '⚽ LAKU MEDIA SPORTS', icon: Trophy, active: false, badge: 'SPORTS HOME' },
+  ];
+
+  const currentNavLinks = isMultimedia ? multimediaNavLinks : sportsNavLinks;
 
   const leagueQuickFilters = [
     { label: 'SUPER EAGLES', href: '/world-football', icon: '/leagues/supereagles.jpg' },
@@ -114,8 +127,8 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Right Auth Action */}
-          <div className="hidden md:flex items-center justify-end w-32">
+          {/* Right Auth Action / Switch Vertical Button */}
+          <div className="hidden md:flex items-center justify-end w-32 space-x-2">
             <Link
               href="/sign-in"
               prefetch={true}
@@ -138,10 +151,10 @@ export function Navigation() {
         </div>
       </div>
 
-      {/* 3. Horizontal Main Navigation Links Bar Below Logo */}
+      {/* 3. Context-Aware Horizontal Main Navigation Links Bar Below Logo */}
       <div className="hidden md:block bg-white border-b border-slate-200 py-2">
         <div className="max-w-7xl mx-auto flex items-center justify-center space-x-1">
-          {navLinks.map((link) => {
+          {currentNavLinks.map((link) => {
             const Icon = link.icon;
             const isActive = link.active !== undefined ? link.active : (link.href === '/' ? pathname === '/' : pathname === link.href);
             
@@ -153,12 +166,14 @@ export function Navigation() {
                 className={`relative px-4 py-2 rounded-lg text-xs font-extrabold transition-colors flex items-center space-x-1.5 active:scale-95 ${
                   isActive
                     ? 'text-white bg-[#D9541E] shadow-sm'
+                    : link.badge === 'SPORTS HOME'
+                    ? 'text-white bg-[#10B981] hover:bg-emerald-600 shadow-sm'
                     : 'text-[#2A2E7F] hover:text-[#D9541E] hover:bg-slate-100'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-[#2A2E7F]'}`} />
+                <Icon className={`w-3.5 h-3.5 ${isActive || link.badge === 'SPORTS HOME' ? 'text-white' : 'text-[#2A2E7F]'}`} />
                 <span>{link.label}</span>
-                {link.badge && (
+                {link.badge && link.badge !== 'SPORTS HOME' && (
                   <span className={`ml-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full text-white shadow-sm ${link.badge === 'STUDIO' ? 'bg-[#10B981]' : 'bg-[#D9541E] animate-pulse'}`}>
                     {link.badge}
                   </span>
@@ -167,7 +182,7 @@ export function Navigation() {
             );
           })}
 
-          {/* All Divisions Mega-Menu Trigger Button */}
+          {/* All Divisions Mega-Menu Trigger Button (Sports Mode Only) */}
           {!isMultimedia && (
             <button
               onClick={() => setLeaguesMenuOpen(!leaguesMenuOpen)}
@@ -237,7 +252,7 @@ export function Navigation() {
         </div>
       )}
 
-      {/* 4. Completesports-Style AUTOMATIC CONTINUOUS HORIZONTAL MARQUEE Sub-Bar with All 13 Official League Logos */}
+      {/* 4. Completesports-Style AUTOMATIC CONTINUOUS HORIZONTAL MARQUEE Sub-Bar with All 13 Official League Logos (Sports Mode Only) */}
       {!isMultimedia && (
         <div className="bg-slate-50 border-t border-slate-200 py-1.5 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -284,7 +299,7 @@ export function Navigation() {
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 shadow-lg">
-          {navLinks.map((link) => {
+          {currentNavLinks.map((link) => {
             const Icon = link.icon;
             const isActive = link.active !== undefined ? link.active : (link.href === '/' ? pathname === '/' : pathname === link.href);
             return (
@@ -296,6 +311,8 @@ export function Navigation() {
                 className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-bold ${
                   isActive
                     ? 'bg-[#D9541E] text-white font-extrabold'
+                    : link.badge === 'SPORTS HOME'
+                    ? 'bg-[#10B981] text-white font-extrabold'
                     : 'text-[#2A2E7F] hover:bg-slate-50 hover:text-[#D9541E]'
                 }`}
               >
