@@ -1,0 +1,117 @@
+'use client';
+
+import React from 'react';
+import { MapPin, Phone, Mail, Clock, Navigation, Sparkles } from 'lucide-react';
+
+export function StudioLocationMapSection() {
+  return (
+    <section className="bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl space-y-8 my-10 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+        <div className="space-y-1">
+          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-[#10B981]/20 text-[#10B981] font-extrabold text-xs tracking-widest uppercase border border-[#10B981]/40">
+            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <span>VISIT OUR PRODUCTION HEADQUARTERS</span>
+          </div>
+          <h2 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-tight">
+            LAKU MEDIA CREATIVE STUDIO LOCATION
+          </h2>
+          <p className="text-xs sm:text-sm text-slate-300 font-medium">
+            Executive Studio & Master Control Facility situated in Victoria Island, Lagos, Nigeria.
+          </p>
+        </div>
+      </div>
+
+      {/* Grid: Map Iframe (Left 7 Cols) + Studio Address & Contact Info (Right 5 Cols) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+        
+        {/* Interactive Google Map Iframe (7 Cols desktop) */}
+        <div className="lg:col-span-7 relative min-h-[360px] sm:min-h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl">
+          <iframe
+            title="Laku Media Studio Headquarters Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63428.18882898951!2d3.401831835905141!3d6.42805540000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53280e7648d%3A0x4d01e520025771d!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+            className="w-full h-full border-0 absolute inset-0 filter grayscale invert contrast-125 brightness-90"
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
+
+        {/* Studio Info Card (5 Cols desktop) */}
+        <div className="lg:col-span-5 bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6">
+          <div className="space-y-6">
+            <h3 className="text-xl font-extrabold text-white uppercase border-b border-slate-800 pb-3 flex items-center gap-2">
+              <Navigation className="w-5 h-5 text-[#D9541E]" /> STUDIO HEADQUARTERS
+            </h3>
+
+            {/* Address */}
+            <div className="flex items-start space-x-3 text-xs">
+              <div className="p-2.5 rounded-xl bg-[#2A2E7F] text-[#10B981] shrink-0 border border-slate-700">
+                <MapPin className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Physical Address</span>
+                <p className="text-slate-300 leading-relaxed font-medium">
+                  Plot 1422, Ahmadu Bello Way, Victoria Island, Lagos State, Nigeria.
+                </p>
+              </div>
+            </div>
+
+            {/* Telephone & WhatsApp */}
+            <div className="flex items-start space-x-3 text-xs">
+              <div className="p-2.5 rounded-xl bg-[#2A2E7F] text-amber-400 shrink-0 border border-slate-700">
+                <Phone className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Booking Hotline & WhatsApp</span>
+                <p className="text-slate-300 font-mono font-bold">
+                  +234 800 LAKUMEDIA (+234 800 525 86334)
+                </p>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-start space-x-3 text-xs">
+              <div className="p-2.5 rounded-xl bg-[#2A2E7F] text-emerald-400 shrink-0 border border-slate-700">
+                <Mail className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Executive Contact Email</span>
+                <p className="text-slate-300 font-mono font-bold">
+                  studio@lakumedia.com / executive@lakumedia.com
+                </p>
+              </div>
+            </div>
+
+            {/* Operating Hours */}
+            <div className="flex items-start space-x-3 text-xs">
+              <div className="p-2.5 rounded-xl bg-[#2A2E7F] text-orange-400 shrink-0 border border-slate-700">
+                <Clock className="w-5 h-5" />
+              </div>
+              <div className="space-y-1">
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Production Hours</span>
+                <p className="text-slate-300 font-medium">
+                  Monday – Saturday: 8:00 AM – 9:00 PM <br />
+                  <span className="text-[#10B981] font-bold">24/7 Satellite OB Van & Live Broadcast Uplink Operations</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-4 border-t border-slate-800">
+            <a
+              href="https://maps.google.com/?q=Victoria+Island,+Lagos,+Nigeria"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 uppercase tracking-wider"
+            >
+              <Navigation className="w-4 h-4" />
+              <span>Get Directions on Google Maps</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}

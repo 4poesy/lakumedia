@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Check, ArrowRight } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
-import { StudioFaqSection } from '@/components/multimedia/studio-faq';
+import { StudioLocationMapSection } from '@/components/multimedia/studio-location-map';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 
 export const dynamic = 'force-dynamic';
@@ -66,11 +66,11 @@ export default function MultimediaPricingPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* Studio Pricing Hero Header (Using assest/studio_background_7.jpg) */}
-      <section className="relative rounded-3xl overflow-hidden min-h-[420px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
+      {/* Studio Pricing Hero Header (Exact User Uploaded Image: /assest/user_pricing_hero_studio.jpg) */}
+      <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/assest/studio_background_7.jpg"
-          alt="Laku Media Production Rates and Pricing"
+          src="/assest/user_pricing_hero_studio.jpg"
+          alt="Laku Media Production Rates and Pricing Studio Setup"
           fill
           className="object-cover"
           priority
@@ -142,9 +142,9 @@ export default function MultimediaPricingPage() {
         ))}
       </section>
 
-      {/* FAQ Section */}
+      {/* Interactive Google Map Section (Replaces FAQ Section per user request) */}
       <div className="max-w-7xl mx-auto">
-        <StudioFaqSection />
+        <StudioLocationMapSection />
       </div>
 
       {/* Subscriber Section */}
