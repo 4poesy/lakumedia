@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, Play, Sparkles, Camera, Radio, Film, ArrowRight } from 'lucide-react';
+import { Play, Sparkles, ArrowRight } from 'lucide-react';
 
 export function MultimediaHeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -51,7 +51,7 @@ export function MultimediaHeroSlider() {
     },
   ];
 
-  // Auto-play 5-second slide timer
+  // Auto-play 5.5s timer for smooth endless sliding
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -59,20 +59,12 @@ export function MultimediaHeroSlider() {
     return () => clearInterval(timer);
   }, [slides.length]);
 
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
   const active = slides[currentSlide];
 
   return (
     <section className="relative rounded-3xl overflow-hidden bg-slate-950 border-2 border-slate-800 shadow-2xl min-h-[480px] lg:min-h-[520px] flex items-center group">
       
-      {/* Background Image Carousel with Smooth Fade Transitions */}
+      {/* Background Image Carousel */}
       {slides.map((s, idx) => (
         <div
           key={s.id}
@@ -128,23 +120,7 @@ export function MultimediaHeroSlider() {
         </div>
       </div>
 
-      {/* Slider Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-slate-950/70 hover:bg-[#D9541E] text-white backdrop-blur-md transition-all border border-slate-700 opacity-80 group-hover:opacity-100"
-        aria-label="Previous Slide"
-      >
-        <ChevronLeft className="w-6 h-6" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-slate-950/70 hover:bg-[#D9541E] text-white backdrop-blur-md transition-all border border-slate-700 opacity-80 group-hover:opacity-100"
-        aria-label="Next Slide"
-      >
-        <ChevronRight className="w-6 h-6" />
-      </button>
-
-      {/* Slider Indicator Dots */}
+      {/* Sleek Minimalist Slider Indicator Dots (NO PREV/NEXT ARROWS) */}
       <div className="absolute bottom-6 right-8 z-30 flex items-center space-x-2">
         {slides.map((_, idx) => (
           <button

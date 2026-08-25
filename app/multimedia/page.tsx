@@ -8,7 +8,7 @@ import { StudioCollectionsHub } from '@/components/multimedia/studio-collections
 import { TrendingTop10Rail } from '@/components/multimedia/trending-top10-rail';
 import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-slider';
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
-import { Sparkles, Camera, Briefcase, DollarSign, Radio } from 'lucide-react';
+import { Camera, Briefcase, DollarSign, Radio } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -137,16 +137,11 @@ export default async function MultimediaHomePage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-8 space-y-12">
       
-      {/* 1. Header Studio Sub-Bar */}
+      {/* Clean Studio Header Banner */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
-        <div className="space-y-2 max-w-3xl">
-          <div className="flex items-center space-x-2 text-[#10B981] font-extrabold text-xs uppercase tracking-widest">
-            <Sparkles className="w-4 h-4 text-amber-400" /> LAKU MEDIA PRODUCTION & MARKETING STUDIO
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-            CINEMATIC FILMS, LIVE BROADCASTS & BRAND AGENCY
-          </h1>
-        </div>
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight uppercase">
+          CINEMATIC FILMS, LIVE BROADCASTS & BRAND AGENCY
+        </h1>
 
         {/* Action Buttons Container */}
         <div className="flex flex-wrap items-center gap-3 shrink-0">
@@ -177,16 +172,16 @@ export default async function MultimediaHomePage() {
         </div>
       </div>
 
-      {/* 2. 4-Slide Interactive Cinematic Hero Slider Component */}
+      {/* 4-Slide Interactive Hero Slider Component (Zero Prev/Next Arrows) */}
       <MultimediaHeroSlider />
 
-      {/* 3. Disney+ & HBO Max Style Studio Collections Hub */}
+      {/* Featured Studio Hubs */}
       <StudioCollectionsHub />
 
-      {/* 4. Netflix Style Top 5 Trending Titles Today */}
+      {/* Top 5 Trending Titles Today */}
       <TrendingTop10Rail />
 
-      {/* 5. Live Now Broadcast Stream Rail */}
+      {/* Live Now Broadcast Stream Rail */}
       {liveNowItems.length > 0 && (
         <section className="space-y-4 pt-2">
           <div className="flex items-center space-x-2 text-xs font-extrabold text-[#D9541E]">
@@ -215,7 +210,7 @@ export default async function MultimediaHomePage() {
         </section>
       )}
 
-      {/* 6. On-Demand Catalog Genre Rails (Films, Documentaries, Comedy) */}
+      {/* On-Demand Catalog Genre Rails (Films, Documentaries, Comedy) */}
       <div className="space-y-12">
         {genres.slice(0, 3).map((genre: any) => {
           const genreItems = items.filter(
@@ -237,7 +232,7 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 7. High-Definition Parallax Cinema Banner Section */}
+      {/* Parallax Cinema Banner Section */}
       <ParallaxCinemaSection
         title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
         subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."
@@ -247,7 +242,7 @@ export default async function MultimediaHomePage() {
         ctaHref="/multimedia/services"
       />
 
-      {/* 8. Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
+      {/* Remaining On-Demand Catalog Genre Rails (Talk Shows, Drama, Music, Kids) */}
       <div className="space-y-12">
         {genres.slice(3).map((genre: any) => {
           const genreItems = items.filter(
@@ -269,7 +264,7 @@ export default async function MultimediaHomePage() {
         })}
       </div>
 
-      {/* 9. Book Us Now Agency Inquiry Section */}
+      {/* Book Us Now Agency Inquiry Section */}
       <BookUsNowSection />
 
     </div>
