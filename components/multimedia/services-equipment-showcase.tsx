@@ -1,9 +1,89 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Camera, Radio, Volume2, Cpu, Sparkles, CheckCircle2, Zap, Shield, Globe } from 'lucide-react';
-import { NeonBorder } from '@/components/ui/neon-border';
+
+function CameraRigAutoCrossfade() {
+  const images = [
+    {
+      src: '/assest/service_camera_auto_1.png',
+      alt: 'RED V-Raptor 8K Cinema Camera Body & Monitor',
+      label: 'RED V-RAPTOR 8K VV CINEMA SENSOR',
+      contain: true,
+    },
+    {
+      src: '/assest/service_camera_auto_2.jpg',
+      alt: 'ARRI Alexa Mini LF Cinema Camera Side Profile',
+      label: 'ARRI ALEXA MINI LF LARGE FORMAT CINE RIG',
+      contain: true,
+    },
+    {
+      src: '/assest/service_camera_auto_3.jpg',
+      alt: 'RED 8K Cinema Rig with Fujinon 25-300mm Lens',
+      label: 'FUJINON 25-300mm CINE ZOOM & FOLLOW FOCUS',
+      contain: false,
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-[#05060A] flex items-center justify-center">
+      {images.map((img, idx) => (
+        <div
+          key={img.src}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out flex items-center justify-center ${
+            idx === currentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+          }`}
+          style={{ transitionProperty: 'opacity, transform' }}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            className={img.contain ? 'object-contain p-6' : 'object-cover'}
+            priority={idx === 0}
+          />
+        </div>
+      ))}
+
+      {/* Cinematic Dark Bottom Overlay & Dynamic Label */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 pointer-events-none" />
+      
+      <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md z-10 flex items-center justify-between">
+        <div>
+          <span className="text-[9px] font-black uppercase tracking-widest text-[#D9541E] block">
+            AUTO-CHANGING CAMERA TECH SPEC (3 SLIDES)
+          </span>
+          <h4 className="text-xs font-extrabold text-white">
+            {images[currentIndex].label}
+          </h4>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="flex items-center space-x-1.5 shrink-0">
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`w-2 h-2 rounded-full transition-all ${
+                i === currentIndex ? 'bg-[#D9541E] w-5' : 'bg-slate-700'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function ServicesEquipmentShowcase() {
   const equipmentCards = [
@@ -14,9 +94,9 @@ export function ServicesEquipmentShowcase() {
       title: 'RED V-Raptor 8K & ARRI Alexa Mini LF',
       description: 'Our film studio owns RED V-Raptor 8K VV sensor systems and ARRI Alexa Mini LF cinema rigs equipped with anamorphic cine prime lenses, follow focus, wireless video transmitters, and 3-axis motorized gimbal stabilizers.',
       features: ['8K Resolution & 120fps High-Speed', 'Anamorphic Cinema Prime Lenses', 'ProRes 4444 XQ & RAW Workflows'],
-      image: '/assest/about_hero_auto_camera.jpg',
       imageAlt: 'RED V-Raptor 8K Cinema Camera Rig with Fujinon Lens',
       imageOnRight: true, // Content LEFT, Image RIGHT
+      useAutoSlider: true, // 3-Image Auto Crossfader
     },
     {
       id: 'eq-2',
@@ -28,6 +108,7 @@ export function ServicesEquipmentShowcase() {
       image: '/assest/about_hero_auto_satellite.jpg',
       imageAlt: 'Laku Media Teleport Satellite Uplink Dish Antenna',
       imageOnRight: false, // Image LEFT, Content RIGHT
+      useAutoSlider: false,
     },
     {
       id: 'eq-3',
@@ -39,6 +120,7 @@ export function ServicesEquipmentShowcase() {
       image: '/assest/user_about_control_room_2.jpg',
       imageAlt: 'Laku Media Master Control Room & Audio Production Suite',
       imageOnRight: true, // Content LEFT, Image RIGHT
+      useAutoSlider: false,
     },
     {
       id: 'eq-4',
@@ -50,6 +132,7 @@ export function ServicesEquipmentShowcase() {
       image: '/assest/user_why_laku_satellite_sunset_3.jpg',
       imageAlt: 'Laku Media Satellite & Aerial Production Infrastructure',
       imageOnRight: false, // Image LEFT, Content RIGHT
+      useAutoSlider: false,
     },
   ];
 
@@ -111,23 +194,29 @@ export function ServicesEquipmentShowcase() {
 
               {/* Image Column */}
               <div
-                className={`lg:col-span-6 relative h-[320px] sm:h-[400px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group ${
+                className={`lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group ${
                   card.imageOnRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
                 }`}
               >
-                <Image
-                  src={card.image}
-                  alt={card.imageAlt}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-                  <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981] block">
-                    LAKU MEDIA STUDIO INFRASTRUCTURE
-                  </span>
-                  <h4 className="text-xs font-extrabold text-white">{card.title}</h4>
-                </div>
+                {card.useAutoSlider ? (
+                  <CameraRigAutoCrossfade />
+                ) : (
+                  <>
+                    <Image
+                      src={card.image || ''}
+                      alt={card.imageAlt}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                    <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981] block">
+                        LAKU MEDIA STUDIO INFRASTRUCTURE
+                      </span>
+                      <h4 className="text-xs font-extrabold text-white">{card.title}</h4>
+                    </div>
+                  </>
+                )}
               </div>
 
             </div>
