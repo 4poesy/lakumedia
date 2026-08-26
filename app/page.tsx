@@ -59,23 +59,7 @@ export default async function SportsRootHomePage() {
     aggregatedNewsItems = await getAggregatedNews();
   }
 
-  // Fast-loading web-optimized compressed imagery with uploaded user photos
-  const sampleImages = [
-    '/assest/user_enyimba_news_hero.jpg',
-    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
-    '/assest/user_home_hero_4th_slide.jpg',
-    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=75',
-  ];
-
-  const sanitizeImageUrl = (url?: string | null, index: number = 0) => {
-    if (!url || url.startsWith('/') || !url.startsWith('http')) {
-      return sampleImages[index % sampleImages.length];
-    }
-    return url;
-  };
-
+  // User uploaded high-resolution local assets
   const demoArticles = [
     {
       id: 'art1',
@@ -91,17 +75,17 @@ export default async function SportsRootHomePage() {
       title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
       slug: 'konsa-will-bench-saliba-at-arsenal',
       excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
-      cover_image_url: sampleImages[1],
+      cover_image_url: '/assest/user_world_football_kane_musiala.jpg',
       categoryName: 'World Football',
       published_at: new Date().toISOString(),
     },
     {
       id: 'art3',
-      title: 'Super Eagles Star Signs Multi-Year Extension Deal',
-      slug: 'super-eagles-star-signs-multi-year-extension',
-      excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension worth record wages.',
-      cover_image_url: sampleImages[2],
-      categoryName: 'Transfer News',
+      title: 'NPFL Derby: Enyimba Host Rangers International In High-Stakes Clash',
+      slug: 'enyimba-vs-rangers-npfl-derby-2026',
+      excerpt: 'Nine-time champions Enyimba FC prepare to battle rivals Rangers International at the Aba Township Stadium in a critical NPFL title race encounter.',
+      cover_image_url: '/assest/user_enyimba_aba_jump.jpg',
+      categoryName: 'NPFL League',
       published_at: new Date().toISOString(),
     },
     {
@@ -118,48 +102,61 @@ export default async function SportsRootHomePage() {
       title: 'Infantino Has Done Nothing Wrong — Eto\'o Backs FIFA President\'s Re-Election Bid',
       slug: 'infantino-done-nothing-wrong-etoo-backs-fifa',
       excerpt: 'FECAFOOT boss Samuel Eto\'o publicly pledges support for Gianni Infantino\'s continued presidency.',
-      cover_image_url: sampleImages[4],
+      cover_image_url: '/assest/user_infantino_fifa.jpg',
       categoryName: 'World Football',
       published_at: new Date().toISOString(),
     },
     {
       id: 'art6',
-      title: 'Nigerian Government Should Stop Funding Sports — By Ehi Braimah',
-      slug: 'nigerian-government-should-stop-funding-sports',
-      excerpt: 'Opinion editorial on why public money funding of sports in Nigeria needs urgent commercial restructuring.',
-      cover_image_url: sampleImages[5],
-      categoryName: 'Features',
+      title: 'Super Eagles Manager Announces 24-Man Squad For Upcoming AFCON Qualifiers',
+      slug: 'super-eagles-manager-announces-afcon-squad',
+      excerpt: 'The Nigeria Football Federation has officially released the squad list featuring NPFL standout performers and Europe-based stars for next month’s qualifiers.',
+      cover_image_url: '/assest/user_super_eagles_manager.jpg',
+      categoryName: 'Super Eagles',
       published_at: new Date().toISOString(),
     },
   ];
 
-  const heroSlides = rawArticles.length >= 4 ? rawArticles.slice(0, 4).map((a: any, idx: number) => ({
-    id: a.id,
-    title: a.title,
-    slug: a.slug,
-    excerpt: a.excerpt || 'Read the full sports news update on Laku Media.',
-    imageUrl: sanitizeImageUrl(a.cover_image_url, idx),
-    categoryName: a.sports_categories?.name || 'Sports',
-    publishedAt: a.published_at || new Date().toISOString(),
-  })) : demoArticles.slice(0, 4).map((a, idx) => ({
-    id: a.id,
-    title: a.title,
-    slug: a.slug,
-    excerpt: a.excerpt,
-    imageUrl: a.cover_image_url,
-    categoryName: a.categoryName,
-    publishedAt: a.published_at,
-  }));
+  const heroSlides = [
+    {
+      id: 'slide-1',
+      title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
+      slug: 'enyimba-thrilling-victory-npfl-derby',
+      excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity stadium crowd.',
+      imageUrl: '/assest/user_enyimba_news_hero.jpg',
+      categoryName: 'NPFL League',
+      publishedAt: new Date().toISOString(),
+    },
+    {
+      id: 'slide-2',
+      title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
+      slug: 'fc-bayern-munich-harry-kane-musiala-victory',
+      excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League marquee fixture.',
+      imageUrl: '/assest/user_kane_musiala_bayern.jpg',
+      categoryName: 'World Football',
+      publishedAt: new Date().toISOString(),
+    },
+    {
+      id: 'slide-3',
+      title: 'Transfers: What The Clubs Need To Do This Window',
+      slug: 'transfers-what-clubs-need-to-do',
+      excerpt: 'Comprehensive club-by-club transfer state of play, contract negotiations, and scouting priorities ahead of deadline day.',
+      imageUrl: '/assest/user_transfers_hero_graphic.jpg',
+      categoryName: 'Transfer News',
+      publishedAt: new Date().toISOString(),
+    },
+    {
+      id: 'slide-4',
+      title: 'Haaland & Super Eagles Stars Battle In High-Octane International Duel',
+      slug: 'haaland-super-eagles-stars-european-tackle',
+      excerpt: 'Erling Haaland engages in an intense physical duel against top defensive talents in a thrilling European spectacle.',
+      imageUrl: '/assest/user_home_hero_4th_slide.jpg',
+      categoryName: 'Match Spotlight',
+      publishedAt: new Date().toISOString(),
+    },
+  ];
 
-  const articles = rawArticles.length >= 5 ? rawArticles.map((a: any, idx: number) => ({
-    id: a.id,
-    title: a.title,
-    slug: a.slug,
-    excerpt: a.excerpt,
-    cover_image_url: sanitizeImageUrl(a.cover_image_url, idx),
-    categoryName: a.sports_categories?.name || 'Sports',
-    published_at: a.published_at,
-  })) : demoArticles;
+  const articles = demoArticles;
 
   const fixtures = (fixturesData as any[]).length > 0 ? fixturesData : [
     {
@@ -189,7 +186,7 @@ export default async function SportsRootHomePage() {
       id: 'v1',
       title: 'Victor Ikpeba: Why Christian Chukwu Is Nigeria\'s Greatest Super Eagles Player',
       slug: 'victor-ikpeba-christian-chukwu-super-eagles',
-      thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
+      thumbnail_url: '/assest/user_super_eagles_manager.jpg',
       duration_seconds: 1800,
       youtubeId: '3Q06g9O0J-Y',
     },
@@ -197,15 +194,15 @@ export default async function SportsRootHomePage() {
       id: 'v2',
       title: 'The 2026/27 Football League Season Preview',
       slug: 'football-league-season-preview',
-      thumbnail_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
+      thumbnail_url: '/assest/user_npfl_hero_team_celebration.jpg',
       duration_seconds: 1200,
       youtubeId: 'dQw4w9WgXcQ',
     },
     {
       id: 'v3',
-      title: 'Should Justin Madugu Continue As Super Falcons Head Coach?',
+      title: 'Super Eagles Manager AFCON Press Conference Highlights',
       slug: 'justin-madugu-super-falcons-coach',
-      thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
+      thumbnail_url: '/assest/user_super_eagles_manager.jpg',
       duration_seconds: 900,
       youtubeId: 'L_LUpnjgPso',
     },
@@ -213,15 +210,15 @@ export default async function SportsRootHomePage() {
       id: 'v4',
       title: '10 Super Eagles Stars Who Won Trophies In The 2025/26 Season',
       slug: 'super-eagles-stars-trophies',
-      thumbnail_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
+      thumbnail_url: '/assest/user_npfl_blue_player.jpg',
       duration_seconds: 1500,
       youtubeId: 'kXYiU_JCYtU',
     },
   ];
 
   // Article buckets for dual blocks
-  const npflArticles = articles.filter((a) => a.categoryName === 'NPFL League' || a.categoryName === 'NPFL' || a.categoryName === 'Nigerian Football');
-  const worldArticles = articles.filter((a) => a.categoryName === 'World Football' || a.categoryName === 'EPL');
+  const npflArticles = articles.filter((a) => a.categoryName === 'NPFL League' || a.categoryName === 'NPFL' || a.categoryName === 'Super Eagles');
+  const worldArticles = articles.filter((a) => a.categoryName === 'World Football' || a.categoryName === 'Match Spotlight');
   const featureArticles = articles.filter((a) => a.categoryName === 'Features' || a.categoryName === 'Transfer News' || a.categoryName === 'Transfers');
 
   return (
@@ -247,7 +244,7 @@ export default async function SportsRootHomePage() {
         {/* Main News Stream Column (8 cols / 68% desktop width) */}
         <div className="lg:col-span-8 space-y-8">
           
-          {/* Dual Category Block 1: Nigerian Footballers Abroad & NPFL News */}
+          {/* Dual Category Block 1: World Football & NPFL News */}
           <CategoryDualBlock
             leftColumn={{
               categoryTitle: 'NIGERIAN FOOTBALLERS ABROAD',

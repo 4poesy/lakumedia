@@ -34,19 +34,19 @@ export function HeroSlider({ slides }: HeroSliderProps) {
     },
     {
       id: 'slide-2',
-      title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
-      slug: 'konsa-will-bench-saliba-at-arsenal',
-      excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
-      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
+      title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
+      slug: 'fc-bayern-munich-harry-kane-musiala-victory',
+      excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League marquee fixture.',
+      imageUrl: '/assest/user_kane_musiala_bayern.jpg',
       categoryName: 'World Football',
       publishedAt: new Date().toISOString(),
     },
     {
       id: 'slide-3',
-      title: 'Super Eagles Star Signs Multi-Year Extension Deal',
-      slug: 'super-eagles-star-signs-multi-year-extension',
-      excerpt: 'In a major transfer update, the Nigerian international winger has officially signed a multi-year contract extension worth record wages.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
+      title: 'Transfers: What The Clubs Need To Do This Window',
+      slug: 'transfers-what-clubs-need-to-do',
+      excerpt: 'Comprehensive club-by-club transfer state of play, contract negotiations, and scouting priorities ahead of deadline day.',
+      imageUrl: '/assest/user_transfers_hero_graphic.jpg',
       categoryName: 'Transfer News',
       publishedAt: new Date().toISOString(),
     },
@@ -76,12 +76,12 @@ export function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <div
-      className="relative w-full rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-white group my-4 flex flex-col"
+      className="relative w-full rounded-3xl overflow-hidden shadow-lg border border-slate-200 bg-slate-950 group my-4 flex flex-col"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Crisp Fast-Loading Image Box */}
-      <div className="relative w-full h-[320px] sm:h-[400px] lg:h-[440px] bg-slate-100 overflow-hidden">
+      {/* Crisp Fast-Loading Image Box with Top-Anchored Object Position to Prevent Head Crop */}
+      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[450px] bg-slate-950 overflow-hidden">
         {slideData.map((slide, idx) => (
           <div
             key={slide.id || idx}
@@ -93,25 +93,26 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               src={slide.imageUrl}
               alt={slide.title}
               loading={idx === 0 ? 'eager' : 'lazy'}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-[center_15%] sm:object-[center_20%]"
               onError={(e) => {
-                (e.target as HTMLImageElement).src =
-                  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75';
+                (e.target as HTMLImageElement).src = '/assest/user_enyimba_news_hero.jpg';
               }}
             />
+            {/* Subtle Gradient Shadow at Top and Bottom */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-black/30" />
           </div>
         ))}
 
         {/* Category Badge Top Left */}
         <div className="absolute top-4 left-4 flex items-center space-x-2.5 z-20">
-          <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-md">
+          <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-[#D9541E] text-white flex items-center gap-1.5 shadow-md border border-orange-400">
             <Flame className="w-3.5 h-3.5" /> {currentSlide.categoryName}
           </span>
         </div>
       </div>
 
       {/* Solid Sharp Bottom Content Box */}
-      <div className="p-6 sm:p-8 space-y-3 bg-[#0F172A] text-white border-t border-slate-800">
+      <div className="p-5 sm:p-8 space-y-3 bg-[#0F172A] text-white border-t border-slate-800">
         <div className="flex items-center space-x-3 text-xs text-slate-300 font-bold">
           <span className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5 text-amber-400" />
@@ -138,7 +139,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
           <Link
             href={`/article/${currentSlide.slug}`}
             prefetch={true}
-            className="px-5 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors"
+            className="px-5 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors border border-orange-400"
           >
             <span>Read Full Story</span> <ArrowRight className="w-4 h-4" />
           </Link>

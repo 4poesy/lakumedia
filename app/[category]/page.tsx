@@ -6,7 +6,7 @@ import { ArticleCard } from '@/components/sports/article-card';
 import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
 import { ScoreCard } from '@/components/sports/score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
-import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper, Globe, ArrowRight } from 'lucide-react';
+import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -149,16 +149,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <span className="text-emerald-700 font-extrabold">{humanizedTitle}</span>
       </nav>
 
-      {/* Rich Visual Hero Header Banner for Category Pages */}
+      {/* Rich Visual Hero Header Banner for Category Pages with top-anchored object position */}
       <div className="relative rounded-3xl overflow-hidden border-2 border-slate-800 shadow-2xl min-h-[260px] sm:min-h-[300px] flex items-center bg-slate-950">
         <Image
           src={heroBgImage}
           alt={`${humanizedTitle} Hero Banner`}
           fill
-          className="object-cover"
+          className="object-cover object-[center_20%]"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent" />
         
         <div className="relative z-10 p-6 sm:p-10 space-y-3 max-w-2xl text-white">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#D9541E] text-white font-extrabold text-[10px] uppercase tracking-widest shadow-md">

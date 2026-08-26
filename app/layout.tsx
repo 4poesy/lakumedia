@@ -5,8 +5,48 @@ import { Footer } from '@/components/ui/footer';
 import { ThemeProviderWrapper } from '@/components/ui/theme-provider-wrapper';
 
 export const metadata: Metadata = {
-  title: 'Laku Media — Nigerian Sports & Multimedia Entertainment Platform',
-  description: 'Nigeria Premier Football League, Premier League live coverage, transfer news, documentaries, films, stand-up comedy, and kids entertainment.',
+  title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
+  description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media. Discover our world-class OB satellite uplink, cinematic film production, and original multimedia content.",
+  keywords: [
+    'Laku Media',
+    'NPFL Live Scores',
+    'Nigeria Premier Football League',
+    'Super Eagles News',
+    'Complete Sports Nigeria',
+    'Premier League Transfers',
+    'UEFA Champions League',
+    'Enyimba FC',
+    'Creative Studio Nigeria',
+    'OB Satellite Uplink',
+  ],
+  authors: [{ name: 'Laku Media Desk' }],
+  icons: {
+    icon: '/favicon.ico',
+    shortcut: '/favicon.ico',
+    apple: '/brand/laku-media/laku-media-logo-symbol.jpeg',
+  },
+  openGraph: {
+    title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
+    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media.",
+    url: 'https://lakumedia.vercel.app',
+    siteName: 'Laku Media',
+    images: [
+      {
+        url: 'https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-light.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Laku Media Sports & Multimedia Platform',
+      },
+    ],
+    locale: 'en_NG',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
+    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media.",
+    images: ['https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-light.jpeg'],
+  },
 };
 
 export default function RootLayout({
