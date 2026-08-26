@@ -1,10 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Mail, Phone, MapPin, UserCheck } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MapPin, UserCheck, MessageSquare } from 'lucide-react';
 
 export const metadata = {
   title: 'Contact Us | Laku Media',
-  description: 'Get in touch with Laku Media production desk and editorial team.',
+  description: 'Get in touch with Laku Media production desk and executive office.',
 };
 
 export default function ContactPage() {
@@ -26,7 +26,7 @@ export default function ContactPage() {
           </div>
           <div>
             <h1 className="text-3xl font-extrabold text-white">Contact Laku Media</h1>
-            <p className="text-xs text-slate-400">Production Services, Editorial Press & Customer Inquiries</p>
+            <p className="text-xs text-slate-400">Executive Office, Studio Bookings & Editorial Press Desk</p>
           </div>
         </div>
       </div>
@@ -37,29 +37,51 @@ export default function ContactPage() {
             <UserCheck className="w-5 h-5 text-[#D9541E]" /> Executive Desk
           </h2>
 
-          <div className="space-y-4 text-xs text-slate-300">
+          <div className="space-y-5 text-xs text-slate-300">
             <div className="flex items-start space-x-3">
               <UserCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-white">Adebayo Samuel Olaku</p>
-                <p className="text-slate-400">Chief Executive Officer (CEO)</p>
+                <p className="font-bold text-white text-sm">Adebayo Samuel Olaku</p>
+                <p className="text-slate-400 font-medium">Chief Executive Officer (CEO)</p>
+              </div>
+            </div>
+
+            <div className="flex items-start space-x-3">
+              <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+              <div>
+                <p className="font-bold text-white">CEO Direct Line & WhatsApp</p>
+                <p className="text-amber-300 font-mono font-extrabold text-sm">+234 810 328 5303</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
               <Mail className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-white">Production Inquiry Email</p>
-                <p className="text-slate-400">production@lakumedia.com</p>
+                <p className="font-bold text-white">Production & Studio Booking Email</p>
+                <p className="text-slate-300 font-mono font-medium">studio@lakumedia.com / executive@lakumedia.com</p>
               </div>
             </div>
 
             <div className="flex items-start space-x-3">
               <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
               <div>
-                <p className="font-bold text-white">Headquarters</p>
-                <p className="text-slate-400">Lagos, Nigeria</p>
+                <p className="font-bold text-white">Studio Headquarters</p>
+                <p className="text-slate-300 leading-relaxed font-medium">
+                  Laku Media Studio Complex, Km 12 Lagos-Ibadan Expressway / Abeokuta Road, Ogun State, Nigeria.
+                </p>
               </div>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href="https://wa.me/2348103285303"
+                target="_blank"
+                rel="noreferrer"
+                className="w-full py-3 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 uppercase tracking-wider"
+              >
+                <MessageSquare className="w-4 h-4" />
+                <span>Chat directly on WhatsApp (+234 810 328 5303)</span>
+              </a>
             </div>
           </div>
         </div>

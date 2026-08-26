@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { MapPin, Phone, Mail, Clock, Navigation, Sparkles } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Navigation, Sparkles, MessageSquare } from 'lucide-react';
 
 export function StudioLocationMapSection() {
   return (
@@ -63,9 +63,12 @@ export function StudioLocationMapSection() {
                 <Phone className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Booking Hotline & WhatsApp</span>
-                <p className="text-slate-300 font-mono font-bold">
-                  +234 800 LAKUMEDIA (+234 800 525 86334)
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">CEO Direct Line & WhatsApp</span>
+                <p className="text-amber-300 font-mono font-extrabold text-sm">
+                  +234 810 328 5303
+                </p>
+                <p className="text-slate-400 font-mono text-[11px]">
+                  Studio Hotline: +234 800 525 86334
                 </p>
               </div>
             </div>
@@ -98,12 +101,22 @@ export function StudioLocationMapSection() {
             </div>
           </div>
 
-          <div className="pt-4 border-t border-slate-800">
+          <div className="pt-4 border-t border-slate-800 space-y-2">
+            <a
+              href="https://wa.me/2348103285303"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 border border-emerald-400 uppercase tracking-wider"
+            >
+              <MessageSquare className="w-4 h-4" />
+              <span>WhatsApp CEO (+234 810 328 5303)</span>
+            </a>
+
             <a
               href="https://maps.google.com/?q=Ogun+State,+Nigeria"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 uppercase tracking-wider"
+              className="w-full py-3 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 uppercase tracking-wider"
             >
               <Navigation className="w-4 h-4" />
               <span>Get Directions on Google Maps</span>
