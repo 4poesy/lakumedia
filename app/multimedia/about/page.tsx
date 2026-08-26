@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv } from 'lucide-react';
+import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv, Globe } from 'lucide-react';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
 import { NeonBorder } from '@/components/ui/neon-border';
@@ -39,16 +39,17 @@ export default function MultimediaAboutPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. STANDALONE ABOUT HERO SECTION */}
-      <section className="relative rounded-3xl overflow-hidden min-h-[460px] sm:min-h-[520px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
+      {/* 1. ABOUT HERO SECTION with User Uploaded Broadcast Control Room Image */}
+      <section className="relative rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[540px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
-          src="/assest/user_portfolio_hero_stage.jpg"
-          alt="Laku Media High-Tech Production Studio Stage"
+          src="/assest/user_about_control_room_2.jpg"
+          alt="Laku Media Satellite Broadcast Master Control Room"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/50 to-[#090A0F]/20 opacity-90" />
+        {/* Light Overlay for Image Visibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/60 to-[#090A0F]/30 opacity-90" />
         
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
           <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
@@ -66,15 +67,95 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 2. ALTERNATING 2-COLUMN SHOWCASE 1 (Image on LEFT, Content on RIGHT) */}
+      {/* 2. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (3rd Image on LEFT, "Why Laku Media?" Content on RIGHT) */}
+      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border-2 border-[#10B981]/60 shadow-2xl overflow-hidden relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          {/* LEFT Column (3rd Uploaded Image: Satellite Dishes Silhouette Against Sunset Sky) */}
+          <div className="lg:col-span-6 relative h-[380px] sm:h-[480px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
+            <Image
+              src="/assest/user_why_laku_satellite_sunset_3.jpg"
+              alt="Laku Media Satellite Dish Array Silhouette at Sunset"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
+                SATELLITE & CINEMA INFRASTRUCTURE
+              </span>
+              <h3 className="text-sm font-extrabold text-white">Uninterrupted Global Uplink & Production Capability</h3>
+            </div>
+          </div>
+
+          {/* RIGHT Column (Content: "Why Laku Media?") */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-2">
+              <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700 inline-block">
+                THE LAKU MEDIA ADVANTAGE
+              </span>
+              <h2 className="text-3xl sm:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+                WHY <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-[#D9541E]">LAKU MEDIA?</span>
+              </h2>
+            </div>
+
+            <p className="text-sm text-slate-300 leading-relaxed font-medium">
+              Laku Media is Africa&apos;s dual-vertical powerhouse bridging world-class 8K cinema production, live satellite sports broadcasting, and commercial brand storytelling. We combine cutting-edge technology with unyielding creative passion to deliver unmatched media experiences.
+            </p>
+
+            {/* Why Laku Media Key Pillars */}
+            <div className="space-y-3 pt-2">
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                <div className="p-2 rounded-xl bg-[#D9541E]/20 text-[#D9541E] shrink-0 border border-orange-500/40">
+                  <Zap className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-extrabold text-white">End-to-End Broadcast & Cinema Rigs</h4>
+                  <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                    Own & operate satellite OB vans, RED 8K cinema cameras, FPV aerial drones, and Dolby Atmos audio suites.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                <div className="p-2 rounded-xl bg-[#10B981]/20 text-[#10B981] shrink-0 border border-[#10B981]/40">
+                  <Shield className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-extrabold text-white">100% On-Time Delivery Guarantee</h4>
+                  <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                    Zero signal dropouts for live stadium satellite streams and rigorous deadlines for commercial ad releases.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
+                <div className="p-2 rounded-xl bg-purple-500/20 text-purple-400 shrink-0 border border-purple-500/40">
+                  <Globe className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="text-sm font-extrabold text-white">Pan-African & Global Audience Reach</h4>
+                  <p className="text-xs text-slate-400 font-medium leading-relaxed">
+                    Over 10M+ monthly viewers tuning in across Laku Sports and Laku Media Studios entertainment platforms.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
           {/* Left Column (Image) */}
           <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
             <Image
-              src="/assest/user_portfolio_crew_set.jpg"
-              alt="Laku Media Camera Crew Filming On Set"
+              src="/assest/user_about_satellite_dish_1.jpg"
+              alt="Laku Media Teleport Satellite Dish Antenna"
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-700"
             />
@@ -83,7 +164,7 @@ export default function MultimediaAboutPage() {
               <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
                 OUR ORIGIN STORY
               </span>
-              <h3 className="text-sm font-extrabold text-white">Built From Passion for African Cinema & Sports</h3>
+              <h3 className="text-sm font-extrabold text-white">Built From Passion for African Cinema & Satellite Broadcasting</h3>
             </div>
           </div>
 
@@ -111,61 +192,6 @@ export default function MultimediaAboutPage() {
                 <span className="text-2xl font-black text-[#10B981]">100+</span>
                 <p className="text-xs text-slate-400 font-bold">Delivered Productions</p>
               </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 3. ALTERNATING 2-COLUMN SHOWCASE 2 (Content on LEFT, Image on RIGHT) */}
-      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left Column (Content) */}
-          <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-md bg-[#D9541E]/20 text-[#D9541E] text-[10px] font-black uppercase tracking-widest border border-orange-500/40">
-                STATE-OF-THE-ART INFRASTRUCTURE
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                CUTTING-EDGE <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-[#D9541E]">STUDIO & OB VAN</span> CAPABILITIES
-              </h2>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed font-medium">
-              We own and operate satellite Outside Broadcast (OB) vans, 8K RED V-Raptor cinema rigs, high-speed FPV aerial drones, and Dolby Atmos audio suites designed to power high-stakes broadcasts and blockbuster movies.
-            </p>
-
-            <div className="space-y-3 font-extrabold text-xs text-slate-200">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Multi-Camera Satellite OB Van Broadcasting</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>RED V-Raptor 8K Cinema Camera Rigs & Anamorphic Lenses</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Dolby Atmos Master Audio Recording & Color Grading Suite</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column (Image) */}
-          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
-            <Image
-              src="/assest/user_portfolio_lighting_crew.jpg"
-              alt="Laku Media Studio Lighting & Crew Setup"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 block">
-                PRODUCTION ENGINEERING
-              </span>
-              <h3 className="text-sm font-extrabold text-white">Full-Scale Stage Rigging & Master Control Operations</h3>
             </div>
           </div>
 
