@@ -5,6 +5,10 @@ import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Hear
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
 import { AboutHeroAutoCrossfade } from '@/components/multimedia/about-hero-auto-crossfade';
+import { AboutPartnerMarquee } from '@/components/multimedia/about-partner-marquee';
+import { AboutTechStackShowcase } from '@/components/multimedia/about-tech-stack-showcase';
+import { AboutCeoStatement } from '@/components/multimedia/about-ceo-statement';
+import { AboutFacilitiesShowcase } from '@/components/multimedia/about-facilities-showcase';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
@@ -49,7 +53,10 @@ export default function MultimediaAboutPage() {
         intervalMs={5000}
       />
 
-      {/* 2. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
+      {/* 2. ANIMATED CLIENT & PARTNER LOGO MARQUEE */}
+      <AboutPartnerMarquee />
+
+      {/* 3. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -100,7 +107,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 3. VISION & MISSION CARDS */}
+      {/* 4. VISION & MISSION CARDS */}
       <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         <NeonBorder color="#10B981" rounded={24} thickness={4} borderSize={60} glow={90}>
           <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl space-y-4 relative overflow-hidden group">
@@ -129,7 +136,7 @@ export default function MultimediaAboutPage() {
         </NeonBorder>
       </section>
 
-      {/* 4. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (Content on LEFT, Sunset Satellite Dish 3 Image on RIGHT) */}
+      {/* 5. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (Content on LEFT, Sunset Satellite Dish 3 Image on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border-2 border-[#10B981]/60 shadow-2xl overflow-hidden relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -209,7 +216,16 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 5. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (Originkit 3D Coverflow) */}
+      {/* 6. HARDWARE & STUDIO TECH STACK SPECS SHOWCASE */}
+      <AboutTechStackShowcase />
+
+      {/* 7. EXECUTIVE CEO STATEMENT & FOUNDER'S LETTER */}
+      <AboutCeoStatement />
+
+      {/* 8. PHYSICAL STUDIOS & LOCATION FACILITIES SHOWCASE */}
+      <AboutFacilitiesShowcase />
+
+      {/* 9. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (Originkit 3D Coverflow) */}
       <section className="max-w-7xl mx-auto space-y-8 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
           <div>
@@ -237,7 +253,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 6. Studio Subscriber Section */}
+      {/* 10. Studio Subscriber Section */}
       <div className="max-w-7xl mx-auto">
         <StudioSubscriberSection />
       </div>
