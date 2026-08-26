@@ -167,7 +167,11 @@ export function NewsletterPopupModal() {
   );
 }
 
-export function StudioSubscriberSection() {
+interface StudioSubscriberSectionProps {
+  showTagline?: boolean;
+}
+
+export function StudioSubscriberSection({ showTagline = true }: StudioSubscriberSectionProps) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
@@ -185,9 +189,11 @@ export function StudioSubscriberSection() {
   return (
     <section className="bg-slate-950 p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 relative overflow-hidden my-10 max-w-7xl mx-auto">
       <div className="max-w-3xl mx-auto text-center space-y-4">
-        <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">
-          JOIN LAKU MEDIA STUDIO NETWORK
-        </span>
+        {showTagline && (
+          <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">
+            JOIN LAKU MEDIA STUDIO NETWORK
+          </span>
+        )}
         <h2 className="text-3xl sm:text-4xl font-black text-white uppercase">
           SUBSCRIBE FOR PRIVATE CINEMA REELS & DISCOUNTS
         </h2>
