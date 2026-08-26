@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
 import { ArticleComments } from '@/components/sports/article-comments';
 import { StructuredData } from '@/components/seo/structured-data';
-import { ArrowLeft, Calendar, User, Share2, Flame, Bot, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2, Flame, Bot, ShieldCheck, Layers, ChevronRight } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -66,7 +66,7 @@ Kano Pillars responded before the stroke of halftime with a clinical equalizer, 
 
 Speaking after the final whistle, the head coach praised his squad's resilience and tactical discipline: 'This win is for our incredible fans who supported us through every minute. We stay focused on the league title.'`,
     excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in a gripping NPFL clash on Sunday afternoon.',
-    cover_image_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
+    cover_image_url: '/assest/user_enyimba_news_hero.jpg',
     category_id: '22222222-2222-2222-2222-222222222222',
     sports_categories: { name: 'NPFL' },
     profiles: { display_name: 'Lakumedia Editorial Team', avatar_url: null },
@@ -85,11 +85,20 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
   const relatedArticles = relatedData && relatedData.length > 0 ? (relatedData as any[]) : [
     {
       id: '40000000-0000-0000-0000-000000000002',
-      title: 'Premier League Title Race Heats Up Ahead of London Derby',
-      slug: 'premier-league-title-race-heats-up',
-      excerpt: 'The Premier League title race hits high gear this weekend as London rivals prepare for a high-stakes showdown.',
-      cover_image_url: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
-      sports_categories: { name: 'EPL' },
+      title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
+      slug: 'fc-bayern-munich-harry-kane-musiala-victory',
+      excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League marquee fixture.',
+      cover_image_url: '/assest/user_kane_musiala_bayern.jpg',
+      sports_categories: { name: 'World Football' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: '40000000-0000-0000-0000-000000000003',
+      title: 'NPFL Derby: Enyimba Host Rangers International In High-Stakes Clash',
+      slug: 'enyimba-vs-rangers-npfl-derby-2026',
+      excerpt: 'Nine-time champions Enyimba FC prepare to battle rivals Rangers International at the Aba Township Stadium in a critical NPFL title race encounter.',
+      cover_image_url: '/assest/user_enyimba_aba_jump.jpg',
+      sports_categories: { name: 'NPFL' },
       published_at: new Date().toISOString(),
     },
   ];
@@ -194,11 +203,11 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
         <Image
           src={
             article.cover_image_url ||
-            'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop'
+            '/assest/user_enyimba_news_hero.jpg'
           }
           alt={article.title}
           fill
-          className="object-cover"
+          className="object-cover object-[center_20%]"
           priority
         />
       </div>
@@ -218,6 +227,42 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
           </div>
         </div>
       )}
+
+      {/* Internal SEO Topic Cluster / Pillar Hub Links Box */}
+      <div className="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 space-y-3 my-6 shadow-md">
+        <div className="flex items-center gap-2 text-xs font-black uppercase text-[#D9541E] tracking-widest">
+          <Layers className="w-4 h-4 text-emerald-400" /> EXPLORE MORE IN THIS TOPIC CLUSTER
+        </div>
+        <div className="flex flex-wrap items-center gap-3 text-xs font-bold pt-1">
+          <Link
+            href="/npfl"
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700 flex items-center gap-1"
+          >
+            <span>🇳🇬 NPFL League Pillar Hub</span> <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+
+          <Link
+            href="/world-football"
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700 flex items-center gap-1"
+          >
+            <span>🌍 World Football Pillar Hub</span> <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+
+          <Link
+            href="/transfers"
+            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700 flex items-center gap-1"
+          >
+            <span>⚽ Transfers Center</span> <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+
+          <Link
+            href="/live-scores"
+            className="px-4 py-2 rounded-xl bg-rose-950 text-rose-300 hover:bg-rose-900 transition-colors border border-rose-800 flex items-center gap-1"
+          >
+            <span>⚡ Realtime LiveScores</span> <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+      </div>
 
       {/* Related Articles Section */}
       <section className="pt-8 border-t border-slate-200 space-y-4">

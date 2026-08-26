@@ -100,7 +100,7 @@ export function AroundTheWebRail({
                   </p>
                 </div>
 
-                {/* Card Action Link */}
+                {/* Card Action Link with SEO rel="noopener noreferrer nofollow" */}
                 <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold">
                   <span className="text-[10px] text-slate-600 flex items-center gap-1 font-mono">
                     <Clock className="w-3 h-3 text-slate-500" />
@@ -121,7 +121,7 @@ export function AroundTheWebRail({
                     <a
                       href={item.source_url}
                       target="_blank"
-                      rel="noopener noreferrer"
+                      rel="noopener noreferrer nofollow"
                       className="text-[#2A2E7F] hover:underline flex items-center gap-1"
                     >
                       <span>Read on {item.source_name}</span> <ExternalLink className="w-3 h-3" />
