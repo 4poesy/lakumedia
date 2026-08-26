@@ -180,8 +180,8 @@ export function ServicesEquipmentShowcase() {
       title: 'Dual C/Ku-Band OB Satellite Uplink Van',
       description: 'We facilitate and engineer mobile satellite Outside Broadcast (OB) vans fitted with dual motorized 2.4m satellite dish antennas, 16-channel 4K video switchers, multi-cam live graphics engines, and satellite uplink transmitters.',
       features: ['Dual C/Ku-Band Satellite Transponders', '16-Channel 4K Triax Switcher', 'Live Stadium Realtime Graphics Engine'],
-      image: '/assest/about_hero_auto_satellite.jpg',
-      imageAlt: 'Laku Media Teleport Satellite Uplink Dish Antenna',
+      image: '/assest/service_satellite_ob_dish.jpg',
+      imageAlt: 'Laku Media C/Ku-Band Satellite Teleport Uplink Dish Antenna',
       imageOnRight: false, // Image LEFT, Content RIGHT
     },
     {
