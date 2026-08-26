@@ -1,8 +1,12 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { VideoCard } from './video-card';
 import { ChevronRight } from 'lucide-react';
 import { MediaType } from '@/lib/types/supabase';
+import { ScrollRevealSection, ScrollRevealChild } from '@/components/multimedia/motion/scroll-reveal-section';
+import { CinematicCardMotion } from '@/components/multimedia/motion/cinematic-card-motion';
 
 export interface MediaRailItem {
   id: string;
@@ -26,7 +30,7 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
   if (!items || items.length === 0) return null;
 
   return (
-    <section className="space-y-4 py-4">
+    <ScrollRevealSection stagger className="space-y-4 py-4">
       <div className="flex items-center justify-between border-b border-slate-800 pb-2">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-6 rounded-full bg-[#10B981] shadow-sm" />
@@ -45,19 +49,22 @@ export function GenreRail({ genreName, genreSlug, items }: GenreRailProps) {
       {/* Mobile-first 2-column grid on mobile (<640px) scaling to 5-column on desktop */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
         {items.slice(0, 5).map((item) => (
-          <VideoCard
-            key={item.id}
-            title={item.title}
-            slug={item.slug}
-            synopsis={item.synopsis}
-            thumbnailUrl={item.thumbnail_url}
-            genreName={genreName}
-            mediaType={item.media_type}
-            durationSeconds={item.duration_seconds}
-            isKidSafe={item.is_kid_safe}
-          />
+          <ScrollRevealChild key={item.id}>
+            <CinematicCardMotion hoverScale={1.03} hoverY={-5}>
+              <VideoCard
+                title={item.title}
+                slug={item.slug}
+                synopsis={item.synopsis}
+                thumbnailUrl={item.thumbnail_url}
+                genreName={genreName}
+                mediaType={item.media_type}
+                durationSeconds={item.duration_seconds}
+                isKidSafe={item.is_kid_safe}
+              />
+            </CinematicCardMotion>
+          </ScrollRevealChild>
         ))}
       </div>
-    </section>
+    </ScrollRevealSection>
   );
 }

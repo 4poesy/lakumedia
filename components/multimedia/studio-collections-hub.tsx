@@ -1,6 +1,10 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Film, Tv, Sparkles, Trophy, Music } from 'lucide-react';
+import { ScrollRevealSection, ScrollRevealChild } from '@/components/multimedia/motion/scroll-reveal-section';
+import { CinematicCardMotion } from '@/components/multimedia/motion/cinematic-card-motion';
 
 export function StudioCollectionsHub() {
   const collections = [
@@ -52,7 +56,7 @@ export function StudioCollectionsHub() {
   ];
 
   return (
-    <section className="space-y-4 py-4">
+    <ScrollRevealSection stagger className="space-y-4 py-4">
       <div className="flex items-center justify-between border-b border-slate-800 pb-2">
         <div className="flex items-center space-x-2">
           <div className="w-3 h-6 rounded-full bg-[#10B981] shadow-sm" />
@@ -67,28 +71,31 @@ export function StudioCollectionsHub() {
         {collections.map((col) => {
           const Icon = col.icon;
           return (
-            <Link
-              key={col.id}
-              href={col.href}
-              className={`bg-gradient-to-b ${col.bgGradient} p-5 rounded-2xl border shadow-xl flex flex-col justify-between h-36 group transition-all duration-300 hover:scale-105 active:scale-95`}
-            >
-              <div className="flex items-center justify-between">
-                <Icon className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-                <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${col.badgeColor}`}>
-                  4K ULTRA
-                </span>
-              </div>
+            <ScrollRevealChild key={col.id}>
+              <CinematicCardMotion hoverScale={1.04} hoverY={-4}>
+                <Link
+                  href={col.href}
+                  className={`bg-gradient-to-b ${col.bgGradient} p-5 rounded-2xl border shadow-xl flex flex-col justify-between h-36 group transition-all duration-300`}
+                >
+                  <div className="flex items-center justify-between">
+                    <Icon className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+                    <span className={`text-[8px] font-black uppercase px-2 py-0.5 rounded-full ${col.badgeColor}`}>
+                      4K ULTRA
+                    </span>
+                  </div>
 
-              <div>
-                <h3 className="text-sm font-black text-white group-hover:text-amber-300 transition-colors">
-                  {col.title}
-                </h3>
-                <p className="text-[10px] text-slate-400 font-medium">{col.subtitle}</p>
-              </div>
-            </Link>
+                  <div>
+                    <h3 className="text-sm font-black text-white group-hover:text-amber-300 transition-colors">
+                      {col.title}
+                    </h3>
+                    <p className="text-[10px] text-slate-400 font-medium">{col.subtitle}</p>
+                  </div>
+                </Link>
+              </CinematicCardMotion>
+            </ScrollRevealChild>
           );
         })}
       </div>
-    </section>
+    </ScrollRevealSection>
   );
 }
