@@ -69,12 +69,7 @@ export default function MultimediaPortfolioPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. SUBSCRIBER BANNER (Placed BEFORE Hero Section, without "JOIN LAKU MEDIA STUDIO NETWORK") */}
-      <div className="max-w-7xl mx-auto pt-2">
-        <StudioSubscriberSection showTagline={false} />
-      </div>
-
-      {/* 2. STUDIO PORTFOLIO HERO HEADER with Lighter Overlay for Background Image Clarity */}
+      {/* 1. STUDIO PORTFOLIO HERO HEADER with Lighter Overlay for Background Image Clarity */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_portfolio_hero_stage.jpg"
@@ -110,7 +105,7 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 3. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (User Image 2 on LEFT, Content on RIGHT) */}
+      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (User Image 2 on LEFT, Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
@@ -170,7 +165,7 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 4. Portfolio Projects Grid with In-Page Lightbox Modal */}
+      {/* 3. Portfolio Projects Grid with In-Page Lightbox Modal */}
       <section className="max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
@@ -186,7 +181,7 @@ export default function MultimediaPortfolioPage() {
         <PortfolioClientGrid projects={portfolioProjects} />
       </section>
 
-      {/* 5. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, User Image 3 on RIGHT) */}
+      {/* 4. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, User Image 3 on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
@@ -250,9 +245,14 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 6. Book Us Section */}
+      {/* 5. Book Us Section ("BOOK LAKU MEDIA CREATIVE STUDIO READY TO PRODUCE YOUR NEXT BLOCKBUSTER PROJECT?") */}
       <div className="max-w-7xl mx-auto">
         <BookUsNowSection />
+      </div>
+
+      {/* 6. SUBSCRIBER BANNER (Moved BELOW BookUsNowSection) */}
+      <div className="max-w-7xl mx-auto">
+        <StudioSubscriberSection showTagline={false} />
       </div>
 
     </div>
