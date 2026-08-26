@@ -35,8 +35,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true); // Toggle between Dark & Light Mode
 
-  // Default rich match fixtures with explicit date offset tagging
+  // Default rich match fixtures with explicit date offset tagging for complete demo coverage across all 3 days
   const demoFixtures: MatchFixtureItem[] = [
+    // --- TODAY MATCHES ---
     {
       id: 'fix-npfl-1',
       homeTeam: 'Enyimba FC',
@@ -83,7 +84,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       awayTeam: 'Chelsea FC',
       homeScore: 3,
       awayScore: 1,
-      kickoffAt: new Date(Date.now() - 7200000).toISOString(),
+      kickoffAt: new Date().toISOString(),
       status: 'finished',
       leagueName: 'English Premier League (EPL)',
       leagueSlug: 'epl',
@@ -97,20 +98,8 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 78, player: 'Declan Rice', team: 'home' },
       ],
     },
-    {
-      id: 'fix-epl-2',
-      homeTeam: 'Manchester City',
-      awayTeam: 'Liverpool FC',
-      homeScore: null,
-      awayScore: null,
-      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
-      status: 'scheduled',
-      leagueName: 'English Premier League (EPL)',
-      leagueSlug: 'epl',
-      countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-      matchDateOffset: 'tomorrow',
-      stadium: 'Etihad Stadium, Manchester',
-    },
+
+    // --- YESTERDAY MATCHES ---
     {
       id: 'fix-ucl-1',
       homeTeam: 'Real Madrid',
@@ -152,12 +141,43 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     {
+      id: 'fix-npfl-yest-1',
+      homeTeam: 'Rivers United',
+      awayTeam: 'Lobi Stars',
+      homeScore: 2,
+      awayScore: 0,
+      kickoffAt: new Date(Date.now() - 86400000).toISOString(),
+      status: 'finished',
+      leagueName: 'Nigeria Premier Football League (NPFL)',
+      leagueSlug: 'npfl',
+      countryFlag: '🇳🇬',
+      matchDateOffset: 'yesterday',
+      stadium: 'Adokiye Amiesimaka Stadium, Port Harcourt',
+      goals: [{ minute: 12, player: 'Nyima Nwagua', team: 'home' }],
+    },
+
+    // --- TOMORROW MATCHES ---
+    {
+      id: 'fix-epl-2',
+      homeTeam: 'Manchester City',
+      awayTeam: 'Liverpool FC',
+      homeScore: null,
+      awayScore: null,
+      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
+      status: 'scheduled',
+      leagueName: 'English Premier League (EPL)',
+      leagueSlug: 'epl',
+      countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+      matchDateOffset: 'tomorrow',
+      stadium: 'Etihad Stadium, Manchester',
+    },
+    {
       id: 'fix-ucl-2',
       homeTeam: 'Barcelona',
       awayTeam: 'Paris Saint-Germain',
       homeScore: null,
       awayScore: null,
-      kickoffAt: new Date(Date.now() + 86400000 * 1.5).toISOString(),
+      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
       status: 'scheduled',
       leagueName: 'UEFA Champions League',
       leagueSlug: 'champions-league',
@@ -165,9 +185,45 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       matchDateOffset: 'tomorrow',
       stadium: 'Camp Nou, Barcelona',
     },
+    {
+      id: 'fix-npfl-tom-1',
+      homeTeam: 'Bendel Insurance',
+      awayTeam: 'Shooting Stars SC',
+      homeScore: null,
+      awayScore: null,
+      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
+      status: 'scheduled',
+      leagueName: 'Nigeria Premier Football League (NPFL)',
+      leagueSlug: 'npfl',
+      countryFlag: '🇳🇬',
+      matchDateOffset: 'tomorrow',
+      stadium: 'Samuel Ogbemudia Stadium, Benin City',
+    },
   ];
 
-  const fixtures = initialFixtures && initialFixtures.length > 0 ? initialFixtures : demoFixtures;
+  const rawFixtures = initialFixtures && initialFixtures.length > 0 ? initialFixtures : demoFixtures;
+
+  // Compute exact match date offset for any fixture
+  const getFixtureDateOffset = (fix: MatchFixtureItem): 'yesterday' | 'today' | 'tomorrow' => {
+    if (fix.matchDateOffset) return fix.matchDateOffset;
+    if (!fix.kickoffAt) return 'today';
+
+    const kickoff = new Date(fix.kickoffAt);
+    const now = new Date();
+
+    const matchDay = new Date(kickoff.getFullYear(), kickoff.getMonth(), kickoff.getDate()).getTime();
+    const todayDay = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+    const diffDays = Math.round((matchDay - todayDay) / (1000 * 60 * 60 * 24));
+
+    if (diffDays < 0) return 'yesterday';
+    if (diffDays > 0) return 'tomorrow';
+    return 'today';
+  };
+
+  const fixtures = rawFixtures.map((fix) => ({
+    ...fix,
+    computedDateOffset: getFixtureDateOffset(fix),
+  }));
 
   const toggleFavorite = (id: string) => {
     setFavorites((prev) => (prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]));
@@ -189,8 +245,8 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       if (!matchSearch) return false;
     }
 
-    // 2. Date Switcher Filter (Yesterday / Today / Tomorrow)
-    if (fix.matchDateOffset && fix.matchDateOffset !== selectedDate) {
+    // 2. Strict Date Switcher Filter (Yesterday / Today / Tomorrow)
+    if (fix.computedDateOffset !== selectedDate) {
       return false;
     }
 
@@ -220,7 +276,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     groupedByLeague[fix.leagueName].push(fix);
   });
 
-  const liveCount = fixtures.filter((f) => f.status === 'live').length;
+  // Count active live matches for current date
+  const liveCount = fixtures.filter((f) => f.computedDateOffset === selectedDate && f.status === 'live').length;
+  const dateMatchCount = fixtures.filter((f) => f.computedDateOffset === selectedDate).length;
 
   // Color Tokens based on Theme State
   const theme = isDarkMode
@@ -254,10 +312,10 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   return (
     <div className={`${theme.container} rounded-3xl border shadow-2xl overflow-hidden font-sans transition-colors duration-300`}>
       
-      {/* LiveScore Header Bar with Dark/Light Theme Toggle */}
+      {/* LiveScore Header Bar with Prominent 1-Click Dark/Light Theme Toggle */}
       <div className={`${theme.header} px-4 sm:px-8 py-5 border-b flex flex-col md:flex-row md:items-center justify-between gap-4`}>
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#D9541E] text-white flex items-center justify-center font-black text-lg shadow-lg">
+          <div className="w-10 h-10 rounded-2xl bg-[#D9541E] text-white flex items-center justify-center font-black text-lg shadow-lg shrink-0">
             <Activity className="w-6 h-6 animate-pulse" />
           </div>
           <div>
@@ -272,28 +330,29 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </div>
         </div>
 
-        <div className="flex items-center space-x-3 w-full md:w-auto">
-          {/* Theme Toggle Button */}
+        {/* Header Right Controls: Theme Switcher + Search Bar */}
+        <div className="flex flex-wrap items-center space-x-3 w-full md:w-auto">
+          {/* Highly Visible Theme Switcher Toggle */}
           <button
+            type="button"
             onClick={() => setIsDarkMode(!isDarkMode)}
-            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs flex items-center gap-1.5 border border-slate-700 transition-transform active:scale-95 shrink-0"
-            title="Toggle Light / Dark Theme"
+            className="px-4 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 shrink-0 cursor-pointer"
           >
             {isDarkMode ? (
               <>
-                <Sun className="w-4 h-4 text-amber-400" />
-                <span className="hidden sm:inline">Light Mode</span>
+                <Sun className="w-4 h-4 text-amber-300" />
+                <span>SWITCH TO LIGHT MODE ☀️</span>
               </>
             ) : (
               <>
-                <Moon className="w-4 h-4 text-indigo-400" />
-                <span className="hidden sm:inline">Dark Mode</span>
+                <Moon className="w-4 h-4 text-slate-100" />
+                <span>SWITCH TO DARK MODE 🌙</span>
               </>
             )}
           </button>
 
           {/* Search Input Box */}
-          <div className="relative flex-1 md:w-72">
+          <div className="relative flex-1 md:w-64 min-w-[200px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             <input
               type="text"
@@ -306,14 +365,18 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         </div>
       </div>
 
-      {/* Date Switcher Bar (Yesterday, Today, Tomorrow) - 100% Clickable & Interactive */}
+      {/* Date Switcher Bar (Yesterday, Today, Tomorrow) - 100% Interactive & Clickable */}
       <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => setSelectedDate('yesterday')}
+            type="button"
+            onClick={() => {
+              setSelectedDate('yesterday');
+              setActiveTab('all');
+            }}
             className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
               selectedDate === 'yesterday'
-                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
@@ -321,10 +384,14 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
 
           <button
-            onClick={() => setSelectedDate('today')}
+            type="button"
+            onClick={() => {
+              setSelectedDate('today');
+              setActiveTab('all');
+            }}
             className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 flex items-center gap-1.5 ${
               selectedDate === 'today'
-                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
@@ -333,10 +400,14 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
 
           <button
-            onClick={() => setSelectedDate('tomorrow')}
+            type="button"
+            onClick={() => {
+              setSelectedDate('tomorrow');
+              setActiveTab('all');
+            }}
             className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
               selectedDate === 'tomorrow'
-                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
                 : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
@@ -346,7 +417,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
         <div className="flex items-center gap-2 text-slate-400 text-xs">
           <Calendar className="w-4 h-4 text-[#D9541E]" />
-          <span className="hidden sm:inline font-mono">LIVE COVERAGE 24/7</span>
+          <span className="hidden sm:inline font-mono">SHOWING {selectedDate.toUpperCase()} MATCHES</span>
         </div>
       </div>
 
@@ -354,6 +425,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       <div className={`${theme.tabBar} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3`}>
         <div className="flex flex-wrap items-center gap-2">
           <button
+            type="button"
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'all'
@@ -361,10 +433,11 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                 : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            ALL MATCHES ({fixtures.length})
+            ALL MATCHES ({dateMatchCount})
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('live')}
             className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'live'
@@ -377,6 +450,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('favorites')}
             className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'favorites'
@@ -389,6 +463,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('finished')}
             className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'finished'
@@ -400,6 +475,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
 
           <button
+            type="button"
             onClick={() => setActiveTab('scheduled')}
             className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'scheduled'
@@ -414,30 +490,35 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         {/* League Selector Pills - 100% Interactive */}
         <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
           <button
+            type="button"
             onClick={() => setSelectedLeague('all')}
             className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'all' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             ALL LEAGUES
           </button>
           <button
+            type="button"
             onClick={() => setSelectedLeague('npfl')}
             className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'npfl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🇳🇬 NPFL
           </button>
           <button
+            type="button"
             onClick={() => setSelectedLeague('epl')}
             className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'epl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🏴󠁧󠁢󠁥󠁮󠁧󠁿 EPL
           </button>
           <button
+            type="button"
             onClick={() => setSelectedLeague('ucl')}
             className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'ucl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🇪🇺 UCL
           </button>
           <button
+            type="button"
             onClick={() => setSelectedLeague('afcon')}
             className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'afcon' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
@@ -644,8 +725,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         ) : (
           <div className={`${theme.card} p-12 rounded-3xl text-center text-slate-400 text-sm border space-y-3`}>
             <Activity className="w-8 h-8 text-[#D9541E] mx-auto opacity-50" />
-            <p className="font-extrabold text-slate-900 dark:text-white">No matches found for {selectedDate.toUpperCase()} under current filter criteria.</p>
+            <p className="font-extrabold text-slate-900 dark:text-white">No matches scheduled for {selectedDate.toUpperCase()} under current filter criteria.</p>
             <button
+              type="button"
               onClick={() => {
                 setActiveTab('all');
                 setSelectedLeague('all');
