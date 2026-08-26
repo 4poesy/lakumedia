@@ -3,78 +3,36 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv } from 'lucide-react';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
 
 export default function MultimediaAboutPage() {
-  const coreValues = [
+  const teamSlides = [
     {
-      id: 'v1',
-      title: 'Cinematic Excellence',
-      description: 'We hold every production to global 4K/8K cinema standards, utilizing RED/ARRI camera rigs and Dolby sound suites.',
-      icon: Star,
-      color: 'text-amber-400',
+      image: {
+        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Adebayo Samuel Olaku\nChief Executive Officer & Founder',
     },
     {
-      id: 'v2',
-      title: 'Authentic Storytelling',
-      description: 'We empower local voices, cultural heritage, and sports narratives across Nigeria, Africa, and the global diaspora.',
-      icon: Heart,
-      color: 'text-[#D9541E]',
+      image: {
+        src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Kemi Adebisi\nHead of Satellite Broadcast MCR',
     },
     {
-      id: 'v3',
-      title: 'Client Trust & Reliability',
-      description: '100% on-time delivery for live satellite broadcasts, commercial adverts, and theatrical release deadlines.',
-      icon: Shield,
-      color: 'text-[#10B981]',
+      image: {
+        src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Chidi Chukwuma\nDirector of Cinematography',
     },
     {
-      id: 'v4',
-      title: 'Creative Audacity',
-      description: 'Pioneering FPV aerial drone cinematography, 3D CGI visual effects, and multi-cam broadcast innovations.',
-      icon: Sparkles,
-      color: 'text-purple-400',
-    },
-  ];
-
-  const executiveTeam = [
-    {
-      id: 't1',
-      name: 'Adebayo Samuel Olaku',
-      role: 'Chief Executive Officer & Managing Director',
-      bio: 'Visionary media executive pioneering 4K/8K cinema productions, satellite sports broadcasting, and commercial entertainment across Africa.',
-      imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75',
-      badge: 'FOUNDER & CEO',
-      badgeColor: 'bg-[#D9541E] text-white',
-    },
-    {
-      id: 't2',
-      name: 'Kemi Adebisi',
-      role: 'Head of Live Broadcast & Satellite MCR',
-      bio: 'Master of multi-camera OB satellite van operations, live graphics engineering, and stadium stream uplinks.',
-      imageUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75',
-      badge: 'SATELLITE MCR LEAD',
-      badgeColor: 'bg-[#10B981] text-slate-950',
-    },
-    {
-      id: 't3',
-      name: 'Chidi Chukwuma',
-      role: 'Director of Cinematography & Lighting',
-      bio: 'Award-winning cinematographer specialized in RED V-Raptor 8K camera rigging, anamorphic lenses, and stage lighting choreography.',
-      imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75',
-      badge: 'CINEMATOGRAPHY LEAD',
-      badgeColor: 'bg-[#2A2E7F] text-[#10B981]',
-    },
-    {
-      id: 't4',
-      name: 'Zainab Bello',
-      role: 'Brand Strategy & Creative Director',
-      bio: 'Leading high-concept commercial ad campaigns, music video creative direction, and digital brand storytelling.',
-      imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75',
-      badge: 'CREATIVE DIRECTOR',
-      badgeColor: 'bg-purple-600 text-white',
+      image: {
+        src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75',
+      },
+      title: 'Zainab Bello\nBrand Strategy Lead',
     },
   ];
 
@@ -243,8 +201,8 @@ export default function MultimediaAboutPage() {
         </NeonBorder>
       </section>
 
-      {/* 5. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS */}
-      <section className="max-w-7xl mx-auto space-y-10 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
+      {/* 5. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (Originkit 3D Coverflow) */}
+      <section className="max-w-7xl mx-auto space-y-8 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
           <div>
             <span className="text-xs font-extrabold uppercase tracking-widest text-[#D9541E] flex items-center gap-1.5">
@@ -256,42 +214,18 @@ export default function MultimediaAboutPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {executiveTeam.map((member) => (
-            <div
-              key={member.id}
-              className="bg-slate-900 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#10B981] shadow-2xl transition-all duration-300 group flex flex-col justify-between"
-            >
-              <div className="relative h-72 w-full overflow-hidden bg-slate-950">
-                <Image
-                  src={member.imageUrl}
-                  alt={member.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                <div className="absolute top-4 left-4">
-                  <span className={`px-3 py-1 rounded-md text-[9px] font-black uppercase tracking-widest shadow-md ${member.badgeColor}`}>
-                    {member.badge}
-                  </span>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-3 flex-1 flex flex-col justify-between">
-                <div className="space-y-1">
-                  <h3 className="text-xl font-extrabold text-white group-hover:text-[#10B981] transition-colors leading-snug">
-                    {member.name}
-                  </h3>
-                  <span className="text-xs font-extrabold text-amber-400 block uppercase tracking-wider">
-                    {member.role}
-                  </span>
-                  <p className="text-xs text-slate-300 leading-relaxed font-medium pt-2">
-                    {member.bio}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="py-4">
+          <Smooth3DSlideshow
+            slides={teamSlides}
+            cardWidth={420}
+            cardHeight={440}
+            radius={6}
+            gap={8}
+            tilt={12}
+            sideTilt={8}
+            autoplay={true}
+            showTitle={true}
+          />
         </div>
       </section>
 
