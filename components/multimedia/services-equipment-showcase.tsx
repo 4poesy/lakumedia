@@ -85,6 +85,87 @@ function CameraRigAutoCrossfade() {
   );
 }
 
+function DroneRigAutoCrossfade() {
+  const images = [
+    {
+      src: '/assest/service_drone_auto_1.png',
+      alt: 'FPV High-Speed Cinema Racing Drone',
+      label: 'FPV HIGH-SPEED CINEMA RACING DRONE (140KM/H)',
+      contain: true,
+    },
+    {
+      src: '/assest/service_drone_auto_2.jpg',
+      alt: '3D Stadium Wire Cablecam System over Pitch',
+      label: '3D STADIUM WIRE CABLECAM SYSTEM',
+      contain: false,
+    },
+    {
+      src: '/assest/user_why_laku_satellite_sunset_3.jpg',
+      alt: 'Pan-African Teleport & Aerial Infrastructure',
+      label: 'PAN-AFRICAN AERIAL RIGGING & TELEPORT HUB',
+      contain: false,
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden bg-[#05060A] flex items-center justify-center">
+      {images.map((img, idx) => (
+        <div
+          key={img.src}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out flex items-center justify-center ${
+            idx === currentIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-105'
+          }`}
+          style={{ transitionProperty: 'opacity, transform' }}
+        >
+          <Image
+            src={img.src}
+            alt={img.alt}
+            fill
+            className={img.contain ? 'object-contain p-6' : 'object-cover'}
+            priority={idx === 0}
+          />
+        </div>
+      ))}
+
+      {/* Cinematic Dark Bottom Overlay & Dynamic Label */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 pointer-events-none" />
+      
+      <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md z-10 flex items-center justify-between">
+        <div>
+          <span className="text-[9px] font-black uppercase tracking-widest text-purple-400 block">
+            AUTO-CHANGING AERIAL TECH SPEC (3 SLIDES)
+          </span>
+          <h4 className="text-xs font-extrabold text-white">
+            {images[currentIndex].label}
+          </h4>
+        </div>
+
+        {/* Slide Indicators */}
+        <div className="flex items-center space-x-1.5 shrink-0">
+          {images.map((_, i) => (
+            <span
+              key={i}
+              className={`w-2 h-2 rounded-full transition-all ${
+                i === currentIndex ? 'bg-purple-500 w-5' : 'bg-slate-700'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ServicesEquipmentShowcase() {
   const equipmentCards = [
     {
@@ -96,7 +177,7 @@ export function ServicesEquipmentShowcase() {
       features: ['8K Resolution & 120fps High-Speed', 'Anamorphic Cinema Prime Lenses', 'ProRes 4444 XQ & RAW Workflows'],
       imageAlt: 'RED V-Raptor 8K Cinema Camera Rig with Fujinon Lens',
       imageOnRight: true, // Content LEFT, Image RIGHT
-      useAutoSlider: true, // 3-Image Auto Crossfader
+      useCameraSlider: true,
     },
     {
       id: 'eq-2',
@@ -108,7 +189,6 @@ export function ServicesEquipmentShowcase() {
       image: '/assest/about_hero_auto_satellite.jpg',
       imageAlt: 'Laku Media Teleport Satellite Uplink Dish Antenna',
       imageOnRight: false, // Image LEFT, Content RIGHT
-      useAutoSlider: false,
     },
     {
       id: 'eq-3',
@@ -120,7 +200,6 @@ export function ServicesEquipmentShowcase() {
       image: '/assest/user_about_control_room_2.jpg',
       imageAlt: 'Laku Media Master Control Room & Audio Production Suite',
       imageOnRight: true, // Content LEFT, Image RIGHT
-      useAutoSlider: false,
     },
     {
       id: 'eq-4',
@@ -129,10 +208,9 @@ export function ServicesEquipmentShowcase() {
       title: 'FPV Racing Drones & Stadium Cablecam',
       description: 'Specialized 4K aerial cinema rigs including custom high-speed FPV racing drones capable of 140km/h chase shots, heavy-lift octocopters, and high-tension stadium 3D wire cable cam rigs for live sports and concert stages.',
       features: ['140km/h High-Speed FPV Chase Shots', '3D Stadium Wire Cablecam Rigging', 'Realtime 4K Wireless Zero-Delay Video'],
-      image: '/assest/user_why_laku_satellite_sunset_3.jpg',
       imageAlt: 'Laku Media Satellite & Aerial Production Infrastructure',
       imageOnRight: false, // Image LEFT, Content RIGHT
-      useAutoSlider: false,
+      useDroneSlider: true,
     },
   ];
 
@@ -198,8 +276,10 @@ export function ServicesEquipmentShowcase() {
                   card.imageOnRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
                 }`}
               >
-                {card.useAutoSlider ? (
+                {card.useCameraSlider ? (
                   <CameraRigAutoCrossfade />
+                ) : card.useDroneSlider ? (
+                  <DroneRigAutoCrossfade />
                 ) : (
                   <>
                     <Image
