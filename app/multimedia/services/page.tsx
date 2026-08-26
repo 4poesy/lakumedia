@@ -58,7 +58,7 @@ export default function MultimediaServicesPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* High-Tech Studio Services Hero Header with Lighter Overlay for Image Clarity */}
+      {/* 1. HERO SECTION */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_services_hero_cinema.jpg"
@@ -89,7 +89,7 @@ export default function MultimediaServicesPage() {
         </div>
       </section>
 
-      {/* 6 Core Creative Media Services Grid */}
+      {/* 2. OUR PRODUCTION CAPABILITIES: 6 CORE CREATIVE MEDIA SERVICES */}
       <section className="max-w-7xl mx-auto space-y-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
@@ -142,66 +142,62 @@ export default function MultimediaServicesPage() {
         </div>
       </section>
 
-      {/* HARDWARE & STUDIO TECH STACK SHOWCASE (Alternating 2-Column Cards) */}
+      {/* 3. STUDIO EQUIPMENT & INFRASTRUCTURE: HARDWARE & CINEMA TECH CAPABILITIES (Alternating 2-Column Cards) */}
       <ServicesEquipmentShowcase />
 
-      {/* EXTENDED PARALLAX WRAPPER with Reduced Overlay Darkness for Red Curtains Background Visibility */}
-      <section className="relative rounded-3xl overflow-hidden max-w-7xl mx-auto my-12 border-2 border-slate-800 shadow-2xl p-6 sm:p-12 space-y-12">
-        {/* Fixed Parallax Red Curtains Background Image */}
+      {/* 4. THEATRICAL CINEMA EXPERIENCE SECTION */}
+      <section className="relative rounded-3xl overflow-hidden max-w-7xl mx-auto border-2 border-slate-800 shadow-2xl p-8 sm:p-14 text-center space-y-6">
+        {/* Parallax Red Curtains Background Image */}
         <div
           className="absolute inset-0 bg-cover bg-center bg-fixed"
           style={{ backgroundImage: `url('/assest/user_red_curtains_parallax.jpg')` }}
         />
-        {/* Transparent Dark Overlay for Parallax Image Clarity */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#090A0F]/75 via-[#090A0F]/60 to-[#090A0F]/75 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F]/85 via-[#090A0F]/65 to-[#090A0F]/40 backdrop-blur-[1px]" />
         
-        {/* FAQ Section inside Extended Parallax Container */}
-        <div className="relative z-10">
-          <StudioFaqSection />
-        </div>
+        <div className="relative z-10 max-w-4xl mx-auto space-y-6">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
+            <Sparkles className="w-4 h-4 text-amber-400" />
+            <span>THEATRICAL CINEMA EXPERIENCE</span>
+          </div>
 
-        {/* Theatrical Cinema Experience Section inside Extended Parallax Container */}
-        <div className="relative z-10 pt-8 border-t border-slate-800/80">
-          <div className="max-w-4xl mx-auto text-center space-y-6">
-            <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
-              <Sparkles className="w-4 h-4 text-amber-400" />
-              <span>THEATRICAL CINEMA EXPERIENCE</span>
-            </div>
+          <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight uppercase drop-shadow-2xl">
+            WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES
+          </h2>
 
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight uppercase drop-shadow-2xl">
-              WE PRODUCE UNFORGETTABLE CINEMATIC EXPERIENCES
-            </h2>
+          <p className="text-sm sm:text-lg text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
+            From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.
+          </p>
 
-            <p className="text-sm sm:text-lg text-slate-100 max-w-2xl mx-auto font-medium leading-relaxed drop-shadow-md">
-              From RED 8K camera rigging and theatrical cinema projection to live satellite OB van broadcasting, Laku Media Studios sets the benchmark for African filmmaking.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-              <Link
-                href="/contact"
-                className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-orange-400"
-              >
-                <span>Book Private Screening</span> <ArrowRight className="w-5 h-5" />
-              </Link>
-              <Link
-                href="/multimedia/portfolio"
-                className="px-8 py-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 text-white font-extrabold text-sm border border-slate-700 backdrop-blur-md transition-colors"
-              >
-                Watch Portfolio Reel
-              </Link>
-            </div>
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/contact"
+              className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-orange-400"
+            >
+              <span>Book Private Screening</span> <ArrowRight className="w-5 h-5" />
+            </Link>
+            <Link
+              href="/multimedia/portfolio"
+              className="px-8 py-4 rounded-2xl bg-slate-950/80 hover:bg-slate-900 text-white font-extrabold text-sm border border-slate-700 backdrop-blur-md transition-colors"
+            >
+              Watch Portfolio Reel
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Subscriber Section */}
-      <div className="max-w-7xl mx-auto">
-        <StudioSubscriberSection />
-      </div>
-
-      {/* Book Us Section */}
+      {/* 5. BOOK LAKU MEDIA CREATIVE STUDIO */}
       <div className="max-w-7xl mx-auto">
         <BookUsNowSection />
+      </div>
+
+      {/* 6. FREQUENTLY ASKED QUESTIONS */}
+      <div className="max-w-7xl mx-auto">
+        <StudioFaqSection />
+      </div>
+
+      {/* 7. SUBSCRIBER SECTION */}
+      <div className="max-w-7xl mx-auto">
+        <StudioSubscriberSection />
       </div>
 
     </div>
