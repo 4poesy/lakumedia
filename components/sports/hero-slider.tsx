@@ -28,7 +28,7 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
       slug: 'enyimba-thrilling-victory-npfl-derby',
       excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity stadium crowd.',
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
+      imageUrl: '/assest/user_enyimba_news_hero.jpg',
       categoryName: 'NPFL League',
       publishedAt: new Date().toISOString(),
     },
@@ -50,9 +50,18 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       categoryName: 'Transfer News',
       publishedAt: new Date().toISOString(),
     },
+    {
+      id: 'slide-4',
+      title: 'Haaland & Super Eagles Stars Battle In High-Octane International Duel',
+      slug: 'haaland-super-eagles-stars-european-tackle',
+      excerpt: 'Erling Haaland engages in an intense physical duel against top defensive talents in a thrilling European spectacle.',
+      imageUrl: '/assest/user_home_hero_4th_slide.jpg',
+      categoryName: 'Match Spotlight',
+      publishedAt: new Date().toISOString(),
+    },
   ];
 
-  const slideData = slides && slides.length >= 3 ? slides : defaultSlides;
+  const slideData = slides && slides.length >= 4 ? slides : defaultSlides;
 
   // Auto-play timer
   useEffect(() => {

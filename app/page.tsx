@@ -59,12 +59,12 @@ export default async function SportsRootHomePage() {
     aggregatedNewsItems = await getAggregatedNews();
   }
 
-  // Fast-loading web-optimized compressed imagery (w=800&q=75)
+  // Fast-loading web-optimized compressed imagery with uploaded user photos
   const sampleImages = [
-    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
+    '/assest/user_enyimba_news_hero.jpg',
     'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
     'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
+    '/assest/user_home_hero_4th_slide.jpg',
     'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
     'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=800&auto=format&fit=crop&q=75',
   ];
@@ -82,7 +82,7 @@ export default async function SportsRootHomePage() {
       title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
       slug: 'enyimba-thrilling-victory-npfl-derby',
       excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity crowd.',
-      cover_image_url: sampleImages[0],
+      cover_image_url: '/assest/user_enyimba_news_hero.jpg',
       categoryName: 'NPFL League',
       published_at: new Date().toISOString(),
     },
@@ -106,11 +106,11 @@ export default async function SportsRootHomePage() {
     },
     {
       id: 'art4',
-      title: 'Heskey: Why Kane Will Return To Premier League',
-      slug: 'heskey-why-kane-will-return-premier-league',
-      excerpt: 'Emile Heskey believes Harry Kane still has unfinished business in England after his Bayern Munich spell.',
-      cover_image_url: sampleImages[3],
-      categoryName: 'Transfers',
+      title: 'Haaland & Super Eagles Stars Battle In High-Octane International Duel',
+      slug: 'haaland-super-eagles-stars-european-tackle',
+      excerpt: 'Erling Haaland engages in an intense physical duel against top defensive talents in a thrilling European spectacle.',
+      cover_image_url: '/assest/user_home_hero_4th_slide.jpg',
+      categoryName: 'Match Spotlight',
       published_at: new Date().toISOString(),
     },
     {
@@ -133,7 +133,7 @@ export default async function SportsRootHomePage() {
     },
   ];
 
-  const heroSlides = rawArticles.length >= 3 ? rawArticles.slice(0, 3).map((a: any, idx: number) => ({
+  const heroSlides = rawArticles.length >= 4 ? rawArticles.slice(0, 4).map((a: any, idx: number) => ({
     id: a.id,
     title: a.title,
     slug: a.slug,
@@ -141,7 +141,7 @@ export default async function SportsRootHomePage() {
     imageUrl: sanitizeImageUrl(a.cover_image_url, idx),
     categoryName: a.sports_categories?.name || 'Sports',
     publishedAt: a.published_at || new Date().toISOString(),
-  })) : demoArticles.slice(0, 3).map((a, idx) => ({
+  })) : demoArticles.slice(0, 4).map((a, idx) => ({
     id: a.id,
     title: a.title,
     slug: a.slug,
@@ -220,14 +220,14 @@ export default async function SportsRootHomePage() {
   ];
 
   // Article buckets for dual blocks
-  const npflArticles = articles.filter((a) => a.categoryName === 'NPFL' || a.categoryName === 'Nigerian Football');
+  const npflArticles = articles.filter((a) => a.categoryName === 'NPFL League' || a.categoryName === 'NPFL' || a.categoryName === 'Nigerian Football');
   const worldArticles = articles.filter((a) => a.categoryName === 'World Football' || a.categoryName === 'EPL');
-  const featureArticles = articles.filter((a) => a.categoryName === 'Features' || a.categoryName === 'Transfers');
+  const featureArticles = articles.filter((a) => a.categoryName === 'Features' || a.categoryName === 'Transfer News' || a.categoryName === 'Transfers');
 
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto relative pb-20">
       
-      {/* 1. 8K 3-Slide Interactive Hero Slider Component */}
+      {/* 1. 4-Slide Interactive Hero Slider Component */}
       <section className="space-y-2">
         <div className="flex items-center justify-between pb-1 border-b border-slate-200">
           <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">

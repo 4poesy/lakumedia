@@ -1,11 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
 import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
 import { ScoreCard } from '@/components/sports/score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
-import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
+import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper, Globe, ArrowRight } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -46,6 +47,16 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const humanizedTitle = (categoryData as any)?.name || humanizeCategorySlug(categorySlug);
 
+  // Determine Category Hero Background Image
+  const categoryHeroImages: Record<string, string> = {
+    'npfl': '/assest/user_npfl_hero_team_celebration.jpg',
+    'world-football': '/assest/user_world_football_kane_musiala.jpg',
+    'transfers': '/assest/user_transfers_hero_graphic.jpg',
+    'epl': '/assest/user_transfers_hero_graphic.jpg',
+  };
+
+  const heroBgImage = categoryHeroImages[categorySlug.toLowerCase()] || '/assest/user_npfl_hero_team_celebration.jpg';
+
   // Query sub-categories if this is a parent category
   const parentId = (categoryData as any)?.id;
   let subCategories: any[] = [];
@@ -80,7 +91,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       slug: `${categorySlug}-featured-update`,
       excerpt: `Comprehensive match reporting, player reactions, and analysis covering all key developments in ${humanizedTitle}.`,
       cover_image_url:
-        'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
+        categorySlug === 'npfl' ? '/assest/user_npfl_blue_player.jpg' : heroBgImage,
       sports_categories: { name: humanizedTitle },
       published_at: new Date().toISOString(),
     },
@@ -138,37 +149,49 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <span className="text-emerald-700 font-extrabold">{humanizedTitle}</span>
       </nav>
 
-      {/* Category Header Banner */}
-      <div className="space-y-4 pb-6 border-b border-slate-200">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-100 border border-emerald-200 flex items-center justify-center text-emerald-700 font-extrabold text-xl shadow-sm">
-            <Trophy className="w-6 h-6" />
+      {/* Rich Visual Hero Header Banner for Category Pages */}
+      <div className="relative rounded-3xl overflow-hidden border-2 border-slate-800 shadow-2xl min-h-[260px] sm:min-h-[300px] flex items-center bg-slate-950">
+        <Image
+          src={heroBgImage}
+          alt={`${humanizedTitle} Hero Banner`}
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
+        
+        <div className="relative z-10 p-6 sm:p-10 space-y-3 max-w-2xl text-white">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#D9541E] text-white font-extrabold text-[10px] uppercase tracking-widest shadow-md">
+            <Trophy className="w-3.5 h-3.5" />
+            <span>LAKU SPORTS CATEGORY HUB</span>
           </div>
-          <div>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900">{humanizedTitle}</h1>
-            <p className="text-xs text-slate-500 mt-1 font-medium">
-              Latest news, breaking reports, tactical analysis, and fixture updates for {humanizedTitle}.
-            </p>
-          </div>
-        </div>
 
-        {/* Sub-Category Filter Pills */}
-        {subCategories.length > 0 && (
-          <div className="pt-3 flex items-center space-x-2 overflow-x-auto pb-1">
-            <span className="text-xs font-bold text-slate-500 flex items-center gap-1 shrink-0 mr-1">
-              <Layers className="w-3.5 h-3.5 text-emerald-600" /> Sub-Leagues:
-            </span>
-            {subCategories.map((sub) => (
-              <Link
-                key={sub.id}
-                href={`/${sub.slug}`}
-                className="px-3 py-1 rounded-lg text-xs font-bold bg-white text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition-colors border border-slate-200 shrink-0 shadow-sm"
-              >
-                {sub.name}
-              </Link>
-            ))}
-          </div>
-        )}
+          <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white drop-shadow-xl leading-tight">
+            {humanizedTitle}
+          </h1>
+
+          <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed drop-shadow-md">
+            Latest breaking news, live match reports, tactical breakdowns, and transfer updates for {humanizedTitle}.
+          </p>
+
+          {/* Sub-Category Filter Pills */}
+          {subCategories.length > 0 && (
+            <div className="pt-2 flex items-center space-x-2 overflow-x-auto">
+              <span className="text-xs font-bold text-amber-300 flex items-center gap-1 shrink-0 mr-1">
+                <Layers className="w-3.5 h-3.5 text-emerald-400" /> Sub-Leagues:
+              </span>
+              {subCategories.map((sub) => (
+                <Link
+                  key={sub.id}
+                  href={`/${sub.slug}`}
+                  className="px-3 py-1 rounded-lg text-xs font-bold bg-slate-900/90 text-emerald-400 hover:bg-emerald-500 hover:text-slate-950 transition-colors border border-slate-700 shrink-0 backdrop-blur-md"
+                >
+                  {sub.name}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Completesports.com Layout (Main News Stream + Right Sidebar Widgets) */}
