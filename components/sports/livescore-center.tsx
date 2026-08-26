@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, ShieldAlert, Award, ArrowRight } from 'lucide-react';
+import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight } from 'lucide-react';
 
 export interface MatchFixtureItem {
   id: string;
@@ -17,6 +17,7 @@ export interface MatchFixtureItem {
   countryFlag?: string;
   matchMinute?: string;
   stadium?: string;
+  matchDateOffset?: 'yesterday' | 'today' | 'tomorrow';
   goals?: Array<{ minute: number; player: string; team: 'home' | 'away' }>;
   cards?: Array<{ minute: number; player: string; team: 'home' | 'away'; type: 'yellow' | 'red' }>;
 }
@@ -32,8 +33,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null);
   const [favorites, setFavorites] = useState<string[]>([]);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true); // Toggle between Dark & Light Mode
 
-  // Default rich match fixtures if database feeds are initializing
+  // Default rich match fixtures with explicit date offset tagging
   const demoFixtures: MatchFixtureItem[] = [
     {
       id: 'fix-npfl-1',
@@ -47,6 +49,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       leagueName: 'Nigeria Premier Football League (NPFL)',
       leagueSlug: 'npfl',
       countryFlag: '🇳🇬',
+      matchDateOffset: 'today',
       stadium: 'Enyimba International Stadium, Aba',
       goals: [
         { minute: 34, player: 'Victor Mbaoma', team: 'home' },
@@ -70,6 +73,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       leagueName: 'Nigeria Premier Football League (NPFL)',
       leagueSlug: 'npfl',
       countryFlag: '🇳🇬',
+      matchDateOffset: 'today',
       stadium: 'Nnamdi Azikiwe Stadium, Enugu',
       goals: [{ minute: 28, player: 'Kenechukwu Agu', team: 'home' }],
     },
@@ -84,6 +88,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       leagueName: 'English Premier League (EPL)',
       leagueSlug: 'epl',
       countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+      matchDateOffset: 'today',
       stadium: 'Emirates Stadium, London',
       goals: [
         { minute: 14, player: 'Bukayo Saka', team: 'home' },
@@ -98,11 +103,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       awayTeam: 'Liverpool FC',
       homeScore: null,
       awayScore: null,
-      kickoffAt: new Date(Date.now() + 3600000 * 3).toISOString(),
+      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
       status: 'scheduled',
       leagueName: 'English Premier League (EPL)',
       leagueSlug: 'epl',
       countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+      matchDateOffset: 'tomorrow',
       stadium: 'Etihad Stadium, Manchester',
     },
     {
@@ -111,11 +117,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       awayTeam: 'FC Bayern Munich',
       homeScore: 2,
       awayScore: 2,
-      kickoffAt: new Date(Date.now() - 14400000).toISOString(),
+      kickoffAt: new Date(Date.now() - 86400000).toISOString(),
       status: 'finished',
       leagueName: 'UEFA Champions League',
       leagueSlug: 'champions-league',
       countryFlag: '🇪🇺',
+      matchDateOffset: 'yesterday',
       stadium: 'Santiago Bernabéu, Madrid',
       goals: [
         { minute: 21, player: 'Harry Kane', team: 'away' },
@@ -135,6 +142,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       leagueName: 'AFCON Qualifiers',
       leagueSlug: 'world-football',
       countryFlag: '🌍',
+      matchDateOffset: 'yesterday',
       stadium: 'Godswill Akpabio International Stadium, Uyo',
       goals: [
         { minute: 18, player: 'Victor Osimhen', team: 'home' },
@@ -142,6 +150,20 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 61, player: 'Percy Tau', team: 'away' },
         { minute: 80, player: 'Samuel Chukwueze', team: 'home' },
       ],
+    },
+    {
+      id: 'fix-ucl-2',
+      homeTeam: 'Barcelona',
+      awayTeam: 'Paris Saint-Germain',
+      homeScore: null,
+      awayScore: null,
+      kickoffAt: new Date(Date.now() + 86400000 * 1.5).toISOString(),
+      status: 'scheduled',
+      leagueName: 'UEFA Champions League',
+      leagueSlug: 'champions-league',
+      countryFlag: '🇪🇺',
+      matchDateOffset: 'tomorrow',
+      stadium: 'Camp Nou, Barcelona',
     },
   ];
 
@@ -155,9 +177,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     setExpandedMatchId((prev) => (prev === id ? null : id));
   };
 
-  // Filter Logic
+  // Filter Logic: Date + Status + League + Search Query
   const filteredFixtures = fixtures.filter((fix) => {
-    // Search query filter
+    // 1. Search Query Filter
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchSearch =
@@ -167,13 +189,18 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       if (!matchSearch) return false;
     }
 
-    // Status Tab Filter
+    // 2. Date Switcher Filter (Yesterday / Today / Tomorrow)
+    if (fix.matchDateOffset && fix.matchDateOffset !== selectedDate) {
+      return false;
+    }
+
+    // 3. Status Tab Filter
     if (activeTab === 'live' && fix.status !== 'live') return false;
     if (activeTab === 'finished' && fix.status !== 'finished') return false;
     if (activeTab === 'scheduled' && fix.status !== 'scheduled') return false;
     if (activeTab === 'favorites' && !favorites.includes(fix.id)) return false;
 
-    // League Filter
+    // 4. League Filter
     if (selectedLeague !== 'all') {
       if (selectedLeague === 'npfl' && !fix.leagueName.toLowerCase().includes('npfl')) return false;
       if (selectedLeague === 'epl' && !fix.leagueName.toLowerCase().includes('premier league')) return false;
@@ -195,49 +222,99 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
   const liveCount = fixtures.filter((f) => f.status === 'live').length;
 
+  // Color Tokens based on Theme State
+  const theme = isDarkMode
+    ? {
+        container: 'bg-[#0E1015] text-white border-slate-800',
+        header: 'bg-[#141824] border-slate-800',
+        subHeader: 'bg-[#181D2B] border-slate-800',
+        tabBar: 'bg-[#10131C] border-slate-800',
+        card: 'bg-[#141824] border-slate-800',
+        cardHeader: 'bg-[#1B2030] border-slate-800 text-white',
+        rowHover: 'hover:bg-[#1A1F30]',
+        textPrimary: 'text-white',
+        textSecondary: 'text-slate-300',
+        scoreBg: 'bg-slate-900 border-slate-700 text-amber-400',
+        drawerBg: 'bg-[#111420] border-slate-800',
+      }
+    : {
+        container: 'bg-white text-slate-900 border-slate-200 shadow-xl',
+        header: 'bg-slate-900 text-white border-slate-800',
+        subHeader: 'bg-slate-100 border-slate-200 text-slate-900',
+        tabBar: 'bg-slate-50 border-slate-200',
+        card: 'bg-white border-slate-200 shadow-sm',
+        cardHeader: 'bg-[#2A2E7F] border-slate-700 text-white',
+        rowHover: 'hover:bg-slate-50',
+        textPrimary: 'text-slate-900',
+        textSecondary: 'text-slate-600',
+        scoreBg: 'bg-[#2A2E7F] text-white border-blue-900',
+        drawerBg: 'bg-slate-50 border-slate-200',
+      };
+
   return (
-    <div className="bg-[#0E1015] text-white rounded-3xl border border-slate-800 shadow-2xl overflow-hidden font-sans">
+    <div className={`${theme.container} rounded-3xl border shadow-2xl overflow-hidden font-sans transition-colors duration-300`}>
       
-      {/* LiveScore Signature Header Bar */}
-      <div className="bg-[#141824] px-4 sm:px-8 py-5 border-b border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      {/* LiveScore Header Bar with Dark/Light Theme Toggle */}
+      <div className={`${theme.header} px-4 sm:px-8 py-5 border-b flex flex-col md:flex-row md:items-center justify-between gap-4`}>
         <div className="flex items-center space-x-3">
-          <div className="w-10 h-10 rounded-2xl bg-[#FF4500] text-white flex items-center justify-center font-black text-lg shadow-lg">
+          <div className="w-10 h-10 rounded-2xl bg-[#D9541E] text-white flex items-center justify-center font-black text-lg shadow-lg">
             <Activity className="w-6 h-6 animate-pulse" />
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#FF4500]">
-                LIVESCORE.COM OFFICIAL STYLE MATCH CENTER
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#D9541E]">
+                LIVESCORE OFFICIAL MATCH CENTER
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black text-white uppercase tracking-tight flex items-center gap-2">
+            <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight flex items-center gap-2">
               REALTIME LIVE SCORES
             </h1>
           </div>
         </div>
 
-        {/* Search Input Box */}
-        <div className="relative w-full md:w-72">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
-          <input
-            type="text"
-            placeholder="Search teams, leagues..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#FF4500] font-medium"
-          />
+        <div className="flex items-center space-x-3 w-full md:w-auto">
+          {/* Theme Toggle Button */}
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-extrabold text-xs flex items-center gap-1.5 border border-slate-700 transition-transform active:scale-95 shrink-0"
+            title="Toggle Light / Dark Theme"
+          >
+            {isDarkMode ? (
+              <>
+                <Sun className="w-4 h-4 text-amber-400" />
+                <span className="hidden sm:inline">Light Mode</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4 text-indigo-400" />
+                <span className="hidden sm:inline">Dark Mode</span>
+              </>
+            )}
+          </button>
+
+          {/* Search Input Box */}
+          <div className="relative flex-1 md:w-72">
+            <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+            <input
+              type="text"
+              placeholder="Search teams, leagues..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#D9541E] font-medium"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Date Switcher Bar (Yesterday, Today, Tomorrow) */}
-      <div className="bg-[#181D2B] px-4 sm:px-8 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold">
+      {/* Date Switcher Bar (Yesterday, Today, Tomorrow) - 100% Clickable & Interactive */}
+      <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setSelectedDate('yesterday')}
-            className={`px-4 py-2 rounded-xl transition-all ${
+            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
               selectedDate === 'yesterday'
-                ? 'bg-[#FF4500] text-white shadow-md'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
             YESTERDAY (25 AUG)
@@ -245,10 +322,10 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
           <button
             onClick={() => setSelectedDate('today')}
-            className={`px-4 py-2 rounded-xl transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 flex items-center gap-1.5 ${
               selectedDate === 'today'
-                ? 'bg-[#FF4500] text-white shadow-md'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
             <span>TODAY (26 AUG)</span>
@@ -257,10 +334,10 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
           <button
             onClick={() => setSelectedDate('tomorrow')}
-            className={`px-4 py-2 rounded-xl transition-all ${
+            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
               selectedDate === 'tomorrow'
-                ? 'bg-[#FF4500] text-white shadow-md'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                ? 'bg-[#D9541E] text-white shadow-md font-black'
+                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
             }`}
           >
             TOMORROW (27 AUG)
@@ -268,20 +345,20 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         </div>
 
         <div className="flex items-center gap-2 text-slate-400 text-xs">
-          <Calendar className="w-4 h-4 text-[#FF4500]" />
+          <Calendar className="w-4 h-4 text-[#D9541E]" />
           <span className="hidden sm:inline font-mono">LIVE COVERAGE 24/7</span>
         </div>
       </div>
 
-      {/* Filter Tabs (All, Live, Favorites, Finished, Scheduled) */}
-      <div className="bg-[#10131C] px-4 sm:px-8 py-3 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+      {/* Filter Tabs (All, Live, Favorites, Finished, Scheduled) - 100% Interactive */}
+      <div className={`${theme.tabBar} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3`}>
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-slate-800 text-[#FF4500] border border-[#FF4500]'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-[#2A2E7F] text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
             ALL MATCHES ({fixtures.length})
@@ -289,22 +366,22 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
           <button
             onClick={() => setActiveTab('live')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'live'
-                ? 'bg-rose-950/80 text-rose-400 border border-rose-600'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-rose-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
-            <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
             <span>LIVE ({liveCount})</span>
           </button>
 
           <button
             onClick={() => setActiveTab('favorites')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all flex items-center gap-1.5 ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
               activeTab === 'favorites'
-                ? 'bg-amber-950/80 text-amber-400 border border-amber-500'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-amber-500 text-slate-950 font-black shadow-md'
+                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
             <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
@@ -313,10 +390,10 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
           <button
             onClick={() => setActiveTab('finished')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'finished'
-                ? 'bg-slate-800 text-emerald-400 border border-emerald-500'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-emerald-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
             FINISHED
@@ -324,45 +401,45 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
           <button
             onClick={() => setActiveTab('scheduled')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all ${
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
               activeTab === 'scheduled'
-                ? 'bg-slate-800 text-blue-400 border border-blue-500'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800/60'
+                ? 'bg-blue-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
             }`}
           >
             SCHEDULED
           </button>
         </div>
 
-        {/* League Selector Pills */}
+        {/* League Selector Pills - 100% Interactive */}
         <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
           <button
             onClick={() => setSelectedLeague('all')}
-            className={`px-3 py-1 rounded-lg ${selectedLeague === 'all' ? 'bg-[#FF4500] text-white' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'all' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             ALL LEAGUES
           </button>
           <button
             onClick={() => setSelectedLeague('npfl')}
-            className={`px-3 py-1 rounded-lg ${selectedLeague === 'npfl' ? 'bg-[#FF4500] text-white' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'npfl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🇳🇬 NPFL
           </button>
           <button
             onClick={() => setSelectedLeague('epl')}
-            className={`px-3 py-1 rounded-lg ${selectedLeague === 'epl' ? 'bg-[#FF4500] text-white' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'epl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🏴󠁧󠁢󠁥󠁮󠁧󠁿 EPL
           </button>
           <button
             onClick={() => setSelectedLeague('ucl')}
-            className={`px-3 py-1 rounded-lg ${selectedLeague === 'ucl' ? 'bg-[#FF4500] text-white' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'ucl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🇪🇺 UCL
           </button>
           <button
             onClick={() => setSelectedLeague('afcon')}
-            className={`px-3 py-1 rounded-lg ${selectedLeague === 'afcon' ? 'bg-[#FF4500] text-white' : 'bg-slate-900 text-slate-400'}`}
+            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'afcon' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
           >
             🌍 AFCON
           </button>
@@ -377,33 +454,33 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             const leagueSlug = leagueMatches[0]?.leagueSlug || 'npfl';
 
             return (
-              <div key={leagueName} className="bg-[#141824] rounded-2xl overflow-hidden border border-slate-800 shadow-xl">
+              <div key={leagueName} className={`${theme.card} rounded-2xl overflow-hidden border shadow-xl`}>
                 
                 {/* League Header Row */}
-                <div className="bg-[#1B2030] px-5 py-3 border-b border-slate-800 flex items-center justify-between">
+                <div className={`${theme.cardHeader} px-5 py-3 border-b flex items-center justify-between`}>
                   <div className="flex items-center space-x-3">
                     <span className="text-lg">{countryFlag}</span>
-                    <h3 className="text-xs sm:text-sm font-black uppercase text-white tracking-wide">
+                    <h3 className="text-xs sm:text-sm font-black uppercase tracking-wide">
                       {leagueName}
                     </h3>
                   </div>
 
                   <Link
                     href={`/leagues/${leagueSlug}`}
-                    className="text-[11px] font-bold text-[#FF4500] hover:underline flex items-center gap-1"
+                    className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1"
                   >
                     <span>Standings & Stats</span> →
                   </Link>
                 </div>
 
                 {/* Match Rows List */}
-                <div className="divide-y divide-slate-800/60">
+                <div className="divide-y divide-slate-200/20">
                   {leagueMatches.map((match) => {
                     const isFav = favorites.includes(match.id);
                     const isExpanded = expandedMatchId === match.id;
 
                     return (
-                      <div key={match.id} className="transition-colors hover:bg-[#1A1F30]">
+                      <div key={match.id} className={`transition-colors ${theme.rowHover}`}>
                         
                         {/* Main Interactive Match Bar */}
                         <div
@@ -421,7 +498,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                             )}
 
                             {match.status === 'finished' && (
-                              <span className="text-xs font-black uppercase text-emerald-400 font-mono">
+                              <span className="text-xs font-black uppercase text-emerald-500 font-mono">
                                 FT
                               </span>
                             )}
@@ -440,9 +517,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                           {/* Teams & Scoreboard Middle Box */}
                           <div className="flex-1 max-w-xl grid grid-cols-12 items-center gap-2 text-xs sm:text-sm font-extrabold">
                             {/* Home Team */}
-                            <div className="col-span-5 flex items-center justify-end text-right space-x-2 text-slate-100">
+                            <div className="col-span-5 flex items-center justify-end text-right space-x-2">
                               <span className="truncate">{match.homeTeam}</span>
-                              <div className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] font-black shrink-0">
+                              <div className="w-5 h-5 rounded-full bg-slate-700 border border-slate-600 text-white flex items-center justify-center text-[10px] font-black shrink-0">
                                 {match.homeTeam.substring(0, 1)}
                               </div>
                             </div>
@@ -450,17 +527,17 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                             {/* Score Display Box */}
                             <div className="col-span-2 text-center">
                               {match.homeScore !== null && match.homeScore !== undefined ? (
-                                <div className="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 font-mono text-base font-black text-amber-400 tracking-wider shadow-inner inline-block">
+                                <div className={`px-2.5 py-1 rounded-lg border font-mono text-base font-black tracking-wider shadow-inner inline-block ${theme.scoreBg}`}>
                                   {match.homeScore} - {match.awayScore}
                                 </div>
                               ) : (
-                                <span className="text-slate-500 font-mono text-xs">VS</span>
+                                <span className="text-slate-400 font-mono text-xs">VS</span>
                               )}
                             </div>
 
                             {/* Away Team */}
-                            <div className="col-span-5 flex items-center justify-start text-left space-x-2 text-slate-100">
-                              <div className="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-[10px] font-black shrink-0">
+                            <div className="col-span-5 flex items-center justify-start text-left space-x-2">
+                              <div className="w-5 h-5 rounded-full bg-slate-700 border border-slate-600 text-white flex items-center justify-center text-[10px] font-black shrink-0">
                                 {match.awayTeam.substring(0, 1)}
                               </div>
                               <span className="truncate">{match.awayTeam}</span>
@@ -475,12 +552,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                                 e.stopPropagation();
                                 toggleFavorite(match.id);
                               }}
-                              className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-amber-400 transition-colors"
+                              className="p-1.5 rounded-lg hover:bg-slate-700/20 text-slate-400 hover:text-amber-400 transition-colors"
                             >
                               <Star className={`w-4 h-4 ${isFav ? 'fill-amber-400 text-amber-400' : ''}`} />
                             </button>
 
-                            <div className="p-1.5 rounded-lg text-slate-400 hover:text-white">
+                            <div className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900">
                               {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                             </div>
                           </div>
@@ -488,21 +565,21 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
                         {/* Expandable Match Stats & Fact Drawer */}
                         {isExpanded && (
-                          <div className="bg-[#111420] px-6 py-5 border-t border-slate-800/80 space-y-4 text-xs font-medium text-slate-300">
+                          <div className={`${theme.drawerBg} px-6 py-5 border-t space-y-4 text-xs font-medium`}>
                             {match.stadium && (
                               <div className="flex items-center gap-1.5 text-slate-400 font-bold">
                                 <span>🏟️ Venue:</span>
-                                <span className="text-white">{match.stadium}</span>
+                                <span className="text-slate-900 dark:text-white font-extrabold">{match.stadium}</span>
                               </div>
                             )}
 
                             {/* Goals Timeline */}
                             {match.goals && match.goals.length > 0 && (
                               <div className="space-y-1.5">
-                                <span className="text-[10px] font-black uppercase text-[#FF4500] tracking-widest block">
+                                <span className="text-[10px] font-black uppercase text-[#D9541E] tracking-widest block">
                                   ⚽ OFFICIAL GOALS LOG
                                 </span>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
                                   {match.goals.map((g, idx) => (
                                     <div key={idx} className="flex items-center gap-2">
                                       <span className="text-amber-400 font-bold">{g.minute}&apos;</span>
@@ -522,7 +599,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                                 <span className="text-[10px] font-black uppercase text-amber-400 tracking-widest block">
                                   🟨 CARDS & DISCIPLINARY LOG
                                 </span>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-950 p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
                                   {match.cards.map((c, idx) => (
                                     <div key={idx} className="flex items-center gap-2">
                                       <span>{c.type === 'red' ? '🟥' : '🟨'}</span>
@@ -541,7 +618,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                             <div className="pt-2 flex items-center justify-between">
                               <Link
                                 href={`/article/enyimba-thrilling-victory-npfl-derby`}
-                                className="px-4 py-2 rounded-xl bg-[#FF4500] hover:bg-[#e03d00] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"
+                                className="px-4 py-2 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"
                               >
                                 <span>Read Match Report</span> <ArrowRight className="w-3.5 h-3.5" />
                               </Link>
@@ -565,18 +642,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             );
           })
         ) : (
-          <div className="bg-[#141824] p-12 rounded-3xl text-center text-slate-400 text-sm border border-slate-800 space-y-3">
-            <Activity className="w-8 h-8 text-[#FF4500] mx-auto opacity-50" />
-            <p className="font-extrabold text-white">No matches found for the selected filter criteria.</p>
+          <div className={`${theme.card} p-12 rounded-3xl text-center text-slate-400 text-sm border space-y-3`}>
+            <Activity className="w-8 h-8 text-[#D9541E] mx-auto opacity-50" />
+            <p className="font-extrabold text-slate-900 dark:text-white">No matches found for {selectedDate.toUpperCase()} under current filter criteria.</p>
             <button
               onClick={() => {
                 setActiveTab('all');
                 setSelectedLeague('all');
+                setSelectedDate('today');
                 setSearchQuery('');
               }}
-              className="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-[#FF4500] hover:bg-slate-700"
+              className="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-[#D9541E] hover:bg-slate-700 cursor-pointer"
             >
-              Reset Filters
+              Reset All Filters
             </button>
           </div>
         )}
