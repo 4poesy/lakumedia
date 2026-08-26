@@ -1,9 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Play, Sparkles, Camera, Film, Tv, Radio, ArrowRight, CheckCircle2, Award, Zap } from 'lucide-react';
+import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { PortfolioClientGrid } from '@/components/multimedia/portfolio-client-grid';
 
 export const dynamic = 'force-dynamic';
 
@@ -169,7 +170,7 @@ export default function MultimediaPortfolioPage() {
         </div>
       </section>
 
-      {/* 4. Portfolio Projects Grid */}
+      {/* 4. Portfolio Projects Grid with In-Page Lightbox Modal */}
       <section className="max-w-7xl mx-auto space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
@@ -182,65 +183,7 @@ export default function MultimediaPortfolioPage() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {portfolioProjects.map((proj) => (
-            <div
-              key={proj.id}
-              className="bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#10B981] shadow-2xl transition-all duration-300 group flex flex-col justify-between"
-            >
-              <div className="relative h-60 w-full overflow-hidden bg-slate-900">
-                <Image
-                  src={proj.imageUrl}
-                  alt={proj.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-slate-950/30" />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] font-extrabold text-[10px] uppercase tracking-widest border border-slate-700 shadow-md">
-                    {proj.category}
-                  </span>
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <a
-                    href={`https://www.youtube.com/watch?v=${proj.youtubeId}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="w-14 h-14 rounded-full bg-[#D9541E] hover:bg-[#b84315] text-white flex items-center justify-center pl-1 shadow-2xl group-hover:scale-110 transition-transform"
-                  >
-                    <Play className="w-6 h-6 fill-white" />
-                  </a>
-                </div>
-              </div>
-
-              <div className="p-6 space-y-3 bg-slate-950 flex-1 flex flex-col justify-between">
-                <div className="space-y-2">
-                  <span className="text-[10px] font-extrabold text-amber-400 uppercase tracking-widest block">
-                    CLIENT: {proj.client}
-                  </span>
-                  <h3 className="text-xl font-extrabold text-white group-hover:text-[#10B981] transition-colors leading-snug">
-                    {proj.title}
-                  </h3>
-                  <p className="text-xs text-slate-300 leading-relaxed font-medium">
-                    {proj.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-slate-900 flex items-center justify-between text-xs font-extrabold text-[#D9541E]">
-                  <span className="text-slate-400 font-mono">Status: Delivered</span>
-                  <a
-                    href={`https://www.youtube.com/watch?v=${proj.youtubeId}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:underline flex items-center gap-1"
-                  >
-                    <span>Watch Reel</span> →
-                  </a>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+        <PortfolioClientGrid projects={portfolioProjects} />
       </section>
 
       {/* 5. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, User Image 3 on RIGHT) */}

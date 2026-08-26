@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
+import { LiveMcrStatusBar } from '@/components/layout/live-mcr-status-bar';
 
 export function Navigation() {
   const pathname = usePathname();
@@ -94,8 +95,8 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-slate-200 shadow-sm">
       
-      {/* Top Ticker Bar */}
-      <LiveMatchTicker />
+      {/* Top Ticker / MCR Live Status Bar */}
+      {isMultimedia ? <LiveMcrStatusBar /> : <LiveMatchTicker />}
 
       {/* Crisp Header Bar with Official Laku Media Branding (Navy + Burnt Orange) */}
       <div className="bg-[#2A2E7F] text-white border-b border-slate-800 py-3.5 px-4 sm:px-6 lg:px-8 shadow-md">
