@@ -5,8 +5,19 @@ import { parseFeedSource } from '@/lib/rss-parser';
 
 export const dynamic = 'force-dynamic';
 
+// In-memory cache of the last ingestion execution log for real-time diagnostic reporting
+let LAST_INGESTION_STATUS: {
+  timestamp: string;
+  success: boolean;
+  totalIngested: number;
+  skippedNoImage: number;
+  sourcesProcessed: number;
+  sourceDetails: Array<{ name: string; type: string; count: number; error?: string }>;
+  logs: string[];
+} | null = null;
+
 export async function GET(request: NextRequest) {
-  // Optional security check: if CRON_SECRET is defined in env, enforce token match
+  // Security check: if CRON_SECRET is defined in env, enforce token match for external cron triggers
   const cronSecret = process.env.CRON_SECRET;
   const authHeader = request.headers.get('authorization');
   const querySecret = request.nextUrl.searchParams.get('secret');
@@ -18,6 +29,7 @@ export async function GET(request: NextRequest) {
   let totalIngested = 0;
   let skippedNoImage = 0;
   const logs: string[] = [];
+  const sourceDetails: Array<{ name: string; type: string; count: number; error?: string }> = [];
   const now = new Date().toISOString();
 
   try {
@@ -28,7 +40,7 @@ export async function GET(request: NextRequest) {
     const { data: dbSources } = await (supabase.from('rss_feed_sources' as any) as any).select('*').eq('is_active', true);
 
     if (!dbSources || dbSources.length === 0) {
-      logs.push('Initializing default RSS feed sources...');
+      logs.push('No active feed sources in database; seeding default RSS sources...');
       for (const src of INITIAL_FEED_SOURCES) {
         await (supabase.from('rss_feed_sources' as any) as any).upsert(src, { onConflict: 'id' });
       }
@@ -37,16 +49,16 @@ export async function GET(request: NextRequest) {
       sources = dbSources;
     }
 
-    logs.push(`Starting automatic feed ingestion for ${sources.length} active sources...`);
+    logs.push(`Starting automated RSS ingestion for ${sources.length} active feed sources at ${now}...`);
 
-    // 2. Loop through active feed sources and parse live RSS feeds
+    // 2. Loop through active feed sources and parse live RSS XML / Atom / YouTube feeds
     for (const source of sources) {
       try {
         const items = await parseFeedSource(source);
-        logs.push(`Source '${source.name}': Parsed ${items.length} items with valid images.`);
+        logs.push(`Source '${source.name}' (${source.feed_type}): Parsed ${items.length} items with valid imagery.`);
+        sourceDetails.push({ name: source.name, type: source.feed_type, count: items.length });
 
         for (const item of items) {
-          // Strict image enforcement: Never insert items without thumbnails
           if (!item.thumbnail_url) {
             skippedNoImage++;
             continue;
@@ -78,14 +90,16 @@ export async function GET(request: NextRequest) {
         await (supabase.from('rss_feed_sources' as any) as any)
           .update({ last_fetched_at: now })
           .eq('id', source.id);
-      } catch (srcErr) {
-        console.error(`Error processing feed ${source.name}:`, srcErr);
+      } catch (srcErr: any) {
+        const errStr = srcErr.message || String(srcErr);
+        logs.push(`Error parsing feed source '${source.name}': ${errStr}`);
+        sourceDetails.push({ name: source.name, type: source.feed_type, count: 0, error: errStr });
       }
     }
 
-    // 3. Fallback check: If no live items were fetched, ensure curated fallback items exist
+    // 3. Fallback check: If database is empty, seed curated sports news items
     if (totalIngested === 0) {
-      logs.push('No live items parsed; seeding initial curated sports headlines...');
+      logs.push('No live RSS items returned from network; seeding initial curated sports headlines...');
       for (const fallbackItem of FALLBACK_AGGREGATED_NEWS) {
         await (supabase.from('aggregated_news' as any) as any).upsert(
           {
@@ -107,21 +121,47 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    LAST_INGESTION_STATUS = {
+      timestamp: now,
+      success: true,
+      totalIngested,
+      skippedNoImage,
+      sourcesProcessed: sources.length,
+      sourceDetails,
+      logs,
+    };
+
     return NextResponse.json({
       success: true,
       timestamp: now,
-      message: `Automatic ingestion complete! Ingested/updated ${totalIngested} items. (Skipped ${skippedNoImage} items missing images).`,
+      message: `RSS Ingestion completed successfully! Processed ${sources.length} sources and ingested/updated ${totalIngested} items.`,
       totalIngested,
       skippedNoImage,
+      sourcesProcessed: sources.length,
+      sourceDetails,
       logs,
+      lastRunStatus: LAST_INGESTION_STATUS,
     });
   } catch (error: any) {
-    console.error('RSS Ingestion Job Error:', error);
+    console.error('RSS Ingestion Fatal Error:', error);
+
+    LAST_INGESTION_STATUS = {
+      timestamp: now,
+      success: false,
+      totalIngested: 0,
+      skippedNoImage: 0,
+      sourcesProcessed: 0,
+      sourceDetails,
+      logs: [...logs, `Fatal Error: ${error.message || error}`],
+    };
+
     return NextResponse.json(
       {
         success: false,
         error: error.message || 'RSS ingestion failed',
-        fallbackCount: FALLBACK_AGGREGATED_NEWS.length,
+        timestamp: now,
+        logs,
+        lastRunStatus: LAST_INGESTION_STATUS,
       },
       { status: 200 }
     );

@@ -1,8 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RssFeedSource, FeedType, INITIAL_FEED_SOURCES } from '@/lib/types/rss';
-import { Rss, Plus, CheckCircle2, XCircle, RefreshCw, Globe, Youtube } from 'lucide-react';
+import { Rss, Plus, CheckCircle2, XCircle, RefreshCw, Globe, Youtube, ShieldCheck, Activity, Terminal, AlertTriangle } from 'lucide-react';
+
+interface IngestionStatus {
+  timestamp: string;
+  success: boolean;
+  totalIngested: number;
+  skippedNoImage: number;
+  sourcesProcessed: number;
+  sourceDetails?: Array<{ name: string; type: string; count: number; error?: string }>;
+  logs?: string[];
+}
 
 export default function AdminFeedsPage() {
   const [sources, setSources] = useState<RssFeedSource[]>(INITIAL_FEED_SOURCES);
@@ -11,6 +21,8 @@ export default function AdminFeedsPage() {
   const [feedType, setFeedType] = useState<FeedType>('news');
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [lastRunStatus, setLastRunStatus] = useState<IngestionStatus | null>(null);
+  const [showLogs, setShowLogs] = useState(false);
 
   const handleAddSource = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,8 +40,8 @@ export default function AdminFeedsPage() {
     setSources([newSource, ...sources]);
     setName('');
     setFeedUrl('');
-    setMessage('Feed source added successfully!');
-    setTimeout(() => setMessage(''), 3000);
+    setMessage('New feed source added successfully!');
+    setTimeout(() => setMessage(''), 4000);
   };
 
   const toggleStatus = (id: string) => {
@@ -40,54 +52,153 @@ export default function AdminFeedsPage() {
     );
   };
 
-  const triggerIngestion = async () => {
+  const triggerIngestionNow = async () => {
     setLoading(true);
+    setMessage('');
     try {
       const res = await fetch('/api/ingest-rss');
       const data = await res.json();
-      setMessage(data.message || 'Ingestion completed!');
-    } catch (err) {
-      setMessage('Ingestion triggered locally.');
+      
+      setLastRunStatus({
+        timestamp: data.timestamp || new Date().toISOString(),
+        success: data.success ?? true,
+        totalIngested: data.totalIngested ?? 0,
+        skippedNoImage: data.skippedNoImage ?? 0,
+        sourcesProcessed: data.sourcesProcessed ?? sources.length,
+        sourceDetails: data.sourceDetails || [],
+        logs: data.logs || [],
+      });
+
+      setMessage(data.message || `Ingestion complete! Ingested ${data.totalIngested} items.`);
+    } catch (err: any) {
+      setMessage(`Ingestion execution notice: ${err.message || 'Triggered successfully'}`);
     } finally {
       setLoading(false);
-      setTimeout(() => setMessage(''), 3000);
     }
   };
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto py-4">
+    <div className="space-y-8 max-w-6xl mx-auto py-4 theme-sports">
       
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <span className="text-xs font-extrabold uppercase tracking-widest text-emerald-600 flex items-center gap-1.5">
-            <Rss className="w-4 h-4 text-emerald-600" /> RSS NEWS & VIDEO AGGREGATOR ADMIN
+          <span className="text-xs font-black uppercase tracking-widest text-[#D9541E] flex items-center gap-1.5">
+            <Rss className="w-4 h-4 text-[#D9541E]" /> RSS & YOUTUBE AUTOMATED AGGREGATOR
           </span>
           <h1 className="text-2xl sm:text-3xl font-black text-slate-900 uppercase">
-            MANAGE RSS & YOUTUBE FEED SOURCES
+            FEED SOURCES & INGESTION CONTROL
           </h1>
         </div>
 
         <button
-          onClick={triggerIngestion}
+          onClick={triggerIngestionNow}
           disabled={loading}
-          className="px-5 py-2.5 rounded-xl bg-[#2A2E7F] hover:bg-blue-900 text-white font-extrabold text-xs flex items-center gap-2 shadow-lg transition-transform active:scale-95 disabled:opacity-50 self-start sm:self-auto"
+          className="px-6 py-3 rounded-xl bg-[#2A2E7F] hover:bg-blue-900 text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-xl transition-transform active:scale-95 disabled:opacity-50 border border-blue-400 self-start sm:self-auto"
         >
           <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-          <span>{loading ? 'Ingesting Feeds...' : 'Run Ingestion Job'}</span>
+          <span>{loading ? 'RUNNING INGESTION NOW...' : 'RUN INGESTION NOW'}</span>
         </button>
       </div>
 
       {message && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-extrabold">
-          {message}
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs font-black flex items-center justify-between shadow-sm">
+          <div className="flex items-center gap-2">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+            <span>{message}</span>
+          </div>
         </div>
       )}
+
+      {/* Real-time Ingestion Diagnostic Status Panel */}
+      <div className="bg-slate-950 text-white rounded-3xl p-6 sm:p-8 border-2 border-slate-800 shadow-2xl space-y-5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800">
+          <div className="space-y-1">
+            <span className="text-[10px] font-black uppercase tracking-widest text-emerald-400 block">
+              REAL-TIME DIAGNOSTIC MONITOR
+            </span>
+            <h2 className="text-lg font-black text-white uppercase flex items-center gap-2">
+              <Activity className="w-5 h-5 text-emerald-400" /> LAST INGESTION RUN STATUS
+            </h2>
+          </div>
+
+          {lastRunStatus && (
+            <button
+              onClick={() => setShowLogs(!showLogs)}
+              className="px-3.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 font-bold text-xs flex items-center gap-1.5 border border-slate-700 self-start sm:self-auto"
+            >
+              <Terminal className="w-3.5 h-3.5 text-amber-400" />
+              <span>{showLogs ? 'Hide Logs' : 'View Execution Logs'}</span>
+            </button>
+          )}
+        </div>
+
+        {lastRunStatus ? (
+          <div className="space-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs font-bold">
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-[10px] font-extrabold text-slate-400 uppercase block">Last Execution Time</span>
+                <span className="text-white font-mono">{new Date(lastRunStatus.timestamp).toLocaleTimeString()}</span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-[10px] font-extrabold text-slate-400 uppercase block">Items Ingested</span>
+                <span className="text-emerald-400 font-mono text-lg font-black">{lastRunStatus.totalIngested}</span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-[10px] font-extrabold text-slate-400 uppercase block">Sources Processed</span>
+                <span className="text-blue-400 font-mono text-lg font-black">{lastRunStatus.sourcesProcessed}</span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-[10px] font-extrabold text-slate-400 uppercase block">Skipped Items</span>
+                <span className="text-amber-400 font-mono text-lg font-black">{lastRunStatus.skippedNoImage}</span>
+              </div>
+            </div>
+
+            {/* Source Breakdown List */}
+            {lastRunStatus.sourceDetails && lastRunStatus.sourceDetails.length > 0 && (
+              <div className="space-y-2 pt-2">
+                <span className="text-[10px] font-black uppercase text-slate-400 tracking-wider block">
+                  PER-SOURCE INGESTION BREAKDOWN
+                </span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                  {lastRunStatus.sourceDetails.map((src, idx) => (
+                    <div key={idx} className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                      <span className="text-slate-200 font-bold truncate max-w-[160px]">{src.name}</span>
+                      <span className="px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 font-black">
+                        +{src.count} items
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Execution Log Drawer */}
+            {showLogs && lastRunStatus.logs && (
+              <div className="p-4 rounded-2xl bg-black border border-slate-800 font-mono text-[11px] text-slate-300 space-y-1 max-h-48 overflow-y-auto">
+                <span className="text-amber-400 font-bold text-[10px] uppercase block mb-1">--- SERVER EXECUTION LOG ---</span>
+                {lastRunStatus.logs.map((log, i) => (
+                  <div key={i} className="leading-relaxed">{log}</div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="p-6 rounded-2xl bg-slate-900 border border-slate-800 text-center space-y-3">
+            <p className="text-xs text-slate-300 font-medium">
+              Click <strong className="text-white">&quot;RUN INGESTION NOW&quot;</strong> above to manually trigger the feed pipeline and inspect realtime parsing logs.
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Add Feed Source Form */}
       <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm space-y-4">
         <h2 className="text-lg font-black text-slate-900 uppercase flex items-center gap-2">
-          <Plus className="w-5 h-5 text-emerald-600" /> Add New RSS / YouTube Feed Source
+          <Plus className="w-5 h-5 text-[#D9541E]" /> Add New RSS / YouTube Feed Source
         </h2>
 
         <form onSubmit={handleAddSource} className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -128,7 +239,7 @@ export default function AdminFeedsPage() {
               </select>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs shadow-md transition-colors"
+                className="px-6 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs shadow-md transition-colors"
               >
                 Add Source
               </button>
@@ -139,10 +250,11 @@ export default function AdminFeedsPage() {
 
       {/* Feed Sources Table */}
       <div className="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
-        <div className="p-6 border-b border-slate-200">
+        <div className="p-6 border-b border-slate-200 flex items-center justify-between">
           <h2 className="text-lg font-black text-slate-900 uppercase">
             CONFIGURED FEED SOURCES ({sources.length})
           </h2>
+          <span className="text-xs font-bold text-slate-500 font-mono">SCHEDULE: EVERY 20 MINS</span>
         </div>
 
         <div className="overflow-x-auto">
