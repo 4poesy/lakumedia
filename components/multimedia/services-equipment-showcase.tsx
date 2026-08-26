@@ -88,21 +88,15 @@ function CameraRigAutoCrossfade() {
 function DroneRigAutoCrossfade() {
   const images = [
     {
-      src: '/assest/service_drone_auto_1.png',
-      alt: 'FPV High-Speed Cinema Racing Drone',
-      label: 'FPV HIGH-SPEED CINEMA RACING DRONE (140KM/H)',
-      contain: true,
+      src: '/assest/service_drone_auto_1.jpg',
+      alt: 'iFLIGHT Carbon Fiber FPV Cinema Racing Drone Rig',
+      label: 'iFLIGHT CARBON FIBER FPV CINE RIG (140KM/H)',
+      contain: false,
     },
     {
       src: '/assest/service_drone_auto_2.jpg',
       alt: '3D Stadium Wire Cablecam System over Pitch',
       label: '3D STADIUM WIRE CABLECAM SYSTEM',
-      contain: false,
-    },
-    {
-      src: '/assest/user_why_laku_satellite_sunset_3.jpg',
-      alt: 'Pan-African Teleport & Aerial Infrastructure',
-      label: 'PAN-AFRICAN AERIAL RIGGING & TELEPORT HUB',
       contain: false,
     },
   ];
@@ -143,7 +137,7 @@ function DroneRigAutoCrossfade() {
       <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md z-10 flex items-center justify-between">
         <div>
           <span className="text-[9px] font-black uppercase tracking-widest text-purple-400 block">
-            AUTO-CHANGING AERIAL TECH SPEC (3 SLIDES)
+            AUTO-CHANGING AERIAL TECH SPEC (2 SLIDES)
           </span>
           <h4 className="text-xs font-extrabold text-white">
             {images[currentIndex].label}
