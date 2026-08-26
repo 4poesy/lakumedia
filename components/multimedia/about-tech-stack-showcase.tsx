@@ -49,7 +49,7 @@ export function AboutTechStackShowcase() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div className="space-y-1">
           <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981] flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-amber-400" /> HOLLYWOOD-GRADE INFRASTRUCTURE
+            <Sparkles className="w-4 h-4 text-amber-400" /> STUDIO INFRASTRUCTURE & CAPABILITIES
           </span>
           <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
             HARDWARE & STUDIO TECH STACK
