@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Camera, Radio, Volume2, Cpu, Sparkles, CheckCircle2, Zap, Shield, Globe } from 'lucide-react';
+import { ScrollRevealSection, ScrollRevealChild } from '@/components/multimedia/motion/scroll-reveal-section';
+import { CinematicCardMotion } from '@/components/multimedia/motion/cinematic-card-motion';
 
 function CameraRigAutoCrossfade() {
   const images = [
@@ -211,7 +213,7 @@ export function ServicesEquipmentShowcase() {
   return (
     <section className="max-w-7xl mx-auto space-y-12 my-12">
       {/* Section Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+      <ScrollRevealSection className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div className="space-y-1">
           <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981] flex items-center gap-1.5">
             <Sparkles className="w-4 h-4 text-amber-400" /> PRODUCTION TECH & EQUIPMENT STAGING
@@ -223,80 +225,81 @@ export function ServicesEquipmentShowcase() {
             Through our network of elite technical partners and expert production crew, Laku Media deploys, stages, and operates industry-standard broadcast equipment, satellite OB vans, 8K RED cinema rigs, and Dolby Atmos audio suites for client productions.
           </p>
         </div>
-      </div>
+      </ScrollRevealSection>
 
       {/* 4 Alternating 2-Column Cards */}
-      <div className="space-y-10">
+      <ScrollRevealSection stagger className="space-y-10">
         {equipmentCards.map((card) => (
-          <div
-            key={card.id}
-            className="bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden hover:border-[#10B981] transition-all duration-300"
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              
-              {/* Content Column */}
-              <div
-                className={`lg:col-span-6 space-y-6 ${
-                  card.imageOnRight ? 'order-2 lg:order-1' : 'order-2 lg:order-2'
-                }`}
-              >
-                <div className="space-y-2">
-                  <span className={`px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-slate-700 inline-block ${card.badgeColor}`}>
-                    {card.badge}
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-tight">
-                    {card.title}
-                  </h3>
-                </div>
-
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-                  {card.description}
-                </p>
-
-                {/* Feature Bullet Points */}
-                <div className="space-y-2 pt-2 border-t border-slate-900">
-                  {card.features.map((feat, idx) => (
-                    <div key={idx} className="flex items-center gap-2.5 text-xs font-bold text-slate-200">
-                      <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Image Column */}
-              <div
-                className={`lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group ${
-                  card.imageOnRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
-                }`}
-              >
-                {card.useCameraSlider ? (
-                  <CameraRigAutoCrossfade />
-                ) : card.useDroneSlider ? (
-                  <DroneRigAutoCrossfade />
-                ) : (
-                  <>
-                    <Image
-                      src={card.image || ''}
-                      alt={card.imageAlt}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981] block">
-                        PRODUCTION TECH & STAGING CAPABILITIES
+          <ScrollRevealChild key={card.id}>
+            <CinematicCardMotion hoverScale={1.015} hoverY={-3}>
+              <div className="bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden hover:border-[#10B981] transition-colors duration-300">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                  
+                  {/* Content Column */}
+                  <div
+                    className={`lg:col-span-6 space-y-6 ${
+                      card.imageOnRight ? 'order-2 lg:order-1' : 'order-2 lg:order-2'
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      <span className={`px-3 py-1 rounded-md text-[10px] font-black uppercase tracking-widest border border-slate-700 inline-block ${card.badgeColor}`}>
+                        {card.badge}
                       </span>
-                      <h4 className="text-xs font-extrabold text-white">{card.title}</h4>
+                      <h3 className="text-2xl sm:text-3xl font-black text-white uppercase tracking-tight leading-tight">
+                        {card.title}
+                      </h3>
                     </div>
-                  </>
-                )}
-              </div>
 
-            </div>
-          </div>
+                    <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+                      {card.description}
+                    </p>
+
+                    {/* Feature Bullet Points */}
+                    <div className="space-y-2 pt-2 border-t border-slate-900">
+                      {card.features.map((feat, idx) => (
+                        <div key={idx} className="flex items-center gap-2.5 text-xs font-bold text-slate-200">
+                          <CheckCircle2 className="w-4 h-4 text-[#10B981] shrink-0" />
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Image Column */}
+                  <div
+                    className={`lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group ${
+                      card.imageOnRight ? 'order-1 lg:order-2' : 'order-1 lg:order-1'
+                    }`}
+                  >
+                    {card.useCameraSlider ? (
+                      <CameraRigAutoCrossfade />
+                    ) : card.useDroneSlider ? (
+                      <DroneRigAutoCrossfade />
+                    ) : (
+                      <>
+                        <Image
+                          src={card.image || ''}
+                          alt={card.imageAlt}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                        <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+                          <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981] block">
+                            PRODUCTION TECH & STAGING CAPABILITIES
+                          </span>
+                          <h4 className="text-xs font-extrabold text-white">{card.title}</h4>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                </div>
+              </div>
+            </CinematicCardMotion>
+          </ScrollRevealChild>
         ))}
-      </div>
+      </ScrollRevealSection>
     </section>
   );
 }
