@@ -119,6 +119,10 @@ export interface Database {
           cover_image_url: string | null
           category_id: string | null
           author_id: string | null
+          author_name?: string | null
+          is_ai_generated?: boolean
+          ai_reviewed?: boolean
+          ai_source_data?: Json
           status: ArticleStatus
           published_at: string | null
           created_at: string
@@ -133,6 +137,10 @@ export interface Database {
           cover_image_url?: string | null
           category_id?: string | null
           author_id?: string | null
+          author_name?: string | null
+          is_ai_generated?: boolean
+          ai_reviewed?: boolean
+          ai_source_data?: Json
           status?: ArticleStatus
           published_at?: string | null
           created_at?: string
@@ -147,6 +155,10 @@ export interface Database {
           cover_image_url?: string | null
           category_id?: string | null
           author_id?: string | null
+          author_name?: string | null
+          is_ai_generated?: boolean
+          ai_reviewed?: boolean
+          ai_source_data?: Json
           status?: ArticleStatus
           published_at?: string | null
           created_at?: string

@@ -6,7 +6,7 @@ import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
 import { ArticleComments } from '@/components/sports/article-comments';
 import { StructuredData } from '@/components/seo/structured-data';
-import { ArrowLeft, Calendar, User, Share2, Flame } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Share2, Flame, Bot, ShieldCheck } from 'lucide-react';
 
 export const revalidate = 60;
 
@@ -71,6 +71,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
     sports_categories: { name: 'NPFL' },
     profiles: { display_name: 'Lakumedia Editorial Team', avatar_url: null },
     published_at: new Date().toISOString(),
+    is_ai_generated: false,
   };
 
   // Query related articles
@@ -110,8 +111,8 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
     image: [article.cover_image_url],
     datePublished: article.published_at,
     author: {
-      '@type': 'Person',
-      name: article.profiles?.display_name || 'Lakumedia Editorial Team',
+      '@type': article.is_ai_generated ? 'Organization' : 'Person',
+      name: article.is_ai_generated ? 'Laku Media Sports Desk' : article.profiles?.display_name || 'Lakumedia Editorial Team',
     },
     publisher: {
       '@type': 'Organization',
@@ -139,11 +140,16 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
 
       {/* Header Info */}
       <div className="space-y-4">
-        <div className="flex items-center space-x-3">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="px-3 py-1 text-xs font-extrabold uppercase tracking-wider rounded-md bg-emerald-600 text-white shadow-sm">
             {article.sports_categories?.name || 'Sports News'}
           </span>
-          <span className="text-xs text-slate-500 font-medium flex items-center gap-1">
+          {article.is_ai_generated && (
+            <span className="px-3 py-1 text-[11px] font-black uppercase tracking-wider rounded-md bg-emerald-100 text-emerald-900 border border-emerald-300 flex items-center gap-1">
+              <Bot className="w-3.5 h-3.5 text-emerald-700" /> AI-Assisted Match Report
+            </span>
+          )}
+          <span className="text-xs text-slate-500 font-medium flex items-center gap-1 ml-auto">
             <Calendar className="w-3.5 h-3.5" /> {formattedDate}
           </span>
         </div>
@@ -152,15 +158,26 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
           {article.title}
         </h1>
 
-        {/* Author Bar */}
+        {/* Author & Byline Bar with Honest Transparency */}
         <div className="flex items-center justify-between py-4 border-y border-slate-200 text-xs text-slate-600">
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-slate-700">
-              <User className="w-4 h-4 text-emerald-600" />
+            <div className="w-9 h-9 rounded-full bg-emerald-700 text-white flex items-center justify-center font-black text-xs shadow">
+              {article.is_ai_generated ? <Bot className="w-5 h-5 text-amber-300" /> : <User className="w-4 h-4" />}
             </div>
             <div>
-              <p className="font-bold text-slate-900">{article.profiles?.display_name || 'Lakumedia Desk'}</p>
-              <p className="text-[11px] text-slate-500">Senior Football Reporter</p>
+              <p className="font-extrabold text-slate-900 flex items-center gap-1.5">
+                <span>{article.is_ai_generated ? 'Laku Media Sports Desk' : article.profiles?.display_name || 'Lakumedia Desk'}</span>
+                {article.is_ai_generated && (
+                  <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 border border-emerald-300">
+                    Data-Verified
+                  </span>
+                )}
+              </p>
+              <p className="text-[11px] text-slate-500">
+                {article.is_ai_generated
+                  ? 'Compiled from official match stats • Human edited & approved'
+                  : 'Senior Football Reporter'}
+              </p>
             </div>
           </div>
 
@@ -190,6 +207,17 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
       <div className="prose max-w-none text-slate-800 text-base sm:text-lg leading-relaxed whitespace-pre-line space-y-4 font-normal">
         {article.body}
       </div>
+
+      {/* Transparency Note Box for AI-Assisted Articles */}
+      {article.is_ai_generated && (
+        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950 text-xs font-medium space-y-1 flex items-start gap-3">
+          <ShieldCheck className="w-5 h-5 text-emerald-700 shrink-0 mt-0.5" />
+          <div>
+            <span className="font-extrabold block text-slate-900">EDITORIAL TRANSPARENCY NOTICE</span>
+            This match report was drafted by Laku Media&apos;s AI Editorial Pipeline using verified match fixture statistics and reviewed for factual accuracy by our sports editor before publication.
+          </div>
+        </div>
+      )}
 
       {/* Related Articles Section */}
       <section className="pt-8 border-t border-slate-200 space-y-4">
