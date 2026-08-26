@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv, Globe } from 'lucide-react';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
+import { AboutHeroAutoCrossfade } from '@/components/multimedia/about-hero-auto-crossfade';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
@@ -39,33 +40,14 @@ export default function MultimediaAboutPage() {
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. ABOUT HERO SECTION with User Uploaded Broadcast Control Room Image */}
-      <section className="relative rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[540px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
-        <Image
-          src="/assest/user_about_control_room_2.jpg"
-          alt="Laku Media Satellite Broadcast Master Control Room"
-          fill
-          className="object-cover"
-          priority
-        />
-        {/* Light Overlay for Image Visibility */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#090A0F] via-[#090A0F]/60 to-[#090A0F]/30 opacity-90" />
-        
-        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-12 space-y-4">
-          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#10B981]/20 border border-[#10B981]/40 text-[#10B981] text-xs font-extrabold tracking-widest uppercase shadow-xl backdrop-blur-md">
-            <Sparkles className="w-4 h-4 text-amber-400" />
-            <span>ABOUT LAKU MEDIA & CREATIVE STUDIOS</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight uppercase drop-shadow-2xl">
-            PIONEERING <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-[#D9541E]">4K/8K CINEMA</span> & SATELLITE BROADCASTING
-          </h1>
-
-          <p className="text-sm sm:text-lg text-slate-100 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            Under executive leadership, Laku Media operates multi-camera satellite OB vans, 8K RED cinema rigs, Dolby Atmos audio suites, and a premier sports publishing portal.
-          </p>
-        </div>
-      </section>
+      {/* 1. ABOUT HERO SECTION with Auto-Crossfading Background Images */}
+      <AboutHeroAutoCrossfade
+        images={[
+          '/assest/about_hero_auto_camera.jpg',
+          '/assest/about_hero_auto_satellite.jpg',
+        ]}
+        intervalMs={5000}
+      />
 
       {/* 2. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
@@ -147,29 +129,12 @@ export default function MultimediaAboutPage() {
         </NeonBorder>
       </section>
 
-      {/* 4. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (3rd Image on LEFT, "Why Laku Media?" Content on RIGHT — Placed BELOW Vision & Mission) */}
+      {/* 4. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (Content on LEFT, Sunset Satellite Dish 3 Image on RIGHT) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border-2 border-[#10B981]/60 shadow-2xl overflow-hidden relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* LEFT Column (3rd Uploaded Image: Satellite Dishes Silhouette Against Sunset Sky) */}
-          <div className="lg:col-span-6 relative h-[380px] sm:h-[480px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
-            <Image
-              src="/assest/user_why_laku_satellite_sunset_3.jpg"
-              alt="Laku Media Satellite Dish Array Silhouette at Sunset"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
-                SATELLITE & CINEMA INFRASTRUCTURE
-              </span>
-              <h3 className="text-sm font-extrabold text-white">Uninterrupted Global Uplink & Production Capability</h3>
-            </div>
-          </div>
-
-          {/* RIGHT Column (Content: "Why Laku Media?") */}
-          <div className="lg:col-span-6 space-y-6">
+          {/* LEFT Column (Content: "Why Laku Media?") */}
+          <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
             <div className="space-y-2">
               <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700 inline-block">
                 THE LAKU MEDIA ADVANTAGE
@@ -222,6 +187,23 @@ export default function MultimediaAboutPage() {
               </div>
             </div>
 
+          </div>
+
+          {/* RIGHT Column (3rd Uploaded Image: Sunset Satellite Dishes Silhouette) */}
+          <div className="lg:col-span-6 relative h-[380px] sm:h-[480px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
+            <Image
+              src="/assest/user_why_laku_satellite_sunset_3.jpg"
+              alt="Laku Media Satellite Dish Array Silhouette at Sunset"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
+                SATELLITE & CINEMA INFRASTRUCTURE
+              </span>
+              <h3 className="text-sm font-extrabold text-white">Uninterrupted Global Uplink & Production Capability</h3>
+            </div>
           </div>
 
         </div>
