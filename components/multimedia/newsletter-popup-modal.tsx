@@ -188,7 +188,7 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
   };
 
   return (
-    <section className="relative p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 overflow-hidden my-10 max-w-7xl mx-auto bg-[#090A0F]">
+    <section className="relative p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 overflow-hidden my-10 max-w-7xl mx-auto bg-slate-950">
       
       {/* Background Parallax Sunset City Image Layer */}
       <div className="absolute inset-0 z-0">
@@ -198,8 +198,8 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
           fill
           className="object-cover"
         />
-        {/* Dark Contrast Gradient Overlay for High Readability */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#090A0F]/90 via-[#090A0F]/80 to-[#090A0F]/90" />
+        {/* Transparent Dark Overlay for Seamless Image Blending */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/55 to-black/80" />
       </div>
 
       <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
@@ -208,7 +208,7 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
             JOIN LAKU MEDIA STUDIO NETWORK
           </span>
         )}
-        <h2 className="text-3xl sm:text-4xl font-black text-white uppercase drop-shadow-lg">
+        <h2 className="text-3xl sm:text-4xl font-black text-white uppercase drop-shadow-xl">
           SUBSCRIBE FOR PRIVATE CINEMA REELS & DISCOUNTS
         </h2>
         <p className="text-xs sm:text-sm text-slate-200 font-medium max-w-xl mx-auto leading-relaxed drop-shadow">
@@ -227,7 +227,7 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full sm:flex-1 px-5 py-3.5 rounded-2xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 text-xs font-medium focus:outline-none focus:border-[#10B981] backdrop-blur-md"
+              className="w-full sm:flex-1 px-5 py-3.5 rounded-2xl bg-black/40 border border-white/25 text-white placeholder-slate-300 text-xs font-medium focus:outline-none focus:border-[#10B981] focus:bg-black/70 backdrop-blur-md transition-all shadow-inner"
             />
             <button
               type="submit"
