@@ -179,10 +179,10 @@ export default async function MultimediaHomePage() {
       <NeonBorder color="#D9541E" rounded={28} thickness={3} borderSize={40} glow={70}>
         <div className="relative rounded-3xl overflow-hidden min-h-[200px] sm:min-h-[240px] flex flex-col justify-center px-6 sm:px-10 py-8 border border-slate-800 shadow-2xl bg-slate-950">
           <Image
-            src="/studio/studio-hub-hero.png"
+            src="/assest/user_about_control_room_2.jpg"
             alt="Laku Media Executive Studio Hub Background"
             fill
-            className="object-cover opacity-35"
+            className="object-cover opacity-40"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#090A0F] via-[#090A0F]/85 to-transparent" />
           
