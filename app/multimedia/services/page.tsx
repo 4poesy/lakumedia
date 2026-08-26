@@ -5,6 +5,7 @@ import { Camera, Film, Radio, Tv, Sparkles, CheckCircle2, ArrowRight, Video, Mus
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioFaqSection } from '@/components/multimedia/studio-faq';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
+import { ServicesEquipmentShowcase } from '@/components/multimedia/services-equipment-showcase';
 
 export const dynamic = 'force-dynamic';
 
@@ -88,7 +89,7 @@ export default function MultimediaServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid */}
+      {/* 6 Core Creative Media Services Grid */}
       <section className="max-w-7xl mx-auto space-y-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
           <div>
@@ -140,6 +141,9 @@ export default function MultimediaServicesPage() {
           })}
         </div>
       </section>
+
+      {/* HARDWARE & STUDIO TECH STACK SHOWCASE (Alternating 2-Column Cards) */}
+      <ServicesEquipmentShowcase />
 
       {/* EXTENDED PARALLAX WRAPPER with Reduced Overlay Darkness for Red Curtains Background Visibility */}
       <section className="relative rounded-3xl overflow-hidden max-w-7xl mx-auto my-12 border-2 border-slate-800 shadow-2xl p-6 sm:p-12 space-y-12">
