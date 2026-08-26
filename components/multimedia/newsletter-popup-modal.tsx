@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { X, Mail, Sparkles, CheckCircle2, Send, Gift } from 'lucide-react';
 import { NeonBorder } from '@/components/ui/neon-border';
 
@@ -187,22 +188,35 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
   };
 
   return (
-    <section className="bg-slate-950 p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 relative overflow-hidden my-10 max-w-7xl mx-auto">
-      <div className="max-w-3xl mx-auto text-center space-y-4">
+    <section className="relative p-8 sm:p-12 rounded-3xl border-2 border-[#10B981] shadow-2xl space-y-6 overflow-hidden my-10 max-w-7xl mx-auto bg-[#090A0F]">
+      
+      {/* Background Parallax Sunset City Image Layer */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/assest/parallax_sunset_city.jpg"
+          alt="Laku Media Studio Subscriber Sunset City Background"
+          fill
+          className="object-cover"
+        />
+        {/* Dark Contrast Gradient Overlay for High Readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#090A0F]/90 via-[#090A0F]/80 to-[#090A0F]/90" />
+      </div>
+
+      <div className="relative z-10 max-w-3xl mx-auto text-center space-y-4">
         {showTagline && (
-          <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">
+          <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block drop-shadow">
             JOIN LAKU MEDIA STUDIO NETWORK
           </span>
         )}
-        <h2 className="text-3xl sm:text-4xl font-black text-white uppercase">
+        <h2 className="text-3xl sm:text-4xl font-black text-white uppercase drop-shadow-lg">
           SUBSCRIBE FOR PRIVATE CINEMA REELS & DISCOUNTS
         </h2>
-        <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-xl mx-auto leading-relaxed">
+        <p className="text-xs sm:text-sm text-slate-200 font-medium max-w-xl mx-auto leading-relaxed drop-shadow">
           Stay connected with Laku Media for theatrical movie release dates, multi-camera live broadcast alerts, and exclusive client rate offers.
         </p>
 
         {submitted ? (
-          <div className="p-4 rounded-2xl bg-[#10B981]/20 border border-[#10B981] text-[#10B981] font-extrabold text-sm flex items-center justify-center gap-2">
+          <div className="p-4 rounded-2xl bg-[#10B981]/20 border border-[#10B981] text-[#10B981] font-extrabold text-sm flex items-center justify-center gap-2 backdrop-blur-md">
             <CheckCircle2 className="w-5 h-5 text-[#10B981]" /> Subscribed! Welcome to Laku Media VIP Network.
           </div>
         ) : (
@@ -213,11 +227,11 @@ export function StudioSubscriberSection({ showTagline = true }: StudioSubscriber
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email address"
-              className="w-full sm:flex-1 px-5 py-3.5 rounded-2xl bg-slate-900 border border-slate-800 text-white placeholder-slate-500 text-xs font-medium focus:outline-none focus:border-[#10B981]"
+              className="w-full sm:flex-1 px-5 py-3.5 rounded-2xl bg-slate-950/90 border border-slate-700 text-white placeholder-slate-500 text-xs font-medium focus:outline-none focus:border-[#10B981] backdrop-blur-md"
             />
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl transition-transform active:scale-95"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-2xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl transition-transform active:scale-95 border border-emerald-300"
             >
               <span>Subscribe</span> <Send className="w-4 h-4" />
             </button>
