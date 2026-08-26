@@ -12,7 +12,7 @@ interface AboutHeroAutoCrossfadeProps {
 export function AboutHeroAutoCrossfade({
   images = [
     '/assest/about_hero_auto_camera.jpg',
-    '/assest/about_hero_auto_satellite.png',
+    '/assest/about_hero_auto_satellite.jpg',
   ],
   intervalMs = 5000,
 }: AboutHeroAutoCrossfadeProps) {
@@ -32,7 +32,7 @@ export function AboutHeroAutoCrossfade({
     <section className="relative rounded-3xl overflow-hidden min-h-[480px] sm:min-h-[540px] flex items-center justify-center border-2 border-slate-800 shadow-2xl bg-[#090A0F]">
       {/* Render background images with smooth opacity transition */}
       {images.map((imgUrl, index) => {
-        const isPng = imgUrl.endsWith('.png');
+        const isSatellite = imgUrl.includes('satellite');
         return (
           <div
             key={imgUrl}
@@ -45,7 +45,7 @@ export function AboutHeroAutoCrossfade({
               src={imgUrl}
               alt="Laku Media Production Infrastructure"
               fill
-              className={isPng ? 'object-contain p-10 sm:p-14' : 'object-cover'}
+              className={isSatellite ? 'object-contain p-8 sm:p-12' : 'object-cover'}
               priority={index === 0}
             />
           </div>

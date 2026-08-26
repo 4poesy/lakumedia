@@ -167,7 +167,7 @@ export function ServicesEquipmentShowcase() {
       badge: '8K CINEMA RIGS',
       badgeColor: 'bg-[#D9541E] text-white',
       title: 'RED V-Raptor 8K & ARRI Alexa Mini LF',
-      description: 'Our film studio owns RED V-Raptor 8K VV sensor systems and ARRI Alexa Mini LF cinema rigs equipped with anamorphic cine prime lenses, follow focus, wireless video transmitters, and 3-axis motorized gimbal stabilizers.',
+      description: 'We deploy state-of-the-art RED V-Raptor 8K VV sensor systems and ARRI Alexa Mini LF cinema rigs equipped with anamorphic cine prime lenses, follow focus, wireless video transmitters, and 3-axis motorized gimbal stabilizers for high-end film shoots.',
       features: ['8K Resolution & 120fps High-Speed', 'Anamorphic Cinema Prime Lenses', 'ProRes 4444 XQ & RAW Workflows'],
       imageAlt: 'RED V-Raptor 8K Cinema Camera Rig with Fujinon Lens',
       imageOnRight: true, // Content LEFT, Image RIGHT
@@ -178,7 +178,7 @@ export function ServicesEquipmentShowcase() {
       badge: 'SATELLITE OB FLEET',
       badgeColor: 'bg-[#10B981] text-slate-950',
       title: 'Dual C/Ku-Band OB Satellite Uplink Van',
-      description: 'Laku Media operates mobile satellite Outside Broadcast (OB) vans fitted with dual motorized 2.4m satellite dish antennas, 16-channel 4K video switchers, multi-cam live graphics engines, and satellite uplink transmitters.',
+      description: 'We facilitate and engineer mobile satellite Outside Broadcast (OB) vans fitted with dual motorized 2.4m satellite dish antennas, 16-channel 4K video switchers, multi-cam live graphics engines, and satellite uplink transmitters.',
       features: ['Dual C/Ku-Band Satellite Transponders', '16-Channel 4K Triax Switcher', 'Live Stadium Realtime Graphics Engine'],
       image: '/assest/about_hero_auto_satellite.jpg',
       imageAlt: 'Laku Media Teleport Satellite Uplink Dish Antenna',
@@ -189,7 +189,7 @@ export function ServicesEquipmentShowcase() {
       badge: 'MASTER AUDIO & COLOR',
       badgeColor: 'bg-[#2A2E7F] text-[#10B981]',
       title: 'Dolby Atmos 7.1.4 Surround Sound Suite',
-      description: 'State-of-the-art certified Dolby Atmos spatial audio studio featuring Pro Tools HDX hardware DSP, Genelec Smart Active 7.1.4 monitors, acoustically-isolated recording booths, and DaVinci Resolve Studio 8K color suites.',
+      description: 'Access certified Dolby Atmos spatial audio studio environments featuring Pro Tools HDX hardware DSP, Genelec Smart Active 7.1.4 monitors, acoustically-isolated recording booths, and DaVinci Resolve Studio 8K color suites.',
       features: ['Dolby Atmos Certified 7.1.4 Room', 'Genelec Smart Active DSP Monitors', 'DaVinci Resolve Studio 8K Color Grading'],
       image: '/assest/user_about_control_room_2.jpg',
       imageAlt: 'Laku Media Master Control Room & Audio Production Suite',
@@ -214,13 +214,13 @@ export function ServicesEquipmentShowcase() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
         <div className="space-y-1">
           <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981] flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-amber-400" /> STUDIO EQUIPMENT & INFRASTRUCTURE
+            <Sparkles className="w-4 h-4 text-amber-400" /> PRODUCTION TECH & EQUIPMENT STAGING
           </span>
           <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight">
-            HARDWARE & CINEMA TECH CAPABILITIES
+            WORLD-CLASS CINEMA & BROADCAST TECH CAPABILITIES
           </h2>
           <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl">
-            Laku Media owns and operates state-of-the-art broadcast equipment, satellite OB vans, 8K RED cinema rigs, and Dolby Atmos audio suites available for client bookings.
+            Through our network of elite technical partners and expert production crew, Laku Media deploys, stages, and operates industry-standard broadcast equipment, satellite OB vans, 8K RED cinema rigs, and Dolby Atmos audio suites for client productions.
           </p>
         </div>
       </div>
@@ -285,7 +285,7 @@ export function ServicesEquipmentShowcase() {
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
                       <span className="text-[9px] font-black uppercase tracking-widest text-[#10B981] block">
-                        LAKU MEDIA STUDIO INFRASTRUCTURE
+                        PRODUCTION TECH & STAGING CAPABILITIES
                       </span>
                       <h4 className="text-xs font-extrabold text-white">{card.title}</h4>
                     </div>
