@@ -67,7 +67,87 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 2. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (3rd Image on LEFT, "Why Laku Media?" Content on RIGHT) */}
+      {/* 2. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
+      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
+          {/* Left Column (Image) */}
+          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
+            <Image
+              src="/assest/user_about_satellite_dish_1.jpg"
+              alt="Laku Media Teleport Satellite Dish Antenna"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
+                OUR ORIGIN STORY
+              </span>
+              <h3 className="text-sm font-extrabold text-white">Built From Passion for African Cinema & Satellite Broadcasting</h3>
+            </div>
+          </div>
+
+          {/* Right Column (Content) */}
+          <div className="lg:col-span-6 space-y-6">
+            <div className="space-y-2">
+              <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700">
+                COMPANY OVERVIEW
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
+                AFRICA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#10B981]">DUAL-VERTICAL</span> ENTERTAINMENT HOUSE
+              </h2>
+            </div>
+
+            <p className="text-sm text-slate-300 leading-relaxed font-medium">
+              Founded under the executive guidance of Chief Executive Officer Adebayo Samuel Olaku, Laku Media has grown into a powerhouse across two core verticals: **Laku Sports** (realtime news, scores, and sports aggregation) and **Laku Media Studios** (theatrical film production, music video direction, and satellite broadcasting).
+            </p>
+
+            <div className="grid grid-cols-2 gap-4 pt-2">
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-2xl font-black text-[#D9541E]">10M+</span>
+                <p className="text-xs text-slate-400 font-bold">Monthly Viewers</p>
+              </div>
+              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
+                <span className="text-2xl font-black text-[#10B981]">100+</span>
+                <p className="text-xs text-slate-400 font-bold">Delivered Productions</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* 3. VISION & MISSION CARDS */}
+      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        <NeonBorder color="#10B981" rounded={24} thickness={4} borderSize={60} glow={90}>
+          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl space-y-4 relative overflow-hidden group">
+            <div className="w-14 h-14 rounded-2xl bg-[#2A2E7F] flex items-center justify-center shadow-lg">
+              <Eye className="w-7 h-7 text-[#10B981]" />
+            </div>
+            <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">OUR VISION</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">To Be Africa&apos;s Foremost Multimedia Studio</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              To establish Laku Media as the leading African media ecosystem, renowned globally for cinema-grade film production, satellite live broadcasting, and high-impact commercial brand campaigns.
+            </p>
+          </div>
+        </NeonBorder>
+
+        <NeonBorder color="#D9541E" rounded={24} thickness={4} borderSize={60} glow={90}>
+          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl space-y-4 relative overflow-hidden group">
+            <div className="w-14 h-14 rounded-2xl bg-[#D9541E] flex items-center justify-center shadow-lg">
+              <Target className="w-7 h-7 text-white" />
+            </div>
+            <span className="text-xs font-extrabold text-[#D9541E] uppercase tracking-widest block">OUR MISSION</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">Empowering African Stories & Global Brands</h3>
+            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
+              To deliver world-class 4K/8K video production, multi-camera live stream coverage, theatrical movies, and strategic digital marketing that captivate millions of viewers worldwide.
+            </p>
+          </div>
+        </NeonBorder>
+      </section>
+
+      {/* 4. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (3rd Image on LEFT, "Why Laku Media?" Content on RIGHT — Placed BELOW Vision & Mission) */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border-2 border-[#10B981]/60 shadow-2xl overflow-hidden relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
@@ -145,86 +225,6 @@ export default function MultimediaAboutPage() {
           </div>
 
         </div>
-      </section>
-
-      {/* 3. ALTERNATING 2-COLUMN SHOWCASE 1 (Satellite Dish 1 Image on LEFT, Company Overview Content on RIGHT) */}
-      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left Column (Image) */}
-          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
-            <Image
-              src="/assest/user_about_satellite_dish_1.jpg"
-              alt="Laku Media Teleport Satellite Dish Antenna"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
-                OUR ORIGIN STORY
-              </span>
-              <h3 className="text-sm font-extrabold text-white">Built From Passion for African Cinema & Satellite Broadcasting</h3>
-            </div>
-          </div>
-
-          {/* Right Column (Content) */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700">
-                COMPANY OVERVIEW
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                AFRICA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#10B981]">DUAL-VERTICAL</span> ENTERTAINMENT HOUSE
-              </h2>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed font-medium">
-              Founded under the executive guidance of Chief Executive Officer Adebayo Samuel Olaku, Laku Media has grown into a powerhouse across two core verticals: **Laku Sports** (realtime news, scores, and sports aggregation) and **Laku Media Studios** (theatrical film production, music video direction, and satellite broadcasting).
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#D9541E]">10M+</span>
-                <p className="text-xs text-slate-400 font-bold">Monthly Viewers</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#10B981]">100+</span>
-                <p className="text-xs text-slate-400 font-bold">Delivered Productions</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 4. VISION & MISSION CARDS */}
-      <section className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        <NeonBorder color="#10B981" rounded={24} thickness={4} borderSize={60} glow={90}>
-          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl space-y-4 relative overflow-hidden group">
-            <div className="w-14 h-14 rounded-2xl bg-[#2A2E7F] flex items-center justify-center shadow-lg">
-              <Eye className="w-7 h-7 text-[#10B981]" />
-            </div>
-            <span className="text-xs font-extrabold text-[#10B981] uppercase tracking-widest block">OUR VISION</span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">To Be Africa&apos;s Foremost Multimedia Studio</h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              To establish Laku Media as the leading African media ecosystem, renowned globally for cinema-grade film production, satellite live broadcasting, and high-impact commercial brand campaigns.
-            </p>
-          </div>
-        </NeonBorder>
-
-        <NeonBorder color="#D9541E" rounded={24} thickness={4} borderSize={60} glow={90}>
-          <div className="bg-slate-950 p-8 sm:p-10 rounded-3xl space-y-4 relative overflow-hidden group">
-            <div className="w-14 h-14 rounded-2xl bg-[#D9541E] flex items-center justify-center shadow-lg">
-              <Target className="w-7 h-7 text-white" />
-            </div>
-            <span className="text-xs font-extrabold text-[#D9541E] uppercase tracking-widest block">OUR MISSION</span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">Empowering African Stories & Global Brands</h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-medium">
-              To deliver world-class 4K/8K video production, multi-camera live stream coverage, theatrical movies, and strategic digital marketing that captivate millions of viewers worldwide.
-            </p>
-          </div>
-        </NeonBorder>
       </section>
 
       {/* 5. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (Originkit 3D Coverflow) */}
