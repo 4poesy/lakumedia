@@ -1,8 +1,12 @@
 {
   "crons": [
     {
-      "path": "/api/ingest-rss",
+      "path": "/api/sync-live-scores",
       "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/scrape-live-scores",
+      "schedule": "0 18 * * *"
     }
   ]
 }

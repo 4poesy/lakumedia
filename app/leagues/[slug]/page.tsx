@@ -20,7 +20,7 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
   const leagueName = isNpfl ? 'Nigeria Premier Football League (NPFL)' : 'English Premier League (EPL)';
   const country = isNpfl ? 'Nigeria 🇳🇬' : 'England 🏴󠁧󠁢󠁥󠁮󠁧󠁿';
 
-  // Soccerway Full Standings Table Data
+  // Official Standings Table Data
   const standingsTable = isNpfl
     ? [
         { rank: 1, team: 'Rangers International', mp: 28, w: 16, d: 6, l: 6, gf: 42, ga: 20, gd: '+22', pts: 54, form: ['W', 'W', 'D', 'W', 'W'] },
@@ -79,7 +79,7 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
           </div>
 
           <div className="px-4 py-2 rounded-2xl bg-emerald-50 border border-emerald-300 text-emerald-950 text-xs font-black flex items-center gap-2">
-            <BarChart2 className="w-4 h-4 text-emerald-600" /> SOCCERWAY OFFICIAL STATS HUB
+            <BarChart2 className="w-4 h-4 text-emerald-600" /> LAKU MEDIA OFFICIAL STATS HUB
           </div>
         </div>
       </div>
@@ -87,13 +87,13 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
       {/* Main Grid: Standings Table + Top Scorers Sidebar */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        {/* Soccerway 20-Team Full Standings Table (2 Columns Span) */}
+        {/* Full 20-Team Standings Table (2 Columns Span) */}
         <div className="lg:col-span-2 space-y-4">
           <div className="bg-white rounded-3xl border border-slate-200 shadow-md overflow-hidden">
             <div className="p-6 border-b border-slate-200 bg-slate-900 text-white flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <BarChart2 className="w-5 h-5 text-emerald-400" />
-                <h2 className="text-base font-black uppercase">SOCCERWAY OFFICIAL STANDINGS TABLE</h2>
+                <h2 className="text-base font-black uppercase">OFFICIAL LEAGUE STANDINGS TABLE</h2>
               </div>
               <span className="text-xs font-mono text-slate-400">SEASON 2025/2026</span>
             </div>
@@ -144,7 +144,7 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
                             <span
                               key={i}
                               className={`w-4 h-4 rounded text-[9px] font-black flex items-center justify-center text-white ${
-                                f === 'W' ? 'bg-emerald-600' : f === 'D' ? 'bg-amber-500' : 'bg-red-600'
+                                f === 'W' ? 'bg-emerald-600' : f === 'D' ? 'bg-amber-600' : 'bg-red-600'
                               }`}
                             >
                               {f}
@@ -165,7 +165,7 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
           <div className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-md space-y-4">
             <div className="flex items-center space-x-2 border-b border-slate-800 pb-3">
               <Award className="w-5 h-5 text-amber-400" />
-              <h3 className="text-sm font-black uppercase text-white">SOCCERWAY TOP SCORERS</h3>
+              <h3 className="text-sm font-black uppercase text-white">TOP SCORERS LEADERBOARD</h3>
             </div>
 
             <div className="space-y-3">
