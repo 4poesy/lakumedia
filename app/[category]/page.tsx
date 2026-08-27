@@ -9,7 +9,8 @@ import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/
 import { getAggregatedNews } from '@/lib/rss-service';
 import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 
-export const revalidate = 60;
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface CategoryPageProps {
   params: {
@@ -85,9 +86,74 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       categorySlug === 'world-football'
   );
 
-  // Query live RSS stream news items for category page
+  // Query live RSS stream news items for category page & apply Intelligent Category Filter
   const liveRssItems = await getAggregatedNews();
-  const categoryRssArticles = liveRssItems.map((item) => ({
+
+  const filteredRssItems = liveRssItems.filter((item) => {
+    const text = (item.title + ' ' + item.snippet + ' ' + (item.source_name || '')).toLowerCase();
+
+    if (categorySlug === 'npfl') {
+      return (
+        text.includes('npfl') ||
+        text.includes('nigeria') ||
+        text.includes('enyimba') ||
+        text.includes('rangers') ||
+        text.includes('remo') ||
+        text.includes('rivers') ||
+        text.includes('lobi') ||
+        text.includes('pillars') ||
+        text.includes('shooting stars') ||
+        text.includes('complete sports') ||
+        text.includes('super eagles') ||
+        text.includes('nff') ||
+        text.includes('1xcup') ||
+        text.includes('nwaiwu')
+      );
+    }
+
+    if (categorySlug === 'transfers') {
+      return (
+        text.includes('transfer') ||
+        text.includes('sign') ||
+        text.includes('deal') ||
+        text.includes('bid') ||
+        text.includes('clause') ||
+        text.includes('contract') ||
+        text.includes('fee') ||
+        text.includes('loan') ||
+        text.includes('negotiation') ||
+        text.includes('agree') ||
+        text.includes('join') ||
+        text.includes('exit') ||
+        text.includes('swap') ||
+        text.includes('move') ||
+        text.includes('agent')
+      );
+    }
+
+    if (categorySlug === 'world-football') {
+      return (
+        !text.includes('npfl') ||
+        text.includes('premier league') ||
+        text.includes('epl') ||
+        text.includes('la liga') ||
+        text.includes('champions league') ||
+        text.includes('real madrid') ||
+        text.includes('barcelona') ||
+        text.includes('bayern') ||
+        text.includes('psg') ||
+        text.includes('arsenal') ||
+        text.includes('chelsea') ||
+        text.includes('liverpool')
+      );
+    }
+
+    return true;
+  });
+
+  const finalRssList = filteredRssItems.length > 0 ? filteredRssItems : liveRssItems;
+
+  const categoryRssArticles = finalRssList.map((item) => ({
     id: item.id,
     title: item.title,
     slug: item.id || `news-${item.id}`,

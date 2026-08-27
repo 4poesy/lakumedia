@@ -1,5 +1,24 @@
 import { AggregatedNewsItem, RssFeedSource } from './types/rss';
 
+function cleanHtmlEntities(text: string): string {
+  if (!text) return '';
+  return text
+    .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
+    .replace(/&#8216;/g, "'")
+    .replace(/&#8217;/g, "'")
+    .replace(/&#8211;/g, '–')
+    .replace(/&#8212;/g, '—')
+    .replace(/&#8220;/g, '"')
+    .replace(/&#8221;/g, '"')
+    .replace(/&#039;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/<[^>]+>/g, '')
+    .trim();
+}
+
 function enhanceThumbnailResolution(url: string | null, fallbackIndex: number): string {
   const categoryFallbackImages = [
     '/assest/user_enyimba_news_hero.jpg',
@@ -130,26 +149,13 @@ export async function parseFeedSource(source: RssFeedSource): Promise<Aggregated
         const pubDateMatch = itemXml.match(/<pubDate>(.*?)<\/pubDate>/i) || itemXml.match(/<dc:date>(.*?)<\/dc:date>/i);
 
         // Clean title & link
-        const title = titleMatch
-          ? titleMatch[1]
-              .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
-              .replace(/&amp;/g, '&')
-              .replace(/&#8217;/g, "'")
-              .replace(/&#8220;/g, '"')
-              .replace(/&#8221;/g, '"')
-              .trim()
-          : '';
+        const rawTitle = titleMatch ? titleMatch[1] : '';
+        const title = cleanHtmlEntities(rawTitle);
         const sourceUrl = linkMatch ? linkMatch[1].replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1').trim() : '';
 
         const fullText = (contentMatch ? contentMatch[1] : '') + ' ' + (descMatch ? descMatch[1] : '');
-        const rawSnippet = descMatch
-          ? descMatch[1]
-              .replace(/<!\[CDATA\[(.*?)\]\]>/g, '$1')
-              .replace(/<[^>]+>/g, '')
-              .replace(/&#8217;/g, "'")
-              .trim()
-          : '';
-        const snippet = rawSnippet.slice(0, 180) || `Read full sports story on ${source.name}.`;
+        const rawSnippet = descMatch ? descMatch[1] : '';
+        const snippet = cleanHtmlEntities(rawSnippet).slice(0, 180) || `Read full sports story on ${source.name}.`;
 
         // Extract thumbnail from media:content, enclosure, media:thumbnail, or img tag
         const mediaMatch =
