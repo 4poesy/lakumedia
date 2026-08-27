@@ -6,6 +6,7 @@ import { ArticleCard } from '@/components/sports/article-card';
 import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
 import { ScoreCard } from '@/components/sports/score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
+import { getAggregatedNews } from '@/lib/rss-service';
 import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 
 export const revalidate = 60;
@@ -84,34 +85,26 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       categorySlug === 'world-football'
   );
 
-  const articlesToRender = filteredArticles.length > 0 ? filteredArticles : [
+  // Query live RSS stream news items for category page
+  const liveRssItems = await getAggregatedNews();
+  const categoryRssArticles = liveRssItems.map((item) => ({
+    id: item.id,
+    title: item.title,
+    slug: item.id || `news-${item.id}`,
+    excerpt: item.snippet,
+    cover_image_url: item.thumbnail_url || heroBgImage,
+    sports_categories: { name: item.source_name || humanizedTitle },
+    published_at: item.published_at,
+    source_url: item.source_url,
+  }));
+
+  const articlesToRender = categoryRssArticles.length > 0 ? categoryRssArticles : [
     {
       id: 'cat-1',
       title: `Latest Headlines & Developments in ${humanizedTitle}`,
       slug: `${categorySlug}-featured-update`,
       excerpt: `Comprehensive match reporting, player reactions, and analysis covering all key developments in ${humanizedTitle}.`,
-      cover_image_url:
-        categorySlug === 'npfl' ? '/assest/user_npfl_blue_player.jpg' : heroBgImage,
-      sports_categories: { name: humanizedTitle },
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'cat-2',
-      title: `Transfer Window Speculation Heats Up For ${humanizedTitle} Stars`,
-      slug: `${categorySlug}-transfer-speculation`,
-      excerpt: 'Scouting reports and contractual negotiations underway across top clubs.',
-      cover_image_url:
-        'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
-      sports_categories: { name: humanizedTitle },
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'cat-3',
-      title: `Tactical Breakdown & Managerial Press Conference Highlights`,
-      slug: `${categorySlug}-tactical-breakdown`,
-      excerpt: 'Post-match press conference takeaways and strategic team selection analysis.',
-      cover_image_url:
-        'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop',
+      cover_image_url: categorySlug === 'npfl' ? '/assest/user_npfl_blue_player.jpg' : heroBgImage,
       sports_categories: { name: humanizedTitle },
       published_at: new Date().toISOString(),
     },
