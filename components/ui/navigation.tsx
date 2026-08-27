@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Radio } from 'lucide-react';
+import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Radio, Code } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
 import { LiveMcrStatusBar } from '@/components/layout/live-mcr-status-bar';
 
@@ -23,6 +23,7 @@ export function Navigation() {
     { href: '/world-football', label: 'World Football', icon: Globe, active: pathname === '/world-football' },
     { href: '/transfers', label: 'Transfers', icon: Flame, active: pathname === '/transfers' },
     { href: '/live-scores', label: 'Live Scores', icon: Activity, active: pathname === '/live-scores', badge: 'LIVE' },
+    { href: '/developers', label: 'API Portal', icon: Code, active: pathname === '/developers', badge: 'DEV' },
     { href: '/multimedia', label: 'LAKU MEDIA', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
 
