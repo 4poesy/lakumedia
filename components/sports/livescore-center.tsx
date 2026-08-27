@@ -50,6 +50,27 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
 
+  // 24/7 Automated Ingestion & Live Auto-Polling Engine (Triggers on mount & every 60s)
+  React.useEffect(() => {
+    const triggerBackgroundIngestion = async () => {
+      try {
+        await Promise.all([
+          fetch('/api/sync-live-scores', { method: 'POST' }),
+          fetch('/api/ingest-rss', { method: 'GET' }),
+        ]);
+      } catch (err) {
+        // Silent background execution
+      }
+    };
+
+    // Trigger immediately on page visit
+    triggerBackgroundIngestion();
+
+    // Auto-poll every 60 seconds
+    const interval = setInterval(triggerBackgroundIngestion, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   // High-Quality Live Match Fixtures Pipeline
   const liveMatchEngineFixtures: MatchFixtureItem[] = [
     // --- TODAY MATCHES ---
