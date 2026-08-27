@@ -90,68 +90,70 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const liveRssItems = await getAggregatedNews();
 
   const filteredRssItems = liveRssItems.filter((item) => {
-    const text = (item.title + ' ' + item.snippet + ' ' + (item.source_name || '')).toLowerCase();
+    const contentText = (item.title + ' ' + item.snippet).toLowerCase();
+    const fullText = (item.title + ' ' + item.snippet + ' ' + (item.source_name || '')).toLowerCase();
 
     if (categorySlug === 'npfl') {
       return (
-        text.includes('npfl') ||
-        text.includes('nigeria') ||
-        text.includes('enyimba') ||
-        text.includes('rangers') ||
-        text.includes('remo') ||
-        text.includes('rivers') ||
-        text.includes('lobi') ||
-        text.includes('pillars') ||
-        text.includes('shooting stars') ||
-        text.includes('complete sports') ||
-        text.includes('super eagles') ||
-        text.includes('nff') ||
-        text.includes('1xcup') ||
-        text.includes('nwaiwu')
+        contentText.includes('npfl') ||
+        contentText.includes('nigeria') ||
+        contentText.includes('enyimba') ||
+        contentText.includes('rangers') ||
+        contentText.includes('remo') ||
+        contentText.includes('rivers') ||
+        contentText.includes('lobi') ||
+        contentText.includes('pillars') ||
+        contentText.includes('shooting stars') ||
+        contentText.includes('super eagles') ||
+        contentText.includes('super falcons') ||
+        contentText.includes('nff') ||
+        contentText.includes('1xcup') ||
+        contentText.includes('nwaiwu') ||
+        contentText.includes('bonfrere')
       );
     }
 
     if (categorySlug === 'transfers') {
       return (
-        text.includes('transfer') ||
-        text.includes('sign') ||
-        text.includes('deal') ||
-        text.includes('bid') ||
-        text.includes('clause') ||
-        text.includes('contract') ||
-        text.includes('fee') ||
-        text.includes('loan') ||
-        text.includes('negotiation') ||
-        text.includes('agree') ||
-        text.includes('join') ||
-        text.includes('exit') ||
-        text.includes('swap') ||
-        text.includes('move') ||
-        text.includes('agent')
+        fullText.includes('transfer') ||
+        fullText.includes('sign') ||
+        fullText.includes('deal') ||
+        fullText.includes('bid') ||
+        fullText.includes('clause') ||
+        fullText.includes('contract') ||
+        fullText.includes('fee') ||
+        fullText.includes('loan') ||
+        fullText.includes('negotiation') ||
+        fullText.includes('agree') ||
+        fullText.includes('join') ||
+        fullText.includes('exit') ||
+        fullText.includes('swap') ||
+        fullText.includes('move') ||
+        fullText.includes('agent')
       );
     }
 
     if (categorySlug === 'world-football') {
       return (
-        !text.includes('npfl') ||
-        text.includes('premier league') ||
-        text.includes('epl') ||
-        text.includes('la liga') ||
-        text.includes('champions league') ||
-        text.includes('real madrid') ||
-        text.includes('barcelona') ||
-        text.includes('bayern') ||
-        text.includes('psg') ||
-        text.includes('arsenal') ||
-        text.includes('chelsea') ||
-        text.includes('liverpool')
+        !contentText.includes('npfl') ||
+        fullText.includes('premier league') ||
+        fullText.includes('epl') ||
+        fullText.includes('la liga') ||
+        fullText.includes('champions league') ||
+        fullText.includes('real madrid') ||
+        fullText.includes('barcelona') ||
+        fullText.includes('bayern') ||
+        fullText.includes('psg') ||
+        fullText.includes('arsenal') ||
+        fullText.includes('chelsea') ||
+        fullText.includes('liverpool')
       );
     }
 
     return true;
   });
 
-  const finalRssList = filteredRssItems.length > 0 ? filteredRssItems : liveRssItems;
+  const finalRssList = filteredRssItems;
 
   const categoryRssArticles = finalRssList.map((item) => ({
     id: item.id,
@@ -164,17 +166,90 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     source_url: item.source_url,
   }));
 
-  const articlesToRender = categoryRssArticles.length > 0 ? categoryRssArticles : [
+  const npflDefaults = [
     {
-      id: 'cat-1',
-      title: `Latest Headlines & Developments in ${humanizedTitle}`,
-      slug: `${categorySlug}-featured-update`,
-      excerpt: `Comprehensive match reporting, player reactions, and analysis covering all key developments in ${humanizedTitle}.`,
-      cover_image_url: categorySlug === 'npfl' ? '/assest/user_npfl_blue_player.jpg' : heroBgImage,
-      sports_categories: { name: humanizedTitle },
+      id: 'npfl-1',
+      title: 'Enyimba FC 2-1 Kano Pillars: Aba Giants Win Thrilling NPFL Classic',
+      slug: 'enyimba-thrilling-victory-npfl-derby',
+      excerpt: 'Enyimba FC delivered a dominant performance in Aba to secure maximum points in the Nigeria Premier Football League derby.',
+      cover_image_url: '/assest/user_enyimba_news_hero.jpg',
+      sports_categories: { name: 'NPFL League' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'npfl-2',
+      title: 'Rangers International Maintain Top Spot With Dominant Home Win',
+      slug: 'rangers-international-top-spot-npfl',
+      excerpt: 'The Flying Antelopes showcased tactical supremacy in Enugu to extend their unbeaten streak at the top of the NPFL standings.',
+      cover_image_url: '/assest/user_npfl_blue_player.jpg',
+      sports_categories: { name: 'NPFL League' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'npfl-3',
+      title: '1XCup 2026: Four Games Hold Today As Battle For Group Stage Spots Intensifies',
+      slug: '1xcup-2026-group-stage-battle',
+      excerpt: 'Grassroots Nigerian teams battle for lucrative group stage qualification in Lagos and Ogun State venues.',
+      cover_image_url: '/assest/user_super_eagles_manager.jpg',
+      sports_categories: { name: 'NPFL League' },
       published_at: new Date().toISOString(),
     },
   ];
+
+  const transferDefaults = [
+    {
+      id: 'tr-1',
+      title: 'Transfers: What The Clubs Need To Do This Deadline Window',
+      slug: 'transfers-what-clubs-need-to-do',
+      excerpt: 'Comprehensive club-by-club transfer state of play, contract negotiations, and scouting priorities ahead of deadline day.',
+      cover_image_url: '/assest/user_transfers_hero_graphic.jpg',
+      sports_categories: { name: 'Transfer News' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'tr-2',
+      title: 'Super Eagles Star Signs Multi-Year Contract Extension With European Club',
+      slug: 'super-eagles-star-signs-extension',
+      excerpt: 'Contractual agreement finalized following stellar international performance during AFCON qualifiers.',
+      cover_image_url: '/assest/user_super_eagles_manager.jpg',
+      sports_categories: { name: 'Transfer News' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'tr-3',
+      title: 'Rangers Bolster Wing Options With Signing Of Kim Min-Su',
+      slug: 'rangers-bolster-wing-options-kim',
+      excerpt: 'Official announcement confirmed for the South Korean winger arriving on an initial multi-year deal.',
+      cover_image_url: '/assest/user_home_hero_4th_slide.jpg',
+      sports_categories: { name: 'Transfer News' },
+      published_at: new Date().toISOString(),
+    },
+  ];
+
+  const worldDefaults = [
+    {
+      id: 'wf-1',
+      title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
+      slug: 'fc-bayern-munich-harry-kane-musiala-victory',
+      excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League marquee fixture.',
+      cover_image_url: '/assest/user_kane_musiala_bayern.jpg',
+      sports_categories: { name: 'World Football' },
+      published_at: new Date().toISOString(),
+    },
+    {
+      id: 'wf-2',
+      title: 'Mourinho Hails Mbappe After Strikers Performance For Real Madrid',
+      slug: 'mourinho-hails-mbappe-real-madrid',
+      excerpt: 'Post-match tactical analysis highlighting Kylian Mbappes clinical finishing in La Liga action.',
+      cover_image_url: '/assest/user_home_hero_4th_slide.jpg',
+      sports_categories: { name: 'World Football' },
+      published_at: new Date().toISOString(),
+    },
+  ];
+
+  const categoryDefaults = categorySlug === 'npfl' ? npflDefaults : categorySlug === 'transfers' ? transferDefaults : worldDefaults;
+
+  const articlesToRender = categoryRssArticles.length > 0 ? categoryRssArticles : categoryDefaults;
 
   // Lead story vs horizontal list stories
   const leadArticle = articlesToRender[0];
