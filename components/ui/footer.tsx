@@ -49,6 +49,7 @@ export function Footer() {
               <li><Link href="/world-football" prefetch={true} className="hover:text-white hover:underline transition-colors">World Football</Link></li>
               <li><Link href="/transfers" prefetch={true} className="hover:text-white hover:underline transition-colors">Transfer News</Link></li>
               <li><Link href="/live-scores" prefetch={true} className="hover:text-white hover:underline transition-colors">Live Match Center</Link></li>
+              <li><Link href="/developers" prefetch={true} className="hover:text-amber-300 hover:underline transition-colors text-amber-400 font-bold flex items-center gap-1">⚡ Public Developer API</Link></li>
             </ul>
           </div>
 

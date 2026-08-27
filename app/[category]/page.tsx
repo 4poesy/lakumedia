@@ -94,16 +94,38 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     const fullText = (item.title + ' ' + item.snippet + ' ' + (item.source_name || '')).toLowerCase();
 
     if (categorySlug === 'npfl') {
+      const isGlobalForeignStory =
+        contentText.includes('real madrid') ||
+        contentText.includes('barcelona') ||
+        contentText.includes('mourinho') ||
+        contentText.includes('mbappe') ||
+        contentText.includes('scottish') ||
+        contentText.includes('glasgow') ||
+        contentText.includes('czech');
+
+      if (isGlobalForeignStory) return false;
+
       return (
         contentText.includes('npfl') ||
-        contentText.includes('nigeria') ||
         contentText.includes('enyimba') ||
-        contentText.includes('rangers') ||
-        contentText.includes('remo') ||
-        contentText.includes('rivers') ||
-        contentText.includes('lobi') ||
-        contentText.includes('pillars') ||
+        contentText.includes('rangers international') ||
+        contentText.includes('enugu rangers') ||
+        contentText.includes('remo stars') ||
+        contentText.includes('rivers united') ||
+        contentText.includes('rivers utd') ||
+        contentText.includes('lobi stars') ||
+        contentText.includes('kano pillars') ||
         contentText.includes('shooting stars') ||
+        contentText.includes('plateau united') ||
+        contentText.includes('katsina united') ||
+        contentText.includes('abia warriors') ||
+        contentText.includes('bayelsa united') ||
+        contentText.includes('kwara united') ||
+        contentText.includes('sunshine stars') ||
+        contentText.includes('niger tornadoes') ||
+        contentText.includes('akwa united') ||
+        contentText.includes('heartland fc') ||
+        contentText.includes('sporting lagos') ||
         contentText.includes('super eagles') ||
         contentText.includes('super falcons') ||
         contentText.includes('nff') ||

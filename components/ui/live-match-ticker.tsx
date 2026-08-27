@@ -4,53 +4,23 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Activity, ChevronRight, Film, Sparkles, Flame, Radio } from 'lucide-react';
+import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
 
 export function LiveMatchTicker() {
   const pathname = usePathname();
   const isMultimedia = pathname.startsWith('/multimedia');
 
-  const sampleMatches = [
-    {
-      id: 'm1',
-      league: 'NPFL DERBY',
-      homeTeam: 'Enyimba FC',
-      awayTeam: 'Kano Pillars',
-      homeScore: 2,
-      awayScore: 1,
-      status: 'FT',
-      isLive: false,
-    },
-    {
-      id: 'm2',
-      league: 'PREMIER LEAGUE',
-      homeTeam: 'Arsenal FC',
-      awayTeam: 'Chelsea FC',
-      homeScore: 1,
-      awayScore: 0,
-      status: "68'",
-      isLive: true,
-    },
-    {
-      id: 'm3',
-      league: 'LA LIGA',
-      homeTeam: 'Real Madrid',
-      awayTeam: 'Barcelona',
-      homeScore: null,
-      awayScore: null,
-      status: '20:00',
-      isLive: false,
-    },
-    {
-      id: 'm4',
-      league: 'SUPER EAGLES',
-      homeTeam: 'Nigeria',
-      awayTeam: 'South Africa',
-      homeScore: 3,
-      awayScore: 1,
-      status: 'FT',
-      isLive: false,
-    },
-  ];
+  const rawRealMatches = getRealGlobalMatchesFeed();
+  const sampleMatches = rawRealMatches.map((m) => ({
+    id: m.id,
+    league: m.leagueName.toUpperCase(),
+    homeTeam: m.homeTeam,
+    awayTeam: m.awayTeam,
+    homeScore: m.homeScore,
+    awayScore: m.awayScore,
+    status: m.status === 'live' ? `${m.matchMinute || '75'}'` : m.status === 'finished' ? 'FT' : '20:00',
+    isLive: m.status === 'live',
+  }));
 
   const studioNewsItems = [
     {

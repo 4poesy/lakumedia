@@ -23,7 +23,6 @@ export function Navigation() {
     { href: '/world-football', label: 'World Football', icon: Globe, active: pathname === '/world-football' },
     { href: '/transfers', label: 'Transfers', icon: Flame, active: pathname === '/transfers' },
     { href: '/live-scores', label: 'Live Scores', icon: Activity, active: pathname === '/live-scores', badge: 'LIVE' },
-    { href: '/developers', label: 'API Portal', icon: Code, active: pathname === '/developers', badge: 'DEV' },
     { href: '/multimedia', label: 'LAKU MEDIA', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
 
