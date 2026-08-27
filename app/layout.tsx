@@ -1,3 +1,4 @@
+// Laku Media Platform Production Deployment Trigger 2026
 import type { Metadata } from 'next';
 import './globals.css';
 import { Navigation } from '@/components/ui/navigation';
