@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
-import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight } from 'lucide-react';
+import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight, Trophy, BarChart2, Shield, Layers } from 'lucide-react';
 
 export interface MatchFixtureItem {
   id: string;
@@ -20,6 +20,19 @@ export interface MatchFixtureItem {
   matchDateOffset?: 'yesterday' | 'today' | 'tomorrow';
   goals?: Array<{ minute: number; player: string; team: 'home' | 'away' }>;
   cards?: Array<{ minute: number; player: string; team: 'home' | 'away'; type: 'yellow' | 'red' }>;
+  h2h?: {
+    homeWins: number;
+    draws: number;
+    awayWins: number;
+    lastMatchesHome: Array<'W' | 'D' | 'L'>;
+    lastMatchesAway: Array<'W' | 'D' | 'L'>;
+  };
+  tableSnapshot?: {
+    homeRank: number;
+    awayRank: number;
+    homePts: number;
+    awayPts: number;
+  };
 }
 
 interface LiveScoreCenterProps {
@@ -32,10 +45,11 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [selectedDate, setSelectedDate] = useState<'yesterday' | 'today' | 'tomorrow'>('today');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null);
+  const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'h2h' | 'table'>>({});
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true); // Toggle between Dark & Light Mode
 
-  // Default rich match fixtures with explicit date offset tagging for complete demo coverage across all 3 days
+  // Default rich match fixtures with Soccerway H2H & Table statistics
   const demoFixtures: MatchFixtureItem[] = [
     // --- TODAY MATCHES ---
     {
@@ -61,6 +75,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 42, player: 'Uche Onwuasonanya', team: 'away', type: 'yellow' },
         { minute: 90, player: 'Ifeanyi Anaemena', team: 'home', type: 'yellow' },
       ],
+      h2h: {
+        homeWins: 7,
+        draws: 3,
+        awayWins: 4,
+        lastMatchesHome: ['W', 'W', 'D', 'W', 'L'],
+        lastMatchesAway: ['L', 'W', 'D', 'L', 'W'],
+      },
+      tableSnapshot: {
+        homeRank: 2,
+        awayRank: 6,
+        homePts: 48,
+        awayPts: 39,
+      },
     },
     {
       id: 'fix-npfl-2',
@@ -77,6 +104,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       matchDateOffset: 'today',
       stadium: 'Nnamdi Azikiwe Stadium, Enugu',
       goals: [{ minute: 28, player: 'Kenechukwu Agu', team: 'home' }],
+      h2h: {
+        homeWins: 5,
+        draws: 2,
+        awayWins: 5,
+        lastMatchesHome: ['W', 'D', 'W', 'W', 'W'],
+        lastMatchesAway: ['W', 'W', 'L', 'W', 'D'],
+      },
+      tableSnapshot: {
+        homeRank: 1,
+        awayRank: 3,
+        homePts: 51,
+        awayPts: 46,
+      },
     },
     {
       id: 'fix-epl-1',
@@ -97,6 +137,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 55, player: 'Cole Palmer', team: 'away' },
         { minute: 78, player: 'Declan Rice', team: 'home' },
       ],
+      h2h: {
+        homeWins: 11,
+        draws: 6,
+        awayWins: 8,
+        lastMatchesHome: ['W', 'W', 'W', 'D', 'W'],
+        lastMatchesAway: ['L', 'W', 'L', 'D', 'W'],
+      },
+      tableSnapshot: {
+        homeRank: 2,
+        awayRank: 5,
+        homePts: 64,
+        awayPts: 52,
+      },
     },
 
     // --- YESTERDAY MATCHES ---
@@ -119,6 +172,13 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 71, player: 'Jamal Musiala', team: 'away' },
         { minute: 86, player: 'Jude Bellingham', team: 'home' },
       ],
+      h2h: {
+        homeWins: 9,
+        draws: 5,
+        awayWins: 9,
+        lastMatchesHome: ['W', 'W', 'D', 'W', 'W'],
+        lastMatchesAway: ['W', 'L', 'W', 'W', 'D'],
+      },
     },
     {
       id: 'fix-afcon-1',
@@ -139,21 +199,13 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         { minute: 61, player: 'Percy Tau', team: 'away' },
         { minute: 80, player: 'Samuel Chukwueze', team: 'home' },
       ],
-    },
-    {
-      id: 'fix-npfl-yest-1',
-      homeTeam: 'Rivers United',
-      awayTeam: 'Lobi Stars',
-      homeScore: 2,
-      awayScore: 0,
-      kickoffAt: new Date(Date.now() - 86400000).toISOString(),
-      status: 'finished',
-      leagueName: 'Nigeria Premier Football League (NPFL)',
-      leagueSlug: 'npfl',
-      countryFlag: '🇳🇬',
-      matchDateOffset: 'yesterday',
-      stadium: 'Adokiye Amiesimaka Stadium, Port Harcourt',
-      goals: [{ minute: 12, player: 'Nyima Nwagua', team: 'home' }],
+      h2h: {
+        homeWins: 8,
+        draws: 4,
+        awayWins: 2,
+        lastMatchesHome: ['W', 'D', 'W', 'W', 'W'],
+        lastMatchesAway: ['L', 'W', 'D', 'W', 'L'],
+      },
     },
 
     // --- TOMORROW MATCHES ---
@@ -170,6 +222,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
       matchDateOffset: 'tomorrow',
       stadium: 'Etihad Stadium, Manchester',
+      h2h: {
+        homeWins: 10,
+        draws: 7,
+        awayWins: 10,
+        lastMatchesHome: ['W', 'W', 'W', 'D', 'W'],
+        lastMatchesAway: ['W', 'W', 'D', 'W', 'L'],
+      },
+      tableSnapshot: {
+        homeRank: 1,
+        awayRank: 3,
+        homePts: 70,
+        awayPts: 62,
+      },
     },
     {
       id: 'fix-ucl-2',
@@ -184,20 +249,13 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       countryFlag: '🇪🇺',
       matchDateOffset: 'tomorrow',
       stadium: 'Camp Nou, Barcelona',
-    },
-    {
-      id: 'fix-npfl-tom-1',
-      homeTeam: 'Bendel Insurance',
-      awayTeam: 'Shooting Stars SC',
-      homeScore: null,
-      awayScore: null,
-      kickoffAt: new Date(Date.now() + 86400000).toISOString(),
-      status: 'scheduled',
-      leagueName: 'Nigeria Premier Football League (NPFL)',
-      leagueSlug: 'npfl',
-      countryFlag: '🇳🇬',
-      matchDateOffset: 'tomorrow',
-      stadium: 'Samuel Ogbemudia Stadium, Benin City',
+      h2h: {
+        homeWins: 5,
+        draws: 3,
+        awayWins: 4,
+        lastMatchesHome: ['W', 'W', 'L', 'W', 'W'],
+        lastMatchesAway: ['W', 'W', 'W', 'D', 'W'],
+      },
     },
   ];
 
@@ -233,9 +291,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     setExpandedMatchId((prev) => (prev === id ? null : id));
   };
 
-  // Filter Logic: Date + Status + League + Search Query
+  const setDrawerTab = (matchId: string, tab: 'summary' | 'h2h' | 'table') => {
+    setActiveDrawerTab((prev) => ({ ...prev, [matchId]: tab }));
+  };
+
+  // Filter Logic
   const filteredFixtures = fixtures.filter((fix) => {
-    // 1. Search Query Filter
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       const matchSearch =
@@ -245,18 +306,15 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       if (!matchSearch) return false;
     }
 
-    // 2. Strict Date Switcher Filter (Yesterday / Today / Tomorrow)
     if (fix.computedDateOffset !== selectedDate) {
       return false;
     }
 
-    // 3. Status Tab Filter
     if (activeTab === 'live' && fix.status !== 'live') return false;
     if (activeTab === 'finished' && fix.status !== 'finished') return false;
     if (activeTab === 'scheduled' && fix.status !== 'scheduled') return false;
     if (activeTab === 'favorites' && !favorites.includes(fix.id)) return false;
 
-    // 4. League Filter
     if (selectedLeague !== 'all') {
       if (selectedLeague === 'npfl' && !fix.leagueName.toLowerCase().includes('npfl')) return false;
       if (selectedLeague === 'epl' && !fix.leagueName.toLowerCase().includes('premier league')) return false;
@@ -276,11 +334,9 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     groupedByLeague[fix.leagueName].push(fix);
   });
 
-  // Count active live matches for current date
   const liveCount = fixtures.filter((f) => f.computedDateOffset === selectedDate && f.status === 'live').length;
   const dateMatchCount = fixtures.filter((f) => f.computedDateOffset === selectedDate).length;
 
-  // Color Tokens based on Theme State
   const theme = isDarkMode
     ? {
         container: 'bg-[#0E1015] text-white border-slate-800',
@@ -290,8 +346,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         card: 'bg-[#141824] border-slate-800',
         cardHeader: 'bg-[#1B2030] border-slate-800 text-white',
         rowHover: 'hover:bg-[#1A1F30]',
-        textPrimary: 'text-white',
-        textSecondary: 'text-slate-300',
         scoreBg: 'bg-slate-900 border-slate-700 text-amber-400',
         drawerBg: 'bg-[#111420] border-slate-800',
       }
@@ -303,8 +357,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         card: 'bg-white border-slate-200 shadow-sm',
         cardHeader: 'bg-[#2A2E7F] border-slate-700 text-white',
         rowHover: 'hover:bg-slate-50',
-        textPrimary: 'text-slate-900',
-        textSecondary: 'text-slate-600',
         scoreBg: 'bg-[#2A2E7F] text-white border-blue-900',
         drawerBg: 'bg-slate-50 border-slate-200',
       };
@@ -321,18 +373,17 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           <div>
             <div className="flex items-center gap-2">
               <span className="text-[10px] font-black uppercase tracking-widest text-[#D9541E]">
-                LIVESCORE OFFICIAL MATCH CENTER
+                HYBRID LIVESCORE & SOCCERWAY STATISTICAL CENTER
               </span>
             </div>
             <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight flex items-center gap-2">
-              REALTIME LIVE SCORES
+              REALTIME MATCH CENTER & H2H STATS
             </h1>
           </div>
         </div>
 
-        {/* Header Right Controls: Theme Switcher + Search Bar */}
+        {/* Header Right Controls */}
         <div className="flex flex-wrap items-center space-x-3 w-full md:w-auto">
-          {/* Highly Visible Theme Switcher Toggle */}
           <button
             type="button"
             onClick={() => setIsDarkMode(!isDarkMode)}
@@ -351,7 +402,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             )}
           </button>
 
-          {/* Search Input Box */}
           <div className="relative flex-1 md:w-64 min-w-[200px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             <input
@@ -365,7 +415,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         </div>
       </div>
 
-      {/* Date Switcher Bar (Yesterday, Today, Tomorrow) - 100% Interactive & Clickable */}
+      {/* Date Switcher Bar */}
       <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
         <div className="flex items-center space-x-2">
           <button
@@ -415,13 +465,13 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
         </div>
 
-        <div className="flex items-center gap-2 text-slate-400 text-xs">
+        <div className="flex items-center gap-2 text-slate-400 text-xs font-mono">
           <Calendar className="w-4 h-4 text-[#D9541E]" />
-          <span className="hidden sm:inline font-mono">SHOWING {selectedDate.toUpperCase()} MATCHES</span>
+          <span>SHOWING {selectedDate.toUpperCase()} MATCHES</span>
         </div>
       </div>
 
-      {/* Filter Tabs (All, Live, Favorites, Finished, Scheduled) - 100% Interactive */}
+      {/* Filter Tabs */}
       <div className={`${theme.tabBar} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3`}>
         <div className="flex flex-wrap items-center gap-2">
           <button
@@ -487,7 +537,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </button>
         </div>
 
-        {/* League Selector Pills - 100% Interactive */}
+        {/* League Selector Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
           <button
             type="button"
@@ -550,7 +600,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                     href={`/leagues/${leagueSlug}`}
                     className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1"
                   >
-                    <span>Standings & Stats</span> →
+                    <span>Full Soccerway Table & Stats</span> →
                   </Link>
                 </div>
 
@@ -559,6 +609,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                   {leagueMatches.map((match) => {
                     const isFav = favorites.includes(match.id);
                     const isExpanded = expandedMatchId === match.id;
+                    const drawerTab = activeDrawerTab[match.id] || 'summary';
 
                     return (
                       <div key={match.id} className={`transition-colors ${theme.rowHover}`}>
@@ -568,7 +619,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                           onClick={() => toggleExpand(match.id)}
                           className="px-4 sm:px-6 py-4 flex items-center justify-between cursor-pointer select-none gap-3"
                         >
-                          {/* Match Status / Minute Left Box */}
+                          {/* Match Status / Minute */}
                           <div className="w-16 sm:w-20 text-center shrink-0">
                             {match.status === 'live' && (
                               <div className="flex flex-col items-center justify-center">
@@ -595,9 +646,8 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                             )}
                           </div>
 
-                          {/* Teams & Scoreboard Middle Box */}
+                          {/* Teams & Scoreboard */}
                           <div className="flex-1 max-w-xl grid grid-cols-12 items-center gap-2 text-xs sm:text-sm font-extrabold">
-                            {/* Home Team */}
                             <div className="col-span-5 flex items-center justify-end text-right space-x-2">
                               <span className="truncate">{match.homeTeam}</span>
                               <div className="w-5 h-5 rounded-full bg-slate-700 border border-slate-600 text-white flex items-center justify-center text-[10px] font-black shrink-0">
@@ -605,7 +655,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                               </div>
                             </div>
 
-                            {/* Score Display Box */}
                             <div className="col-span-2 text-center">
                               {match.homeScore !== null && match.homeScore !== undefined ? (
                                 <div className={`px-2.5 py-1 rounded-lg border font-mono text-base font-black tracking-wider shadow-inner inline-block ${theme.scoreBg}`}>
@@ -616,7 +665,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                               )}
                             </div>
 
-                            {/* Away Team */}
                             <div className="col-span-5 flex items-center justify-start text-left space-x-2">
                               <div className="w-5 h-5 rounded-full bg-slate-700 border border-slate-600 text-white flex items-center justify-center text-[10px] font-black shrink-0">
                                 {match.awayTeam.substring(0, 1)}
@@ -625,7 +673,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                             </div>
                           </div>
 
-                          {/* Right Controls: Star Favorite + Expand Drawer */}
+                          {/* Right Controls */}
                           <div className="flex items-center space-x-3 shrink-0">
                             <button
                               type="button"
@@ -644,71 +692,211 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                           </div>
                         </div>
 
-                        {/* Expandable Match Stats & Fact Drawer */}
+                        {/* Expandable Soccerway Multi-Tab Drawer */}
                         {isExpanded && (
                           <div className={`${theme.drawerBg} px-6 py-5 border-t space-y-4 text-xs font-medium`}>
-                            {match.stadium && (
-                              <div className="flex items-center gap-1.5 text-slate-400 font-bold">
-                                <span>🏟️ Venue:</span>
-                                <span className="text-slate-900 dark:text-white font-extrabold">{match.stadium}</span>
+                            
+                            {/* Soccerway Drawer Tab Navigation Bar */}
+                            <div className="flex items-center gap-2 border-b border-slate-700/60 pb-3">
+                              <button
+                                type="button"
+                                onClick={() => setDrawerTab(match.id, 'summary')}
+                                className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
+                                  drawerTab === 'summary'
+                                    ? 'bg-[#D9541E] text-white'
+                                    : 'bg-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                ⚽ Match Summary
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={() => setDrawerTab(match.id, 'h2h')}
+                                className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
+                                  drawerTab === 'h2h'
+                                    ? 'bg-[#D9541E] text-white'
+                                    : 'bg-slate-800 text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <BarChart2 className="w-3.5 h-3.5" /> Soccerway H2H & Form
+                              </button>
+
+                              {match.tableSnapshot && (
+                                <button
+                                  type="button"
+                                  onClick={() => setDrawerTab(match.id, 'table')}
+                                  className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
+                                    drawerTab === 'table'
+                                      ? 'bg-[#D9541E] text-white'
+                                      : 'bg-slate-800 text-slate-400 hover:text-white'
+                                  }`}
+                                >
+                                  <Trophy className="w-3.5 h-3.5" /> Live Rank
+                                </button>
+                              )}
+                            </div>
+
+                            {/* TAB 1: SUMMARY */}
+                            {drawerTab === 'summary' && (
+                              <div className="space-y-4">
+                                {match.stadium && (
+                                  <div className="flex items-center gap-1.5 text-slate-400 font-bold">
+                                    <span>🏟️ Stadium Venue:</span>
+                                    <span className="text-slate-900 dark:text-white font-extrabold">{match.stadium}</span>
+                                  </div>
+                                )}
+
+                                {match.goals && match.goals.length > 0 && (
+                                  <div className="space-y-1.5">
+                                    <span className="text-[10px] font-black uppercase text-[#D9541E] tracking-widest block">
+                                      ⚽ GOALS TIMELINE
+                                    </span>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
+                                      {match.goals.map((g, idx) => (
+                                        <div key={idx} className="flex items-center gap-2">
+                                          <span className="text-amber-400 font-bold">{g.minute}&apos;</span>
+                                          <span className="text-white font-bold">{g.player}</span>
+                                          <span className="text-slate-400 text-[10px]">
+                                            ({g.team === 'home' ? match.homeTeam : match.awayTeam})
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+
+                                {match.cards && match.cards.length > 0 && (
+                                  <div className="space-y-1.5">
+                                    <span className="text-[10px] font-black uppercase text-amber-400 tracking-widest block">
+                                      🟨 CARDS & DISCIPLINARY LOG
+                                    </span>
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
+                                      {match.cards.map((c, idx) => (
+                                        <div key={idx} className="flex items-center gap-2">
+                                          <span>{c.type === 'red' ? '🟥' : '🟨'}</span>
+                                          <span className="text-amber-300 font-bold">{c.minute}&apos;</span>
+                                          <span className="text-white">{c.player}</span>
+                                          <span className="text-slate-400 text-[10px]">
+                                            ({c.team === 'home' ? match.homeTeam : match.awayTeam})
+                                          </span>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
                               </div>
                             )}
 
-                            {/* Goals Timeline */}
-                            {match.goals && match.goals.length > 0 && (
-                              <div className="space-y-1.5">
-                                <span className="text-[10px] font-black uppercase text-[#D9541E] tracking-widest block">
-                                  ⚽ OFFICIAL GOALS LOG
-                                </span>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
-                                  {match.goals.map((g, idx) => (
-                                    <div key={idx} className="flex items-center gap-2">
-                                      <span className="text-amber-400 font-bold">{g.minute}&apos;</span>
-                                      <span className="text-white font-bold">{g.player}</span>
-                                      <span className="text-slate-400 text-[10px]">
-                                        ({g.team === 'home' ? match.homeTeam : match.awayTeam})
-                                      </span>
+                            {/* TAB 2: SOCCERWAY H2H STATS & FORM GUIDE */}
+                            {drawerTab === 'h2h' && (
+                              <div className="space-y-4 bg-slate-900 text-white p-4 rounded-2xl border border-slate-800">
+                                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                                  <span className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
+                                    <BarChart2 className="w-4 h-4 text-emerald-400" /> SOCCERWAY HEAD-TO-HEAD HISTORY
+                                  </span>
+                                  <span className="text-[10px] font-mono text-slate-400">PAST CLASHES RECORD</span>
+                                </div>
+
+                                {match.h2h ? (
+                                  <div className="space-y-4 text-xs font-bold">
+                                    {/* H2H Win Breakdown Bar */}
+                                    <div className="grid grid-cols-3 gap-2 text-center">
+                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
+                                        <span className="text-[10px] text-slate-400 block uppercase">{match.homeTeam} Wins</span>
+                                        <span className="text-lg font-black text-emerald-400">{match.h2h.homeWins}</span>
+                                      </div>
+
+                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
+                                        <span className="text-[10px] text-slate-400 block uppercase">Draws</span>
+                                        <span className="text-lg font-black text-amber-400">{match.h2h.draws}</span>
+                                      </div>
+
+                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
+                                        <span className="text-[10px] text-slate-400 block uppercase">{match.awayTeam} Wins</span>
+                                        <span className="text-lg font-black text-blue-400">{match.h2h.awayWins}</span>
+                                      </div>
                                     </div>
-                                  ))}
+
+                                    {/* Last 5 Matches Form Guide Badges */}
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800">
+                                      <div className="space-y-1.5">
+                                        <span className="text-[10px] uppercase text-slate-400 block">{match.homeTeam} Form Guide</span>
+                                        <div className="flex gap-1.5">
+                                          {match.h2h.lastMatchesHome.map((res, i) => (
+                                            <span
+                                              key={i}
+                                              className={`w-6 h-6 rounded-md flex items-center justify-center font-black text-xs text-white ${
+                                                res === 'W' ? 'bg-emerald-600' : res === 'D' ? 'bg-amber-600' : 'bg-red-600'
+                                              }`}
+                                            >
+                                              {res}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+
+                                      <div className="space-y-1.5">
+                                        <span className="text-[10px] uppercase text-slate-400 block">{match.awayTeam} Form Guide</span>
+                                        <div className="flex gap-1.5">
+                                          {match.h2h.lastMatchesAway.map((res, i) => (
+                                            <span
+                                              key={i}
+                                              className={`w-6 h-6 rounded-md flex items-center justify-center font-black text-xs text-white ${
+                                                res === 'W' ? 'bg-emerald-600' : res === 'D' ? 'bg-amber-600' : 'bg-red-600'
+                                              }`}
+                                            >
+                                              {res}
+                                            </span>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ) : (
+                                  <p className="text-xs text-slate-400">H2H stats updating from match registry.</p>
+                                )}
+                              </div>
+                            )}
+
+                            {/* TAB 3: LIVE TABLE SNAPSHOT */}
+                            {drawerTab === 'table' && match.tableSnapshot && (
+                              <div className="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 space-y-3 font-mono text-xs">
+                                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                                  <span className="font-extrabold text-emerald-400 uppercase">STANDINGS TABLE SNAPSHOT</span>
+                                  <span>{match.leagueName}</span>
+                                </div>
+
+                                <div className="grid grid-cols-2 gap-4">
+                                  <div className="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
+                                    <span className="text-[10px] text-slate-400 uppercase block">{match.homeTeam} Position</span>
+                                    <span className="text-xl font-black text-white">#{match.tableSnapshot.homeRank}</span>
+                                    <span className="text-[10px] text-emerald-400 block">({match.tableSnapshot.homePts} pts)</span>
+                                  </div>
+
+                                  <div className="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
+                                    <span className="text-[10px] text-slate-400 uppercase block">{match.awayTeam} Position</span>
+                                    <span className="text-xl font-black text-white">#{match.tableSnapshot.awayRank}</span>
+                                    <span className="text-[10px] text-emerald-400 block">({match.tableSnapshot.awayPts} pts)</span>
+                                  </div>
                                 </div>
                               </div>
                             )}
 
-                            {/* Disciplinary Cards Log */}
-                            {match.cards && match.cards.length > 0 && (
-                              <div className="space-y-1.5">
-                                <span className="text-[10px] font-black uppercase text-amber-400 tracking-widest block">
-                                  🟨 CARDS & DISCIPLINARY LOG
-                                </span>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
-                                  {match.cards.map((c, idx) => (
-                                    <div key={idx} className="flex items-center gap-2">
-                                      <span>{c.type === 'red' ? '🟥' : '🟨'}</span>
-                                      <span className="text-amber-300 font-bold">{c.minute}&apos;</span>
-                                      <span className="text-white">{c.player}</span>
-                                      <span className="text-slate-400 text-[10px]">
-                                        ({c.team === 'home' ? match.homeTeam : match.awayTeam})
-                                      </span>
-                                    </div>
-                                  ))}
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Action Link: Read Match Report or Generate AI Article */}
+                            {/* Action Link: Read Match Report */}
                             <div className="pt-2 flex items-center justify-between">
                               <Link
                                 href={`/article/enyimba-thrilling-victory-npfl-derby`}
                                 className="px-4 py-2 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"
                               >
-                                <span>Read Match Report</span> <ArrowRight className="w-3.5 h-3.5" />
+                                <span>Read Full Match Report</span> <ArrowRight className="w-3.5 h-3.5" />
                               </Link>
 
                               <Link
-                                href="/admin/articles"
-                                className="text-[10px] text-slate-400 hover:text-emerald-400 font-bold uppercase tracking-wider"
+                                href={`/leagues/${match.leagueSlug || 'npfl'}`}
+                                className="text-[10px] text-emerald-400 hover:underline font-extrabold uppercase tracking-wider flex items-center gap-1"
                               >
-                                Editor AI Fact Generator →
+                                Soccerway Full Standings Table →
                               </Link>
                             </div>
 
