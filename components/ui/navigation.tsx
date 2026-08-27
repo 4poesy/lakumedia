@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Radio, Code } from 'lucide-react';
+import { Trophy, Film, Activity, User, Menu, X, Sparkles, Flame, Globe, ChevronDown, Camera, Briefcase, DollarSign, Info, Radio, Code, BookOpen } from 'lucide-react';
 import { LiveMatchTicker } from './live-match-ticker';
 import { LiveMcrStatusBar } from '@/components/layout/live-mcr-status-bar';
 
@@ -33,6 +33,7 @@ export function Navigation() {
     { href: '/multimedia/services', label: 'Services', icon: Camera, active: pathname === '/multimedia/services' },
     { href: '/multimedia/portfolio', label: 'Portfolio', icon: Briefcase, active: pathname === '/multimedia/portfolio' },
     { href: '/multimedia/pricing', label: 'Pricing', icon: DollarSign, active: pathname === '/multimedia/pricing' },
+    { href: '/multimedia/blog', label: 'Studio Blog', icon: BookOpen, active: pathname.startsWith('/multimedia/blog'), badge: 'NEW' },
     { href: '/', label: '⚽ LAKU MEDIA SPORT', icon: Trophy, active: false, badge: 'SPORTS HOME' },
   ];
 
