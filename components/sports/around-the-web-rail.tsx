@@ -33,7 +33,7 @@ export function AroundTheWebRail({
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="px-2.5 py-0.5 rounded-md bg-[#2A2E7F] text-white text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-              <Globe className="w-3 h-3 text-emerald-400" /> EXTERNAL AGGREGATOR
+              <Globe className="w-3 h-3 text-emerald-400" /> WORLDWIDE SPORTS DESK
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 uppercase">

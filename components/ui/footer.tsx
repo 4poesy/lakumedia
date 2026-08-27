@@ -74,7 +74,6 @@ export function Footer() {
               <li><Link href="/privacy" prefetch={true} className="hover:text-white hover:underline transition-colors">Privacy Policy</Link></li>
               <li><Link href="/terms" prefetch={true} className="hover:text-white hover:underline transition-colors">Terms of Service</Link></li>
               <li><Link href="/contact" prefetch={true} className="hover:text-white hover:underline transition-colors">Contact Us</Link></li>
-              <li><Link href="/admin" prefetch={true} className="hover:text-white hover:underline transition-colors">Editorial CMS Admin</Link></li>
             </ul>
           </div>
 

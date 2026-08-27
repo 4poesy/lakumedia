@@ -7,7 +7,6 @@ import { FeaturedVideoSpotlight } from '@/components/sports/featured-video-spotl
 import { FcBayernNewsHub } from '@/components/sports/fc-bayern-news-hub';
 import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
 import { FanPredictionsWidget } from '@/components/sports/fan-predictions-widget';
-import { FloatingPodcastPlayer } from '@/components/ui/floating-podcast-player';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
 import { getAggregatedNews } from '@/lib/rss-service';
@@ -335,9 +334,6 @@ export default async function SportsRootHomePage() {
 
       {/* Around the Web RSS & Video Aggregation Rail */}
       <AroundTheWebRail items={aggregatedNewsItems} />
-
-      {/* Floating 24/7 Radio & Podcast Player */}
-      <FloatingPodcastPlayer />
 
     </div>
   );
