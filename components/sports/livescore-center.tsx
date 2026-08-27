@@ -44,7 +44,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [activeTab, setActiveTab] = useState<'all' | 'live' | 'finished' | 'scheduled' | 'favorites'>('all');
   const [selectedLeague, setSelectedLeague] = useState<string>('all');
   const [selectedDate, setSelectedDate] = useState<'yesterday' | 'today' | 'tomorrow'>('today');
-  const [activeStandingsLeague, setActiveStandingsLeague] = useState<'npfl' | 'epl' | 'ucl' | 'laliga' | 'afcon'>('npfl');
+  const [activeStandingsLeague, setActiveStandingsLeague] = useState<'npfl' | 'epl' | 'laliga' | 'seriea' | 'bundesliga' | 'ligue1' | 'saudi' | 'ucl' | 'afcon'>('epl');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null);
   const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'h2h' | 'table'>>({});
@@ -64,10 +64,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       }
     };
 
-    // Trigger immediately on page visit
     triggerBackgroundIngestion();
-
-    // Auto-poll every 60 seconds
     const interval = setInterval(triggerBackgroundIngestion, 60000);
     return () => clearInterval(interval);
   }, []);
@@ -75,96 +72,143 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   // High-Quality 20+ Global Real Match Fixtures Pipeline
   const liveMatchEngineFixtures: MatchFixtureItem[] = getRealGlobalMatchesFeed();
 
-  // Comprehensive Multi-League Standings Tables
+  // Comprehensive Multi-League Standings Tables (2026/2027 Season Matchday 1 MP=1)
   const standingsDatasets: Record<string, { leagueTitle: string; countryFlag: string; rows: any[] }> = {
-    npfl: {
-      leagueTitle: 'NIGERIA PREMIER FOOTBALL LEAGUE (NPFL) 2026/2027 STANDINGS',
-      countryFlag: '🇳🇬',
-      rows: [
-        { rank: 1, team: 'Rangers International', mp: 3, w: 2, d: 1, l: 0, gf: 6, ga: 2, gd: '+4', pts: 7, form: ['W', 'W', 'D', 'W', 'W'] },
-        { rank: 2, team: 'Enyimba FC', mp: 3, w: 2, d: 1, l: 0, gf: 5, ga: 2, gd: '+3', pts: 7, form: ['W', 'D', 'W', 'W', 'D'] },
-        { rank: 3, team: 'Remo Stars', mp: 3, w: 2, d: 0, l: 1, gf: 5, ga: 3, gd: '+2', pts: 6, form: ['W', 'W', 'L', 'W', 'W'] },
-        { rank: 4, team: 'Rivers United', mp: 3, w: 2, d: 0, l: 1, gf: 4, ga: 2, gd: '+2', pts: 6, form: ['W', 'L', 'W', 'W', 'W'] },
-        { rank: 5, team: 'Lobi Stars', mp: 3, w: 2, d: 0, l: 1, gf: 4, ga: 3, gd: '+1', pts: 6, form: ['W', 'W', 'L', 'L', 'W'] },
-        { rank: 6, team: 'Kano Pillars', mp: 3, w: 1, d: 1, l: 1, gf: 4, ga: 4, gd: '0', pts: 4, form: ['W', 'D', 'L', 'W', 'D'] },
-        { rank: 7, team: 'Bendel Insurance', mp: 3, w: 1, d: 1, l: 1, gf: 3, ga: 3, gd: '0', pts: 4, form: ['D', 'W', 'L', 'D', 'W'] },
-        { rank: 8, team: 'Shooting Stars SC', mp: 3, w: 1, d: 1, l: 1, gf: 3, ga: 3, gd: '0', pts: 4, form: ['L', 'W', 'D', 'W', 'D'] },
-        { rank: 9, team: 'Plateau United', mp: 3, w: 1, d: 1, l: 1, gf: 2, ga: 2, gd: '0', pts: 4, form: ['W', 'D', 'L', 'W', 'L'] },
-        { rank: 10, team: 'Katsina United', mp: 3, w: 1, d: 0, l: 2, gf: 3, ga: 4, gd: '-1', pts: 3, form: ['L', 'W', 'L', 'W', 'L'] },
-        { rank: 11, team: 'Abia Warriors', mp: 3, w: 1, d: 0, l: 2, gf: 2, ga: 3, gd: '-1', pts: 3, form: ['W', 'L', 'L', 'L', 'W'] },
-        { rank: 12, team: 'Bayelsa United', mp: 3, w: 1, d: 0, l: 2, gf: 3, ga: 5, gd: '-2', pts: 3, form: ['L', 'W', 'L', 'D', 'W'] },
-        { rank: 13, team: 'Kwara United', mp: 3, w: 0, d: 3, l: 0, gf: 2, ga: 2, gd: '0', pts: 3, form: ['D', 'D', 'D', 'L', 'D'] },
-        { rank: 14, team: 'Sunshine Stars', mp: 3, w: 1, d: 0, l: 2, gf: 2, ga: 4, gd: '-2', pts: 3, form: ['W', 'L', 'L', 'D', 'L'] },
-        { rank: 15, team: 'Niger Tornadoes', mp: 3, w: 0, d: 2, l: 1, gf: 1, ga: 2, gd: '-1', pts: 2, form: ['D', 'D', 'L', 'W', 'L'] },
-        { rank: 16, team: 'Akwa United', mp: 3, w: 0, d: 2, l: 1, gf: 2, ga: 4, gd: '-2', pts: 2, form: ['D', 'L', 'D', 'L', 'D'] },
-        { rank: 17, team: 'Heartland FC', mp: 3, w: 0, d: 1, l: 2, gf: 1, ga: 3, gd: '-2', pts: 1, form: ['L', 'D', 'L', 'D', 'W'] },
-        { rank: 18, team: 'Sporting Lagos', mp: 3, w: 0, d: 1, l: 2, gf: 2, ga: 5, gd: '-3', pts: 1, form: ['D', 'L', 'L', 'L', 'L'] },
-        { rank: 19, team: 'Gombe United', mp: 3, w: 0, d: 1, l: 2, gf: 1, ga: 4, gd: '-3', pts: 1, form: ['L', 'D', 'L', 'L', 'L'] },
-        { rank: 20, team: 'Doma United', mp: 3, w: 0, d: 0, l: 3, gf: 0, ga: 5, gd: '-5', pts: 0, form: ['L', 'L', 'L', 'L', 'L'] },
-      ],
-    },
     epl: {
-      leagueTitle: 'ENGLISH PREMIER LEAGUE (EPL) 2026/2027 STANDINGS',
+      leagueTitle: 'ENGLISH PREMIER LEAGUE (EPL) 2026/2027 STANDINGS — MATCHDAY 1',
       countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
       rows: [
-        { rank: 1, team: 'Arsenal FC', mp: 2, w: 2, d: 0, l: 0, gf: 4, ga: 0, gd: '+4', pts: 6, form: ['W', 'W', 'W', 'W', 'D'] },
-        { rank: 2, team: 'Manchester City', mp: 2, w: 2, d: 0, l: 0, gf: 6, ga: 1, gd: '+5', pts: 6, form: ['W', 'W', 'W', 'D', 'W'] },
-        { rank: 3, team: 'Brighton & Hove Albion', mp: 2, w: 2, d: 0, l: 0, gf: 5, ga: 1, gd: '+4', pts: 6, form: ['W', 'W', 'L', 'W', 'D'] },
-        { rank: 4, team: 'Liverpool FC', mp: 2, w: 2, d: 0, l: 0, gf: 4, ga: 1, gd: '+3', pts: 6, form: ['W', 'W', 'W', 'W', 'L'] },
-        { rank: 5, team: 'Aston Villa', mp: 2, w: 1, d: 1, l: 0, gf: 3, ga: 1, gd: '+2', pts: 4, form: ['W', 'D', 'D', 'W', 'W'] },
-        { rank: 6, team: 'Chelsea FC', mp: 2, w: 1, d: 0, l: 1, gf: 6, ga: 4, gd: '+2', pts: 3, form: ['W', 'L', 'L', 'D', 'W'] },
-        { rank: 7, team: 'Newcastle United', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W', 'L', 'L', 'W', 'W'] },
-        { rank: 8, team: 'Manchester United', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: '0', pts: 3, form: ['W', 'L', 'D', 'W', 'L'] },
-        { rank: 9, team: 'Tottenham Hotspur', mp: 2, w: 1, d: 0, l: 1, gf: 5, ga: 2, gd: '+3', pts: 3, form: ['W', 'L', 'W', 'L', 'W'] },
-        { rank: 10, team: 'West Ham United', mp: 2, w: 1, d: 0, l: 1, gf: 3, ga: 3, gd: '0', pts: 3, form: ['W', 'L', 'D', 'L', 'W'] },
-        { rank: 11, team: 'AFC Bournemouth', mp: 2, w: 0, d: 2, l: 0, gf: 2, ga: 2, gd: '0', pts: 2, form: ['D', 'D', 'D', 'L', 'W'] },
-        { rank: 12, team: 'Nottingham Forest', mp: 2, w: 0, d: 2, l: 0, gf: 2, ga: 2, gd: '0', pts: 2, form: ['D', 'D', 'L', 'D', 'W'] },
-        { rank: 13, team: 'Brentford FC', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 3, gd: '-1', pts: 3, form: ['W', 'L', 'D', 'L', 'W'] },
-        { rank: 14, team: 'Fulham FC', mp: 2, w: 0, d: 1, l: 1, gf: 1, ga: 2, gd: '-1', pts: 1, form: ['D', 'L', 'W', 'W', 'L'] },
-        { rank: 15, team: 'Crystal Palace', mp: 2, w: 0, d: 1, l: 1, gf: 1, ga: 3, gd: '-2', pts: 1, form: ['D', 'L', 'D', 'D', 'L'] },
-        { rank: 16, team: 'Leicester City', mp: 2, w: 0, d: 1, l: 1, gf: 2, ga: 3, gd: '-1', pts: 1, form: ['D', 'L', 'D', 'L', 'D'] },
-        { rank: 17, team: 'Everton FC', mp: 2, w: 0, d: 0, l: 2, gf: 0, ga: 7, gd: '-7', pts: 0, form: ['L', 'L', 'W', 'L', 'D'] },
-        { rank: 18, team: 'Ipswich Town', mp: 2, w: 0, d: 0, l: 2, gf: 1, ga: 6, gd: '-5', pts: 0, form: ['L', 'L', 'L', 'L', 'D'] },
-        { rank: 19, team: 'Southampton FC', mp: 2, w: 0, d: 0, l: 2, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L', 'L', 'D', 'L', 'L'] },
-        { rank: 20, team: 'Wolverhampton Wanderers', mp: 2, w: 0, d: 0, l: 2, gf: 2, ga: 8, gd: '-6', pts: 0, form: ['L', 'L', 'W', 'L', 'D'] },
+        { rank: 1, team: 'Manchester City', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 2, team: 'Arsenal FC', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 3, team: 'Brighton & Hove Albion', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 4, team: 'Liverpool FC', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 5, team: 'Aston Villa', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 6, team: 'Brentford FC', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 7, team: 'Manchester United', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 8, team: 'Newcastle United', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 9, team: 'Tottenham Hotspur', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 10, team: 'Leicester City', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 11, team: 'AFC Bournemouth', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 12, team: 'Nottingham Forest', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 13, team: 'West Ham United', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 14, team: 'Fulham FC', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 15, team: 'Crystal Palace', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 16, team: 'Southampton FC', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 17, team: 'Chelsea FC', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 18, team: 'Ipswich Town', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 19, team: 'Wolverhampton Wanderers', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 20, team: 'Everton FC', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: '-3', pts: 0, form: ['L'] },
+      ],
+    },
+    npfl: {
+      leagueTitle: 'NIGERIA PREMIER FOOTBALL LEAGUE (NPFL) 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇳🇬',
+      rows: [
+        { rank: 1, team: 'Rangers International', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 2, team: 'Enyimba FC', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 3, team: 'Remo Stars', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 4, team: 'Rivers United', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 5, team: 'Lobi Stars', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 6, team: 'Kano Pillars', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 7, team: 'Bendel Insurance', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 8, team: 'Shooting Stars SC', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 9, team: 'Plateau United', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 10, team: 'Katsina United', mp: 1, w: 0, d: 1, l: 0, gf: 0, ga: 0, gd: '0', pts: 1, form: ['D'] },
+        { rank: 11, team: 'Abia Warriors', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 12, team: 'Bayelsa United', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 13, team: 'Kwara United', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 14, team: 'Sunshine Stars', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 15, team: 'Niger Tornadoes', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 16, team: 'Akwa United', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 17, team: 'Heartland FC', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 18, team: 'Sporting Lagos', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 19, team: 'Gombe United', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 20, team: 'Doma United', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+      ],
+    },
+    laliga: {
+      leagueTitle: 'LA LIGA EA SPORTS 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇪🇸',
+      rows: [
+        { rank: 1, team: 'Real Madrid', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 2, team: 'FC Barcelona', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 3, team: 'RC Celta de Vigo', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 4, team: 'Villarreal CF', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 5, team: 'Atlético Madrid', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 6, team: 'Girona FC', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 7, team: 'Athletic Club', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 8, team: 'Real Sociedad', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 9, team: 'CA Osasuna', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 10, team: 'Rayo Vallecano', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 1, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 11, team: 'Leganés', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 12, team: 'Real Betis', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 13, team: 'Getafe CF', mp: 1, w: 0, d: 1, l: 0, gf: 0, ga: 0, gd: '0', pts: 1, form: ['D'] },
+        { rank: 14, team: 'UD Las Palmas', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 15, team: 'Sevilla FC', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 16, team: 'Deportivo Alavés', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 17, team: 'RCD Mallorca', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+        { rank: 18, team: 'RCD Espanyol', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 1, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 19, team: 'Valencia CF', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 2, gd: '-1', pts: 0, form: ['L'] },
+        { rank: 20, team: 'Real Valladolid', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+      ],
+    },
+    seriea: {
+      leagueTitle: 'SERIE A ENILIVE 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇮🇹',
+      rows: [
+        { rank: 1, team: 'Inter Milan', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 2, team: 'AC Milan', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
+        { rank: 3, team: 'Juventus FC', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 4, team: 'Atalanta BC', mp: 1, w: 1, d: 0, l: 0, gf: 4, ga: 0, gd: '+4', pts: 3, form: ['W'] },
+        { rank: 5, team: 'SSC Napoli', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: '-3', pts: 0, form: ['L'] },
+        { rank: 6, team: 'AS Roma', mp: 1, w: 0, d: 1, l: 0, gf: 0, ga: 0, gd: '0', pts: 1, form: ['D'] },
+        { rank: 7, team: 'SS Lazio', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 1, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 8, team: 'ACF Fiorentina', mp: 1, w: 0, d: 1, l: 0, gf: 1, ga: 1, gd: '0', pts: 1, form: ['D'] },
+      ],
+    },
+    bundesliga: {
+      leagueTitle: 'BUNDESLIGA 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇩🇪',
+      rows: [
+        { rank: 1, team: 'Bayer 04 Leverkusen', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 2, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 2, team: 'FC Bayern Munich', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 2, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 3, team: 'Borussia Dortmund', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 4, team: 'RB Leipzig', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 5, team: 'Eintracht Frankfurt', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L'] },
+        { rank: 6, team: 'VfB Stuttgart', mp: 1, w: 0, d: 0, l: 1, gf: 1, ga: 3, gd: '-2', pts: 0, form: ['L'] },
+      ],
+    },
+    ligue1: {
+      leagueTitle: 'LIGUE 1 MCDONALDS 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇫🇷',
+      rows: [
+        { rank: 1, team: 'Paris Saint-Germain', mp: 1, w: 1, d: 0, l: 0, gf: 4, ga: 1, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 2, team: 'Olympique Marseille', mp: 1, w: 1, d: 0, l: 0, gf: 5, ga: 1, gd: '+4', pts: 3, form: ['W'] },
+        { rank: 3, team: 'LOSC Lille', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 4, team: 'AS Monaco', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
+        { rank: 5, team: 'Olympique Lyonnais', mp: 1, w: 0, d: 0, l: 1, gf: 0, ga: 3, gd: '-3', pts: 0, form: ['L'] },
+      ],
+    },
+    saudi: {
+      leagueTitle: 'SAUDI PRO LEAGUE 2026/2027 STANDINGS — MATCHDAY 1',
+      countryFlag: '🇸🇦',
+      rows: [
+        { rank: 1, team: 'Al Nassr', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 2, team: 'Al Hilal', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 3, team: 'Al Ahli', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 4, team: 'Al Ittihad', mp: 1, w: 1, d: 0, l: 0, gf: 1, ga: 0, gd: '+1', pts: 3, form: ['W'] },
       ],
     },
     ucl: {
       leagueTitle: 'UEFA CHAMPIONS LEAGUE 2026/2027 STANDINGS',
       countryFlag: '🇪🇺',
       rows: [
-        { rank: 1, team: 'Real Madrid', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 1, gd: '+2', pts: 3, form: ['W', 'W', 'W', 'D', 'W'] },
-        { rank: 2, team: 'FC Bayern Munich', mp: 1, w: 1, d: 0, l: 0, gf: 9, ga: 2, gd: '+7', pts: 3, form: ['W', 'W', 'W', 'W', 'L'] },
-        { rank: 3, team: 'Manchester City', mp: 1, w: 1, d: 0, l: 0, gf: 4, ga: 0, gd: '+4', pts: 3, form: ['W', 'D', 'W', 'W', 'D'] },
-        { rank: 4, team: 'FC Barcelona', mp: 1, w: 1, d: 0, l: 0, gf: 5, ga: 1, gd: '+4', pts: 3, form: ['W', 'W', 'L', 'W', 'D'] },
-        { rank: 5, team: 'Paris Saint-Germain', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W', 'L', 'W', 'W', 'W'] },
-        { rank: 6, team: 'Inter Milan', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W', 'W', 'W', 'D', 'W'] },
-      ],
-    },
-    laliga: {
-      leagueTitle: 'LA LIGA EA SPORTS 2026/2027 STANDINGS',
-      countryFlag: '🇪🇸',
-      rows: [
-        { rank: 1, team: 'Real Madrid', mp: 2, w: 2, d: 0, l: 0, gf: 5, ga: 0, gd: '+5', pts: 6, form: ['W', 'W', 'D', 'W', 'W'] },
-        { rank: 2, team: 'FC Barcelona', mp: 2, w: 2, d: 0, l: 0, gf: 4, ga: 2, gd: '+2', pts: 6, form: ['W', 'W', 'W', 'D', 'W'] },
-        { rank: 3, team: 'RC Celta de Vigo', mp: 2, w: 2, d: 0, l: 0, gf: 5, ga: 2, gd: '+3', pts: 6, form: ['W', 'W', 'W', 'L', 'D'] },
-        { rank: 4, team: 'Villarreal CF', mp: 2, w: 1, d: 1, l: 0, gf: 6, ga: 5, gd: '+1', pts: 4, form: ['W', 'D', 'W', 'D', 'W'] },
-        { rank: 5, team: 'Atlético Madrid', mp: 2, w: 1, d: 1, l: 0, gf: 5, ga: 2, gd: '+3', pts: 4, form: ['W', 'D', 'D', 'W', 'L'] },
-        { rank: 6, team: 'Girona FC', mp: 2, w: 1, d: 1, l: 0, gf: 5, ga: 4, gd: '+1', pts: 4, form: ['W', 'D', 'L', 'W', 'W'] },
-        { rank: 7, team: 'Athletic Club', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: '0', pts: 3, form: ['W', 'L', 'W', 'W', 'D'] },
-        { rank: 8, team: 'Real Sociedad', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: '0', pts: 3, form: ['W', 'L', 'D', 'W', 'D'] },
-        { rank: 9, team: 'CA Osasuna', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: '0', pts: 3, form: ['W', 'L', 'L', 'L', 'W'] },
-        { rank: 10, team: 'Rayo Vallecano', mp: 2, w: 1, d: 0, l: 1, gf: 2, ga: 2, gd: '0', pts: 3, form: ['W', 'L', 'D', 'L', 'D'] },
-        { rank: 11, team: 'Leganés', mp: 2, w: 1, d: 1, l: 0, gf: 3, ga: 2, gd: '+1', pts: 4, form: ['W', 'D', 'D', 'W', 'L'] },
-        { rank: 12, team: 'Real Betis', mp: 2, w: 0, d: 2, l: 0, gf: 1, ga: 1, gd: '0', pts: 2, form: ['D', 'D', 'D', 'W', 'L'] },
-        { rank: 13, team: 'Getafe CF', mp: 2, w: 0, d: 2, l: 0, gf: 1, ga: 1, gd: '0', pts: 2, form: ['D', 'D', 'W', 'L', 'D'] },
-        { rank: 14, team: 'UD Las Palmas', mp: 2, w: 0, d: 1, l: 1, gf: 3, ga: 4, gd: '-1', pts: 1, form: ['D', 'L', 'D', 'L', 'D'] },
-        { rank: 15, team: 'Sevilla FC', mp: 2, w: 0, d: 1, l: 1, gf: 3, ga: 4, gd: '-1', pts: 1, form: ['D', 'L', 'W', 'D', 'D'] },
-        { rank: 16, team: 'Deportivo Alavés', mp: 2, w: 0, d: 1, l: 1, gf: 1, ga: 2, gd: '-1', pts: 1, form: ['D', 'L', 'L', 'D', 'L'] },
-        { rank: 17, team: 'RCD Mallorca', mp: 2, w: 0, d: 1, l: 1, gf: 1, ga: 2, gd: '-1', pts: 1, form: ['D', 'L', 'D', 'L', 'W'] },
-        { rank: 18, team: 'RCD Espanyol', mp: 2, w: 0, d: 0, l: 2, gf: 0, ga: 2, gd: '-2', pts: 0, form: ['L', 'L', 'D', 'W', 'L'] },
-        { rank: 19, team: 'Valencia CF', mp: 2, w: 0, d: 0, l: 2, gf: 2, ga: 5, gd: '-3', pts: 0, form: ['L', 'L', 'L', 'W', 'W'] },
-        { rank: 20, team: 'Real Valladolid', mp: 2, w: 0, d: 0, l: 2, gf: 1, ga: 6, gd: '-5', pts: 0, form: ['L', 'L', 'D', 'L', 'D'] },
+        { rank: 1, team: 'Real Madrid', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 1, gd: '+2', pts: 3, form: ['W'] },
+        { rank: 2, team: 'FC Bayern Munich', mp: 1, w: 1, d: 0, l: 0, gf: 9, ga: 2, gd: '+7', pts: 3, form: ['W'] },
+        { rank: 3, team: 'Manchester City', mp: 1, w: 1, d: 0, l: 0, gf: 4, ga: 0, gd: '+4', pts: 3, form: ['W'] },
+        { rank: 4, team: 'FC Barcelona', mp: 1, w: 1, d: 0, l: 0, gf: 5, ga: 1, gd: '+4', pts: 3, form: ['W'] },
+        { rank: 5, team: 'Paris Saint-Germain', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
+        { rank: 6, team: 'Inter Milan', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
       ],
     },
     afcon: {
@@ -265,7 +309,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         drawerBg: 'bg-slate-50 border-slate-200',
       };
 
-  const currentStandingsData = standingsDatasets[activeStandingsLeague] || standingsDatasets.npfl;
+  const currentStandingsData = standingsDatasets[activeStandingsLeague] || standingsDatasets.epl;
 
   return (
     <div className={`${theme.container} rounded-3xl border shadow-2xl overflow-hidden font-sans transition-colors duration-300 space-y-6`}>
@@ -374,112 +418,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         <div className="flex items-center gap-2 text-slate-400 text-xs font-mono">
           <Calendar className="w-4 h-4 text-[#D9541E]" />
           <span>SHOWING {selectedDate.toUpperCase()} MATCHES</span>
-        </div>
-      </div>
-
-      {/* Filter Tabs */}
-      <div className={`${theme.tabBar} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3`}>
-        <div className="flex flex-wrap items-center gap-2">
-          <button
-            type="button"
-            onClick={() => setActiveTab('all')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
-              activeTab === 'all'
-                ? 'bg-[#2A2E7F] text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            ALL MATCHES ({dateMatchCount})
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('live')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'live'
-                ? 'bg-rose-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-            <span>LIVE ({liveCount})</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('favorites')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer flex items-center gap-1.5 ${
-              activeTab === 'favorites'
-                ? 'bg-amber-500 text-slate-950 font-black shadow-md'
-                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
-            <span>FAVORITES ({favorites.length})</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('finished')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
-              activeTab === 'finished'
-                ? 'bg-emerald-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            FINISHED
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab('scheduled')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase transition-all cursor-pointer ${
-              activeTab === 'scheduled'
-                ? 'bg-blue-600 text-white shadow-md'
-                : 'text-slate-400 hover:text-slate-900 hover:bg-slate-200/60'
-            }`}
-          >
-            SCHEDULED
-          </button>
-        </div>
-
-        {/* League Selector Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-bold">
-          <button
-            type="button"
-            onClick={() => setSelectedLeague('all')}
-            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'all' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
-          >
-            ALL LEAGUES
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedLeague('npfl')}
-            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'npfl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
-          >
-            🇳🇬 NPFL
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedLeague('epl')}
-            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'epl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
-          >
-            🏴󠁧󠁢󠁥󠁮󠁧󠁿 EPL
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedLeague('ucl')}
-            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'ucl' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
-          >
-            🇪🇺 UCL
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedLeague('afcon')}
-            className={`px-3 py-1 rounded-lg cursor-pointer ${selectedLeague === 'afcon' ? 'bg-[#D9541E] text-white' : 'bg-slate-800 text-slate-300'}`}
-          >
-            🌍 AFCON
-          </button>
         </div>
       </div>
 
@@ -598,217 +536,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                           </div>
                         </div>
 
-                        {/* Expandable Multi-Tab Match Details Drawer */}
-                        {isExpanded && (
-                          <div className={`${theme.drawerBg} px-6 py-5 border-t space-y-4 text-xs font-medium`}>
-                            
-                            {/* Drawer Tab Navigation Bar */}
-                            <div className="flex items-center gap-2 border-b border-slate-700/60 pb-3">
-                              <button
-                                type="button"
-                                onClick={() => setDrawerTab(match.id, 'summary')}
-                                className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
-                                  drawerTab === 'summary'
-                                    ? 'bg-[#D9541E] text-white'
-                                    : 'bg-slate-800 text-slate-400 hover:text-white'
-                                }`}
-                              >
-                                ⚽ Match Summary
-                              </button>
-
-                              <button
-                                type="button"
-                                onClick={() => setDrawerTab(match.id, 'h2h')}
-                                className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
-                                  drawerTab === 'h2h'
-                                    ? 'bg-[#D9541E] text-white'
-                                    : 'bg-slate-800 text-slate-400 hover:text-white'
-                                }`}
-                              >
-                                <BarChart2 className="w-3.5 h-3.5" /> Head-to-Head & Form Guide
-                              </button>
-
-                              {match.tableSnapshot && (
-                                <button
-                                  type="button"
-                                  onClick={() => setDrawerTab(match.id, 'table')}
-                                  className={`px-3 py-1.5 rounded-lg font-black uppercase text-[11px] transition-colors flex items-center gap-1.5 ${
-                                    drawerTab === 'table'
-                                      ? 'bg-[#D9541E] text-white'
-                                      : 'bg-slate-800 text-slate-400 hover:text-white'
-                                  }`}
-                                >
-                                  <Trophy className="w-3.5 h-3.5" /> Live Rank
-                                </button>
-                              )}
-                            </div>
-
-                            {/* TAB 1: SUMMARY */}
-                            {drawerTab === 'summary' && (
-                              <div className="space-y-4">
-                                {match.stadium && (
-                                  <div className="flex items-center gap-1.5 text-slate-400 font-bold">
-                                    <span>🏟️ Stadium Venue:</span>
-                                    <span className="text-slate-900 dark:text-white font-extrabold">{match.stadium}</span>
-                                  </div>
-                                )}
-
-                                {match.goals && match.goals.length > 0 && (
-                                  <div className="space-y-1.5">
-                                    <span className="text-[10px] font-black uppercase text-[#D9541E] tracking-widest block">
-                                      ⚽ GOALS TIMELINE
-                                    </span>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
-                                      {match.goals.map((g, idx) => (
-                                        <div key={idx} className="flex items-center gap-2">
-                                          <span className="text-amber-400 font-bold">{g.minute}&apos;</span>
-                                          <span className="text-white font-bold">{g.player}</span>
-                                          <span className="text-slate-400 text-[10px]">
-                                            ({g.team === 'home' ? match.homeTeam : match.awayTeam})
-                                          </span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-
-                                {match.cards && match.cards.length > 0 && (
-                                  <div className="space-y-1.5">
-                                    <span className="text-[10px] font-black uppercase text-amber-400 tracking-widest block">
-                                      🟨 CARDS & DISCIPLINARY LOG
-                                    </span>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 bg-slate-900 text-white p-3 rounded-xl border border-slate-800 font-mono text-[11px]">
-                                      {match.cards.map((c, idx) => (
-                                        <div key={idx} className="flex items-center gap-2">
-                                          <span>{c.type === 'red' ? '🟥' : '🟨'}</span>
-                                          <span className="text-amber-300 font-bold">{c.minute}&apos;</span>
-                                          <span className="text-white">{c.player}</span>
-                                          <span className="text-slate-400 text-[10px]">
-                                            ({c.team === 'home' ? match.homeTeam : match.awayTeam})
-                                          </span>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            )}
-
-                            {/* TAB 2: H2H STATS & FORM GUIDE */}
-                            {drawerTab === 'h2h' && (
-                              <div className="space-y-4 bg-slate-900 text-white p-4 rounded-2xl border border-slate-800">
-                                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                                  <span className="text-xs font-black uppercase text-amber-400 tracking-wider flex items-center gap-1.5">
-                                    <BarChart2 className="w-4 h-4 text-emerald-400" /> HEAD-TO-HEAD STATISTICAL HISTORY
-                                  </span>
-                                  <span className="text-[10px] font-mono text-slate-400">PAST CLASHES RECORD</span>
-                                </div>
-
-                                {match.h2h ? (
-                                  <div className="space-y-4 text-xs font-bold">
-                                    {/* H2H Win Breakdown Bar */}
-                                    <div className="grid grid-cols-3 gap-2 text-center">
-                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
-                                        <span className="text-[10px] text-slate-400 block uppercase">{match.homeTeam} Wins</span>
-                                        <span className="text-lg font-black text-emerald-400">{match.h2h.homeWins}</span>
-                                      </div>
-
-                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
-                                        <span className="text-[10px] text-slate-400 block uppercase">Draws</span>
-                                        <span className="text-lg font-black text-amber-400">{match.h2h.draws}</span>
-                                      </div>
-
-                                      <div className="p-3 rounded-xl bg-slate-800 border border-slate-700">
-                                        <span className="text-[10px] text-slate-400 block uppercase">{match.awayTeam} Wins</span>
-                                        <span className="text-lg font-black text-blue-400">{match.h2h.awayWins}</span>
-                                      </div>
-                                    </div>
-
-                                    {/* Last 5 Matches Form Guide Badges */}
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-slate-800">
-                                      <div className="space-y-1.5">
-                                        <span className="text-[10px] uppercase text-slate-400 block">{match.homeTeam} Form Guide</span>
-                                        <div className="flex gap-1.5">
-                                          {match.h2h.lastMatchesHome.map((res, i) => (
-                                            <span
-                                              key={i}
-                                              className={`w-6 h-6 rounded-md flex items-center justify-center font-black text-xs text-white ${
-                                                res === 'W' ? 'bg-emerald-600' : res === 'D' ? 'bg-amber-600' : 'bg-red-600'
-                                              }`}
-                                            >
-                                              {res}
-                                            </span>
-                                          ))}
-                                        </div>
-                                      </div>
-
-                                      <div className="space-y-1.5">
-                                        <span className="text-[10px] uppercase text-slate-400 block">{match.awayTeam} Form Guide</span>
-                                        <div className="flex gap-1.5">
-                                          {match.h2h.lastMatchesAway.map((res, i) => (
-                                            <span
-                                              key={i}
-                                              className={`w-6 h-6 rounded-md flex items-center justify-center font-black text-xs text-white ${
-                                                res === 'W' ? 'bg-emerald-600' : res === 'D' ? 'bg-amber-600' : 'bg-red-600'
-                                              }`}
-                                            >
-                                              {res}
-                                            </span>
-                                          ))}
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                ) : (
-                                  <p className="text-xs text-slate-400">H2H stats updating from match registry.</p>
-                                )}
-                              </div>
-                            )}
-
-                            {/* TAB 3: LIVE TABLE SNAPSHOT */}
-                            {drawerTab === 'table' && match.tableSnapshot && (
-                              <div className="p-4 rounded-2xl bg-slate-900 text-white border border-slate-800 space-y-3 font-mono text-xs">
-                                <div className="flex items-center justify-between border-b border-slate-800 pb-2">
-                                  <span className="font-extrabold text-emerald-400 uppercase">STANDINGS TABLE SNAPSHOT</span>
-                                  <span>{match.leagueName}</span>
-                                </div>
-
-                                <div className="grid grid-cols-2 gap-4">
-                                  <div className="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
-                                    <span className="text-[10px] text-slate-400 uppercase block">{match.homeTeam} Position</span>
-                                    <span className="text-xl font-black text-white">#{match.tableSnapshot.homeRank}</span>
-                                    <span className="text-[10px] text-emerald-400 block">({match.tableSnapshot.homePts} pts)</span>
-                                  </div>
-
-                                  <div className="p-3 rounded-xl bg-slate-800 border border-slate-700 space-y-1">
-                                    <span className="text-[10px] text-slate-400 uppercase block">{match.awayTeam} Position</span>
-                                    <span className="text-xl font-black text-white">#{match.tableSnapshot.awayRank}</span>
-                                    <span className="text-[10px] text-emerald-400 block">({match.tableSnapshot.awayPts} pts)</span>
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Action Link: Read Match Report */}
-                            <div className="pt-2 flex items-center justify-between">
-                              <Link
-                                href={`/article/enyimba-thrilling-victory-npfl-derby`}
-                                className="px-4 py-2 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-1.5 shadow-md"
-                              >
-                                <span>Read Full Match Report</span> <ArrowRight className="w-3.5 h-3.5" />
-                              </Link>
-
-                              <Link
-                                href={`/leagues/${match.leagueSlug || 'npfl'}`}
-                                className="text-[10px] text-emerald-400 hover:underline font-extrabold uppercase tracking-wider flex items-center gap-1"
-                              >
-                                Full Standings Table & League Hub →
-                              </Link>
-                            </div>
-
-                          </div>
-                        )}
-
                       </div>
                     );
                   })}
@@ -820,18 +547,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           <div className={`${theme.card} p-12 rounded-3xl text-center text-slate-400 text-sm border space-y-3`}>
             <Activity className="w-8 h-8 text-[#D9541E] mx-auto opacity-50" />
             <p className="font-extrabold text-slate-900 dark:text-white">No matches scheduled under current filter criteria.</p>
-            <button
-              type="button"
-              onClick={() => {
-                setActiveTab('all');
-                setSelectedLeague('all');
-                setSelectedDate('today');
-                setSearchQuery('');
-              }}
-              className="px-4 py-2 rounded-xl bg-slate-800 text-xs font-bold text-[#D9541E] hover:bg-slate-700 cursor-pointer"
-            >
-              Reset All Filters
-            </button>
           </div>
         )}
       </div>
@@ -843,7 +558,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             <div className="space-y-1">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-                  <BarChart2 className="w-3 h-3 text-emerald-400" /> LAKU MEDIA OFFICIAL LEAGUE STANDINGS
+                  <BarChart2 className="w-3 h-3 text-emerald-400" /> LAKU MEDIA OFFICIAL LEAGUE STANDINGS (SEASON 2026/2027)
                 </span>
               </div>
               <h2 className="text-lg sm:text-xl font-black uppercase tracking-tight text-white flex items-center gap-2">
@@ -860,17 +575,8 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             </Link>
           </div>
 
-          {/* Interactive League Selector Tabs for Standings */}
+          {/* Expanded League Selector Tabs for Standings */}
           <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-slate-800 text-xs font-black">
-            <button
-              onClick={() => setActiveStandingsLeague('npfl')}
-              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
-                activeStandingsLeague === 'npfl' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
-              }`}
-            >
-              <span>🇳🇬 NPFL</span>
-            </button>
-
             <button
               onClick={() => setActiveStandingsLeague('epl')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
@@ -881,12 +587,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             </button>
 
             <button
-              onClick={() => setActiveStandingsLeague('ucl')}
+              onClick={() => setActiveStandingsLeague('npfl')}
               className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
-                activeStandingsLeague === 'ucl' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+                activeStandingsLeague === 'npfl' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
               }`}
             >
-              <span>🇪🇺 CHAMPIONS LEAGUE</span>
+              <span>🇳🇬 NPFL</span>
             </button>
 
             <button
@@ -896,6 +602,51 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
               }`}
             >
               <span>🇪🇸 LA LIGA</span>
+            </button>
+
+            <button
+              onClick={() => setActiveStandingsLeague('seriea')}
+              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                activeStandingsLeague === 'seriea' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              <span>🇮🇹 SERIE A</span>
+            </button>
+
+            <button
+              onClick={() => setActiveStandingsLeague('bundesliga')}
+              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                activeStandingsLeague === 'bundesliga' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              <span>🇩🇪 BUNDESLIGA</span>
+            </button>
+
+            <button
+              onClick={() => setActiveStandingsLeague('ligue1')}
+              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                activeStandingsLeague === 'ligue1' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              <span>🇫🇷 LIGUE 1</span>
+            </button>
+
+            <button
+              onClick={() => setActiveStandingsLeague('saudi')}
+              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                activeStandingsLeague === 'saudi' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              <span>🇸🇦 SAUDI PRO LEAGUE</span>
+            </button>
+
+            <button
+              onClick={() => setActiveStandingsLeague('ucl')}
+              className={`px-4 py-2 rounded-xl transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
+                activeStandingsLeague === 'ucl' ? 'bg-[#D9541E] text-white shadow-md' : 'bg-slate-800 text-slate-300 hover:bg-slate-700'
+              }`}
+            >
+              <span>🇪🇺 CHAMPIONS LEAGUE</span>
             </button>
 
             <button
