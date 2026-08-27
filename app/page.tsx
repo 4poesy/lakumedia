@@ -10,7 +10,7 @@ import { FanPredictionsWidget } from '@/components/sports/fan-predictions-widget
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
 import { getAggregatedNews } from '@/lib/rss-service';
-import { Activity, Flame } from 'lucide-react';
+import { Activity, Flame, Globe } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -51,279 +51,198 @@ export default async function SportsRootHomePage() {
 
     if (media) mediaData = media;
 
-    // Fetch RSS Aggregated News
+    // Fetch Live RSS Aggregated News
     aggregatedNewsItems = await getAggregatedNews();
   } catch (error) {
-    console.error('Supabase query fallback on page.tsx:', error);
+    console.error('Supabase query error on page.tsx:', error);
     aggregatedNewsItems = await getAggregatedNews();
   }
 
-  // User uploaded high-resolution local assets
-  const demoArticles = [
-    {
-      id: 'art1',
-      title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
-      slug: 'enyimba-thrilling-victory-npfl-derby',
-      excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity crowd.',
-      cover_image_url: '/assest/user_enyimba_news_hero.jpg',
-      categoryName: 'NPFL League',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art2',
-      title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
-      slug: 'konsa-will-bench-saliba-at-arsenal',
-      excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba at the Emirates Stadium this season.',
-      cover_image_url: '/assest/user_world_football_kane_musiala.jpg',
-      categoryName: 'World Football',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art3',
-      title: 'NPFL Derby: Enyimba Host Rangers International In High-Stakes Clash',
-      slug: 'enyimba-vs-rangers-npfl-derby-2026',
-      excerpt: 'Nine-time champions Enyimba FC prepare to battle rivals Rangers International at the Aba Township Stadium in a critical NPFL title race encounter.',
-      cover_image_url: '/assest/user_enyimba_aba_jump.jpg',
-      categoryName: 'NPFL League',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art4',
-      title: 'Haaland & Super Eagles Stars Battle In High-Octane International Duel',
-      slug: 'haaland-super-eagles-stars-european-tackle',
-      excerpt: 'Erling Haaland engages in an intense physical duel against top defensive talents in a thrilling European spectacle.',
-      cover_image_url: '/assest/user_home_hero_4th_slide.jpg',
-      categoryName: 'Match Spotlight',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art5',
-      title: 'Infantino Has Done Nothing Wrong — Eto\'o Backs FIFA President\'s Re-Election Bid',
-      slug: 'infantino-done-nothing-wrong-etoo-backs-fifa',
-      excerpt: 'FECAFOOT boss Samuel Eto\'o publicly pledges support for Gianni Infantino\'s continued presidency.',
-      cover_image_url: '/assest/user_infantino_fifa.jpg',
-      categoryName: 'World Football',
-      published_at: new Date().toISOString(),
-    },
-    {
-      id: 'art6',
-      title: 'Super Eagles Manager Announces 24-Man Squad For Upcoming AFCON Qualifiers',
-      slug: 'super-eagles-manager-announces-afcon-squad',
-      excerpt: 'The Nigeria Football Federation has officially released the squad list featuring NPFL standout performers and Europe-based stars for next month’s qualifiers.',
-      cover_image_url: '/assest/user_super_eagles_manager.jpg',
-      categoryName: 'Super Eagles',
-      published_at: new Date().toISOString(),
-    },
-  ];
+  // Build Hero Slides dynamically from Live RSS News Stream if available
+  const heroSlides = aggregatedNewsItems.length >= 4
+    ? aggregatedNewsItems.slice(0, 4).map((item, idx) => ({
+        id: item.id || `rss-slide-${idx}`,
+        title: item.title,
+        slug: item.id || `news-story-${idx}`,
+        excerpt: item.snippet,
+        imageUrl: item.thumbnail_url || '/assest/user_npfl_blue_player.jpg',
+        categoryName: item.source_name || 'World Sports',
+        publishedAt: item.published_at,
+        sourceUrl: item.source_url,
+      }))
+    : [
+        {
+          id: 'slide-1',
+          title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
+          slug: 'enyimba-thrilling-victory-npfl-derby',
+          excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars.',
+          imageUrl: '/assest/user_enyimba_news_hero.jpg',
+          categoryName: 'NPFL League',
+          publishedAt: new Date().toISOString(),
+        },
+        {
+          id: 'slide-2',
+          title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
+          slug: 'fc-bayern-munich-harry-kane-musiala-victory',
+          excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League.',
+          imageUrl: '/assest/user_kane_musiala_bayern.jpg',
+          categoryName: 'World Football',
+          publishedAt: new Date().toISOString(),
+        },
+      ];
 
-  const heroSlides = [
-    {
-      id: 'slide-1',
-      title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
-      slug: 'enyimba-thrilling-victory-npfl-derby',
-      excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars in front of a capacity stadium crowd.',
-      imageUrl: '/assest/user_enyimba_news_hero.jpg',
-      categoryName: 'NPFL League',
-      publishedAt: new Date().toISOString(),
-    },
-    {
-      id: 'slide-2',
-      title: 'Harry Kane & Musiala Masterclass Powers Bayern Munich Victory',
-      slug: 'fc-bayern-munich-harry-kane-musiala-victory',
-      excerpt: 'Exclusive tactical breakdown of FC Bayern Munich\'s dominant performance in the UEFA Champions League marquee fixture.',
-      imageUrl: '/assest/user_kane_musiala_bayern.jpg',
-      categoryName: 'World Football',
-      publishedAt: new Date().toISOString(),
-    },
-    {
-      id: 'slide-3',
-      title: 'Transfers: What The Clubs Need To Do This Window',
-      slug: 'transfers-what-clubs-need-to-do',
-      excerpt: 'Comprehensive club-by-club transfer state of play, contract negotiations, and scouting priorities ahead of deadline day.',
-      imageUrl: '/assest/user_transfers_hero_graphic.jpg',
-      categoryName: 'Transfer News',
-      publishedAt: new Date().toISOString(),
-    },
-    {
-      id: 'slide-4',
-      title: 'Haaland & Super Eagles Stars Battle In High-Octane International Duel',
-      slug: 'haaland-super-eagles-stars-european-tackle',
-      excerpt: 'Erling Haaland engages in an intense physical duel against top defensive talents in a thrilling European spectacle.',
-      imageUrl: '/assest/user_home_hero_4th_slide.jpg',
-      categoryName: 'Match Spotlight',
-      publishedAt: new Date().toISOString(),
-    },
-  ];
-
-  const articles = demoArticles;
+  const articles = rawArticles.length > 0 ? rawArticles : demoArticlesFallback;
 
   const fixtures = (fixturesData as any[]).length > 0 ? fixturesData : [
     {
-      id: '30000000-0000-0000-0000-000000000001',
-      home_team: { name: 'Enyimba FC', logo_url: null },
-      away_team: { name: 'Kano Pillars', logo_url: null },
-      league: { name: 'NPFL Derby' },
-      kickoff_at: new Date().toISOString(),
+      id: 'fix-1',
+      home_team: { name: 'Enyimba FC' },
+      away_team: { name: 'Kano Pillars' },
       home_score: 2,
       away_score: 1,
-      status: 'finished' as const,
+      match_minute: '84',
+      status: 'live',
+      league: { name: 'NPFL' },
     },
     {
-      id: '30000000-0000-0000-0000-000000000002',
-      home_team: { name: 'Arsenal FC', logo_url: null },
-      away_team: { name: 'Chelsea FC', logo_url: null },
-      league: { name: 'Premier League' },
-      kickoff_at: new Date(Date.now() + 3600000).toISOString(),
-      home_score: null,
-      away_score: null,
-      status: 'scheduled' as const,
+      id: 'fix-2',
+      home_team: { name: 'Rangers International' },
+      away_team: { name: 'Remo Stars' },
+      home_score: 1,
+      away_score: 0,
+      match_minute: '62',
+      status: 'live',
+      league: { name: 'NPFL' },
     },
   ];
-
-  const videos = (mediaData as any[]).length > 0 ? mediaData : [
-    {
-      id: 'v1',
-      title: 'Victor Ikpeba: Why Christian Chukwu Is Nigeria\'s Greatest Super Eagles Player',
-      slug: 'victor-ikpeba-christian-chukwu-super-eagles',
-      thumbnail_url: '/assest/user_super_eagles_manager.jpg',
-      duration_seconds: 1800,
-      youtubeId: '3Q06g9O0J-Y',
-    },
-    {
-      id: 'v2',
-      title: 'The 2026/27 Football League Season Preview',
-      slug: 'football-league-season-preview',
-      thumbnail_url: '/assest/user_npfl_hero_team_celebration.jpg',
-      duration_seconds: 1200,
-      youtubeId: 'dQw4w9WgXcQ',
-    },
-    {
-      id: 'v3',
-      title: 'Super Eagles Manager AFCON Press Conference Highlights',
-      slug: 'justin-madugu-super-falcons-coach',
-      thumbnail_url: '/assest/user_super_eagles_manager.jpg',
-      duration_seconds: 900,
-      youtubeId: 'L_LUpnjgPso',
-    },
-    {
-      id: 'v4',
-      title: '10 Super Eagles Stars Who Won Trophies In The 2025/26 Season',
-      slug: 'super-eagles-stars-trophies',
-      thumbnail_url: '/assest/user_npfl_blue_player.jpg',
-      duration_seconds: 1500,
-      youtubeId: 'kXYiU_JCYtU',
-    },
-  ];
-
-  // Article buckets for dual blocks
-  const npflArticles = articles.filter((a) => a.categoryName === 'NPFL League' || a.categoryName === 'NPFL' || a.categoryName === 'Super Eagles');
-  const worldArticles = articles.filter((a) => a.categoryName === 'World Football' || a.categoryName === 'Match Spotlight');
-  const featureArticles = articles.filter((a) => a.categoryName === 'Features' || a.categoryName === 'Transfer News' || a.categoryName === 'Transfers');
 
   return (
-    <div className="space-y-8 theme-sports max-w-7xl mx-auto relative pb-20">
+    <div className="space-y-8 theme-sports">
       
-      {/* 1. 4-Slide Interactive Hero Slider Component */}
-      <section className="space-y-2">
-        <div className="flex items-center justify-between pb-1 border-b border-slate-200">
-          <h2 className="text-sm font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
-            <Flame className="w-4 h-4 text-[#D9541E]" /> FEATURED HEADLINES & SLIDER
-          </h2>
-          <Link href="/world-football" prefetch={true} className="text-xs font-bold text-[#D9541E] hover:underline">
-            View all news →
-          </Link>
-        </div>
-
+      {/* 1. Main Hero Slider Section (Powered by Live RSS Stream) */}
+      <section className="relative">
         <HeroSlider slides={heroSlides} />
       </section>
 
-      {/* Main Content Grid: Main News Stream (Left 68%) + Sidebar (Right 32%) */}
+      {/* 2. Live Scores Ticker Bar & Worldwide RSS News Feed */}
+      <section className="bg-slate-900 text-white rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+          <div className="flex items-center space-x-2">
+            <span className="w-3 h-3 rounded-full bg-emerald-400 animate-ping" />
+            <h2 className="text-sm sm:text-base font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
+              <Globe className="w-4 h-4 text-emerald-400" /> LIVE GLOBAL SPORTS STREAM
+            </h2>
+          </div>
+
+          <Link href="/live-scores" className="text-xs font-bold text-amber-400 hover:underline">
+            View All Live Matches & Scores →
+          </Link>
+        </div>
+
+        {/* Live RSS Feed Wire Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
+          {aggregatedNewsItems.slice(0, 6).map((news) => (
+            <a
+              key={news.id}
+              href={news.source_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 rounded-2xl bg-slate-800/80 hover:bg-slate-800 border border-slate-700 transition-colors flex flex-col justify-between space-y-3 group"
+            >
+              <div className="space-y-1.5">
+                <span className="px-2 py-0.5 rounded bg-[#D9541E]/20 text-[#D9541E] border border-orange-500/30 text-[10px] font-black uppercase tracking-wider inline-block">
+                  {news.source_name}
+                </span>
+                <h3 className="text-xs sm:text-sm font-black text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug">
+                  {news.title}
+                </h3>
+                <p className="text-[11px] text-slate-300 line-clamp-2 leading-relaxed">
+                  {news.snippet}
+                </p>
+              </div>
+
+              <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 pt-2 border-t border-slate-700/60">
+                <span>{new Date(news.published_at).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+                <span className="text-amber-400 font-bold group-hover:underline">Read Source →</span>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* 3. Main Completesports.com Layout Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        {/* Main News Stream Column (8 cols / 68% desktop width) */}
-        <div className="lg:col-span-8 space-y-8">
+        {/* Main Column (8 cols - 68%) */}
+        <div className="lg:col-span-8 space-y-10">
           
-          {/* Dual Category Block 1: World Football & NPFL News */}
+          {/* Dual Category News Block (NPFL & World Football) */}
           <CategoryDualBlock
             leftColumn={{
-              categoryTitle: 'NIGERIAN FOOTBALLERS ABROAD',
-              categorySlug: 'world-football',
-              articles: worldArticles.length > 0 ? worldArticles : articles,
+              categoryTitle: 'NPFL & NIGERIAN SPORTS',
+              categorySlug: 'npfl',
+              articles: (aggregatedNewsItems.length > 0 ? aggregatedNewsItems : articles).map((item) => ({
+                id: item.id,
+                title: item.title,
+                slug: item.slug || item.id,
+                excerpt: item.snippet || item.excerpt,
+                cover_image_url: item.thumbnail_url || item.cover_image_url || '/assest/user_npfl_blue_player.jpg',
+                published_at: item.published_at,
+              })).slice(0, 4),
             }}
             rightColumn={{
-              categoryTitle: 'NPFL NEWS',
-              categorySlug: 'npfl',
-              articles: npflArticles.length > 0 ? npflArticles : articles,
+              categoryTitle: 'WORLD FOOTBALL & BREAKING TRANSFERS',
+              categorySlug: 'world-football',
+              articles: (aggregatedNewsItems.length > 4 ? aggregatedNewsItems.slice(4) : articles).map((item) => ({
+                id: item.id,
+                title: item.title,
+                slug: item.slug || item.id,
+                excerpt: item.snippet || item.excerpt,
+                cover_image_url: item.thumbnail_url || item.cover_image_url || '/assest/user_world_football_kane_musiala.jpg',
+                published_at: item.published_at,
+              })).slice(0, 4),
             }}
           />
 
-          {/* FC Bayern Munich Inspired Tactical Breakdown Hub */}
+          {/* Featured Video Spotlight */}
+          <FeaturedVideoSpotlight videos={mediaData.length > 0 ? mediaData : demoVideosFallback} />
+
+          {/* FC Bayern Munich & European Club Hub */}
           <FcBayernNewsHub />
 
-          {/* Featured Multimedia Video Spotlight Section (Inline YouTube Player) */}
-          <FeaturedVideoSpotlight videos={videos} />
-
-          {/* Dual Category Block 2: FEATURES & LIFESTYLE */}
-          <CategoryDualBlock
-            leftColumn={{
-              categoryTitle: 'FEATURES & OPINION',
-              categorySlug: 'world-football',
-              articles: featureArticles.length > 0 ? featureArticles : articles,
-            }}
-            rightColumn={{
-              categoryTitle: 'LIFESTYLE & SPORTS',
-              categorySlug: 'world-football',
-              articles: articles,
-            }}
-          />
+          {/* Around the Web Media Rail */}
+          <AroundTheWebRail items={aggregatedNewsItems} />
 
         </div>
 
-        {/* Right Sidebar Column (4 cols / 32% desktop width) */}
-        <div className="lg:col-span-4 space-y-6">
+        {/* Right Sidebar Column (4 cols - 32%) */}
+        <div className="lg:col-span-4 space-y-8">
           
-          {/* Fan Match Predictions & Odds Polling Widget */}
-          <FanPredictionsWidget />
+          {/* Realtime Live Score Card Widget */}
+          <RealtimeScoreCard
+            initialFixture={{
+              id: 'fix-1',
+              homeTeam: 'Enyimba FC',
+              awayTeam: 'Kano Pillars',
+              homeScore: 2,
+              awayScore: 1,
+              kickoffAt: new Date().toISOString(),
+              status: 'live',
+              leagueName: 'NPFL Premier League',
+            }}
+          />
 
-          {/* Goal.com Style Numbered Trending Rail (01, 02, 03, 04) */}
+          {/* Trending Stories Widget */}
           <TrendingStoriesWidget />
 
-          {/* Newsletter Subscription Widget */}
+          {/* Fan Match Predictions Widget */}
+          <FanPredictionsWidget />
+
+          {/* Newsletter Box */}
           <NewsletterWidget />
 
-          {/* Social Counters Widget */}
+          {/* Social Counters */}
           <SocialCountersWidget />
-
-          {/* LiveScore.com Style Match Center Widget */}
-          <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
-            <div className="flex items-center justify-between pb-2 border-b border-slate-100">
-              <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F] flex items-center gap-1.5">
-                <Activity className="w-4 h-4 text-[#D9541E]" /> Match Center
-              </h3>
-              <Link href="/live-scores" prefetch={true} className="text-[11px] font-bold text-[#D9541E] hover:underline">
-                Full Schedule →
-              </Link>
-            </div>
-            <div className="space-y-3">
-              {fixtures.map((fix: any) => (
-                <RealtimeScoreCard
-                  key={fix.id}
-                  initialFixture={{
-                    id: fix.id,
-                    homeTeam: fix.home_team?.name || 'Home Team',
-                    awayTeam: fix.away_team?.name || 'Away Team',
-                    homeScore: fix.home_score,
-                    awayScore: fix.away_score,
-                    kickoffAt: fix.kickoff_at,
-                    status: fix.status,
-                    leagueName: fix.league?.name || 'League',
-                    homeLogo: fix.home_team?.logo_url,
-                    awayLogo: fix.away_team?.logo_url,
-                  }}
-                />
-              ))}
-            </div>
-          </div>
 
           {/* Latest Comments Widget */}
           <LatestCommentsWidget />
@@ -332,9 +251,48 @@ export default async function SportsRootHomePage() {
 
       </div>
 
-      {/* Around the Web RSS & Video Aggregation Rail */}
-      <AroundTheWebRail items={aggregatedNewsItems} />
-
     </div>
   );
 }
+
+const demoArticlesFallback = [
+  {
+    id: 'art1',
+    title: 'Enyimba Secure Thrilling Victory Against Kano Pillars in NPFL Derby',
+    slug: 'enyimba-thrilling-victory-npfl-derby',
+    excerpt: 'Enyimba FC delivered a masterclass performance in Aba to secure a 2-1 victory over rivals Kano Pillars.',
+    cover_image_url: '/assest/user_enyimba_news_hero.jpg',
+    categoryName: 'NPFL League',
+    published_at: new Date().toISOString(),
+  },
+  {
+    id: 'art2',
+    title: 'Konsa Will Bench Saliba At Arsenal — Chelsea Legend Claims',
+    slug: 'konsa-will-bench-saliba-at-arsenal',
+    excerpt: 'Former Chelsea legend insists Ezri Konsa would easily earn a starting berth over William Saliba.',
+    cover_image_url: '/assest/user_world_football_kane_musiala.jpg',
+    categoryName: 'World Football',
+    published_at: new Date().toISOString(),
+  },
+];
+
+const demoVideosFallback = [
+  {
+    id: 'vid-1',
+    title: 'Laku Media Studio Complex Tour & Executive Interview',
+    slug: 'laku-media-studio-tour',
+    thumbnail_url: '/assest/user_enyimba_news_hero.jpg',
+    youtubeId: '3Q06g9O0J-Y',
+    duration_seconds: 420,
+    published_at: new Date().toISOString(),
+  },
+  {
+    id: 'vid-2',
+    title: 'Match Highlights: Top NPFL Thrillers & Stadium Reactions',
+    slug: 'npfl-thillers-highlights',
+    thumbnail_url: '/assest/user_npfl_hero_team_celebration.jpg',
+    youtubeId: 'L_LUpnjgPso',
+    duration_seconds: 310,
+    published_at: new Date().toISOString(),
+  },
+];

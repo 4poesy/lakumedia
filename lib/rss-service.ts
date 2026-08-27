@@ -1,31 +1,45 @@
-import { RssFeedSource, AggregatedNewsItem, INITIAL_FEED_SOURCES, FALLBACK_AGGREGATED_NEWS } from '@/lib/types/rss';
+import { RssFeedSource, AggregatedNewsItem, INITIAL_FEED_SOURCES } from '@/lib/types/rss';
 import { createClient } from '@/lib/supabase/server';
+import { parseFeedSource } from '@/lib/rss-parser';
 
-export { INITIAL_FEED_SOURCES, FALLBACK_AGGREGATED_NEWS };
+export { INITIAL_FEED_SOURCES };
 
 export async function getAggregatedNews(): Promise<AggregatedNewsItem[]> {
+  const liveItems: AggregatedNewsItem[] = [];
+
+  // 1. Fetch live RSS items from active global feed sources (BBC Sport, Sky Sports, CompleteSports)
+  for (const source of INITIAL_FEED_SOURCES.slice(0, 4)) {
+    try {
+      const parsed = await parseFeedSource(source);
+      if (parsed && parsed.length > 0) {
+        liveItems.push(...parsed);
+      }
+    } catch (e) {
+      console.warn(`Live fetch warning for ${source.name}:`, e);
+    }
+  }
+
+  if (liveItems.length > 0) {
+    // Sort by date descending
+    return liveItems.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+  }
+
+  // 2. Try Supabase query
   try {
     const supabase = await createClient();
-
-    // Query active items from Supabase aggregated_news
     const { data: dbItems } = await (supabase.from('aggregated_news' as any) as any)
       .select('*')
       .order('published_at', { ascending: false })
-      .limit(12);
+      .limit(15);
 
     if (dbItems && dbItems.length > 0) {
-      // Filter strictly for valid thumbnail_url according to legal image enforcement rule
-      const validItems = dbItems.filter((item: AggregatedNewsItem) => Boolean(item.thumbnail_url));
-      if (validItems.length > 0) {
-        return validItems;
-      }
+      return dbItems;
     }
   } catch (err) {
-    console.error('Supabase query fallback for aggregated_news:', err);
+    console.error('Supabase fallback query error:', err);
   }
 
-  // Fallback items with 100% valid images
-  return FALLBACK_AGGREGATED_NEWS.filter((item) => Boolean(item.thumbnail_url));
+  return [];
 }
 
 export async function getFeedSources(): Promise<RssFeedSource[]> {
