@@ -93,7 +93,8 @@ export function HeroSlider({ slides }: HeroSliderProps) {
               src={slide.imageUrl}
               alt={slide.title}
               loading={idx === 0 ? 'eager' : 'lazy'}
-              className="w-full h-full object-cover object-[center_15%] sm:object-[center_20%]"
+              className="w-full h-full object-cover object-[center_15%] sm:object-[center_20%] transition-transform duration-700 hover:scale-105"
+              style={{ filter: 'contrast(1.06) brightness(1.02) saturate(1.05)', imageRendering: 'crisp-edges' }}
               onError={(e) => {
                 (e.target as HTMLImageElement).src = '/assest/user_enyimba_news_hero.jpg';
               }}

@@ -1,5 +1,40 @@
 import { AggregatedNewsItem, RssFeedSource } from './types/rss';
 
+function enhanceThumbnailResolution(url: string | null, fallbackIndex: number): string {
+  const categoryFallbackImages = [
+    '/assest/user_enyimba_news_hero.jpg',
+    '/assest/user_npfl_blue_player.jpg',
+    '/assest/user_kane_musiala_bayern.jpg',
+    '/assest/user_home_hero_4th_slide.jpg',
+    '/assest/user_super_eagles_manager.jpg',
+    '/assest/user_transfers_hero_graphic.jpg',
+  ];
+
+  if (!url || !url.startsWith('http')) {
+    return categoryFallbackImages[fallbackIndex % categoryFallbackImages.length];
+  }
+
+  // BBC iChef URL Upgrade: Replace small sizes (/240/, /320/, /480/, /640/) with /1024/
+  if (url.includes('ichef.bbci.co.uk')) {
+    return url.replace(/\/(240|320|480|640|800)\//g, '/1024/');
+  }
+
+  // Sky Sports / Media URL Upgrade: Replace small thumbnails (/160x160/, /320x180/) with /1024x576/
+  if (url.includes('skysports.com') || url.includes('eircom.net')) {
+    return url.replace(/\/\d+x\d+\//g, '/1024x576/');
+  }
+
+  // Unsplash HD Upgrade
+  if (url.includes('unsplash.com')) {
+    if (url.includes('w=')) {
+      return url.replace(/w=\d+/g, 'w=1920').replace(/q=\d+/g, 'q=95');
+    }
+    return `${url}&w=1920&q=95&auto=format&fit=crop`;
+  }
+
+  return url;
+}
+
 /**
  * Robust, fault-tolerant RSS & Atom parser
  * Supports: RSS 2.0, Atom 1.0, YouTube Channel Feeds, Media Enclosures, OpenGraph Image fallbacks
@@ -124,12 +159,8 @@ export async function parseFeedSource(source: RssFeedSource): Promise<Aggregated
           fullText.match(/<img[^>]+src=["'](.*?)["']/i) ||
           fullText.match(/&lt;img[^&]+src=&quot;(.*?)&quot;/i);
 
-        let thumbnailUrl = mediaMatch ? mediaMatch[1].trim() : null;
-
-        // If no image in XML, use curated sports fallback image so valid stories are never discarded
-        if (!thumbnailUrl || !thumbnailUrl.startsWith('http')) {
-          thumbnailUrl = categoryFallbackImages[itemIndex % categoryFallbackImages.length];
-        }
+        let rawThumbnail = mediaMatch ? mediaMatch[1].trim() : null;
+        let thumbnailUrl = enhanceThumbnailResolution(rawThumbnail, itemIndex);
 
         if (title && sourceUrl) {
           items.push({

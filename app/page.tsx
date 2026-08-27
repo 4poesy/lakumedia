@@ -13,6 +13,7 @@ import { getAggregatedNews } from '@/lib/rss-service';
 import { Activity, Flame, Globe } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export default async function SportsRootHomePage() {
   let rawArticles: any[] = [];
