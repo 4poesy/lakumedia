@@ -68,7 +68,7 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
 }
 
-/* Infinite Marquee Animation for Top Live Scores Bar */
+/* Infinite Marquee Animation for Top Live Scores Bar (Reduced Speed for Easy Reading) */
 @keyframes ticker-marquee {
   0% {
     transform: translateX(0%);
@@ -81,7 +81,7 @@ body {
 .animate-ticker {
   display: flex;
   width: max-content;
-  animation: ticker-marquee 30s linear infinite;
+  animation: ticker-marquee 90s linear infinite;
 }
 
 .animate-ticker:hover {
@@ -101,20 +101,33 @@ body {
 .animate-league-ticker {
   display: flex;
   width: max-content;
-  animation: league-marquee 35s linear infinite;
+  animation: league-marquee 60s linear infinite;
 }
 
 .animate-league-ticker:hover {
   animation-play-state: paused;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  height: 0px;
-  width: 0px;
-  display: none;
+/* Sleek High-Visibility Custom Vertical Scrollbar */
+html {
+  overflow-y: scroll;
 }
-* {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D9541E;
+  border-radius: 5px;
+  border: 2px solid #0f172a;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #f97316;
 }
