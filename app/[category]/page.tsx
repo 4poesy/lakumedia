@@ -305,29 +305,30 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <span className="text-emerald-700 font-extrabold">{humanizedTitle}</span>
       </nav>
 
-      {/* Rich Visual Hero Header Banner for Category Pages with top-anchored object position */}
-      <div className="relative rounded-3xl overflow-hidden border-2 border-slate-800 shadow-2xl min-h-[260px] sm:min-h-[300px] flex items-center bg-slate-950">
+      {/* Rich Dynamic Visual Hero Header Banner for Category Pages */}
+      <div className="relative rounded-3xl overflow-hidden border-2 border-slate-800 shadow-2xl min-h-[280px] sm:min-h-[340px] flex items-center bg-slate-950">
         <Image
-          src={heroBgImage}
+          src={leadArticle?.cover_image_url || heroBgImage}
           alt={`${humanizedTitle} Hero Banner`}
           fill
-          className="object-cover object-[center_20%]"
+          className="object-cover object-[center_20%] transition-transform duration-700 hover:scale-105"
+          style={{ filter: 'contrast(1.06) brightness(1.02) saturate(1.05)', imageRendering: 'crisp-edges' }}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent" />
         
         <div className="relative z-10 p-6 sm:p-10 space-y-3 max-w-2xl text-white">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#D9541E] text-white font-extrabold text-[10px] uppercase tracking-widest shadow-md">
-            <Trophy className="w-3.5 h-3.5" />
-            <span>LAKU SPORTS CATEGORY HUB</span>
+            <Trophy className="w-3.5 h-3.5 text-white" />
+            <span>LIVE {humanizedTitle.toUpperCase()} HEADLINE WIRE</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-black uppercase tracking-tight text-white drop-shadow-xl leading-tight">
-            {humanizedTitle}
+          <h1 className="text-2xl sm:text-4xl font-black tracking-tight leading-tight uppercase text-white drop-shadow-md">
+            {leadArticle?.title || humanizedTitle}
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-200 font-medium leading-relaxed drop-shadow-md">
-            Latest breaking news, live match reports, tactical breakdowns, and transfer updates for {humanizedTitle}.
+          <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed font-medium">
+            {leadArticle?.excerpt || `Comprehensive coverage, match statistics, player transfers, and exclusive commentary for ${humanizedTitle}.`}
           </p>
 
           {/* Sub-Category Filter Pills */}

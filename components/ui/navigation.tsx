@@ -147,19 +147,12 @@ export function Navigation() {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Clean & Uncluttered */}
           <div className="md:hidden flex items-center space-x-2">
             <button
-              onClick={() => alert('📻 Laku Media Radio is streaming live!')}
-              className="px-2.5 py-1 rounded-lg text-[10px] font-black bg-amber-400 text-slate-950 flex items-center space-x-1"
-            >
-              <Radio className="w-3 h-3 animate-pulse" />
-              <span>RADIO</span>
-            </button>
-
-            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-lg text-white hover:text-[#D9541E] hover:bg-slate-800 focus:outline-none"
+              className="p-2 rounded-xl text-white hover:text-[#D9541E] hover:bg-slate-800/80 focus:outline-none border border-slate-700/50"
+              aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -341,14 +334,25 @@ export function Navigation() {
               </Link>
             );
           })}
-          <div className="pt-4 border-t border-slate-200">
+          <div className="pt-4 border-t border-slate-200 space-y-2">
+            <button
+              onClick={() => {
+                alert('📻 Laku Media Radio is streaming live sports commentary 24/7!');
+                setMobileMenuOpen(false);
+              }}
+              className="w-full text-center px-4 py-2.5 rounded-lg text-sm font-black bg-amber-400 text-slate-950 flex items-center justify-center space-x-2 shadow-sm"
+            >
+              <Radio className="w-4 h-4 text-slate-950 animate-pulse" />
+              <span>LISTEN TO LAKU RADIO 📻</span>
+            </button>
+
             <Link
               href="/sign-in"
               prefetch={true}
               onClick={() => setMobileMenuOpen(false)}
               className="w-full block text-center px-4 py-2.5 rounded-lg text-sm font-bold bg-[#2A2E7F] text-white"
             >
-              Sign In
+              Sign In / Account
             </Link>
           </div>
         </div>

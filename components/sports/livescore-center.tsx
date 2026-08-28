@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight, Trophy, BarChart2, Shield, Layers, Award, CheckCircle2 } from 'lucide-react';
 import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
+import { getLiveStandingsForLeague, RealStandingsTeam } from '@/lib/live-standings-service';
 
 export interface MatchFixtureItem {
   id: string;
@@ -50,6 +51,15 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'h2h' | 'table'>>({});
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
+  const [realStandings, setRealStandings] = useState<RealStandingsTeam[]>([]);
+
+  React.useEffect(() => {
+    let isMounted = true;
+    getLiveStandingsForLeague(activeStandingsLeague).then((data) => {
+      if (isMounted) setRealStandings(data);
+    });
+    return () => { isMounted = false; };
+  }, [activeStandingsLeague]);
 
   // 24/7 Automated Ingestion & Live Auto-Polling Engine (Triggers on mount & every 60s)
   React.useEffect(() => {
@@ -676,7 +686,19 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800 font-bold text-xs">
-                {currentStandingsData.rows.map((row: any) => (
+                {(realStandings.length > 0 ? realStandings.map(s => ({
+                  rank: s.rank,
+                  team: s.team,
+                  mp: s.played,
+                  w: s.won,
+                  d: s.drawn,
+                  l: s.lost,
+                  gf: s.goalsFor,
+                  ga: s.goalsAgainst,
+                  gd: s.goalDifference >= 0 ? `+${s.goalDifference}` : `${s.goalDifference}`,
+                  pts: s.points,
+                  form: s.form,
+                })) : currentStandingsData.rows).map((row: any) => (
                   <tr key={row.rank} className="hover:bg-slate-800/50 transition-colors">
                     <td className="p-3 text-center font-mono text-slate-400 font-black">{row.rank}</td>
                     <td className="p-3 font-extrabold text-white flex items-center gap-2">

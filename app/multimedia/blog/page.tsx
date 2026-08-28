@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { STUDIO_BLOG_POSTS, STUDIO_BLOG_CATEGORIES } from '@/lib/studio-blog-data';
 import { Film, Calendar, User, Clock, ArrowRight, Tag, Search, Sparkles, BookOpen, UserCheck, Mail, Flame } from 'lucide-react';
+import { StudioNewsletterForm } from '@/components/multimedia/studio-newsletter-form';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -252,28 +253,7 @@ export default function StudioBlogMainPage() {
           </div>
 
           {/* Newsletter Box */}
-          <div className="bg-gradient-to-br from-[#2A2E7F] to-[#0F172A] rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-2 text-amber-400 text-xs font-black uppercase tracking-wider">
-              <Mail className="w-4 h-4" /> VIP Studio Newsletter
-            </div>
-            <h4 className="text-base font-black text-white">Subscribe to Production Case Studies</h4>
-            <p className="text-xs text-slate-300 font-medium leading-relaxed">
-              Get technical whitepapers, OB Van satellite engineering breakdowns, and behind-the-scenes cinema guides delivered directly to your inbox.
-            </p>
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-3">
-              <input
-                type="email"
-                placeholder="Enter your email address..."
-                className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#D9541E]"
-              />
-              <button
-                type="submit"
-                className="w-full bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-xs py-2.5 rounded-xl uppercase tracking-wider transition-colors shadow-md"
-              >
-                SUBSCRIBE NOW
-              </button>
-            </form>
-          </div>
+          <StudioNewsletterForm />
 
         </div>
 
