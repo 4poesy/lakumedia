@@ -378,42 +378,23 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         </div>
       </div>
 
-      {/* Real-Time Live Feed Mode Toggle Bar */}
-      <div className="bg-[#141824] p-3 px-6 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center space-x-2">
-          <button
-            type="button"
-            onClick={() => setViewMode('widget')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-              viewMode === 'widget'
-                ? 'bg-[#D9541E] text-white shadow-lg border border-orange-400'
-                : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
-            }`}
-          >
-            <Radio className="w-4 h-4 text-amber-300 animate-pulse" />
-            <span>REAL-TIME LIVE SCORE STREAM (100% INSTANT)</span>
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setViewMode('native')}
-            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
-              viewMode === 'native'
-                ? 'bg-[#D9541E] text-white shadow-lg border border-orange-400'
-                : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
-            }`}
-          >
-            <Trophy className="w-4 h-4 text-emerald-400" />
-            <span>NATIVE MATCHES & LEAGUE TABLES</span>
-          </button>
-        </div>
+      {/* Section 1: Real-Time Instant Score Stream (Unified Stack Layout) */}
+      <div className="p-4 sm:p-6 pb-0">
+        <FlashscoreWidget />
       </div>
 
-      {viewMode === 'widget' && (
-        <div className="p-4 sm:p-6">
-          <FlashscoreWidget />
+      {/* Section Header: Native Match Center & Verified Standings */}
+      <div className="bg-[#141824] p-3 px-6 border-y border-slate-800 flex items-center justify-between">
+        <div className="flex items-center space-x-2">
+          <Trophy className="w-4 h-4 text-emerald-400" />
+          <span className="text-xs font-black uppercase tracking-wider text-white">
+            VERIFIED NATIVE MATCH CENTER & LEAGUE TABLES
+          </span>
         </div>
-      )}
+        <span className="text-[10px] font-bold text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
+          DUAL-SOURCE CROSS-VALIDATED
+        </span>
+      </div>
 
       {/* Date Switcher Bar */}
       <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
