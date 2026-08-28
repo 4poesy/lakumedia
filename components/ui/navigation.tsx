@@ -41,19 +41,25 @@ export function Navigation() {
   const currentNavLinks = isMultimedia ? multimediaNavLinks : sportsNavLinks;
 
   const leagueQuickFilters = [
-    { label: 'SUPER EAGLES', href: '/world-football', icon: '/leagues/supereagles.jpg' },
-    { label: 'WORLD CUP 2026', href: '/world-football', icon: '/leagues/worldcup2026.png' },
-    { label: 'NPFL', href: '/npfl', icon: '/leagues/npfl.jpg' },
-    { label: 'AFCON', href: '/world-football', icon: '/leagues/afcon.png' },
-    { label: 'UCL', href: '/world-football', icon: '/leagues/ucl.png' },
-    { label: 'EPL', href: '/epl', icon: '/leagues/epl.png' },
-    { label: 'LA LIGA', href: '/world-football', icon: '/leagues/laliga.png' },
-    { label: 'SERIE A', href: '/world-football', icon: '/leagues/seriea.png' },
-    { label: 'BUNDESLIGA', href: '/world-football', icon: '/leagues/bundesliga.png' },
-    { label: 'LIGUE 1', href: '/world-football', icon: '/leagues/ligue1.jpg' },
-    { label: 'MLS', href: '/world-football', icon: '/leagues/mls.jpg' },
-    { label: 'SAUDI PRO LEAGUE', href: '/world-football', icon: '/leagues/spl.png' },
-    { label: 'TURKISH SÜPER LIG', href: '/world-football', icon: '/leagues/turkishsuperlig.png' },
+    { label: 'SUPER EAGLES', href: '/leagues/afcon', icon: '/leagues/supereagles.jpg' },
+    { label: 'WORLD CUP 2026', href: '/leagues/world-cup-2026', icon: '/leagues/worldcup2026.png' },
+    { label: 'NPFL', href: '/leagues/npfl', icon: '/leagues/npfl.jpg' },
+    { label: 'AFCON', href: '/leagues/afcon', icon: '/leagues/afcon.png' },
+    { label: 'UCL', href: '/leagues/ucl', icon: '/leagues/ucl.png' },
+    { label: 'EPL', href: '/leagues/epl', icon: '/leagues/epl.png' },
+    { label: 'LA LIGA', href: '/leagues/laliga', icon: '/leagues/laliga.png' },
+    { label: 'SERIE A', href: '/leagues/seriea', icon: '/leagues/seriea.png' },
+    { label: 'BUNDESLIGA', href: '/leagues/bundesliga', icon: '/leagues/bundesliga.png' },
+    { label: 'LIGUE 1', href: '/leagues/ligue1', icon: '/leagues/ligue1.jpg' },
+    { label: 'MLS', href: '/leagues/mls', icon: '/leagues/mls.jpg' },
+    { label: 'SAUDI PRO LEAGUE', href: '/leagues/saudi', icon: '/leagues/spl.png' },
+    { label: 'TURKISH SÜPER LIG', href: '/leagues/superlig', icon: '/leagues/turkishsuperlig.png' },
+    { label: 'EREDIVISIE', href: '/leagues/eredivisie', icon: '/leagues/eredivisie.png' },
+    { label: 'LIGA PORTUGAL', href: '/leagues/liga-portugal', icon: '/leagues/portugal.png' },
+    { label: 'SCOTTISH PREMIERSHIP', href: '/leagues/scottish', icon: '/leagues/scottish.png' },
+    { label: 'BRASILEIRÃO', href: '/leagues/brasileirao', icon: '/leagues/brasileirao.png' },
+    { label: 'LIGA ARGENTINA', href: '/leagues/liga-argentina', icon: '/leagues/argentina.png' },
+    { label: 'LIGA MX', href: '/leagues/liga-mx', icon: '/leagues/ligamx.png' },
   ];
 
   const infiniteLeagueFilters = [...leagueQuickFilters, ...leagueQuickFilters];
@@ -62,34 +68,34 @@ export function Navigation() {
     {
       continent: 'EUROPE (UEFA)',
       leagues: [
-        { name: 'Premier League (EPL)', subs: ['EFL Championship', 'League One', 'League Two', 'FA Cup', 'Carabao Cup'], href: '/epl' },
-        { name: 'La Liga (Spain)', subs: ['La Liga EA Sports', 'La Liga Hypermotion', 'Copa del Rey'], href: '/world-football' },
-        { name: 'Serie A (Italy)', subs: ['Serie A Enilive', 'Serie B', 'Coppa Italia'], href: '/world-football' },
-        { name: 'Bundesliga (Germany)', subs: ['Bundesliga', '2. Bundesliga', 'DFB-Pokal'], href: '/world-football' },
-        { name: 'Ligue 1 (France)', subs: ['Ligue 1 McDonald\'s', 'Ligue 2', 'Coupe de France'], href: '/world-football' },
-        { name: 'Süper Lig (Turkey)', subs: ['TFF Süper Lig', 'TFF 1. Lig', 'Turkish Cup'], href: '/world-football' },
-        { name: 'UEFA Tournaments', subs: ['UEFA Champions League', 'UEFA Europa League', 'UEFA Conference League'], href: '/world-football' },
+        { name: 'Premier League (EPL)', subs: ['EFL Championship', 'League One', 'League Two', 'FA Cup', 'Carabao Cup'], href: '/leagues/epl' },
+        { name: 'La Liga (Spain)', subs: ['La Liga EA Sports', 'La Liga Hypermotion', 'Copa del Rey'], href: '/leagues/laliga' },
+        { name: 'Serie A (Italy)', subs: ['Serie A Enilive', 'Serie B', 'Coppa Italia'], href: '/leagues/seriea' },
+        { name: 'Bundesliga (Germany)', subs: ['Bundesliga', '2. Bundesliga', 'DFB-Pokal'], href: '/leagues/bundesliga' },
+        { name: 'Ligue 1 (France)', subs: ['Ligue 1 McDonald\'s', 'Ligue 2', 'Coupe de France'], href: '/leagues/ligue1' },
+        { name: 'Süper Lig (Turkey)', subs: ['TFF Süper Lig', 'TFF 1. Lig', 'Turkish Cup'], href: '/leagues/superlig' },
+        { name: 'UEFA Tournaments', subs: ['UEFA Champions League', 'UEFA Europa League', 'UEFA Conference League'], href: '/leagues/ucl' },
       ],
     },
     {
       continent: 'AFRICA (CAF)',
       leagues: [
-        { name: 'Nigeria Football', subs: ['NPFL Premier League', 'NNL National League', 'Federation Cup'], href: '/npfl' },
-        { name: 'CAF Competitions', subs: ['Africa Cup of Nations (AFCON)', 'CAF Champions League', 'CAF Confederation Cup'], href: '/world-football' },
+        { name: 'Nigeria Football', subs: ['NPFL Premier League', 'NNL National League', 'Federation Cup'], href: '/leagues/npfl' },
+        { name: 'CAF Competitions', subs: ['Africa Cup of Nations (AFCON)', 'CAF Champions League', 'CAF Confederation Cup'], href: '/leagues/afcon' },
       ],
     },
     {
       continent: 'AMERICAS (CONCACAF & CONMEBOL)',
       leagues: [
-        { name: 'USA & MLS', subs: ['Major League Soccer (MLS)', 'USL Championship', 'US Open Cup'], href: '/world-football' },
-        { name: 'South America', subs: ['Copa Libertadores', 'Copa Sudamericana', 'Brazil Serie A', 'Argentina Liga Profesional'], href: '/world-football' },
+        { name: 'USA & MLS', subs: ['Major League Soccer (MLS)', 'USL Championship', 'US Open Cup'], href: '/leagues/mls' },
+        { name: 'South America', subs: ['Copa Libertadores', 'Copa Sudamericana', 'Brazil Serie A', 'Argentina Liga Profesional'], href: '/leagues/brasileirao' },
       ],
     },
     {
       continent: 'ASIA & MIDDLE EAST (AFC)',
       leagues: [
-        { name: 'Saudi Arabia', subs: ['Saudi Pro League (Roshn)', 'King Cup'], href: '/world-football' },
-        { name: 'AFC Champions League', subs: ['AFC Champions League Elite', 'AFC Cup'], href: '/world-football' },
+        { name: 'Saudi Arabia', subs: ['Saudi Pro League (Roshn)', 'King Cup'], href: '/leagues/saudi' },
+        { name: 'AFC Champions League', subs: ['AFC Champions League Elite', 'AFC Cup'], href: '/leagues/saudi' },
       ],
     },
   ];
