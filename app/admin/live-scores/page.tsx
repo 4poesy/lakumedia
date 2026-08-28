@@ -39,7 +39,7 @@ export default function AdminLiveScoresPage() {
         },
         {
           id: '30000000-0000-0000-0000-000000000002',
-          home_team: { name: 'Rangers International' },
+          home_team: { name: 'Enugu Rangers' },
           away_team: { name: 'Remo Stars' },
           league: { name: 'NPFL Premier League' },
           home_score: 1,

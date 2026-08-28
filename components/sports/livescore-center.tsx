@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight, Trophy, BarChart2, Shield, Layers, Award, CheckCircle2 } from 'lucide-react';
 import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
 import { getLiveStandingsForLeague, RealStandingsTeam } from '@/lib/live-standings-service';
+import { FlashscoreWidget } from '@/components/sports/flashscore-widget';
+import { Radio, Zap } from 'lucide-react';
 
 export interface MatchFixtureItem {
   id: string;
@@ -42,6 +44,7 @@ interface LiveScoreCenterProps {
 }
 
 export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
+  const [viewMode, setViewMode] = useState<'widget' | 'native'>('widget');
   const [activeTab, setActiveTab] = useState<'all' | 'live' | 'finished' | 'scheduled' | 'favorites'>('all');
   const [selectedLeague, setSelectedLeague] = useState<string>('all');
   const [selectedDate, setSelectedDate] = useState<'yesterday' | 'today' | 'tomorrow'>('today');
@@ -344,24 +347,6 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
 
         {/* Header Right Controls */}
         <div className="flex flex-wrap items-center space-x-3 w-full md:w-auto">
-          <button
-            type="button"
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className="px-4 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 shrink-0 cursor-pointer"
-          >
-            {isDarkMode ? (
-              <>
-                <Sun className="w-4 h-4 text-amber-300" />
-                <span>SWITCH TO LIGHT MODE ☀️</span>
-              </>
-            ) : (
-              <>
-                <Moon className="w-4 h-4 text-slate-100" />
-                <span>SWITCH TO DARK MODE 🌙</span>
-              </>
-            )}
-          </button>
-
           <div className="relative flex-1 md:w-64 min-w-[200px]">
             <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
             <input
@@ -372,8 +357,63 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
               className="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[#D9541E] font-medium"
             />
           </div>
+
+          <button
+            type="button"
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="px-4 py-2 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform active:scale-95 border border-orange-400 shrink-0 cursor-pointer"
+          >
+            {isDarkMode ? (
+              <>
+                <Sun className="w-4 h-4 text-amber-300" />
+                <span>LIGHT MODE ☀️</span>
+              </>
+            ) : (
+              <>
+                <Moon className="w-4 h-4 text-slate-100" />
+                <span>DARK MODE 🌙</span>
+              </>
+            )}
+          </button>
         </div>
       </div>
+
+      {/* Real-Time Live Feed Mode Toggle Bar */}
+      <div className="bg-[#141824] p-3 px-6 border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+        <div className="flex items-center space-x-2">
+          <button
+            type="button"
+            onClick={() => setViewMode('widget')}
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+              viewMode === 'widget'
+                ? 'bg-[#D9541E] text-white shadow-lg border border-orange-400'
+                : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+            }`}
+          >
+            <Radio className="w-4 h-4 text-amber-300 animate-pulse" />
+            <span>REAL-TIME LIVE SCORE STREAM (100% INSTANT)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setViewMode('native')}
+            className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer ${
+              viewMode === 'native'
+                ? 'bg-[#D9541E] text-white shadow-lg border border-orange-400'
+                : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+            }`}
+          >
+            <Trophy className="w-4 h-4 text-emerald-400" />
+            <span>NATIVE MATCHES & LEAGUE TABLES</span>
+          </button>
+        </div>
+      </div>
+
+      {viewMode === 'widget' && (
+        <div className="p-4 sm:p-6">
+          <FlashscoreWidget />
+        </div>
+      )}
 
       {/* Date Switcher Bar */}
       <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
