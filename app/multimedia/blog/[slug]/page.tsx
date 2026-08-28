@@ -131,7 +131,7 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
   };
 
   return (
-    <article className="space-y-10 text-slate-100 max-w-7xl mx-auto">
+    <article className="space-y-10 text-slate-900 bg-white min-h-screen max-w-7xl mx-auto">
       {/* Schema.org Injections */}
       <script
         type="application/ld+json"
@@ -143,12 +143,12 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
       />
 
       {/* Top Breadcrumb Navigation */}
-      <nav className="flex items-center space-x-2 text-xs font-extrabold uppercase tracking-wider text-slate-400">
-        <Link href="/multimedia" className="hover:text-white transition-colors">
+      <nav className="flex items-center space-x-2 text-xs font-extrabold uppercase tracking-wider text-slate-500">
+        <Link href="/multimedia" className="hover:text-slate-900 transition-colors">
           Studio Home
         </Link>
         <span>/</span>
-        <Link href="/multimedia/blog" className="hover:text-white transition-colors">
+        <Link href="/multimedia/blog" className="hover:text-slate-900 transition-colors">
           Blog
         </Link>
         <span>/</span>
@@ -156,7 +156,7 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
       </nav>
 
       {/* Article Header Section */}
-      <header className="space-y-6 bg-[#090A0F] p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl">
+      <header className="space-y-6 bg-[#090A0F] p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-2xl text-white">
         <div className="flex flex-wrap items-center gap-3">
           <span className="px-3 py-1 rounded bg-[#D9541E] text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md">
             <Tag className="w-3.5 h-3.5" /> {post.category}
@@ -208,26 +208,26 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
 
       {/* Article Body & Sidebar Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        
+
         {/* Main Article Content (2 Cols) */}
         <div className="lg:col-span-2 space-y-10">
-          
+
           {/* Yoast SEO Article Content Container */}
           <div
-            className="prose prose-invert max-w-none prose-headings:font-black prose-headings:text-white prose-p:text-slate-300 prose-p:leading-relaxed prose-p:text-sm sm:prose-p:text-base prose-li:text-slate-300 prose-strong:text-white prose-blockquote:border-l-[#D9541E] bg-[#0F172A] p-6 sm:p-10 rounded-3xl border border-slate-800 shadow-xl space-y-6"
+            className="prose prose-slate max-w-none prose-headings:font-black prose-headings:text-slate-900 prose-p:text-slate-700 prose-p:leading-relaxed prose-p:text-sm sm:prose-p:text-base prose-li:text-slate-700 prose-strong:text-slate-900 prose-blockquote:border-l-[#D9541E] bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl space-y-6"
             dangerouslySetInnerHTML={{ __html: post.content }}
           />
 
           {/* Tag Cloud */}
-          <div className="bg-[#0F172A] p-6 rounded-3xl border border-slate-800 shadow-xl space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
+          <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-md space-y-3">
+            <h4 className="text-xs font-black uppercase tracking-wider text-slate-500 flex items-center gap-1.5">
               <Tag className="w-4 h-4 text-[#D9541E]" /> Article Keywords & Tags
             </h4>
             <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-3 py-1 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 hover:border-[#D9541E] transition-colors"
+                  className="px-3 py-1 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold border border-slate-200 hover:border-[#D9541E] transition-colors"
                 >
                   #{tag}
                 </span>
@@ -242,39 +242,39 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
 
         {/* Sidebar (1 Col) */}
         <div className="space-y-8">
-          
+
           {/* Executive Author Profile Card */}
-          <div className="bg-[#0F172A] rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-              <div className="w-12 h-12 rounded-full bg-[#2A2E7F] border-2 border-[#D9541E] flex items-center justify-center text-white font-black text-sm shrink-0">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+            <div className="flex items-center gap-3 border-b border-slate-100 pb-3">
+              <div className="w-12 h-12 rounded-full bg-[#2A2E7F] border-2 border-[#D9541E] flex items-center justify-center text-white font-black text-sm shrink-0 shadow-sm">
                 AO
               </div>
               <div>
-                <h4 className="text-sm font-black text-white">{post.author.name}</h4>
+                <h4 className="text-sm font-black text-slate-900">{post.author.name}</h4>
                 <p className="text-[11px] text-[#D9541E] font-bold">Executive Author & CEO</p>
               </div>
             </div>
-            <p className="text-xs text-slate-300 font-medium leading-relaxed">
+            <p className="text-xs text-slate-600 font-medium leading-relaxed">
               {post.author.bio}
             </p>
-            <div className="pt-2 text-[11px] text-slate-400 font-bold flex items-center gap-1 bg-slate-900 p-2.5 rounded-xl border border-slate-800">
-              <UserCheck className="w-4 h-4 text-emerald-400" /> Executive Office: Laku Media Complex
+            <div className="pt-2 text-[11px] text-slate-700 font-bold flex items-center gap-1 bg-slate-50 p-2.5 rounded-xl border border-slate-200">
+              <UserCheck className="w-4 h-4 text-[#D9541E]" /> Executive Office: Laku Media Complex
             </div>
           </div>
 
           {/* Categories Sidebar */}
-          <div className="bg-[#0F172A] rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <h3 className="text-sm font-black uppercase tracking-wider text-white border-b border-slate-800 pb-3 flex items-center gap-2">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+            <h3 className="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
               <Tag className="w-4 h-4 text-[#D9541E]" /> Studio Categories
             </h3>
 
-            <ul className="space-y-2 text-xs font-extrabold text-slate-300">
+            <ul className="space-y-2 text-xs font-extrabold text-slate-700">
               {STUDIO_BLOG_CATEGORIES.map((cat) => (
-                <li key={cat.slug} className="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-800/80 transition-colors cursor-pointer border border-transparent hover:border-slate-700">
+                <li key={cat.slug} className="flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer border border-transparent hover:border-slate-200">
                   <span className="flex items-center gap-2">
                     <span className="w-2 h-2 rounded-full bg-[#D9541E]" /> {cat.name}
                   </span>
-                  <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono text-[10px]">
+                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[10px] border border-slate-200">
                     {cat.count}
                   </span>
                 </li>
@@ -283,8 +283,8 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
           </div>
 
           {/* Related Articles */}
-          <div className="bg-[#0F172A] rounded-3xl p-6 border border-slate-800 shadow-xl space-y-4">
-            <h3 className="text-sm font-black uppercase tracking-wider text-white border-b border-slate-800 pb-3 flex items-center gap-2">
+          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-md space-y-4">
+            <h3 className="text-sm font-black uppercase tracking-wider text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-[#D9541E]" /> Related Studio Stories
             </h3>
 
@@ -293,13 +293,13 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
                 <Link
                   key={rPost.id}
                   href={`/multimedia/blog/${rPost.slug}`}
-                  className="block bg-slate-900 p-3 rounded-2xl border border-slate-800 hover:border-[#D9541E] transition-all space-y-1 group"
+                  className="block bg-slate-50 p-3 rounded-2xl border border-slate-200 hover:border-[#D9541E] transition-all space-y-1 group"
                 >
                   <span className="text-[10px] font-extrabold text-[#D9541E] uppercase tracking-wider">{rPost.category}</span>
-                  <h5 className="text-xs font-extrabold text-white group-hover:text-[#D9541E] line-clamp-2 transition-colors">
+                  <h5 className="text-xs font-extrabold text-slate-900 group-hover:text-[#D9541E] line-clamp-2 transition-colors">
                     {rPost.title}
                   </h5>
-                  <span className="text-[10px] text-slate-400 font-medium block pt-1">{rPost.readTime}</span>
+                  <span className="text-[10px] text-slate-500 font-medium block pt-1">{rPost.readTime}</span>
                 </Link>
               ))}
             </div>
