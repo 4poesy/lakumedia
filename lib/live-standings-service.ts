@@ -23,6 +23,15 @@ const LEAGUE_CODE_MAP: Record<string, string> = {
   bundesliga: 'ger.1',
   ligue1: 'fra.1',
   'ligue-1': 'fra.1',
+  saudi: 'sau.1',
+  'saudi-pro-league': 'sau.1',
+  ucl: 'uefa.champions',
+  'champions-league': 'uefa.champions',
+  afcon: 'caf.nations',
+  eredivisie: 'ned.1',
+  mls: 'usa.1',
+  superlig: 'tur.1',
+  scottish: 'sco.1',
 };
 
 // Real NPFL Standings Data (Full 20-Club 2025/26 Season Roster)

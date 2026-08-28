@@ -396,61 +396,70 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
         </span>
       </div>
 
-      {/* Date Switcher Bar */}
-      <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
-        <div className="flex items-center space-x-2">
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedDate('yesterday');
-              setActiveTab('all');
-            }}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
-              selectedDate === 'yesterday'
-                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
-            }`}
-          >
-            YESTERDAY (26 AUG)
-          </button>
+      {/* Date Switcher Bar (Dynamic Automatic Date Engine) */}
+      {(() => {
+        const now = new Date();
+        const yesterdayObj = new Date(now.getTime() - 86400000);
+        const tomorrowObj = new Date(now.getTime() + 86400000);
+        const fmt = (d: Date) => `${d.getDate()} ${d.toLocaleString('en-US', { month: 'short' }).toUpperCase()}`;
 
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedDate('today');
-              setActiveTab('all');
-            }}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 flex items-center gap-1.5 ${
-              selectedDate === 'today'
-                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
-            }`}
-          >
-            <span>TODAY (27 AUG)</span>
-            <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-          </button>
+        return (
+          <div className={`${theme.subHeader} px-4 sm:px-8 py-3 border-b flex flex-wrap items-center justify-between gap-3 text-xs font-extrabold`}>
+            <div className="flex items-center space-x-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedDate('yesterday');
+                  setActiveTab('all');
+                }}
+                className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
+                  selectedDate === 'yesterday'
+                    ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
+                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                }`}
+              >
+                YESTERDAY ({fmt(yesterdayObj)})
+              </button>
 
-          <button
-            type="button"
-            onClick={() => {
-              setSelectedDate('tomorrow');
-              setActiveTab('all');
-            }}
-            className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
-              selectedDate === 'tomorrow'
-                ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
-                : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
-            }`}
-          >
-            TOMORROW (28 AUG)
-          </button>
-        </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedDate('today');
+                  setActiveTab('all');
+                }}
+                className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 flex items-center gap-1.5 ${
+                  selectedDate === 'today'
+                    ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
+                    : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                }`}
+              >
+                <span>TODAY ({fmt(now)})</span>
+                <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+              </button>
 
-        <div className="flex items-center gap-2 text-slate-400 text-xs font-mono">
-          <Calendar className="w-4 h-4 text-[#D9541E]" />
-          <span>SHOWING {selectedDate.toUpperCase()} MATCHES</span>
-        </div>
-      </div>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedDate('tomorrow');
+                  setActiveTab('all');
+                }}
+                className={`px-4 py-2 rounded-xl transition-all cursor-pointer select-none active:scale-95 ${
+                  selectedDate === 'tomorrow'
+                    ? 'bg-[#D9541E] text-white shadow-md font-black border border-orange-400'
+                    : 'bg-slate-800 text-slate-700 border border-slate-700'
+                }`}
+              >
+                TOMORROW ({fmt(tomorrowObj)})
+              </button>
+            </div>
+
+            <div className="flex items-center gap-2 text-slate-400 text-xs font-mono">
+              <Calendar className="w-4 h-4 text-[#D9541E]" />
+              <span>SHOWING {selectedDate.toUpperCase()} MATCHES</span>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Main Fixture Listing Area Grouped By League */}
       <div className="p-4 sm:p-8 space-y-6">

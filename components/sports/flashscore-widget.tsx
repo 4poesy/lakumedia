@@ -55,19 +55,25 @@ export function FlashscoreWidget({ initialLeague = 'all' }: FlashscoreWidgetProp
       <div className="px-4 sm:px-6 pt-2 flex items-center space-x-2 overflow-x-auto">
         <button
           type="button"
-          onClick={() => setActiveSportTab('live')}
+          onClick={() => {
+            setActiveSportTab('live');
+            setWidgetKey(Date.now());
+          }}
           className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
             activeSportTab === 'live'
               ? 'bg-[#D9541E] text-white shadow-md border border-orange-400'
               : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
           }`}
         >
-          <Zap className="w-3.5 h-3.5 text-amber-300" /> LIVE MATCHES
+          <Zap className="w-3.5 h-3.5 text-amber-300 animate-pulse" /> LIVE MATCHES
         </button>
 
         <button
           type="button"
-          onClick={() => setActiveSportTab('all')}
+          onClick={() => {
+            setActiveSportTab('all');
+            setWidgetKey(Date.now());
+          }}
           className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
             activeSportTab === 'all'
               ? 'bg-[#D9541E] text-white shadow-md border border-orange-400'
@@ -79,7 +85,10 @@ export function FlashscoreWidget({ initialLeague = 'all' }: FlashscoreWidgetProp
 
         <button
           type="button"
-          onClick={() => setActiveSportTab('finished')}
+          onClick={() => {
+            setActiveSportTab('finished');
+            setWidgetKey(Date.now());
+          }}
           className={`px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer flex items-center gap-1.5 shrink-0 ${
             activeSportTab === 'finished'
               ? 'bg-[#D9541E] text-white shadow-md border border-orange-400'
