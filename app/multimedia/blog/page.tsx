@@ -10,14 +10,14 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Laku Media Studio Blog — Broadcast Engineering, Film & Technology Insights',
+  title: 'Laku Media Blog — Broadcast Engineering, Film & Technology Insights',
   description: 'Official production blog of Laku Media Studio Complex. Read expert insights on 4K HDR live satellite broadcasting, OB Van engineering, cinematography, and Nollywood film production.',
-  keywords: ['Laku Media Studio Blog', 'Broadcast Engineering Nigeria', '4K OB Van Satellite Uplink', 'Film Production Lagos', 'Cinematography Insights', 'Adebayo Samuel Olaku'],
+  keywords: ['Laku Media Blog', 'Broadcast Engineering Nigeria', '4K OB Van Satellite Uplink', 'Film Production Lagos', 'Cinematography Insights', 'Adebayo Samuel Olaku'],
   openGraph: {
-    title: 'Laku Media Studio Blog — Broadcast Engineering, Film & Technology Insights',
+    title: 'Laku Media Blog — Broadcast Engineering, Film & Technology Insights',
     description: 'Expert insights on 4K HDR live satellite broadcasting, OB Van engineering, cinematography, and film production.',
     url: 'https://lakumedia.vercel.app/multimedia/blog',
-    siteName: 'Laku Media Studio',
+    siteName: 'Laku Media',
     type: 'website',
   },
 };
@@ -31,12 +31,12 @@ export default function StudioBlogMainPage() {
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Blog',
-    name: 'Laku Media Studio Blog',
+    name: 'Laku Media Blog',
     description: 'Official production blog of Laku Media Studio Complex covering 4K HDR live satellite broadcasting and film production.',
     url: 'https://lakumedia.vercel.app/multimedia/blog',
     publisher: {
       '@type': 'Organization',
-      name: 'Laku Media Studio',
+      name: 'Laku Media',
       logo: {
         '@type': 'ImageObject',
         url: 'https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-symbol.jpeg',
@@ -56,7 +56,7 @@ export default function StudioBlogMainPage() {
       <div className="relative rounded-3xl p-6 sm:p-14 overflow-hidden shadow-2xl border border-slate-800 min-h-[320px] flex items-center bg-slate-950">
         <Image
           src="/assest/user_home_hero_4th_slide.jpg"
-          alt="Laku Media Studio Cinema Production"
+          alt="Laku Media Cinema Production"
           fill
           className="object-cover object-center transition-transform duration-700 hover:scale-105"
           style={{ filter: 'contrast(1.08) brightness(0.95)', imageRendering: 'crisp-edges' }}
@@ -67,7 +67,7 @@ export default function StudioBlogMainPage() {
         <div className="relative z-10 max-w-3xl space-y-4 text-white">
           <div className="flex items-center gap-2">
             <span className="px-3 py-1 rounded bg-[#D9541E] text-white text-xs font-black uppercase tracking-wider flex items-center gap-1.5 shadow-md">
-              <Film className="w-3.5 h-3.5" /> LAKU MEDIA STUDIO JOURNAL
+              <Film className="w-3.5 h-3.5" /> LAKU MEDIA BLOG
             </span>
             <span className="px-2.5 py-1 rounded bg-slate-800/90 text-amber-300 text-[11px] font-extrabold uppercase tracking-wider border border-slate-700">
               SEO Optimized Insights

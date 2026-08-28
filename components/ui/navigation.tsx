@@ -34,7 +34,7 @@ export function Navigation() {
     { href: '/multimedia/services', label: 'Services', icon: Camera, active: pathname === '/multimedia/services' },
     { href: '/multimedia/portfolio', label: 'Portfolio', icon: Briefcase, active: pathname === '/multimedia/portfolio' },
     { href: '/multimedia/pricing', label: 'Pricing', icon: DollarSign, active: pathname === '/multimedia/pricing' },
-    { href: '/multimedia/blog', label: 'Studio Blog', icon: BookOpen, active: pathname.startsWith('/multimedia/blog'), badge: 'NEW' },
+    { href: '/multimedia/blog', label: 'Blog', icon: BookOpen, active: pathname.startsWith('/multimedia/blog'), badge: 'NEW' },
     { href: '/', label: '⚽ LAKU MEDIA SPORT', icon: Trophy, active: false, badge: 'SPORTS HOME' },
   ];
 
