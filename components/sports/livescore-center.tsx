@@ -44,7 +44,7 @@ interface LiveScoreCenterProps {
 }
 
 export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
-  const [viewMode, setViewMode] = useState<'widget' | 'native'>('widget');
+  const [viewMode, setViewMode] = useState<'widget' | 'native'>('native');
   const [activeTab, setActiveTab] = useState<'all' | 'live' | 'finished' | 'scheduled' | 'favorites'>('all');
   const [selectedLeague, setSelectedLeague] = useState<string>('all');
   const [selectedDate, setSelectedDate] = useState<'yesterday' | 'today' | 'tomorrow'>('today');
