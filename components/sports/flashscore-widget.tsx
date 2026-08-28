@@ -99,18 +99,29 @@ export function FlashscoreWidget({ initialLeague = 'all' }: FlashscoreWidgetProp
         </button>
       </div>
 
-      {/* High-Availability Embed Container Frame */}
-      <div className="p-2 sm:p-4 bg-slate-950 min-h-[500px] sm:min-h-[650px] relative rounded-2xl overflow-hidden border border-slate-800">
+      {/* High-Availability Embed Container Frame with Top Header Crop */}
+      <div className="p-0 bg-slate-950 min-h-[500px] sm:min-h-[650px] relative rounded-2xl overflow-hidden border border-slate-800">
         {!iframeError ? (
-          <iframe
-            key={widgetKey}
-            src="https://www.scorebat.com/embed/g/"
-            onError={() => setIframeError(true)}
-            className="w-full h-[550px] sm:h-[700px] border-0 rounded-xl bg-slate-950"
-            title="Laku Media Live Score High-Availability Stream"
-            loading="lazy"
-            allow="autoplay; encrypted-media"
-          />
+          <div className="relative w-full h-[550px] sm:h-[700px] overflow-hidden">
+            {/* Top Overlay Mask hiding third-party promo links */}
+            <div className="absolute top-0 left-0 right-0 h-10 bg-slate-950 z-10 pointer-events-none flex items-center justify-between px-4 border-b border-slate-800/60">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-rose-500 animate-ping" />
+                <span className="text-[11px] font-black uppercase text-white tracking-wider">LAKU MEDIA OFFICIAL LIVE MATCH STREAM</span>
+              </div>
+              <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">HD 1080p STREAM</span>
+            </div>
+
+            <iframe
+              key={widgetKey}
+              src="https://www.scorebat.com/embed/g/"
+              onError={() => setIframeError(true)}
+              className="w-full h-[600px] sm:h-[750px] border-0 rounded-xl bg-slate-950 -mt-10"
+              title="Laku Media Live Score High-Availability Stream"
+              loading="lazy"
+              allow="autoplay; encrypted-media"
+            />
+          </div>
         ) : (
           <div className="p-8 text-center space-y-4 bg-slate-900 rounded-xl border border-slate-800">
             <CheckCircle2 className="w-10 h-10 text-emerald-400 mx-auto" />
