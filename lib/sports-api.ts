@@ -71,7 +71,7 @@ export function getRealGlobalMatchesFeed(): ApiMatchFixture[] {
     },
     {
       id: 'real-npfl-2',
-      homeTeam: 'Rangers International',
+      homeTeam: 'Enugu Rangers',
       awayTeam: 'Remo Stars',
       homeScore: 1,
       awayScore: 0,
@@ -111,7 +111,7 @@ export function getRealGlobalMatchesFeed(): ApiMatchFixture[] {
     {
       id: 'real-npfl-4',
       homeTeam: 'Rivers United',
-      awayTeam: 'Lobi Stars',
+      awayTeam: 'Ikorodu City FC',
       homeScore: 2,
       awayScore: 0,
       status: 'finished',

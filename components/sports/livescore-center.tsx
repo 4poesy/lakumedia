@@ -450,12 +450,17 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                     </h3>
                   </div>
 
-                  <Link
-                    href={`/leagues/${leagueSlug}`}
-                    className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1"
-                  >
-                    <span>Full League Table & Stats</span> →
-                  </Link>
+                  <div className="flex items-center space-x-3">
+                    <span className="px-2.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-wider border border-emerald-500/30 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-emerald-400" /> VERIFIED 2 SOURCES
+                    </span>
+                    <Link
+                      href={`/leagues/${leagueSlug}`}
+                      className="text-[11px] font-bold text-amber-300 hover:underline flex items-center gap-1"
+                    >
+                      <span>Full League Table & Stats</span> →
+                    </Link>
+                  </div>
                 </div>
 
                 {/* Match Rows List */}
