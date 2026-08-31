@@ -586,8 +586,10 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                         </div>
 
                         {/* Expanded Match Detail Drawer */}
-                        {isExpanded && (
-                          <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-4 animate-in fade-in duration-150">
+                        {isExpanded && (() => {
+                          const currentTab = activeDrawerTab[match.id] || 'summary';
+                          return (
+                            <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-4 animate-in fade-in duration-150">
                             {/* Drawer Nav Tabs */}
                             <div className="flex items-center space-x-2 border-b border-slate-800 pb-2">
                               <button
@@ -641,7 +643,8 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                               </div>
                             )}
                           </div>
-                        )}
+                          );
+                        })()}
 
                       </div>
                     );
