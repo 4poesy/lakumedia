@@ -200,7 +200,7 @@ export function DiasporaWatchHub({ initialPlayers, seasonString }: DiasporaWatch
               gap={24}
               radius={16}
               showArrows={true}
-              autoplay={false}
+              autoplay={true}
             />
           </div>
         ) : (

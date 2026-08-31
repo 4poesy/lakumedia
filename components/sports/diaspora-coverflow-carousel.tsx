@@ -10,7 +10,7 @@ import {
   type MotionValue,
 } from 'framer-motion';
 import { DiasporaPlayer } from '@/lib/diaspora-service';
-import { Shield, Globe, Award, ChevronRight, CheckCircle2, User } from 'lucide-react';
+import { Shield, Globe, ChevronRight, CheckCircle2, User, Sparkles } from 'lucide-react';
 
 type Sizing = {
   restWidth: number;
@@ -103,11 +103,21 @@ function Card({
   });
   const boxShadow = useTransform(pos, (p: number) =>
     Math.abs(relOf(index, p, count)) < 0.5
-      ? '0 24px 70px rgba(0,0,0,0.45), 0 0 0 1px rgba(16, 185, 129, 0.3)'
-      : '0 14px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.08)'
+      ? '0 24px 70px rgba(0,0,0,0.55), 0 0 0 1.5px rgba(16, 185, 129, 0.4)'
+      : '0 14px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)'
   );
 
-  const isCenter = useTransform(pos, (p: number) => Math.abs(relOf(index, p, count)) < 0.4);
+  // Active details fade in ONLY on center card, smoothly fading out as it slides to slat
+  const activeDetailsOpacity = useTransform(pos, (p: number) => {
+    const ar = Math.abs(relOf(index, p, count));
+    return ar < 0.35 ? 1 : ar > 0.7 ? 0 : 1 - (ar - 0.35) / 0.35;
+  });
+
+  // Slat minimal label fades in on side cards
+  const slatLabelOpacity = useTransform(pos, (p: number) => {
+    const ar = Math.abs(relOf(index, p, count));
+    return ar >= 0.5 ? 1 : 0;
+  });
 
   return (
     <motion.div
@@ -134,7 +144,7 @@ function Card({
           boxShadow,
           position: 'relative',
         }}
-        className="group"
+        className="group select-none"
       >
         {/* Background Image / Silhouette */}
         {player.photo_url && !imgError ? (
@@ -156,16 +166,16 @@ function Card({
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-900">
             <User className="w-16 h-16 text-slate-500 mb-2" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Verified Identity</span>
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Verified Star</span>
           </div>
         )}
 
-        {/* Cinematic Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
+        {/* Cinematic Vignette Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
 
         {/* Top Badges */}
-        <div className="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between pointer-events-none z-10">
-          <span className="px-2.5 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-950/80 text-emerald-400 border border-emerald-500/40 backdrop-blur-md">
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
+          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-950/80 text-emerald-400 border border-emerald-500/40 backdrop-blur-md">
             🇳🇬 Super Eagles
           </span>
           <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#D9541E] text-white shadow-sm">
@@ -173,14 +183,17 @@ function Card({
           </span>
         </div>
 
-        {/* Bottom Details (Rich display on active card, compact on slats) */}
-        <div className="absolute bottom-0 inset-x-0 p-4 sm:p-5 text-white z-10 space-y-1.5 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent">
-          <div className="flex items-center gap-1.5 text-[10px] font-extrabold text-emerald-400 uppercase tracking-wider">
+        {/* 1. ACTIVE CENTER CARD: Full Details & CTA Button */}
+        <motion.div
+          style={{ opacity: activeDetailsOpacity }}
+          className="absolute bottom-0 inset-x-0 p-5 text-white z-10 space-y-2 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pointer-events-auto"
+        >
+          <div className="flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">
             <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
             <span>{player.position}</span>
           </div>
 
-          <h3 className="text-base sm:text-xl font-black uppercase tracking-tight text-white line-clamp-1 drop-shadow">
+          <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white drop-shadow">
             {player.name}
           </h3>
 
@@ -196,10 +209,10 @@ function Card({
             </span>
           </div>
 
-          {/* Action CTA Button */}
           <div className="pt-2 flex items-center justify-between">
-            <span className="text-[10px] font-mono text-slate-400">
-              {seasonString}
+            <span className="text-[10px] font-mono text-slate-400 font-bold flex items-center gap-1">
+              <Sparkles className="w-3 h-3 text-amber-400" />
+              {seasonString} Scope
             </span>
 
             <button
@@ -208,13 +221,26 @@ function Card({
                 e.stopPropagation();
                 onOpenDossier(player);
               }}
-              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#10B981] hover:bg-emerald-400 text-slate-950 text-xs font-black shadow-lg transition-all active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <span>View Dossier</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
-        </div>
+        </motion.div>
+
+        {/* 2. SIDE SLAT: Clean, uncluttered name label */}
+        <motion.div
+          style={{ opacity: slatLabelOpacity }}
+          className="absolute bottom-0 inset-x-0 p-3 text-white z-10 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pointer-events-none text-center"
+        >
+          <p className="text-xs font-black uppercase tracking-tight text-white truncate drop-shadow">
+            {player.name}
+          </p>
+          <p className="text-[9px] text-slate-400 font-bold truncate">
+            {player.current_club}
+          </p>
+        </motion.div>
       </motion.div>
     </motion.div>
   );
@@ -255,7 +281,7 @@ function ArrowButton({
         width: size,
         height: size,
         borderRadius: '50%',
-        border: '1px solid rgba(255, 255, 255, 0.2)',
+        border: '1.5px solid rgba(255, 255, 255, 0.25)',
         background,
         color,
         display: 'flex',
@@ -264,7 +290,7 @@ function ArrowButton({
         cursor: 'pointer',
         padding: 0,
         zIndex: 2000,
-        boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+        boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
         WebkitTapHighlightColor: 'transparent',
       }}
       className="hover:scale-110 active:scale-95 transition-transform"
@@ -305,14 +331,14 @@ export function DiasporaCoverflowCarousel({
   players,
   seasonString,
   onOpenDossier,
-  activeWidth = 520,
-  activeHeight = 360,
-  restWidth = 190,
+  activeWidth = 560,
+  activeHeight = 380,
+  restWidth = 175,
   restHeight = 280,
-  gap = 26,
+  gap = 24,
   radius = 16,
   showArrows = true,
-  autoplay = false,
+  autoplay = true,
   autoplayDirection = 'rightToLeft',
 }: DiasporaCoverflowCarouselProps) {
   const prefersReducedMotion = useReducedMotion();
@@ -330,7 +356,8 @@ export function DiasporaCoverflowCarousel({
   const rafRef = useRef<number | null>(null);
   const lastTRef = useRef<number | null>(null);
   const autoplayingRef = useRef(false);
-  const dirRef = useRef(1);
+  const isHoveredRef = useRef(false);
+  const dirRef = useRef(autoplayDirection === 'leftToRight' ? -1 : 1);
   const dwellAccRef = useRef(0);
   const reducedRef = useRef(prefersReducedMotion);
   reducedRef.current = prefersReducedMotion;
@@ -343,18 +370,23 @@ export function DiasporaCoverflowCarousel({
 
       const cur = pos.get();
       const diff = targetRef.current - cur;
-      const dur = 0.35;
+      const dur = 0.45;
       const step = (1 / dur) * dt;
       const arriving = reducedRef.current || Math.abs(diff) <= step;
 
       if (arriving) {
         pos.set(targetRef.current);
-        if (autoplayingRef.current) {
+        if (autoplayingRef.current && !isHoveredRef.current) {
           dwellAccRef.current += dt;
-          if (dwellAccRef.current >= 2.5) {
+          // 2.2 seconds dwell time between automatic slides
+          if (dwellAccRef.current >= 2.2) {
             dwellAccRef.current = 0;
             targetRef.current += dirRef.current;
           }
+          rafRef.current = requestAnimationFrame(tick);
+          return;
+        } else if (autoplayingRef.current && isHoveredRef.current) {
+          // Keep ticking while hovered so timer resets smoothly
           rafRef.current = requestAnimationFrame(tick);
           return;
         }
@@ -378,11 +410,13 @@ export function DiasporaCoverflowCarousel({
 
   const goNext = useCallback(() => {
     targetRef.current += 1;
+    dwellAccRef.current = 0;
     ensureRunning();
   }, [ensureRunning]);
 
   const goPrev = useCallback(() => {
     targetRef.current -= 1;
+    dwellAccRef.current = 0;
     ensureRunning();
   }, [ensureRunning]);
 
@@ -393,33 +427,26 @@ export function DiasporaCoverflowCarousel({
       d = ((d % count) + count) % count;
       if (d > count / 2) d -= count;
       targetRef.current = cur + d;
+      dwellAccRef.current = 0;
       ensureRunning();
     },
     [ensureRunning, count]
   );
 
+  // Initialize and run autoplay immediately on mount
   useEffect(() => {
+    autoplayingRef.current = autoplay && count > 1;
+    dirRef.current = autoplayDirection === 'leftToRight' ? -1 : 1;
+    dwellAccRef.current = 0;
+    ensureRunning();
+
     return () => {
       if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     };
-  }, []);
-
-  useEffect(() => {
-    const on = autoplay && count > 1;
-    autoplayingRef.current = on;
-    if (on) {
-      dirRef.current = autoplayDirection === 'leftToRight' ? -1 : 1;
-      dwellAccRef.current = 0;
-      ensureRunning();
-    }
-    return () => {
-      autoplayingRef.current = false;
-    };
   }, [autoplay, autoplayDirection, count, ensureRunning]);
 
-  // Keyboard Navigation
-  const isHoveredRef = useRef(false);
+  // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (!isHoveredRef.current) return;
@@ -443,8 +470,10 @@ export function DiasporaCoverflowCarousel({
       }}
       onMouseLeave={() => {
         isHoveredRef.current = false;
+        dwellAccRef.current = 0;
+        ensureRunning();
       }}
-      className="relative w-full h-[400px] sm:h-[440px] overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl select-none outline-none"
+      className="relative w-full h-[420px] sm:h-[450px] overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl select-none outline-none"
     >
       <div
         style={{
@@ -481,7 +510,7 @@ export function DiasporaCoverflowCarousel({
             onClick={goPrev}
             color="#FFFFFF"
             background="#2A2E7F"
-            size={44}
+            size={46}
             position={94}
           />
           <ArrowButton
@@ -489,7 +518,7 @@ export function DiasporaCoverflowCarousel({
             onClick={goNext}
             color="#FFFFFF"
             background="#2A2E7F"
-            size={44}
+            size={46}
             position={94}
           />
         </>
