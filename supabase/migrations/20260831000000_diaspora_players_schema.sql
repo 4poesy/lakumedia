@@ -1,49 +1,66 @@
--- Migration: 20260831000000_diaspora_players_schema.sql
--- Table: diaspora_players (Super Eagles & Global Diaspora Watch)
+-- Schema Migration: diaspora_players table for Super Eagles & Global Diaspora Watch
+-- Provides structured data storage for Nigerian players playing abroad
 
-CREATE TABLE IF NOT EXISTS diaspora_players (
+CREATE TABLE IF NOT EXISTS public.diaspora_players (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   slug TEXT UNIQUE NOT NULL,
-  position TEXT,
-  current_club TEXT,
-  club_country TEXT,
+  position TEXT NOT NULL,
+  current_club TEXT NOT NULL,
+  club_country TEXT NOT NULL,
   photo_url TEXT,
-  region TEXT CHECK (region IN ('europe','middle_east','africa_npfl','other')) DEFAULT 'europe',
+  region TEXT NOT NULL CHECK (region IN ('europe', 'middle_east', 'africa_npfl', 'other')),
   bio_summary TEXT,
   bio_source_url TEXT,
-  market_value_estimate TEXT,     -- nullable; only populate with a real, cited, dated source
+  market_value_estimate TEXT,
   market_value_source TEXT,
   market_value_as_of DATE,
   sports_data_player_id TEXT,
   wikipedia_slug TEXT,
-  created_at TIMESTAMPTZ DEFAULT now(),
-  updated_at TIMESTAMPTZ DEFAULT now()
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
--- Index on region and slug for fast querying
-CREATE INDEX IF NOT EXISTS idx_diaspora_players_region ON diaspora_players(region);
-CREATE INDEX IF NOT EXISTS idx_diaspora_players_slug ON diaspora_players(slug);
+-- Indexing for high performance queries
+CREATE INDEX IF NOT EXISTS idx_diaspora_players_region ON public.diaspora_players (region);
+CREATE INDEX IF NOT EXISTS idx_diaspora_players_slug ON public.diaspora_players (slug);
+CREATE INDEX IF NOT EXISTS idx_diaspora_players_current_club ON public.diaspora_players (current_club);
 
--- Auto-update updated_at timestamp
-CREATE TRIGGER update_diaspora_players_updated_at 
-BEFORE UPDATE ON diaspora_players 
-FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+-- Enable Row Level Security (RLS)
+ALTER TABLE public.diaspora_players ENABLE ROW LEVEL SECURITY;
 
--- Enable Row-Level Security
-ALTER TABLE diaspora_players ENABLE ROW LEVEL SECURITY;
+-- Public read access
+CREATE POLICY "Public users can view diaspora players"
+  ON public.diaspora_players
+  FOR SELECT
+  USING (true);
 
--- Public Read Policy
-CREATE POLICY "Public diaspora players are viewable by everyone" 
-ON diaspora_players FOR SELECT USING (true);
+-- Authenticated Editor / Admin full management
+CREATE POLICY "Admins and editors can manage diaspora players"
+  ON public.diaspora_players
+  FOR ALL
+  USING (
+    auth.role() = 'authenticated' AND (
+      EXISTS (
+        SELECT 1 FROM public.users
+        WHERE public.users.id = auth.uid()
+        AND public.users.role IN ('admin', 'editor')
+      )
+    )
+  );
 
--- Editor/Admin Full Access Policy
-CREATE POLICY "Editors/Admins can modify diaspora players" 
-ON diaspora_players FOR ALL USING (public.is_editor_or_admin());
-
--- Seed Top Nigerian Diaspora & Super Eagles Players (No fabricated financial claims)
-INSERT INTO diaspora_players (
-  name, slug, position, current_club, club_country, photo_url, region, bio_source_url, wikipedia_slug
+-- Seed initial verified Super Eagles stars with deterministic provider IDs
+INSERT INTO public.diaspora_players (
+  name,
+  slug,
+  position,
+  current_club,
+  club_country,
+  sports_data_player_id,
+  photo_url,
+  region,
+  bio_source_url,
+  wikipedia_slug
 ) VALUES
 (
   'Victor Osimhen',
@@ -51,7 +68,8 @@ INSERT INTO diaspora_players (
   'Centre-Forward',
   'Galatasaray SK',
   'Turkey',
-  'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80',
+  '253989',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/253989.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Victor_Osimhen',
   'Victor_Osimhen'
@@ -62,7 +80,8 @@ INSERT INTO diaspora_players (
   'Winger / Second Striker',
   'Atalanta BC',
   'Italy',
-  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80',
+  '230198',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/230198.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Ademola_Lookman',
   'Ademola_Lookman'
@@ -73,7 +92,8 @@ INSERT INTO diaspora_players (
   'Centre-Forward',
   'Bayer 04 Leverkusen',
   'Germany',
-  'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=80',
+  '299863',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/299863.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Victor_Boniface',
   'Victor_Boniface'
@@ -84,7 +104,8 @@ INSERT INTO diaspora_players (
   'Central Midfielder / Winger',
   'Fulham FC',
   'England',
-  'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=800&auto=format&fit=crop&q=80',
+  '226046',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/226046.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Alex_Iwobi',
   'Alex_Iwobi'
@@ -95,7 +116,8 @@ INSERT INTO diaspora_players (
   'Right Winger',
   'AC Milan',
   'Italy',
-  'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&auto=format&fit=crop&q=80',
+  '270381',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/270381.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Samuel_Chukwueze',
   'Samuel_Chukwueze'
@@ -106,7 +128,8 @@ INSERT INTO diaspora_players (
   'Defensive Midfielder',
   'Leicester City FC',
   'England',
-  'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=800&auto=format&fit=crop&q=80',
+  '214013',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/214013.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Wilfred_Ndidi',
   'Wilfred_Ndidi'
@@ -117,7 +140,8 @@ INSERT INTO diaspora_players (
   'Centre-Back / Left-Back',
   'Fulham FC',
   'England',
-  'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=80',
+  '298453',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/298453.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Calvin_Bassey',
   'Calvin_Bassey'
@@ -126,12 +150,25 @@ INSERT INTO diaspora_players (
   'Taiwo Awoniyi',
   'taiwo-awoniyi',
   'Centre-Forward',
-  'Nottingham Forest FC',
+  'Nottingham Forest',
   'England',
-  'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=80',
+  '226154',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/226154.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Taiwo_Awoniyi',
   'Taiwo_Awoniyi'
+),
+(
+  'Stanley Nwabali',
+  'stanley-nwabali',
+  'Goalkeeper',
+  'Chippa United',
+  'South Africa',
+  '385610',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/385610.png&w=500&h=500',
+  'africa_npfl',
+  'https://en.wikipedia.org/wiki/Stanley_Nwabali',
+  'Stanley_Nwabali'
 ),
 (
   'Moses Simon',
@@ -139,29 +176,20 @@ INSERT INTO diaspora_players (
   'Left Winger',
   'FC Nantes',
   'France',
-  'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=80',
+  '205469',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/205469.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Moses_Simon',
   'Moses_Simon'
 ),
 (
-  'Stanley Nwabali',
-  'stanley-nwabali',
-  'Goalkeeper',
-  'Chippa United FC',
-  'South Africa',
-  'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=80',
-  'africa_npfl',
-  'https://en.wikipedia.org/wiki/Stanley_Nwabali',
-  'Stanley_Nwabali'
-),
-(
   'Nathan Tella',
   'nathan-tella',
-  'Right Winger / Wing-Back',
+  'Right Midfielder / Winger',
   'Bayer 04 Leverkusen',
   'Germany',
-  'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=80',
+  '266782',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/266782.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Nathan_Tella',
   'Nathan_Tella'
@@ -172,7 +200,8 @@ INSERT INTO diaspora_players (
   'Central Midfielder',
   'FC Augsburg',
   'Germany',
-  'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?w=800&auto=format&fit=crop&q=80',
+  '273415',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/273415.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Frank_Onyeka',
   'Frank_Onyeka'
@@ -183,7 +212,8 @@ INSERT INTO diaspora_players (
   'Defensive Midfielder',
   'Club Brugge KV',
   'Belgium',
-  'https://images.unsplash.com/photo-1560272564-c83b66b1ad12?w=800&auto=format&fit=crop&q=80',
+  '303490',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/303490.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Raphael_Onyedika',
   'Raphael_Onyedika'
@@ -194,7 +224,8 @@ INSERT INTO diaspora_players (
   'Right-Back / Wing-Back',
   'Fenerbahçe SK',
   'Turkey',
-  'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=800&auto=format&fit=crop&q=80',
+  '226707',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/226707.png&w=500&h=500',
   'europe',
   'https://en.wikipedia.org/wiki/Bright_Osayi-Samuel',
   'Bright_Osayi-Samuel'
@@ -202,10 +233,11 @@ INSERT INTO diaspora_players (
 (
   'William Troost-Ekong',
   'william-troost-ekong',
-  'Centre-Back',
-  'Al-Kholood Club',
+  'Centre-Back (Captain)',
+  'Al-Kholood',
   'Saudi Arabia',
-  'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a?w=800&auto=format&fit=crop&q=80',
+  '215886',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/215886.png&w=500&h=500',
   'middle_east',
   'https://en.wikipedia.org/wiki/William_Troost-Ekong',
   'William_Troost-Ekong'
@@ -214,11 +246,15 @@ INSERT INTO diaspora_players (
   'Odion Ighalo',
   'odion-ighalo',
   'Centre-Forward',
-  'Al-Wehda FC',
+  'Al-Wehda',
   'Saudi Arabia',
-  'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=80',
+  '133177',
+  'https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/133177.png&w=500&h=500',
   'middle_east',
   'https://en.wikipedia.org/wiki/Odion_Ighalo',
   'Odion_Ighalo'
 )
-ON CONFLICT (slug) DO NOTHING;
+ON CONFLICT (slug) DO UPDATE SET
+  photo_url = EXCLUDED.photo_url,
+  sports_data_player_id = EXCLUDED.sports_data_player_id,
+  updated_at = NOW();
