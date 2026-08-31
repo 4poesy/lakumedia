@@ -193,12 +193,6 @@ export function DiasporaWatchHub({ initialPlayers, seasonString }: DiasporaWatch
               players={filteredPlayers}
               seasonString={seasonString}
               onOpenDossier={(p) => setActiveDossierPlayer(p)}
-              activeWidth={540}
-              activeHeight={380}
-              restWidth={180}
-              restHeight={280}
-              gap={24}
-              radius={16}
               showArrows={true}
               autoplay={true}
             />

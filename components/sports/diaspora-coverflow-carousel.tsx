@@ -317,6 +317,12 @@ interface DiasporaCoverflowCarouselProps {
   showArrows?: boolean;
   autoplay?: boolean;
   autoplayDirection?: 'leftToRight' | 'rightToLeft';
+  activeWidth?: number;
+  activeHeight?: number;
+  restWidth?: number;
+  restHeight?: number;
+  gap?: number;
+  radius?: number;
 }
 
 export function DiasporaCoverflowCarousel({
