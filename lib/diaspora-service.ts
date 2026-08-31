@@ -811,7 +811,10 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
     if (!error && data && data.length > 0) {
       return data.map((d: any) => {
         const seed = VERIFIED_DIASPORA_PROFILES[d.slug]?.player;
-        const resolvedPhoto = d.photo_url || seed?.photo_url || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null);
+        const isDbUnsplash = d.photo_url && (d.photo_url.includes('unsplash.com') || d.photo_url.includes('images.unsplash'));
+        const dbPhoto = isDbUnsplash ? null : d.photo_url;
+
+        const resolvedPhoto = seed?.photo_url || dbPhoto || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null);
 
         return {
           id: d.id,
@@ -861,6 +864,11 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
 
       if (!error && data) {
         const d = data as any;
+        const seed = VERIFIED_DIASPORA_PROFILES[d.slug]?.player;
+        const isDbUnsplash = d.photo_url && (d.photo_url.includes('unsplash.com') || d.photo_url.includes('images.unsplash'));
+        const dbPhoto = isDbUnsplash ? null : d.photo_url;
+        const resolvedPhoto = seed?.photo_url || dbPhoto || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null);
+
         player = {
           id: d.id,
           name: d.name,
@@ -868,7 +876,7 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
           position: d.position,
           current_club: d.current_club,
           club_country: d.club_country,
-          photo_url: d.photo_url || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null),
+          photo_url: resolvedPhoto,
           region: d.region as DiasporaRegion,
           bio_summary: d.bio_summary,
           bio_source_url: d.bio_source_url,

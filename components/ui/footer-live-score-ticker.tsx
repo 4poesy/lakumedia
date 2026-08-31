@@ -2,12 +2,10 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Activity, ChevronRight, ChevronLeft, Calendar, Flame, RefreshCw } from 'lucide-react';
+import { Activity, ChevronRight } from 'lucide-react';
 import { MatchTickerFixture } from '@/app/api/fixtures/route';
 
 export function FooterLiveScoreTicker() {
-  const pathname = usePathname();
   const [fixtures, setFixtures] = useState<MatchTickerFixture[]>([]);
   const [loading, setLoading] = useState(true);
   const [mobileIndex, setMobileIndex] = useState(0);
@@ -18,7 +16,11 @@ export function FooterLiveScoreTicker() {
       if (res.ok) {
         const data = await res.json();
         if (data.fixtures && Array.isArray(data.fixtures)) {
-          setFixtures(data.fixtures);
+          // Strict validation: Only keep fixtures that have both home and away teams
+          const valid = data.fixtures.filter(
+            (f: any) => f && f.homeTeam && f.awayTeam && f.homeTeam.trim() !== '' && f.awayTeam.trim() !== ''
+          );
+          setFixtures(valid);
         }
       }
     } catch (err) {
@@ -30,54 +32,55 @@ export function FooterLiveScoreTicker() {
 
   useEffect(() => {
     fetchFixtures();
-    // Auto-refresh every 60 seconds from the cached DB endpoint
     const interval = setInterval(fetchFixtures, 60000);
     return () => clearInterval(interval);
   }, [fetchFixtures]);
 
-  // Mobile cycling for single-score compact view
+  // Mobile Auto-rotate ticker index every 4 seconds
   useEffect(() => {
     if (fixtures.length <= 1) return;
-    const mobileTimer = setInterval(() => {
+    const mobInterval = setInterval(() => {
       setMobileIndex((prev) => (prev + 1) % fixtures.length);
     }, 4000);
-    return () => clearInterval(mobileTimer);
+    return () => clearInterval(mobInterval);
   }, [fixtures.length]);
 
   const formatKickoff = (isoString: string): string => {
     try {
       const d = new Date(isoString);
-      if (isNaN(d.getTime())) return 'Scheduled';
+      if (isNaN(d.getTime())) return '16:00';
       const hours = String(d.getHours()).padStart(2, '0');
       const minutes = String(d.getMinutes()).padStart(2, '0');
       return `${hours}:${minutes}`;
     } catch {
-      return 'Scheduled';
+      return '16:00';
     }
   };
 
   const renderScoreOrTime = (m: MatchTickerFixture) => {
     if (m.status === 'scheduled') {
       return (
-        <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-mono text-[11px] font-bold border border-slate-700">
+        <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-mono text-[11px] font-bold border border-slate-700 shrink-0">
           {formatKickoff(m.kickoffAt)}
         </span>
       );
     }
 
     if (m.status === 'live' || m.status === 'finished') {
-      const home = m.homeScore !== null && m.homeScore !== undefined ? m.homeScore : '—';
-      const away = m.awayScore !== null && m.awayScore !== undefined ? m.awayScore : '—';
+      const hasHome = typeof m.homeScore === 'number' && !isNaN(m.homeScore);
+      const hasAway = typeof m.awayScore === 'number' && !isNaN(m.awayScore);
+      const scoreText = hasHome && hasAway ? `${m.homeScore} - ${m.awayScore}` : hasHome ? `${m.homeScore} - 0` : 'vs';
+
       return (
-        <span className="px-2 py-0.5 rounded bg-slate-800 text-white font-mono text-xs font-black border border-slate-700">
-          {home} : {away}
+        <span className="px-2 py-0.5 rounded bg-slate-800 text-white font-mono text-xs font-black border border-slate-700 shrink-0">
+          {scoreText}
         </span>
       );
     }
 
     return (
-      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono text-[10px] font-bold">
-        {m.status.toUpperCase()}
+      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono text-[10px] font-bold shrink-0">
+        {m.status ? m.status.toUpperCase() : 'SCHED'}
       </span>
     );
   };
@@ -85,37 +88,31 @@ export function FooterLiveScoreTicker() {
   const renderStatusBadge = (m: MatchTickerFixture) => {
     if (m.status === 'live') {
       return (
-        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-600 text-white font-mono text-[9px] font-black uppercase tracking-wider animate-pulse">
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-600 text-white font-mono text-[9px] font-black uppercase tracking-wider animate-pulse shrink-0">
           <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
           {m.matchMinute ? `${m.matchMinute}'` : 'LIVE'}
         </span>
       );
     }
-
     if (m.status === 'finished') {
       return (
-        <span className="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-mono text-[9px] font-bold uppercase">
+        <span className="px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[9px] font-bold uppercase tracking-wider shrink-0">
           FT
         </span>
       );
     }
-
     return (
-      <span className="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800/50 font-mono text-[9px] font-bold uppercase">
+      <span className="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-800 font-mono text-[9px] font-bold uppercase tracking-wider shrink-0">
         UPCOMING
       </span>
     );
   };
 
-  // Duplicate list for infinite desktop marquee loop
   const tickerItems = fixtures.length > 0 ? [...fixtures, ...fixtures, ...fixtures] : [];
 
   return (
-    <aside
-      aria-label="Live Match Scores Strip"
-      className="sticky bottom-0 z-40 bg-slate-950 text-white border-t border-slate-800/90 shadow-2xl select-none"
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-6 py-2">
+    <aside className="fixed bottom-0 inset-x-0 z-40 bg-slate-950 border-t border-slate-800 text-white py-2 px-4 shadow-2xl select-none">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
         
         {/* Left Fixed Badge */}
         <div className="flex items-center space-x-2 shrink-0 pr-3 z-10 bg-slate-950">
@@ -182,10 +179,10 @@ export function FooterLiveScoreTicker() {
                   href="/live-scores"
                   className="flex items-center justify-between bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 text-xs"
                 >
-                  <div className="flex items-center space-x-1.5 truncate">
-                    <span className="text-white font-black truncate max-w-[80px]">{current.homeTeam}</span>
+                  <div className="flex items-center space-x-1.5 shrink-0 truncate">
+                    <span className="text-white font-extrabold text-xs truncate max-w-[80px]">{current.homeTeam}</span>
                     {renderScoreOrTime(current)}
-                    <span className="text-white font-black truncate max-w-[80px]">{current.awayTeam}</span>
+                    <span className="text-white font-extrabold text-xs truncate max-w-[80px]">{current.awayTeam}</span>
                   </div>
 
                   <div className="shrink-0 ml-2">
