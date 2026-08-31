@@ -18,16 +18,18 @@ interface Project {
 }
 
 interface PortfolioClientGridProps {
-  projects: Project[];
+  projects?: Project[];
+  initialProjects?: Project[];
 }
 
-export function PortfolioClientGrid({ projects }: PortfolioClientGridProps) {
+export function PortfolioClientGrid({ projects, initialProjects }: PortfolioClientGridProps) {
+  const activeProjects = initialProjects || projects || [];
   const [activeProject, setActiveProject] = useState<Project | null>(null);
 
   return (
     <>
       <ScrollRevealSection stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((proj) => (
+        {activeProjects.map((proj) => (
           <ScrollRevealChild key={proj.id}>
             <CinematicCardMotion hoverScale={1.025} hoverY={-4}>
               <div className="bg-slate-950 rounded-3xl overflow-hidden border border-slate-800 hover:border-[#10B981] shadow-2xl transition-colors duration-300 group flex flex-col justify-between h-full">
