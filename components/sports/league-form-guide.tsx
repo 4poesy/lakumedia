@@ -38,7 +38,7 @@ export function LeagueFormGuide() {
       { rank: 1, teamName: 'Real Madrid', played: 29, won: 22, drawn: 4, lost: 3, gd: 42, points: 70, formStreak: ['W', 'W', 'W', 'D', 'W'] },
       { rank: 2, teamName: 'FC Barcelona', played: 29, won: 20, drawn: 5, lost: 4, gd: 36, points: 65, formStreak: ['W', 'D', 'W', 'W', 'L'] },
       { rank: 3, teamName: 'Atletico Madrid', played: 29, won: 17, drawn: 7, lost: 5, gd: 22, points: 58, formStreak: ['W', 'W', 'L', 'D', 'W'] },
-      { rank: 4, teamName: 'Athletic Bilbao', played: 29, won: 15, drawn: 8, lost: 6, gd: 16, points: 53, formStreak: ['D', 'W',-[#10B981], 'W', 'L'] },
+      { rank: 4, teamName: 'Athletic Bilbao', played: 29, won: 15, drawn: 8, lost: 6, gd: 16, points: 53, formStreak: ['D', 'W', 'W', 'W', 'L'] },
       { rank: 5, teamName: 'Girona FC', played: 29, won: 15, drawn: 5, lost: 9, gd: 12, points: 50, formStreak: ['L', 'W', 'D', 'W', 'W'] },
     ],
   };
