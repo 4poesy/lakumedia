@@ -165,34 +165,38 @@ export function FooterLiveScoreTicker() {
           )}
         </div>
 
-        {/* Center: Mobile Compact Single-Score View */}
-        <div className="md:hidden flex-1 overflow-hidden px-2">
+        {/* Center: Mobile Horizontal Scroll Ticker Strip */}
+        <div className="md:hidden flex-1 overflow-x-auto no-scrollbar scroll-smooth px-2 flex items-center space-x-2 shrink border-x border-slate-900" style={{ WebkitOverflowScrolling: 'touch' }}>
           {loading ? (
-            <div className="text-[11px] text-slate-400 font-bold animate-pulse text-center">
+            <div className="text-[11px] text-slate-400 font-bold animate-pulse text-center w-full">
               Loading scores…
             </div>
           ) : fixtures.length > 0 ? (
-            (() => {
-              const current = fixtures[mobileIndex % fixtures.length];
-              return (
-                <Link
-                  href="/live-scores"
-                  className="flex items-center justify-between bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 text-xs"
-                >
-                  <div className="flex items-center space-x-1.5 shrink-0 truncate">
-                    <span className="text-white font-extrabold text-xs truncate max-w-[80px]">{current.homeTeam}</span>
-                    {renderScoreOrTime(current)}
-                    <span className="text-white font-extrabold text-xs truncate max-w-[80px]">{current.awayTeam}</span>
-                  </div>
+            fixtures.map((m, idx) => (
+              <Link
+                key={`mob-tick-${m.id}-${idx}`}
+                href="/live-scores"
+                className="flex items-center space-x-2 bg-slate-900 px-3 py-1 rounded-xl border border-slate-800 shrink-0 text-xs shadow-sm hover:border-[#D9541E] transition-colors"
+              >
+                <span className="text-[9px] text-amber-400 uppercase tracking-widest font-mono font-bold truncate max-w-[70px]">
+                  {m.leagueName}
+                </span>
 
-                  <div className="shrink-0 ml-2">
-                    {renderStatusBadge(current)}
-                  </div>
-                </Link>
-              );
-            })()
+                <span className="text-white font-black text-xs truncate max-w-[85px]">
+                  {m.homeTeam}
+                </span>
+
+                {renderScoreOrTime(m)}
+
+                <span className="text-white font-black text-xs truncate max-w-[85px]">
+                  {m.awayTeam}
+                </span>
+
+                {renderStatusBadge(m)}
+              </Link>
+            ))
           ) : (
-            <div className="text-[11px] text-slate-400 text-center">
+            <div className="text-[11px] text-slate-400 text-center w-full">
               No active matches right now
             </div>
           )}

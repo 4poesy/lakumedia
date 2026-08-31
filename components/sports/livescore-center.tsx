@@ -339,12 +339,13 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-widest flex items-center gap-1">
-                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> REAL-TIME SPORTS PIPELINE ACTIVE
+              <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-black uppercase tracking-widest hidden sm:inline-flex items-center gap-1">
+                <CheckCircle2 className="w-3 h-3 text-emerald-400" /> REAL-TIME PIPELINE ACTIVE
               </span>
             </div>
-            <h1 className="text-xl sm:text-2xl font-black uppercase tracking-tight flex items-center gap-2">
-              LAKU MEDIA REALTIME MATCH CENTER & STATS
+            <h1 className="text-lg sm:text-2xl font-black uppercase tracking-tight flex items-center gap-2">
+              <span className="sm:hidden">LAKU MEDIA MATCH CENTER</span>
+              <span className="hidden sm:inline">LAKU MEDIA REALTIME MATCH CENTER & STATS</span>
             </h1>
           </div>
         </div>
@@ -370,12 +371,14 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
             {isDarkMode ? (
               <>
                 <Sun className="w-4 h-4 text-amber-300" />
-                <span>LIGHT MODE ☀️</span>
+                <span className="hidden sm:inline">LIGHT MODE ☀️</span>
+                <span className="sm:hidden">☀️</span>
               </>
             ) : (
               <>
                 <Moon className="w-4 h-4 text-slate-100" />
-                <span>DARK MODE 🌙</span>
+                <span className="hidden sm:inline">DARK MODE 🌙</span>
+                <span className="sm:hidden">🌙</span>
               </>
             )}
           </button>
@@ -388,14 +391,15 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       </div>
 
       {/* Section Header: Native Match Center & Verified Standings */}
-      <div className="bg-[#141824] p-3 px-6 border-y border-slate-800 flex items-center justify-between">
+      <div className="bg-[#141824] p-3 px-4 sm:px-6 border-y border-slate-800 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <Trophy className="w-4 h-4 text-emerald-400" />
           <span className="text-xs font-black uppercase tracking-wider text-white">
-            VERIFIED NATIVE MATCH CENTER & LEAGUE TABLES
+            <span className="sm:hidden">MATCH CENTER & TABLES</span>
+            <span className="hidden sm:inline">VERIFIED NATIVE MATCH CENTER & LEAGUE TABLES</span>
           </span>
         </div>
-        <span className="text-[10px] font-bold text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20">
+        <span className="text-[10px] font-bold text-amber-300 bg-amber-400/10 px-2 py-0.5 rounded border border-amber-400/20 hidden sm:inline-block">
           DUAL-SOURCE CROSS-VALIDATED
         </span>
       </div>

@@ -164,9 +164,6 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
           <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-300 text-xs font-extrabold flex items-center gap-1 border border-slate-700">
             <Clock className="w-3.5 h-3.5 text-amber-400" /> {post.readTime}
           </span>
-          <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 text-xs font-extrabold flex items-center gap-1 border border-emerald-500/30">
-            <Sparkles className="w-3.5 h-3.5 text-emerald-400" /> YOAST SEO OPTIMIZED (1,200+ WORDS)
-          </span>
         </div>
 
         <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight">

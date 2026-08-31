@@ -554,26 +554,7 @@ export function DiasporaCoverflowCarousel({
         ))}
       </div>
 
-      {showArrows && count > 1 && (
-        <>
-          <ArrowButton
-            side="left"
-            onClick={goPrev}
-            color="#FFFFFF"
-            background="#2A2E7F"
-            size={isMobile ? 36 : 42}
-            position={isMobile ? 96 : 94}
-          />
-          <ArrowButton
-            side="right"
-            onClick={goNext}
-            color="#FFFFFF"
-            background="#2A2E7F"
-            size={isMobile ? 36 : 42}
-            position={isMobile ? 96 : 94}
-          />
-        </>
-      )}
+      {/* Prev and Next Arrow buttons removed as requested */}
     </div>
   );
 }

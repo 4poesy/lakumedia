@@ -385,33 +385,30 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                                         }}
                                     />
 
-                                    {/* Title at chosen corner */}
+                                    {/* Title centered at bottom with responsive font size to prevent left clipping */}
                                     <div
                                         style={{
                                             position: "absolute",
-                                            left: padLeft,
-                                            right: padRight,
-                                            [isTop ? "top" : "bottom"]: isTop
-                                                ? padTop
-                                                : padBottom,
-                                            textAlign: isRight
-                                                ? "right"
-                                                : "left",
+                                            left: 12,
+                                            right: 12,
+                                            bottom: 16,
+                                            textAlign: "center",
                                             pointerEvents: "none",
                                         }}
                                     >
                                         <span
                                             style={{
                                                 color: titleColor,
-                                                fontSize: 24,
-                                                fontWeight: 700,
-                                                lineHeight: "1.1em",
-                                                letterSpacing: "-0.02em",
+                                                fontSize: "clamp(13px, 3.8vw, 20px)",
+                                                fontWeight: 800,
+                                                lineHeight: "1.25em",
+                                                letterSpacing: "-0.01em",
                                                 whiteSpace: "pre-line",
                                                 textShadow:
-                                                    "0 2px 10px rgba(0,0,0,0.8)",
+                                                    "0 2px 12px rgba(0,0,0,0.95), 0 0 4px rgba(0,0,0,0.8)",
                                                 ...(titleFont || {}),
                                             }}
+                                            className="block font-black uppercase text-center tracking-tight text-white"
                                         >
                                             {slide.title}
                                         </span>

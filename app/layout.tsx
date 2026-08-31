@@ -4,6 +4,7 @@ import './globals.css';
 import { Navigation } from '@/components/ui/navigation';
 import { Footer } from '@/components/ui/footer';
 import { FooterLiveScoreTicker } from '@/components/ui/footer-live-score-ticker';
+import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
 import { ThemeProviderWrapper } from '@/components/ui/theme-provider-wrapper';
 
 export const metadata: Metadata = {
@@ -66,6 +67,7 @@ export default function RootLayout({
           </main>
           <FooterLiveScoreTicker />
           <Footer />
+          <ScrollToTopButton />
         </ThemeProviderWrapper>
       </body>
     </html>
