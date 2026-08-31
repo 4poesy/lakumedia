@@ -1,11 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Mail, Phone, MessageSquare, Send, ShieldCheck } from 'lucide-react';
-
-export const metadata = {
-  title: 'Contact Us | Laku Media Concepts',
-  description: 'Get in touch with Laku Media Concepts executive desk and production team.',
-};
 
 export default function ContactPage() {
   return (
