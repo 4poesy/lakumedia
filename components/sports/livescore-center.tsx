@@ -577,6 +577,11 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                               className="p-1.5 rounded-lg hover:bg-slate-700/20 text-slate-400 hover:text-amber-400 transition-colors"
                             >
                               <Star className={`w-4 h-4 ${isFav ? 'fill-amber-400 text-amber-400' : ''}`} />
+                            </button>
+
+                            <div className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900">
+                              {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                            </div>
                           </div>
                         </div>
 
