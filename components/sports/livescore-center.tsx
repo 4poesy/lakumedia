@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Activity, Calendar, Star, ChevronDown, ChevronUp, Search, Flame, Sun, Moon, ArrowRight, Trophy, BarChart2, Shield, Layers, Award, CheckCircle2 } from 'lucide-react';
 import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
 import { getLiveStandingsForLeague, RealStandingsTeam } from '@/lib/live-standings-service';
+import { getCurrentSeasonString } from '@/lib/season';
 import { FlashscoreWidget } from '@/components/sports/flashscore-widget';
 import { Radio, Zap } from 'lucide-react';
 
@@ -85,10 +86,12 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   // High-Quality 20+ Global Real Match Fixtures Pipeline
   const liveMatchEngineFixtures: MatchFixtureItem[] = getRealGlobalMatchesFeed();
 
-  // Comprehensive Multi-League Standings Tables (2026/2027 Season Matchday 1 MP=1)
+  const currentSeasonStr = getCurrentSeasonString();
+
+  // Comprehensive Multi-League Standings Tables (Dynamic Season Scope)
   const standingsDatasets: Record<string, { leagueTitle: string; countryFlag: string; rows: any[] }> = {
     epl: {
-      leagueTitle: 'ENGLISH PREMIER LEAGUE (EPL) 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `ENGLISH PREMIER LEAGUE (EPL) ${currentSeasonStr} STANDINGS`,
       countryFlag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿',
       rows: [
         { rank: 1, team: 'Manchester City', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
@@ -114,7 +117,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     npfl: {
-      leagueTitle: 'NIGERIA PREMIER FOOTBALL LEAGUE (NPFL) 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `NIGERIA PREMIER FOOTBALL LEAGUE (NPFL) ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇳🇬',
       rows: [
         { rank: 1, team: 'Rangers International', mp: 1, w: 1, d: 0, l: 0, gf: 2, ga: 0, gd: '+2', pts: 3, form: ['W'] },
@@ -140,7 +143,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     laliga: {
-      leagueTitle: 'LA LIGA EA SPORTS 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `LA LIGA EA SPORTS ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇪🇸',
       rows: [
         { rank: 1, team: 'Real Madrid', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
@@ -166,7 +169,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     seriea: {
-      leagueTitle: 'SERIE A ENILIVE 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `SERIE A ENILIVE ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇮🇹',
       rows: [
         { rank: 1, team: 'Inter Milan', mp: 1, w: 0, d: 1, l: 0, gf: 2, ga: 2, gd: '0', pts: 1, form: ['D'] },
@@ -180,7 +183,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     bundesliga: {
-      leagueTitle: 'BUNDESLIGA 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `BUNDESLIGA ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇩🇪',
       rows: [
         { rank: 1, team: 'Bayer 04 Leverkusen', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 2, gd: '+1', pts: 3, form: ['W'] },
@@ -192,7 +195,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     ligue1: {
-      leagueTitle: 'LIGUE 1 MCDONALDS 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `LIGUE 1 MCDONALDS ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇫🇷',
       rows: [
         { rank: 1, team: 'Paris Saint-Germain', mp: 1, w: 1, d: 0, l: 0, gf: 4, ga: 1, gd: '+3', pts: 3, form: ['W'] },
@@ -203,7 +206,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     saudi: {
-      leagueTitle: 'SAUDI PRO LEAGUE 2026/2027 STANDINGS — MATCHDAY 1',
+      leagueTitle: `SAUDI PRO LEAGUE ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇸🇦',
       rows: [
         { rank: 1, team: 'Al Nassr', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 0, gd: '+3', pts: 3, form: ['W'] },
@@ -213,7 +216,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     ucl: {
-      leagueTitle: 'UEFA CHAMPIONS LEAGUE 2026/2027 STANDINGS',
+      leagueTitle: `UEFA CHAMPIONS LEAGUE ${currentSeasonStr} STANDINGS`,
       countryFlag: '🇪🇺',
       rows: [
         { rank: 1, team: 'Real Madrid', mp: 1, w: 1, d: 0, l: 0, gf: 3, ga: 1, gd: '+2', pts: 3, form: ['W'] },
@@ -225,7 +228,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
       ],
     },
     afcon: {
-      leagueTitle: 'AFCON QUALIFIERS & AFRICA NATIONS STANDINGS',
+      leagueTitle: `AFCON QUALIFIERS & AFRICA NATIONS STANDINGS`,
       countryFlag: '🌍',
       rows: [
         { rank: 1, team: 'Nigeria (Super Eagles)', mp: 6, w: 5, d: 1, l: 0, gf: 14, ga: 3, gd: '+11', pts: 16, form: ['W', 'W', 'W', 'D', 'W'] },

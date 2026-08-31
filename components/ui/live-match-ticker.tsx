@@ -1,26 +1,37 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Activity, ChevronRight, Film, Sparkles, Flame, Radio } from 'lucide-react';
-import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
+import { Activity, ChevronRight, Film } from 'lucide-react';
+import { MatchTickerFixture } from '@/app/api/fixtures/route';
 
 export function LiveMatchTicker() {
   const pathname = usePathname();
   const isMultimedia = pathname.startsWith('/multimedia');
+  const [fixtures, setFixtures] = useState<MatchTickerFixture[]>([]);
 
-  const rawRealMatches = getRealGlobalMatchesFeed();
-  const sampleMatches = rawRealMatches.map((m) => ({
-    id: m.id,
-    league: m.leagueName.toUpperCase(),
-    homeTeam: m.homeTeam,
-    awayTeam: m.awayTeam,
-    homeScore: m.homeScore,
-    awayScore: m.awayScore,
-    status: m.status === 'live' ? `${m.matchMinute || '75'}'` : m.status === 'finished' ? 'FT' : '20:00',
-    isLive: m.status === 'live',
-  }));
+  const fetchFixtures = useCallback(async () => {
+    try {
+      const res = await fetch('/api/fixtures');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fixtures && Array.isArray(data.fixtures)) {
+          setFixtures(data.fixtures);
+        }
+      }
+    } catch {
+      // Retain previous state on fetch error
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!isMultimedia) {
+      fetchFixtures();
+      const interval = setInterval(fetchFixtures, 60000);
+      return () => clearInterval(interval);
+    }
+  }, [isMultimedia, fetchFixtures]);
 
   const studioNewsItems = [
     {
@@ -55,23 +66,31 @@ export function LiveMatchTicker() {
     },
   ];
 
-  // Duplicate lists to create a seamless 100% infinite marquee loop
-  const tickerMatches = [...sampleMatches, ...sampleMatches, ...sampleMatches];
+  const formatKickoff = (isoString: string): string => {
+    try {
+      const d = new Date(isoString);
+      if (isNaN(d.getTime())) return 'Scheduled';
+      const hours = String(d.getHours()).padStart(2, '0');
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+      return `${hours}:${minutes}`;
+    } catch {
+      return 'Scheduled';
+    }
+  };
+
+  const tickerMatches = fixtures.length > 0 ? [...fixtures, ...fixtures, ...fixtures] : [];
   const tickerStudioNews = [...studioNewsItems, ...studioNewsItems, ...studioNewsItems];
 
   if (isMultimedia) {
     return (
       <div className="bg-[#090A0F] text-white border-b border-slate-800 text-xs py-1.5 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          
-          {/* Left Badge for Studio Headlines */}
           <div className="flex items-center space-x-2 shrink-0 pr-4 bg-[#090A0F] z-10">
             <span className="px-2.5 py-1 rounded bg-[#10B981] text-slate-950 font-black text-[10px] uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
               <Film className="w-3.5 h-3.5" /> STUDIO HEADLINES
             </span>
           </div>
 
-          {/* Continuous Marquee Stream for Studio Movies & Headlines */}
           <div className="overflow-hidden flex-1 relative">
             <div className="animate-ticker space-x-3 flex items-center py-0.5">
               {tickerStudioNews.map((news, idx) => (
@@ -90,7 +109,6 @@ export function LiveMatchTicker() {
             </div>
           </div>
 
-          {/* Right Section: Explore Services Link */}
           <Link
             href="/multimedia/services"
             prefetch={true}
@@ -98,7 +116,6 @@ export function LiveMatchTicker() {
           >
             <span>Studio Services</span> <ChevronRight className="w-3.5 h-3.5" />
           </Link>
-
         </div>
       </div>
     );
@@ -107,45 +124,60 @@ export function LiveMatchTicker() {
   return (
     <div className="bg-[#2A2E7F] text-white border-b border-slate-800 text-xs py-1.5 px-4 sm:px-6 lg:px-8 overflow-hidden select-none">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        
-        {/* Left Section: Fixed Live Score Badge */}
         <div className="flex items-center space-x-2 shrink-0 pr-4 bg-[#2A2E7F] z-10">
           <span className="px-2.5 py-1 rounded bg-[#D9541E] text-white font-extrabold text-[10px] uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
             <Activity className="w-3.5 h-3.5 animate-pulse" /> LIVE SCORES
           </span>
         </div>
 
-        {/* Center Section: Automatic Infinite Horizontal Marquee Stream */}
         <div className="overflow-hidden flex-1 relative">
-          <div className="animate-ticker space-x-3 flex items-center py-0.5">
-            {tickerMatches.map((m, idx) => (
-              <Link
-                key={`${m.id}-${idx}`}
-                href="/live-scores"
-                prefetch={true}
-                className="flex items-center space-x-2 bg-slate-900 hover:bg-[#D9541E] px-3 py-1 rounded-md border border-slate-700/80 shrink-0 transition-colors"
-              >
-                <span className="text-[9px] text-amber-400 uppercase tracking-widest font-mono">
-                  {m.league}
-                </span>
-                <span className="text-white font-extrabold">{m.homeTeam}</span>
-                <span className="px-1.5 py-0.2 rounded bg-slate-800 text-white font-mono text-[10px] border border-slate-700">
-                  {m.homeScore !== null ? `${m.homeScore} - ${m.awayScore}` : 'VS'}
-                </span>
-                <span className="text-white font-extrabold">{m.awayTeam}</span>
-                <span
-                  className={`text-[9px] font-mono font-bold px-1.5 rounded ${
-                    m.isLive ? 'bg-rose-600 text-white' : 'bg-slate-700 text-slate-200'
-                  }`}
+          {fixtures.length > 0 ? (
+            <div className="animate-ticker space-x-3 flex items-center py-0.5">
+              {tickerMatches.map((m, idx) => (
+                <Link
+                  key={`${m.id}-${idx}`}
+                  href="/live-scores"
+                  prefetch={true}
+                  className="flex items-center space-x-2 bg-slate-900 hover:bg-[#D9541E] px-3 py-1 rounded-md border border-slate-700/80 shrink-0 transition-colors"
                 >
-                  {m.status}
-                </span>
-              </Link>
-            ))}
-          </div>
+                  <span className="text-[9px] text-amber-400 uppercase tracking-widest font-mono">
+                    {m.leagueName}
+                  </span>
+                  <span className="text-white font-extrabold">{m.homeTeam}</span>
+                  
+                  {m.status === 'scheduled' ? (
+                    <span className="px-1.5 py-0.2 rounded bg-slate-800 text-amber-300 font-mono text-[10px] border border-slate-700 font-bold">
+                      {formatKickoff(m.kickoffAt)}
+                    </span>
+                  ) : (
+                    <span className="px-1.5 py-0.2 rounded bg-slate-800 text-white font-mono text-[10px] border border-slate-700 font-bold">
+                      {m.homeScore !== null && m.homeScore !== undefined ? m.homeScore : '—'} - {m.awayScore !== null && m.awayScore !== undefined ? m.awayScore : '—'}
+                    </span>
+                  )}
+
+                  <span className="text-white font-extrabold">{m.awayTeam}</span>
+                  
+                  <span
+                    className={`text-[9px] font-mono font-bold px-1.5 rounded ${
+                      m.status === 'live'
+                        ? 'bg-rose-600 text-white animate-pulse'
+                        : m.status === 'finished'
+                        ? 'bg-slate-700 text-slate-200'
+                        : 'bg-amber-950 text-amber-300 border border-amber-800'
+                    }`}
+                  >
+                    {m.status === 'live' ? (m.matchMinute ? `${m.matchMinute}'` : 'LIVE') : m.status === 'finished' ? 'FT' : 'SCHED'}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-slate-300 text-xs font-semibold py-0.5">
+              Live score center active. Connecting to database fixtures…
+            </div>
+          )}
         </div>
 
-        {/* Right Section: All Matches Link */}
         <Link
           href="/live-scores"
           prefetch={true}
@@ -153,7 +185,6 @@ export function LiveMatchTicker() {
         >
           <span>All Matches</span> <ChevronRight className="w-3.5 h-3.5" />
         </Link>
-
       </div>
     </div>
   );

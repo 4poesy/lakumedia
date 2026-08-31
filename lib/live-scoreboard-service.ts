@@ -83,15 +83,15 @@ export async function fetchLiveScoreboardForDateOffset(offset: 'yesterday' | 'to
         const isFinished = statusType === 'STATUS_FULL_TIME' || statusType === 'STATUS_FINAL';
         const isLive = statusType === 'STATUS_IN_PROGRESS' || statusType === 'STATUS_HALFTIME';
 
-        const homeScore = parseInt(homeComp.score || '0', 10);
-        const awayScore = parseInt(awayComp.score || '0', 10);
+        const homeScoreParsed = homeComp.score !== undefined && homeComp.score !== null ? parseInt(String(homeComp.score), 10) : null;
+        const awayScoreParsed = awayComp.score !== undefined && awayComp.score !== null ? parseInt(String(awayComp.score), 10) : null;
 
         return {
           id: `espn-${ev.id || `${lg.slug}-${idx}`}`,
           homeTeam: homeComp.team?.displayName || homeComp.team?.name || 'Home Team',
           awayTeam: awayComp.team?.displayName || awayComp.team?.name || 'Away Team',
-          homeScore: (isFinished || isLive) ? (isNaN(homeScore) ? 0 : homeScore) : null,
-          awayScore: (isFinished || isLive) ? (isNaN(awayScore) ? 0 : awayScore) : null,
+          homeScore: (isFinished || isLive) ? (homeScoreParsed !== null && !isNaN(homeScoreParsed) ? homeScoreParsed : null) : null,
+          awayScore: (isFinished || isLive) ? (awayScoreParsed !== null && !isNaN(awayScoreParsed) ? awayScoreParsed : null) : null,
           status: isFinished ? 'finished' : isLive ? 'live' : 'scheduled',
           matchMinute: isLive ? `${ev.status?.displayClock || ev.status?.period || '45'}` : isFinished ? '90' : undefined,
           kickoffAt: ev.date || targetDate.toISOString(),

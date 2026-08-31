@@ -419,6 +419,65 @@ export interface Database {
           updated_at?: string
         }
       }
+      diaspora_players: {
+        Row: {
+          id: string
+          name: string
+          slug: string
+          position: string | null
+          current_club: string | null
+          club_country: string | null
+          photo_url: string | null
+          region: 'europe' | 'middle_east' | 'africa_npfl' | 'other'
+          bio_summary: string | null
+          bio_source_url: string | null
+          market_value_estimate: string | null
+          market_value_source: string | null
+          market_value_as_of: string | null
+          sports_data_player_id: string | null
+          wikipedia_slug: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          name: string
+          slug: string
+          position?: string | null
+          current_club?: string | null
+          club_country?: string | null
+          photo_url?: string | null
+          region?: 'europe' | 'middle_east' | 'africa_npfl' | 'other'
+          bio_summary?: string | null
+          bio_source_url?: string | null
+          market_value_estimate?: string | null
+          market_value_source?: string | null
+          market_value_as_of?: string | null
+          sports_data_player_id?: string | null
+          wikipedia_slug?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          name?: string
+          slug?: string
+          position?: string | null
+          current_club?: string | null
+          club_country?: string | null
+          photo_url?: string | null
+          region?: 'europe' | 'middle_east' | 'africa_npfl' | 'other'
+          bio_summary?: string | null
+          bio_source_url?: string | null
+          market_value_estimate?: string | null
+          market_value_source?: string | null
+          market_value_as_of?: string | null
+          sports_data_player_id?: string | null
+          wikipedia_slug?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+      }
     }
   }
 }

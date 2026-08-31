@@ -46,18 +46,24 @@ export async function fetchMultiSourceWorldScores(leagueSlug: string): Promise<V
       const awayComp = competitors.find((c: any) => c.homeAway === 'away') || competitors[1] || {};
 
       const statusType = ev.status?.type?.name;
-      const isFinished = statusType === 'STATUS_FULL_TIME';
+      const isFinished = statusType === 'STATUS_FULL_TIME' || statusType === 'STATUS_FINAL';
       const isLive = statusType === 'STATUS_IN_PROGRESS' || statusType === 'STATUS_HALFTIME';
 
-      const homeScore = parseInt(homeComp.score || '0', 10);
-      const awayScore = parseInt(awayComp.score || '0', 10);
+      // Scheduled matches MUST have null scores, never 0-0!
+      const homeScoreParsed = (isFinished || isLive) && homeComp.score !== undefined && homeComp.score !== null
+        ? parseInt(String(homeComp.score), 10)
+        : null;
+
+      const awayScoreParsed = (isFinished || isLive) && awayComp.score !== undefined && awayComp.score !== null
+        ? parseInt(String(awayComp.score), 10)
+        : null;
 
       const fixture: ApiMatchFixture = {
         id: `ms-${ev.id || idx}`,
         homeTeam: homeComp.team?.displayName || homeComp.team?.name || 'Home Team',
         awayTeam: awayComp.team?.displayName || awayComp.team?.name || 'Away Team',
-        homeScore: isNaN(homeScore) ? null : homeScore,
-        awayScore: isNaN(awayScore) ? null : awayScore,
+        homeScore: homeScoreParsed !== null && !isNaN(homeScoreParsed) ? homeScoreParsed : null,
+        awayScore: awayScoreParsed !== null && !isNaN(awayScoreParsed) ? awayScoreParsed : null,
         status: isFinished ? 'finished' : isLive ? 'live' : 'scheduled',
         matchMinute: isLive ? `${ev.status?.displayClock || ev.status?.period || '45'}'` : isFinished ? '90' : undefined,
         kickoffAt: ev.date || new Date().toISOString(),

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { createClient } from '@/lib/supabase/server';
 import { Trophy, ArrowLeft, Calendar, Flag, BarChart2 } from 'lucide-react';
 import { getLiveStandingsForLeague } from '@/lib/live-standings-service';
+import { getCurrentSeasonString } from '@/lib/season';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -89,7 +90,7 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="px-3 py-1 rounded bg-[#D9541E] text-white text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-md">
-                <Trophy className="w-3.5 h-3.5" /> OFFICIAL LEAGUE HUB (2026/2027)
+                <Trophy className="w-3.5 h-3.5" /> OFFICIAL LEAGUE HUB ({getCurrentSeasonString()})
               </span>
               <h1 className="text-2xl sm:text-4xl font-black uppercase tracking-tight text-white mt-2 flex items-center gap-3">
                 <span>{meta.flag}</span>

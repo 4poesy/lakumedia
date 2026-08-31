@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Navigation } from '@/components/ui/navigation';
 import { Footer } from '@/components/ui/footer';
+import { FooterLiveScoreTicker } from '@/components/ui/footer-live-score-ticker';
 import { ThemeProviderWrapper } from '@/components/ui/theme-provider-wrapper';
 
 export const metadata: Metadata = {
@@ -63,6 +64,7 @@ export default function RootLayout({
           <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             {children}
           </main>
+          <FooterLiveScoreTicker />
           <Footer />
         </ThemeProviderWrapper>
       </body>

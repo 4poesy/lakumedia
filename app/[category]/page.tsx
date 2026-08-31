@@ -6,7 +6,10 @@ import { ArticleCard } from '@/components/sports/article-card';
 import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
 import { ScoreCard } from '@/components/sports/score-card';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget } from '@/components/sports/sidebar-widgets';
+import { DiasporaWatchHub } from '@/components/sports/diaspora-watch-hub';
 import { getAggregatedNews } from '@/lib/rss-service';
+import { getDiasporaPlayers } from '@/lib/diaspora-service';
+import { getCurrentSeasonString } from '@/lib/season';
 import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 import { isNpflStory } from '@/lib/npfl-keywords';
 
@@ -259,6 +262,10 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     },
   ];
 
+  const currentSeason = getCurrentSeasonString();
+  const isNpfl = categorySlug.toLowerCase() === 'npfl';
+  const diasporaPlayers = isNpfl ? await getDiasporaPlayers() : [];
+
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto">
       {/* Breadcrumbs */}
@@ -401,6 +408,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
         </div>
       </div>
+
+      {/* Super Eagles & Global Diaspora Watch Hub (NPFL Exclusive Feature) */}
+      {isNpfl && (
+        <DiasporaWatchHub
+          initialPlayers={diasporaPlayers}
+          seasonString={currentSeason}
+        />
+      )}
     </div>
   );
 }

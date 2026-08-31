@@ -1,6 +1,9 @@
 import { NextRequest } from 'next/server';
 import { validateApiKey, createApiErrorResponse, createApiSuccessResponse } from '@/lib/api-key-service';
-import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
+import { fetchLiveScoreboardForDateOffset } from '@/lib/live-scoreboard-service';
+import { fetchAutomatedNpflScores } from '@/lib/npfl-score-fetcher';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   const auth = validateApiKey(req);
@@ -8,8 +11,13 @@ export async function GET(req: NextRequest) {
     return createApiErrorResponse(auth.error || 'Unauthorized', 401);
   }
 
-  const allFixtures = getRealGlobalMatchesFeed();
-  const liveFixtures = allFixtures.filter(f => f.status === 'live');
+  const [npfl, espn] = await Promise.all([
+    fetchAutomatedNpflScores(),
+    fetchLiveScoreboardForDateOffset('today'),
+  ]);
+
+  const allFixtures = [...npfl, ...espn];
+  const liveFixtures = allFixtures.filter((f) => f.status === 'live');
 
   return createApiSuccessResponse(liveFixtures, {
     count: liveFixtures.length,

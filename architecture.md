@@ -69,7 +69,7 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 
 ---
 
-## 4. Database Schema (13 Tables)
+## 4. Database Schema (14 Tables)
 
 1. `sports_categories` (id, name, slug, parent_id)
 2. `media_genres` (id, name, slug)
@@ -84,3 +84,5 @@ Dual-vertical platform: **Sports** (Sports-First focal point at root `/*`) + **M
 11. `watch_history` (id, user_id, media_item_id, progress_seconds)
 12. `rss_feed_sources` (id, name, feed_url, feed_type ['news' | 'youtube_channel'], is_active, last_fetched_at)
 13. `aggregated_news` (id, content_type ['article' | 'video'], title, snippet, source_name, source_url, thumbnail_url, video_embed_id, category_id, published_at, fetched_at, feed_source_id)
+14. `diaspora_players` (id, name, slug, position, current_club, club_country, photo_url, region ['europe' | 'middle_east' | 'africa_npfl' | 'other'], bio_summary, bio_source_url, market_value_estimate, market_value_source, market_value_as_of, sports_data_player_id, wikipedia_slug)
+

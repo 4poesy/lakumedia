@@ -1,0 +1,218 @@
+'use client';
+
+import React, { useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Activity, ChevronRight, ChevronLeft, Calendar, Flame, RefreshCw } from 'lucide-react';
+import { MatchTickerFixture } from '@/app/api/fixtures/route';
+
+export function FooterLiveScoreTicker() {
+  const pathname = usePathname();
+  const [fixtures, setFixtures] = useState<MatchTickerFixture[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [mobileIndex, setMobileIndex] = useState(0);
+
+  const fetchFixtures = useCallback(async () => {
+    try {
+      const res = await fetch('/api/fixtures');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.fixtures && Array.isArray(data.fixtures)) {
+          setFixtures(data.fixtures);
+        }
+      }
+    } catch (err) {
+      // Keep existing fixtures on network error
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchFixtures();
+    // Auto-refresh every 60 seconds from the cached DB endpoint
+    const interval = setInterval(fetchFixtures, 60000);
+    return () => clearInterval(interval);
+  }, [fetchFixtures]);
+
+  // Mobile cycling for single-score compact view
+  useEffect(() => {
+    if (fixtures.length <= 1) return;
+    const mobileTimer = setInterval(() => {
+      setMobileIndex((prev) => (prev + 1) % fixtures.length);
+    }, 4000);
+    return () => clearInterval(mobileTimer);
+  }, [fixtures.length]);
+
+  const formatKickoff = (isoString: string): string => {
+    try {
+      const d = new Date(isoString);
+      if (isNaN(d.getTime())) return 'Scheduled';
+      const hours = String(d.getHours()).padStart(2, '0');
+      const minutes = String(d.getMinutes()).padStart(2, '0');
+      return `${hours}:${minutes}`;
+    } catch {
+      return 'Scheduled';
+    }
+  };
+
+  const renderScoreOrTime = (m: MatchTickerFixture) => {
+    if (m.status === 'scheduled') {
+      return (
+        <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-mono text-[11px] font-bold border border-slate-700">
+          {formatKickoff(m.kickoffAt)}
+        </span>
+      );
+    }
+
+    if (m.status === 'live' || m.status === 'finished') {
+      const home = m.homeScore !== null && m.homeScore !== undefined ? m.homeScore : '—';
+      const away = m.awayScore !== null && m.awayScore !== undefined ? m.awayScore : '—';
+      return (
+        <span className="px-2 py-0.5 rounded bg-slate-800 text-white font-mono text-xs font-black border border-slate-700">
+          {home} : {away}
+        </span>
+      );
+    }
+
+    return (
+      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-mono text-[10px] font-bold">
+        {m.status.toUpperCase()}
+      </span>
+    );
+  };
+
+  const renderStatusBadge = (m: MatchTickerFixture) => {
+    if (m.status === 'live') {
+      return (
+        <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-rose-600 text-white font-mono text-[9px] font-black uppercase tracking-wider animate-pulse">
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
+          {m.matchMinute ? `${m.matchMinute}'` : 'LIVE'}
+        </span>
+      );
+    }
+
+    if (m.status === 'finished') {
+      return (
+        <span className="px-1.5 py-0.5 rounded bg-slate-700 text-slate-300 font-mono text-[9px] font-bold uppercase">
+          FT
+        </span>
+      );
+    }
+
+    return (
+      <span className="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800/50 font-mono text-[9px] font-bold uppercase">
+        UPCOMING
+      </span>
+    );
+  };
+
+  // Duplicate list for infinite desktop marquee loop
+  const tickerItems = fixtures.length > 0 ? [...fixtures, ...fixtures, ...fixtures] : [];
+
+  return (
+    <aside
+      aria-label="Live Match Scores Strip"
+      className="sticky bottom-0 z-40 bg-slate-950 text-white border-t border-slate-800/90 shadow-2xl select-none"
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-3 sm:px-6 py-2">
+        
+        {/* Left Fixed Badge */}
+        <div className="flex items-center space-x-2 shrink-0 pr-3 z-10 bg-slate-950">
+          <Link
+            href="/live-scores"
+            className="px-2.5 py-1 rounded-lg bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-[10px] uppercase tracking-wider flex items-center gap-1.5 shadow transition-colors"
+          >
+            <Activity className="w-3.5 h-3.5 text-white animate-pulse" />
+            <span className="hidden sm:inline">LIVE SCORES</span>
+            <span className="sm:hidden">SCORES</span>
+          </Link>
+        </div>
+
+        {/* Center: Desktop Horizontal Marquee Strip */}
+        <div className="hidden md:block overflow-hidden flex-1 relative">
+          {loading ? (
+            <div className="flex items-center space-x-4 py-1 text-slate-400 text-xs font-bold animate-pulse">
+              <span>Fetching verified live match scoreboard…</span>
+            </div>
+          ) : fixtures.length > 0 ? (
+            <div className="animate-ticker space-x-3 flex items-center py-0.5">
+              {tickerItems.map((m, idx) => (
+                <Link
+                  key={`${m.id}-${idx}`}
+                  href="/live-scores"
+                  className="flex items-center space-x-2.5 bg-slate-900/90 hover:bg-[#2A2E7F] px-3.5 py-1 rounded-xl border border-slate-800 hover:border-slate-700 shrink-0 transition-colors"
+                >
+                  <span className="text-[9px] text-amber-400 uppercase tracking-widest font-mono font-bold truncate max-w-[100px]">
+                    {m.leagueName}
+                  </span>
+
+                  <span className="text-white text-xs font-extrabold truncate max-w-[120px]">
+                    {m.homeTeam}
+                  </span>
+
+                  {renderScoreOrTime(m)}
+
+                  <span className="text-white text-xs font-extrabold truncate max-w-[120px]">
+                    {m.awayTeam}
+                  </span>
+
+                  {renderStatusBadge(m)}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-slate-400 text-xs font-medium py-1">
+              No live fixtures currently in progress. Check upcoming match center schedules.
+            </div>
+          )}
+        </div>
+
+        {/* Center: Mobile Compact Single-Score View */}
+        <div className="md:hidden flex-1 overflow-hidden px-2">
+          {loading ? (
+            <div className="text-[11px] text-slate-400 font-bold animate-pulse text-center">
+              Loading scores…
+            </div>
+          ) : fixtures.length > 0 ? (
+            (() => {
+              const current = fixtures[mobileIndex % fixtures.length];
+              return (
+                <Link
+                  href="/live-scores"
+                  className="flex items-center justify-between bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 text-xs"
+                >
+                  <div className="flex items-center space-x-1.5 truncate">
+                    <span className="text-white font-black truncate max-w-[80px]">{current.homeTeam}</span>
+                    {renderScoreOrTime(current)}
+                    <span className="text-white font-black truncate max-w-[80px]">{current.awayTeam}</span>
+                  </div>
+
+                  <div className="shrink-0 ml-2">
+                    {renderStatusBadge(current)}
+                  </div>
+                </Link>
+              );
+            })()
+          ) : (
+            <div className="text-[11px] text-slate-400 text-center">
+              No active matches right now
+            </div>
+          )}
+        </div>
+
+        {/* Right Action: Match Center Link */}
+        <div className="flex items-center space-x-1 shrink-0 pl-3 z-10 bg-slate-950">
+          <Link
+            href="/live-scores"
+            className="hidden sm:flex items-center gap-1 text-[11px] font-black text-amber-400 hover:text-white uppercase tracking-wider transition-colors"
+          >
+            <span>Full Center</span>
+            <ChevronRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+      </div>
+    </aside>
+  );
+}

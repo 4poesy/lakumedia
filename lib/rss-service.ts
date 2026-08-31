@@ -2,7 +2,7 @@ import { RssFeedSource, AggregatedNewsItem, INITIAL_FEED_SOURCES } from '@/lib/t
 import { createClient } from '@/lib/supabase/server';
 import { parseFeedSource } from '@/lib/rss-parser';
 
-export { INITIAL_FEED_SOURCES };
+export { INITIAL_FEED_SOURCES, type AggregatedNewsItem, type RssFeedSource };
 
 export async function getAggregatedNews(): Promise<AggregatedNewsItem[]> {
   const liveItems: AggregatedNewsItem[] = [];

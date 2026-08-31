@@ -1,22 +1,20 @@
 import { NextResponse } from 'next/server';
-import { fetchLiveSportsFromApi } from '@/lib/sports-api';
+import { syncLiveFixturesToDatabase } from '@/lib/fixtures-sync';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const result = await fetchLiveSportsFromApi();
+  const result = await syncLiveFixturesToDatabase();
   return NextResponse.json({
-    status: 'success',
-    timestamp: new Date().toISOString(),
+    status: result.success ? 'success' : 'error',
     ...result,
   });
 }
 
 export async function POST() {
-  const result = await fetchLiveSportsFromApi();
+  const result = await syncLiveFixturesToDatabase();
   return NextResponse.json({
-    status: 'success',
-    timestamp: new Date().toISOString(),
+    status: result.success ? 'success' : 'error',
     ...result,
   });
 }
