@@ -7,6 +7,7 @@ import { getRealGlobalMatchesFeed } from '@/lib/sports-api';
 import { getLiveStandingsForLeague, RealStandingsTeam } from '@/lib/live-standings-service';
 import { getCurrentSeasonString } from '@/lib/season';
 import { FlashscoreWidget } from '@/components/sports/flashscore-widget';
+import { TacticalLineupsView } from '@/components/sports/tactical-lineups-view';
 import { Radio, Zap } from 'lucide-react';
 
 export interface MatchFixtureItem {
@@ -52,7 +53,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [activeStandingsLeague, setActiveStandingsLeague] = useState<'npfl' | 'epl' | 'laliga' | 'seriea' | 'bundesliga' | 'ligue1' | 'saudi' | 'ucl' | 'afcon'>('epl');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null);
-  const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'h2h' | 'table'>>({});
+  const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'lineups' | 'h2h'>>({});
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [realStandings, setRealStandings] = useState<RealStandingsTeam[]>([]);
@@ -576,13 +577,66 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
                               className="p-1.5 rounded-lg hover:bg-slate-700/20 text-slate-400 hover:text-amber-400 transition-colors"
                             >
                               <Star className={`w-4 h-4 ${isFav ? 'fill-amber-400 text-amber-400' : ''}`} />
-                            </button>
-
-                            <div className="p-1.5 rounded-lg text-slate-400 hover:text-slate-900">
-                              {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
-                            </div>
                           </div>
                         </div>
+
+                        {/* Expanded Match Detail Drawer */}
+                        {isExpanded && (
+                          <div className="border-t border-slate-800 bg-slate-950 p-4 space-y-4 animate-in fade-in duration-150">
+                            {/* Drawer Nav Tabs */}
+                            <div className="flex items-center space-x-2 border-b border-slate-800 pb-2">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDrawerTab(match.id, 'summary');
+                                }}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-colors ${
+                                  (!currentTab || currentTab === 'summary')
+                                    ? 'bg-[#2A2E7F] text-white'
+                                    : 'text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                Match Summary
+                              </button>
+
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setDrawerTab(match.id, 'lineups');
+                                }}
+                                className={`px-3 py-1.5 rounded-lg text-xs font-black uppercase tracking-wider transition-colors flex items-center space-x-1.5 ${
+                                  currentTab === 'lineups'
+                                    ? 'bg-emerald-600 text-white'
+                                    : 'text-slate-400 hover:text-white'
+                                }`}
+                              >
+                                <span>3D Tactics & Lineups</span>
+                              </button>
+                            </div>
+
+                            {/* Drawer Content Views */}
+                            {currentTab === 'lineups' ? (
+                              <TacticalLineupsView
+                                fixtureId={match.id}
+                                leagueSlug={match.leagueSlug || 'epl'}
+                              />
+                            ) : (
+                              <div className="py-4 text-center text-xs text-slate-400 font-medium space-y-1">
+                                <p className="font-extrabold text-white text-sm">
+                                  {match.homeTeam} vs {match.awayTeam}
+                                </p>
+                                <p className="text-slate-400">
+                                  Venue: {match.stadium || 'Official Competition Arena'}
+                                </p>
+                                <p className="text-[11px] text-emerald-400 font-mono pt-1">
+                                  Click &quot;3D Tactics & Lineups&quot; tab above to view official starting XIs and 3D pitch formation.
+                                </p>
+                              </div>
+                            )}
+                          </div>
+                        )}
 
                       </div>
                     );
