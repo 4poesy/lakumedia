@@ -76,13 +76,13 @@ export default async function MultimediaHomePage() {
       image: {
         src: '/assest/team/akinola-olujobi.jpg',
       },
-      title: 'AKINOLA OLUJOBI\nWeb Developer',
+      title: 'OLUJOBI AKINOLA\nSoftware Developer',
     },
     {
       image: {
         src: '/assest/team/oluwarotimi-ajayi.jpg',
       },
-      title: 'OLUWAROTIMI AJAYI\nHead of Operation',
+      title: 'OLUWAROTIMI AJAYI\nHead of Production',
     },
   ];
 
