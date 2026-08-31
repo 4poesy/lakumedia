@@ -21,25 +21,25 @@ export function LeagueFormGuide() {
 
   const LEAGUE_TABLES: Record<string, TeamFormItem[]> = {
     npfl: [
-      { rank: 1, teamName: 'Enyimba FC', played: 28, won: 17, drawn: 6, lost: 5, gd: 24, points: 57, formStreak: ['W', 'W', 'W', 'D', 'W'] },
-      { rank: 2, teamName: 'Kano Pillars', played: 28, won: 16, drawn: 5, lost: 7, gd: 18, points: 53, formStreak: ['W', 'D', 'W', 'L', 'W'] },
-      { rank: 3, teamName: 'Remo Stars FC', played: 28, won: 15, drawn: 7, lost: 6, gd: 15, points: 52, formStreak: ['D', 'W', 'W', 'W', 'L'] },
-      { rank: 4, teamName: 'Rivers United', played: 28, won: 14, drawn: 8, lost: 6, gd: 12, points: 50, formStreak: ['W', 'L', 'W', 'D', 'W'] },
-      { rank: 5, teamName: 'Enugu Rangers', played: 28, won: 13, drawn: 9, lost: 6, gd: 10, points: 48, formStreak: ['L', 'W', 'D', 'W', 'W'] },
+      { rank: 1, teamName: 'Remo Stars FC', played: 38, won: 21, drawn: 8, lost: 9, gd: 24, points: 71, formStreak: ['W', 'W', 'W', 'D', 'W'] },
+      { rank: 2, teamName: 'Rangers International', played: 38, won: 20, drawn: 10, lost: 8, gd: 23, points: 70, formStreak: ['W', 'D', 'W', 'W', 'W'] },
+      { rank: 3, teamName: 'Enyimba FC', played: 38, won: 19, drawn: 9, lost: 10, gd: 15, points: 66, formStreak: ['D', 'W', 'L', 'W', 'W'] },
+      { rank: 4, teamName: 'Shooting Stars (35FM)', played: 38, won: 18, drawn: 8, lost: 12, gd: 14, points: 62, formStreak: ['W', 'W', 'W', 'L', 'D'] },
+      { rank: 5, teamName: 'Lobi Stars', played: 38, won: 17, drawn: 7, lost: 14, gd: -2, points: 58, formStreak: ['L', 'W', 'D', 'W', 'L'] },
     ],
     epl: [
-      { rank: 1, teamName: 'Arsenal FC', played: 29, won: 20, drawn: 5, lost: 4, gd: 38, points: 65, formStreak: ['W', 'W', 'W', 'W', 'D'] },
-      { rank: 2, teamName: 'Manchester City', played: 29, won: 19, drawn: 6, lost: 4, gd: 35, points: 63, formStreak: ['W', 'W', 'D', 'W', 'W'] },
-      { rank: 3, teamName: 'Liverpool FC', played: 29, won: 18, drawn: 7, lost: 4, gd: 30, points: 61, formStreak: ['W', 'D', 'W', 'L', 'W'] },
-      { rank: 4, teamName: 'Chelsea FC', played: 29, won: 15, drawn: 8, lost: 6, gd: 18, points: 53, formStreak: ['D', 'W', 'W', 'W', 'L'] },
-      { rank: 5, teamName: 'Aston Villa', played: 29, won: 15, drawn: 6, lost: 8, gd: 14, points: 51, formStreak: ['W', 'L', 'D', 'W', 'W'] },
+      { rank: 1, teamName: 'Liverpool FC', played: 38, won: 25, drawn: 9, lost: 4, gd: 45, points: 84, formStreak: ['W', 'W', 'D', 'W', 'W'] },
+      { rank: 2, teamName: 'Arsenal FC', played: 38, won: 23, drawn: 10, lost: 5, gd: 45, points: 79, formStreak: ['W', 'D', 'W', 'W', 'L'] },
+      { rank: 3, teamName: 'Manchester City', played: 38, won: 22, drawn: 8, lost: 8, gd: 37, points: 74, formStreak: ['W', 'W', 'W', 'L', 'W'] },
+      { rank: 4, teamName: 'Chelsea FC', played: 38, won: 20, drawn: 9, lost: 9, gd: 27, points: 69, formStreak: ['D', 'W', 'W', 'W', 'W'] },
+      { rank: 5, teamName: 'Aston Villa', played: 38, won: 19, drawn: 9, lost: 10, gd: 13, points: 66, formStreak: ['W', 'L', 'W', 'D', 'W'] },
     ],
     laliga: [
-      { rank: 1, teamName: 'Real Madrid', played: 29, won: 22, drawn: 4, lost: 3, gd: 42, points: 70, formStreak: ['W', 'W', 'W', 'D', 'W'] },
-      { rank: 2, teamName: 'FC Barcelona', played: 29, won: 20, drawn: 5, lost: 4, gd: 36, points: 65, formStreak: ['W', 'D', 'W', 'W', 'L'] },
-      { rank: 3, teamName: 'Atletico Madrid', played: 29, won: 17, drawn: 7, lost: 5, gd: 22, points: 58, formStreak: ['W', 'W', 'L', 'D', 'W'] },
-      { rank: 4, teamName: 'Athletic Bilbao', played: 29, won: 15, drawn: 8, lost: 6, gd: 16, points: 53, formStreak: ['D', 'W', 'W', 'W', 'L'] },
-      { rank: 5, teamName: 'Girona FC', played: 29, won: 15, drawn: 5, lost: 9, gd: 12, points: 50, formStreak: ['L', 'W', 'D', 'W', 'W'] },
+      { rank: 1, teamName: 'Real Madrid', played: 38, won: 29, drawn: 8, lost: 1, gd: 61, points: 95, formStreak: ['W', 'W', 'W', 'D', 'W'] },
+      { rank: 2, teamName: 'FC Barcelona', played: 38, won: 26, drawn: 7, lost: 5, gd: 35, points: 85, formStreak: ['W', 'W', 'D', 'W', 'L'] },
+      { rank: 3, teamName: 'Girona FC', played: 38, won: 25, drawn: 6, lost: 7, gd: 39, points: 81, formStreak: ['L', 'W', 'W', 'W', 'W'] },
+      { rank: 4, teamName: 'Atletico Madrid', played: 38, won: 24, drawn: 4, lost: 10, gd: 27, points: 76, formStreak: ['W', 'L', 'W', 'W', 'D'] },
+      { rank: 5, teamName: 'Athletic Bilbao', played: 38, won: 19, drawn: 11, lost: 8, gd: 24, points: 68, formStreak: ['D', 'W', 'L', 'W', 'W'] },
     ],
   };
 

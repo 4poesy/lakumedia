@@ -11,9 +11,9 @@ import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingS
 import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
 import { LeaderboardAdBanner } from '@/components/ads/leaderboard-ad-banner';
 import { SidebarAdBox } from '@/components/ads/sidebar-ad-box';
+import { CocaColaAdBox } from '@/components/ads/coca-cola-ad-box';
 import { OfficialPartnersBar } from '@/components/ads/official-partners-bar';
 import { PlayerComparisonWidget } from '@/components/sports/player-comparison-widget';
-import { BookmakerOddsWidget } from '@/components/sports/bookmaker-odds-widget';
 import { LeagueFormGuide } from '@/components/sports/league-form-guide';
 import { getDiasporaPlayers } from '@/lib/diaspora-service';
 import { getAggregatedNews } from '@/lib/rss-service';
@@ -226,9 +226,6 @@ export default async function SportsRootHomePage() {
           {/* FC Bayern Munich & European Club Hub */}
           <FcBayernNewsHub />
 
-          {/* Live Marquee Match Odds & Betting Stream */}
-          <BookmakerOddsWidget />
-
           {/* Around the Web Media Rail */}
           <AroundTheWebRail items={aggregatedNewsItems} />
 
@@ -285,6 +282,9 @@ export default async function SportsRootHomePage() {
 
           {/* Social Counters */}
           <SocialCountersWidget />
+
+          {/* Coca-Cola Matchday Refreshment Commercial Ad Box */}
+          <CocaColaAdBox />
 
           {/* Latest Comments Widget */}
           <LatestCommentsWidget />

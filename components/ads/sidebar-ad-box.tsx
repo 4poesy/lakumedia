@@ -39,12 +39,13 @@ export function SidebarAdBox({
         </span>
       </div>
 
-      {/* Main Logo Container */}
-      <div className="relative h-32 w-full rounded-2xl overflow-hidden bg-white p-3 border border-slate-800 flex items-center justify-center shadow-inner">
+      {/* Main Logo Showcase with Cinematic Movement (No White Box) */}
+      <div className="relative h-40 w-full rounded-2xl bg-gradient-to-b from-slate-950/90 via-slate-900/90 to-slate-950 border border-blue-500/30 flex items-center justify-center p-4 overflow-hidden shadow-2xl group">
+        <div className="absolute inset-0 bg-blue-500/10 blur-2xl group-hover:bg-blue-500/20 transition-all duration-700 pointer-events-none" />
         <img
           src={imageUrl}
           alt={title}
-          className="h-full w-auto object-contain group-hover:scale-105 transition-transform duration-500"
+          className="max-h-32 w-auto object-contain transition-all duration-700 group-hover:scale-110 animate-pulse filter drop-shadow-[0_0_25px_rgba(37,99,235,0.75)]"
         />
       </div>
 

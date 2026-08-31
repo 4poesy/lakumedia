@@ -73,11 +73,11 @@ export function OfficialPartnersBar() {
             className={`bg-slate-950 p-5 rounded-2xl border border-slate-800 ${p.borderColor} transition-all duration-300 hover:scale-[1.02] flex flex-col justify-between space-y-4 group`}
           >
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 rounded-2xl overflow-hidden relative bg-white shrink-0 p-1 border border-slate-700 shadow-md">
+              <div className="w-16 h-16 rounded-2xl overflow-hidden relative bg-slate-900 shrink-0 p-1.5 border border-slate-700/80 shadow-lg group-hover:border-emerald-500/50 transition-colors">
                 <img
                   src={p.logoUrl}
                   alt={p.name}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500 filter drop-shadow-md"
                 />
               </div>
 
