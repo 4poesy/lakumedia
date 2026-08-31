@@ -12,6 +12,8 @@ import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
 import { LeaderboardAdBanner } from '@/components/ads/leaderboard-ad-banner';
 import { SidebarAdBox } from '@/components/ads/sidebar-ad-box';
 import { PlayerComparisonWidget } from '@/components/sports/player-comparison-widget';
+import { BookmakerOddsWidget } from '@/components/sports/bookmaker-odds-widget';
+import { LeagueFormGuide } from '@/components/sports/league-form-guide';
 import { getDiasporaPlayers } from '@/lib/diaspora-service';
 import { getAggregatedNews } from '@/lib/rss-service';
 import { Activity, Flame, Globe } from 'lucide-react';
@@ -211,6 +213,9 @@ export default async function SportsRootHomePage() {
             }}
           />
 
+          {/* Top Clubs 5-Match Form Guide & Streak Analyzer */}
+          <LeagueFormGuide />
+
           {/* Leaderboard Commercial Ad Banner */}
           <LeaderboardAdBanner />
 
@@ -219,6 +224,9 @@ export default async function SportsRootHomePage() {
 
           {/* FC Bayern Munich & European Club Hub */}
           <FcBayernNewsHub />
+
+          {/* Live Marquee Match Odds & Betting Stream */}
+          <BookmakerOddsWidget />
 
           {/* Around the Web Media Rail */}
           <AroundTheWebRail items={aggregatedNewsItems} />
