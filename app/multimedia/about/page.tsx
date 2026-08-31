@@ -8,6 +8,7 @@ import { AboutHeroAutoCrossfade } from '@/components/multimedia/about-hero-auto-
 import { AboutPartnerMarquee } from '@/components/multimedia/about-partner-marquee';
 import { AboutCeoStatement } from '@/components/multimedia/about-ceo-statement';
 import { AboutFacilitiesShowcase } from '@/components/multimedia/about-facilities-showcase';
+import { LakuMediaYoutubeShowcase } from '@/components/multimedia/laku-media-youtube-showcase';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
@@ -16,27 +17,27 @@ export default function MultimediaAboutPage() {
   const teamSlides = [
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/samuel-adebayo-olaku.jpg',
       },
-      title: 'Adebayo Samuel Olaku\nChief Executive Officer & Founder',
+      title: 'SAMUEL ADEBAYO OLAKU\nChief Executive Officer (CEO)',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/oluwaseun-olaku.jpg',
       },
-      title: 'Kemi Adebisi\nHead of Satellite Broadcast MCR',
+      title: 'OLUWASEUN OLAKU\nProduction Manager',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/akinola-olujobi.jpg',
       },
-      title: 'Chidi Chukwuma\nDirector of Cinematography',
+      title: 'AKINOLA OLUJOBI\nWeb Developer',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/oluwarotimi-ajayi.jpg',
       },
-      title: 'Zainab Bello\nBrand Strategy Lead',
+      title: 'OLUWAROTIMI AJAYI\nHead of Operation',
     },
   ];
 
@@ -55,7 +56,7 @@ export default function MultimediaAboutPage() {
       {/* 2. ANIMATED CLIENT & PARTNER LOGO MARQUEE */}
       <AboutPartnerMarquee />
 
-      {/* 3. MESSAGE FROM OUR CHIEF EXECUTIVE OFFICER (Moved immediately after Partners Logo Marquee) */}
+      {/* 3. MESSAGE FROM OUR CHIEF EXECUTIVE OFFICER */}
       <AboutCeoStatement />
 
       {/* 4. VISION & MISSION CARDS */}
@@ -87,11 +88,10 @@ export default function MultimediaAboutPage() {
         </NeonBorder>
       </section>
 
-      {/* 5. WHY LAKU MEDIA? 2-COLUMN SHOWCASE (Content on LEFT, Sunset Satellite Dish 3 Image on RIGHT) */}
+      {/* 5. WHY LAKU MEDIA? 2-COLUMN SHOWCASE */}
       <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border-2 border-[#10B981]/60 shadow-2xl overflow-hidden relative">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           
-          {/* LEFT Column (Content: "Why Laku Media?") */}
           <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
             <div className="space-y-2">
               <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700 inline-block">
@@ -106,7 +106,6 @@ export default function MultimediaAboutPage() {
               Laku Media is Africa&apos;s dual-vertical powerhouse bridging world-class 8K cinema production, live satellite sports broadcasting, and commercial brand storytelling. We combine cutting-edge technology with unyielding creative passion to deliver unmatched media experiences.
             </p>
 
-            {/* Why Laku Media Key Pillars */}
             <div className="space-y-3 pt-2">
               <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-start space-x-3">
                 <div className="p-2 rounded-xl bg-[#D9541E]/20 text-[#D9541E] shrink-0 border border-orange-500/40">
@@ -147,7 +146,6 @@ export default function MultimediaAboutPage() {
 
           </div>
 
-          {/* RIGHT Column (3rd Uploaded Image: Sunset Satellite Dishes Silhouette) */}
           <div className="lg:col-span-6 relative h-[380px] sm:h-[480px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
             <Image
               src="/assest/user_why_laku_satellite_sunset_3.jpg"
@@ -167,61 +165,7 @@ export default function MultimediaAboutPage() {
         </div>
       </section>
 
-      {/* 6. AFRICA'S PREMIER DUAL-VERTICAL ENTERTAINMENT HOUSE (Moved immediately after Why Laku Media) */}
-      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-12 border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-          
-          {/* Left Column (Image) */}
-          <div className="lg:col-span-6 relative h-[360px] sm:h-[440px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
-            <Image
-              src="/assest/user_about_satellite_dish_1.jpg"
-              alt="Laku Media Teleport Satellite Dish Antenna"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
-                OUR ORIGIN STORY
-              </span>
-              <h3 className="text-sm font-extrabold text-white">Built From Passion for African Cinema & Satellite Broadcasting</h3>
-            </div>
-          </div>
-
-          {/* Right Column (Content) */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700">
-                COMPANY OVERVIEW
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                AFRICA&apos;S PREMIER <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#10B981]">DUAL-VERTICAL</span> ENTERTAINMENT HOUSE
-              </h2>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed font-medium">
-              Founded under the executive guidance of Chief Executive Officer Adebayo Samuel Olaku, Laku Media has grown into a powerhouse across two core verticals: **Laku Sports** (realtime news, scores, and sports aggregation) and **Laku Media Studios** (theatrical film production, music video direction, and satellite broadcasting).
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#D9541E]">10M+</span>
-                <p className="text-xs text-slate-400 font-bold">Monthly Viewers</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#10B981]">100+</span>
-                <p className="text-xs text-slate-400 font-bold">Delivered Productions</p>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 7. PHYSICAL STUDIOS & LOCATION FACILITIES SHOWCASE */}
-      <AboutFacilitiesShowcase />
-
-      {/* 8. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (Originkit 3D Coverflow) */}
+      {/* 6. MEET THE EXECUTIVE TEAM & CREATIVE DIRECTORS (3D Coverflow with Authentic Executive Team Photos) */}
       <section className="max-w-7xl mx-auto space-y-8 bg-slate-950 p-8 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
           <div>
@@ -248,6 +192,12 @@ export default function MultimediaAboutPage() {
           />
         </div>
       </section>
+
+      {/* 7. LAKU MEDIA CONCEPTS OFFICIAL YOUTUBE SHOWCASE */}
+      <LakuMediaYoutubeShowcase />
+
+      {/* 8. PHYSICAL STUDIOS & LOCATION FACILITIES SHOWCASE */}
+      <AboutFacilitiesShowcase />
 
       {/* 9. Studio Subscriber Section */}
       <div className="max-w-7xl mx-auto">

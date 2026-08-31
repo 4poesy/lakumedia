@@ -5,6 +5,7 @@ import { Sparkles, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { BookUsNowSection } from '@/components/multimedia/book-us-now';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { PortfolioClientGrid } from '@/components/multimedia/portfolio-client-grid';
+import { LakuMediaYoutubeShowcase } from '@/components/multimedia/laku-media-youtube-showcase';
 
 export const dynamic = 'force-dynamic';
 
@@ -12,64 +13,64 @@ export default function MultimediaPortfolioPage() {
   const portfolioProjects = [
     {
       id: 'port-1',
-      title: 'Lagos Stadium International Music Concert',
+      title: 'Laku Media Concepts Cinema Production & Broadcast Reel',
       category: 'LIVE CONCERT BROADCAST',
-      client: 'African Music Awards Network',
-      description: 'Full multi-camera satellite OB van live stream to 1.5 million viewers across YouTube and African television networks.',
+      client: 'Laku Media Concepts Network',
+      description: 'Full multi-camera satellite OB van live stream to viewers across YouTube and African television networks.',
       imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
-      youtubeId: '3Q06g9O0J-Y',
+      youtubeId: 'MFAejiCKDjk',
     },
     {
       id: 'port-2',
-      title: 'Giants of Africa: Feature Cinema Documentary',
+      title: 'Commercial Brand Campaign & Studio Film Showcase',
       category: 'DOCUMENTARY FILM',
       client: 'Laku Media Originals',
-      description: 'Feature length 4K theatrical documentary exploring grassroots football talent discovery in West Africa.',
+      description: 'Feature length 4K theatrical commercial exploring brand storytelling and visual direction.',
       imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
-      youtubeId: 'dQw4w9WgXcQ',
+      youtubeId: 'szV-YWVJ5aY',
     },
     {
       id: 'port-3',
-      title: 'Global Afrobeats Music Video Shoot',
+      title: 'Live Event Satellite Coverage & Multicam Production',
       category: 'MUSIC VIDEO DIRECTION',
       client: 'Starboy Entertainment',
-      description: 'Hollywood-grade RED Cinema 8K music video production shot on location in Aba and Lagos.',
+      description: 'Hollywood-grade RED Cinema 8K music video production shot on location.',
       imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
-      youtubeId: 'L_LUpnjgPso',
+      youtubeId: 'zZHbLPiXAos',
     },
     {
       id: 'port-4',
-      title: 'Annual Banking Executives Summit AGM',
+      title: 'Laku Media Documentary & Cultural Storytelling Series',
       category: 'CORPORATE EVENT STAGING',
-      client: 'First Bank of Nigeria',
+      client: 'Corporate Brand Network',
       description: 'Stage lighting choreography, 4K multi-cam live LED wall feed, and executive keynote video production.',
       imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
-      youtubeId: 'kXYiU_JCYtU',
+      youtubeId: 'mJag5F0ASqQ',
     },
     {
       id: 'port-5',
-      title: 'National Television Broadcast Commercial Advert',
+      title: 'Music Video Direction & 8K Cinema Color Grading',
       category: 'BROADCAST ADVERTISING',
-      client: 'MTN Telecommunications',
-      description: 'High-impact 30-second broadcast TV advert with 3D CGI animation and Dolby sound mixing.',
+      client: 'Global Music Labels',
+      description: 'High-impact broadcast TV advert with 3D CGI animation and Dolby sound mixing.',
       imageUrl: 'https://images.unsplash.com/photo-1543351611-c823945f1007?w=1200&auto=format&fit=crop',
-      youtubeId: '3Q06g9O0J-Y',
+      youtubeId: 'CwZLn1s0q-k',
     },
     {
       id: 'port-6',
-      title: 'Aerial Drone Cinematography Spotlight',
+      title: 'Corporate Brand Film & Executive Studio Production',
       category: 'DRONE & VISUAL EFFECTS',
       client: 'Laku Media Creative Studio',
-      description: 'FPV high-speed drone aerial filming across Nigerian landmarks and coastal infrastructure.',
+      description: 'FPV high-speed drone aerial filming across landmarks and coastal infrastructure.',
       imageUrl: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop',
-      youtubeId: 'dQw4w9WgXcQ',
+      youtubeId: 'BIiwifY-41I',
     },
   ];
 
   return (
     <div className="bg-[#090A0F] text-white min-h-screen space-y-16">
       
-      {/* 1. STUDIO PORTFOLIO HERO HEADER with Lighter Overlay for Background Image Clarity */}
+      {/* 1. STUDIO PORTFOLIO HERO HEADER */}
       <section className="relative rounded-3xl overflow-hidden min-h-[440px] sm:min-h-[500px] flex items-center justify-center border-2 border-slate-800 shadow-2xl">
         <Image
           src="/assest/user_portfolio_hero_stage.jpg"
@@ -99,160 +100,27 @@ export default function MultimediaPortfolioPage() {
               href="/contact"
               className="px-8 py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-sm shadow-2xl flex items-center gap-2 transition-transform hover:scale-105 active:scale-95 border border-orange-400"
             >
-              <span>Book Studio Project</span> <ArrowRight className="w-5 h-5" />
+              <span>Book Studio Production</span>
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 2. SHOWCASE SECTION 1: 2-COLUMN LAYOUT (User Image 2 on LEFT, Content on RIGHT) */}
-      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* Left Column */}
-          <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
-            <Image
-              src="/assest/user_portfolio_crew_set.jpg"
-              alt="Laku Media Camera Crew Filming On Studio Set"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-[#10B981] block">
-                ON-SET CINEMATOGRAPHY
-              </span>
-              <h3 className="text-sm font-extrabold text-white">RED 8K Camera Rigging & Crew Coordination</h3>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="lg:col-span-6 space-y-6">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-md bg-[#2A2E7F] text-[#10B981] text-[10px] font-black uppercase tracking-widest border border-slate-700">
-                PRODUCTION CASE STUDY #1
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                STATE-OF-THE-ART <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-[#10B981]">STUDIO FILMING</span> & DIRECTION
-              </h2>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed font-medium">
-              Under executive leadership, Laku Media Studios orchestrates multi-camera video shoots with precision lighting choreography, high-speed camera cranes, and synchronized audio capture for film sets and commercial campaigns.
-            </p>
-
-            <div className="grid grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#D9541E]">100%</span>
-                <p className="text-xs text-slate-400 font-bold">4K/8K Cinema Standard</p>
-              </div>
-              <div className="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-1">
-                <span className="text-2xl font-black text-[#10B981]">50+</span>
-                <p className="text-xs text-slate-400 font-bold">Delivered Commercials</p>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/contact"
-                className="px-7 py-3.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105 active:scale-95 border border-orange-400 uppercase tracking-wider"
-              >
-                <span>Request Case Study Deck</span> <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-
-        </div>
+      {/* 2. Interactive Client Grid Section */}
+      <section className="max-w-7xl mx-auto">
+        <PortfolioClientGrid initialProjects={portfolioProjects} />
       </section>
 
-      {/* 3. Portfolio Projects Grid with In-Page Lightbox Modal */}
-      <section className="max-w-7xl mx-auto space-y-8">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
-          <div>
-            <span className="text-xs font-extrabold uppercase tracking-widest text-[#10B981] block">
-              FEATURED PRODUCTION REELS
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-black text-white uppercase">
-              DELIVERED STUDIO PROJECTS
-            </h2>
-          </div>
-        </div>
+      {/* 3. LAKU MEDIA CONCEPTS OFFICIAL YOUTUBE SHOWCASE */}
+      <LakuMediaYoutubeShowcase />
 
-        <PortfolioClientGrid projects={portfolioProjects} />
-      </section>
+      {/* 4. Book Us Now Section */}
+      <BookUsNowSection />
 
-      {/* 4. SHOWCASE SECTION 2: 2-COLUMN LAYOUT (Content on LEFT, User Image 3 on RIGHT) */}
-      <section className="max-w-7xl mx-auto bg-slate-950 rounded-3xl p-6 sm:p-10 border border-slate-800 shadow-2xl overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-          
-          {/* Left Column */}
-          <div className="lg:col-span-6 space-y-6 order-2 lg:order-1">
-            <div className="space-y-2">
-              <span className="px-3 py-1 rounded-md bg-[#D9541E]/20 text-[#D9541E] text-[10px] font-black uppercase tracking-widest border border-orange-500/40">
-                PRODUCTION CASE STUDY #2
-              </span>
-              <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-tight leading-tight">
-                ADVANCED <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-[#D9541E]">STAGE LIGHTING</span> & STUDIO SET DESIGN
-              </h2>
-            </div>
-
-            <p className="text-sm text-slate-300 leading-relaxed font-medium">
-              Laku Media provides custom studio set rigging, professional softboxes, key lights, overhead spotlights, and sound-treated acoustics designed for high-end television shows, music videos, and film productions.
-            </p>
-
-            <div className="space-y-3 font-extrabold text-xs text-slate-200">
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Multi-Angle Studio Spotlights & Key Lighting Rigs</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Soundproofed Master Acoustic Recording Environment</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#10B981]" />
-                <span>Dolby Atmos Sound Mixing & Color Grading Suite</span>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/multimedia/services"
-                className="px-7 py-3.5 rounded-xl bg-[#2A2E7F] hover:bg-blue-900 text-white font-extrabold text-xs inline-flex items-center gap-2 shadow-lg transition-transform hover:scale-105 active:scale-95 border border-slate-700 uppercase tracking-wider"
-              >
-                <span>Explore Technical Specs</span> <ArrowRight className="w-4 h-4 text-emerald-400" />
-              </Link>
-            </div>
-          </div>
-
-          {/* Right Column */}
-          <div className="lg:col-span-6 relative h-[340px] sm:h-[420px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group order-1 lg:order-2">
-            <Image
-              src="/assest/user_portfolio_lighting_crew.jpg"
-              alt="Laku Media Studio Lighting & Crew Production Setup"
-              fill
-              className="object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
-              <span className="text-[10px] font-black uppercase tracking-widest text-amber-400 block">
-                LIGHTING & SET DESIGN
-              </span>
-              <h3 className="text-sm font-extrabold text-white">Professional Studio Lighting Rigs & Sound Staging</h3>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      {/* 5. Book Us Section ("BOOK LAKU MEDIA CREATIVE STUDIO READY TO PRODUCE YOUR NEXT BLOCKBUSTER PROJECT?") */}
+      {/* 5. Studio Subscriber Section */}
       <div className="max-w-7xl mx-auto">
-        <BookUsNowSection />
-      </div>
-
-      {/* 6. SUBSCRIBER BANNER (Moved BELOW BookUsNowSection) */}
-      <div className="max-w-7xl mx-auto">
-        <StudioSubscriberSection showTagline={false} />
+        <StudioSubscriberSection />
       </div>
 
     </div>

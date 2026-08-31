@@ -11,6 +11,7 @@ import { MultimediaHeroSlider } from '@/components/multimedia/multimedia-hero-sl
 import { ParallaxCinemaSection } from '@/components/multimedia/parallax-cinema-section';
 import { NewsletterPopupModal, StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
+import { LakuMediaYoutubeShowcase } from '@/components/multimedia/laku-media-youtube-showcase';
 import { Radio, Film, Tv, Camera, Users, ArrowRight } from 'lucide-react';
 import { NeonBorder } from '@/components/ui/neon-border';
 
@@ -61,27 +62,27 @@ export default async function MultimediaHomePage() {
   const teamSlides = [
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/samuel-adebayo-olaku.jpg',
       },
-      title: 'Adebayo Samuel Olaku\nChief Executive Officer & Founder',
+      title: 'SAMUEL ADEBAYO OLAKU\nChief Executive Officer (CEO)',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/oluwaseun-olaku.jpg',
       },
-      title: 'Kemi Adebisi\nHead of Satellite Broadcast MCR',
+      title: 'OLUWASEUN OLAKU\nProduction Manager',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/akinola-olujobi.jpg',
       },
-      title: 'Chidi Chukwuma\nDirector of Cinematography',
+      title: 'AKINOLA OLUJOBI\nWeb Developer',
     },
     {
       image: {
-        src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=800&auto=format&fit=crop&q=75',
+        src: '/assest/team/oluwarotimi-ajayi.jpg',
       },
-      title: 'Zainab Bello\nBrand Strategy Lead',
+      title: 'OLUWAROTIMI AJAYI\nHead of Operation',
     },
   ];
 
@@ -333,7 +334,10 @@ export default async function MultimediaHomePage() {
         </div>
       </section>
 
-      {/* 9. PARALLAX CINEMA SECTION */}
+      {/* 9. LAKU MEDIA CONCEPTS OFFICIAL YOUTUBE SHOWCASE */}
+      <LakuMediaYoutubeShowcase />
+
+      {/* 10. PARALLAX CINEMA SECTION */}
       <ParallaxCinemaSection
         title="PIONEERING 4K/8K CINEMATOGRAPHY & SATELLITE BROADCASTING"
         subtitle="Under the executive direction of CEO Adebayo Samuel Olaku, Laku Media Studio operates multi-camera satellite OB vans, FPV aerial drones, and Dolby sound suites."

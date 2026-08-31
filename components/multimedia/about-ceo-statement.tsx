@@ -7,27 +7,28 @@ import { NeonBorder } from '@/components/ui/neon-border';
 
 export function AboutCeoStatement() {
   return (
-    <section className="max-w-7xl mx-auto my-12">
+    <section className="max-w-7xl mx-auto my-12 select-none">
       <NeonBorder color="#D9541E" rounded={28} thickness={4} borderSize={60} glow={95}>
         <div className="bg-slate-950 p-6 sm:p-12 rounded-3xl border border-slate-800 shadow-2xl relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Executive CEO Image Column (5 Cols) */}
-            <div className="lg:col-span-5 relative h-[380px] sm:h-[460px] rounded-2xl overflow-hidden border border-slate-800 shadow-2xl group">
+            <div className="lg:col-span-5 relative h-[400px] sm:h-[480px] rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl group">
               <Image
-                src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&auto=format&fit=crop&q=75"
-                alt="Adebayo Samuel Olaku - CEO & Founder Laku Media"
+                src="/assest/team/samuel-adebayo-olaku.jpg"
+                alt="Samuel Adebayo Olaku - CEO Laku Media"
                 fill
-                className="object-cover group-hover:scale-105 transition-transform duration-700"
+                className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                unoptimized
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent" />
               
-              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/90 border border-slate-700 backdrop-blur-md">
+              <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-slate-900/95 border border-slate-700 backdrop-blur-md">
                 <span className="text-[10px] font-black uppercase tracking-widest text-[#D9541E] block">
                   FOUNDER & CHIEF EXECUTIVE OFFICER
                 </span>
-                <h3 className="text-base font-extrabold text-white">Adebayo Samuel Olaku</h3>
-                <p className="text-[11px] text-slate-300 font-medium">Laku Media & Creative Studios Group</p>
+                <h3 className="text-lg font-black text-white uppercase tracking-tight">Samuel Adebayo Olaku</h3>
+                <p className="text-[11px] text-slate-300 font-bold">Laku Media & Creative Studios Group</p>
               </div>
             </div>
 
@@ -47,7 +48,7 @@ export function AboutCeoStatement() {
               <div className="relative">
                 <Quote className="w-12 h-12 text-[#D9541E]/20 absolute -top-4 -left-4 pointer-events-none" />
                 <p className="text-sm sm:text-base text-slate-200 font-medium leading-relaxed italic relative z-10 pl-4 border-l-2 border-[#D9541E]">
-                  &ldquo;At Laku Media, our goal is clear: to establish Africa&apos;s most formidable media powerhouse. We refuse to settle for standard video production. Every film we produce, every sports event we broadcast via satellite, and every commercial campaign we launch is engineered to Hollywood 8K standards.
+                  &ldquo;At Laku Media, our goal is clear: to establish Africa&apos;s most formidable media powerhouse. We refuse to settle for standard video production. Every film we produce, every sports event we broadcast via satellite, and every commercial campaign we launch is engineered to world-class 8K standards.
                   <br /><br />
                   By combining deep cultural storytelling with state-of-the-art OB satellite vans and RED cinema rigs, we give African creators and global brands a platform to captivate millions of viewers worldwide.&rdquo;
                 </p>
@@ -64,8 +65,8 @@ export function AboutCeoStatement() {
                   </div>
                 </div>
 
-                <div className="font-mono text-xs text-amber-400 font-bold tracking-widest uppercase bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
-                  — ADEBAYO SAMUEL OLAKU
+                <div className="font-mono text-xs text-amber-400 font-black tracking-widest uppercase bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
+                  — SAMUEL ADEBAYO OLAKU (CEO)
                 </div>
               </div>
             </div>
