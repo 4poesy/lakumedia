@@ -240,7 +240,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     },
   };
 
-  const rawFixtures = initialFixtures && initialFixtures.length > 0 ? initialFixtures : liveMatchEngineFixtures;
+  const rawFixtures = initialFixtures && initialFixtures.length > 0 ? initialFixtures : [];
 
   const fixtures = rawFixtures.map((fix) => ({
     ...fix,

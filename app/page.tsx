@@ -220,18 +220,32 @@ export default async function SportsRootHomePage() {
         <div className="lg:col-span-4 space-y-8">
           
           {/* Realtime Live Score Card Widget */}
-          <RealtimeScoreCard
-            initialFixture={{
-              id: 'fix-1',
-              homeTeam: 'Enyimba FC',
-              awayTeam: 'Kano Pillars',
-              homeScore: 2,
-              awayScore: 1,
-              kickoffAt: new Date().toISOString(),
-              status: 'live',
-              leagueName: 'NPFL Premier League',
-            }}
-          />
+          {fixturesData.length > 0 ? (
+            <RealtimeScoreCard
+              initialFixture={{
+                id: fixturesData[0].id,
+                homeTeam: fixturesData[0].home_team?.name || 'Home Team',
+                awayTeam: fixturesData[0].away_team?.name || 'Away Team',
+                homeScore: fixturesData[0].status === 'scheduled' ? null : fixturesData[0].home_score,
+                awayScore: fixturesData[0].status === 'scheduled' ? null : fixturesData[0].away_score,
+                kickoffAt: fixturesData[0].kickoff_at,
+                status: fixturesData[0].status,
+                leagueName: fixturesData[0].league?.name || 'Match Center',
+                homeLogo: fixturesData[0].home_team?.logo_url,
+                awayLogo: fixturesData[0].away_team?.logo_url,
+              }}
+            />
+          ) : (
+            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5 text-center space-y-2">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-950 text-emerald-300 border border-emerald-800">
+                Match Center
+              </span>
+              <h4 className="text-sm font-bold text-white">Live Match Broadcasts</h4>
+              <p className="text-xs text-slate-400 font-medium">
+                Live scores update in real-time when matches kick off.
+              </p>
+            </div>
+          )}
 
           {/* Trending Stories Widget */}
           <TrendingStoriesWidget />
