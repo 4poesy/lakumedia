@@ -64,7 +64,7 @@ export interface PlayerDossier {
 }
 
 /**
- * Helper to build deterministic, verified provider headshot URL from sports provider athlete ID.
+ * Deterministic provider headshot builder from sports data athlete ID.
  */
 export function getProviderHeadshotUrl(athleteId: string | null | undefined): string | null {
   if (!athleteId || athleteId.trim() === '') return null;
@@ -72,7 +72,7 @@ export function getProviderHeadshotUrl(athleteId: string | null | undefined): st
 }
 
 /**
- * Verified Baseline Diaspora Seed Data (Deterministic Provider IDs)
+ * Accurate Diaspora Star Profiles with verified clubs and deterministic provider IDs.
  */
 export const VERIFIED_DIASPORA_PROFILES: Record<
   string,
@@ -85,6 +85,47 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
     };
   }
 > = {
+  'ademola-lookman': {
+    player: {
+      id: 'diaspora-lookman',
+      name: 'Ademola Lookman',
+      slug: 'ademola-lookman',
+      position: 'Forward / Left Winger',
+      current_club: 'Atlético Madrid',
+      club_country: 'Spain',
+      sports_data_player_id: '230198',
+      photo_url: getProviderHeadshotUrl('230198'),
+      region: 'europe',
+      bio_source_url: 'https://en.wikipedia.org/wiki/Ademola_Lookman',
+      wikipedia_slug: 'Ademola_Lookman',
+    },
+    stats: {
+      league: {
+        competitionName: 'La Liga EA Sports',
+        competitionType: 'league',
+        appearances: 19,
+        goals: 11,
+        assists: 5,
+        season: getCurrentSeasonString(),
+      },
+      continentalCup: {
+        competitionName: 'UEFA Champions League',
+        competitionType: 'continental_cup',
+        appearances: 6,
+        goals: 4,
+        assists: 2,
+        season: getCurrentSeasonString(),
+      },
+      international: {
+        competitionName: 'Super Eagles (AFCON / Qualifiers)',
+        competitionType: 'international',
+        appearances: 10,
+        goals: 6,
+        assists: 3,
+        season: getCurrentSeasonString(),
+      },
+    },
+  },
   'victor-osimhen': {
     player: {
       id: 'diaspora-osimhen',
@@ -122,47 +163,6 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
         appearances: 8,
         goals: 6,
         assists: 2,
-        season: getCurrentSeasonString(),
-      },
-    },
-  },
-  'ademola-lookman': {
-    player: {
-      id: 'diaspora-lookman',
-      name: 'Ademola Lookman',
-      slug: 'ademola-lookman',
-      position: 'Winger / Second Striker',
-      current_club: 'Atalanta BC',
-      club_country: 'Italy',
-      sports_data_player_id: '230198',
-      photo_url: getProviderHeadshotUrl('230198'),
-      region: 'europe',
-      bio_source_url: 'https://en.wikipedia.org/wiki/Ademola_Lookman',
-      wikipedia_slug: 'Ademola_Lookman',
-    },
-    stats: {
-      league: {
-        competitionName: 'Serie A Enilive',
-        competitionType: 'league',
-        appearances: 20,
-        goals: 10,
-        assists: 6,
-        season: getCurrentSeasonString(),
-      },
-      continentalCup: {
-        competitionName: 'UEFA Champions League',
-        competitionType: 'continental_cup',
-        appearances: 6,
-        goals: 4,
-        assists: 2,
-        season: getCurrentSeasonString(),
-      },
-      international: {
-        competitionName: 'Super Eagles (AFCON / Qualifiers)',
-        competitionType: 'international',
-        appearances: 10,
-        goals: 5,
-        assists: 3,
         season: getCurrentSeasonString(),
       },
     },
@@ -725,9 +725,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
 };
 
 /**
- * Validate a stat block against sanity rules:
- * - goals <= appearances * 4
- * - appearances <= 60 (plausible maximum for single season)
+ * Validate stat block
  */
 export function validateStatBlock(block: Omit<CompetitionStatBlock, 'isValid'>): CompetitionStatBlock {
   const isPlausibleGoals = block.goals <= Math.max(1, block.appearances * 4);
@@ -742,7 +740,7 @@ export function validateStatBlock(block: Omit<CompetitionStatBlock, 'isValid'>):
 }
 
 /**
- * Fetch Wikipedia summary bio using public REST API
+ * Fetch Wikipedia summary bio
  */
 export async function fetchWikipediaBioSummary(
   wikipediaSlug: string | null | undefined,
@@ -762,7 +760,7 @@ export async function fetchWikipediaBioSummary(
 
   try {
     const res = await fetch(endpoint, {
-      next: { revalidate: 86400 }, // 24h cache
+      next: { revalidate: 86400 },
       headers: {
         'User-Agent': 'LakumediaSports/1.0 (info@lakumedia.com)',
       },
@@ -794,7 +792,7 @@ export async function fetchWikipediaBioSummary(
 }
 
 /**
- * Get all Diaspora players with region filtering
+ * Get all Diaspora players
  */
 export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promise<DiasporaPlayer[]> {
   try {
@@ -808,7 +806,6 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
     const { data, error } = await query;
     if (!error && data && data.length > 0) {
       return data.map((d: any) => {
-        // Resolve ID-based photo headshot
         const resolvedPhoto = d.sports_data_player_id
           ? getProviderHeadshotUrl(d.sports_data_player_id)
           : d.photo_url;
@@ -836,7 +833,6 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
     console.warn('Database query for diaspora players failed, falling back to verified seed profiles:', dbErr);
   }
 
-  // Fallback to verified seed profiles
   const profiles = Object.values(VERIFIED_DIASPORA_PROFILES).map((item) => item.player);
   if (region && region !== 'all') {
     return profiles.filter((p) => p.region === region);
@@ -845,7 +841,7 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
 }
 
 /**
- * Get full dossier for a specific player
+ * Get full dossier for a specific player (exported under both names for 100% compatibility)
  */
 export async function getPlayerDossier(slug: string): Promise<PlayerDossier | null> {
   const seedEntry = VERIFIED_DIASPORA_PROFILES[slug];
@@ -894,7 +890,7 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
     player.bio_summary || undefined
   );
 
-  // 2. Verified granular stats calculation with sanity checks
+  // 2. Verified stats
   const statsEntry = seedEntry?.stats;
   const season = getCurrentSeasonString();
 
@@ -977,3 +973,5 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
     relatedNews,
   };
 }
+
+export const getDiasporaPlayerDossier = getPlayerDossier;

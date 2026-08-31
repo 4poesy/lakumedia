@@ -125,8 +125,8 @@ export function DiasporaPlayerDossierModal({
           <X className="w-5 h-5" />
         </button>
 
-        {/* Header Hero Banner */}
-        <div className="relative p-6 sm:p-8 bg-gradient-to-br from-[#2A2E7F] via-slate-900 to-slate-950 border-b border-slate-800">
+        {/* Header Hero Banner (Solid Color) */}
+        <div className="relative p-5 sm:p-7 bg-[#1E293B] border-b border-slate-800">
           <div className="flex flex-col sm:flex-row items-center sm:items-start gap-6">
             
             {/* Player Verified Portrait / Silhouette */}

@@ -19,16 +19,17 @@ type Sizing = {
   activeHeight: number;
 };
 
-const GRADIENT_FALLBACKS = [
-  'linear-gradient(160deg, #1e293b, #0f172a)',
-  'linear-gradient(160deg, #2A2E7F, #090A0F)',
-  'linear-gradient(160deg, #064e3b, #022c22)',
-  'linear-gradient(160deg, #7c2d12, #451a03)',
-  'linear-gradient(160deg, #312e81, #1e1b4b)',
-  'linear-gradient(160deg, #134e4a, #042f2e)',
+// SOLID Card Background Fallbacks (No Gradients)
+const SOLID_FALLBACKS = [
+  '#0f172a', // slate-900
+  '#1e293b', // slate-800
+  '#172554', // blue-950
+  '#064e3b', // emerald-950
+  '#451a03', // amber-950
+  '#1e1b4b', // indigo-950
 ];
 
-const RENDER_RANGE = 6;
+const RENDER_RANGE = 5;
 
 function relOf(index: number, pos: number, count: number): number {
   let rel = (((index - pos) % count) + count) % count;
@@ -57,7 +58,7 @@ function Card({
   sizing,
   gap,
   radius,
-  gradient,
+  solidBg,
   seasonString,
   onSelect,
   onOpenDossier,
@@ -70,7 +71,7 @@ function Card({
   sizing: Sizing;
   gap: number;
   radius: number;
-  gradient: string;
+  solidBg: string;
   seasonString: string;
   onSelect: (index: number) => void;
   onOpenDossier: (player: DiasporaPlayer) => void;
@@ -99,24 +100,24 @@ function Card({
     const a = blendForRel(relOf(index, p, count));
     const w = sizing.activeWidth + (sizing.restWidth - sizing.activeWidth) * a;
     const h = sizing.activeHeight + (sizing.restHeight - sizing.activeHeight) * a;
-    return (Math.max(0, Math.min(20, radius)) / 20) * (Math.min(w, h) / 14);
+    return (Math.max(0, Math.min(20, radius)) / 20) * (Math.min(w, h) / 16);
   });
   const boxShadow = useTransform(pos, (p: number) =>
-    Math.abs(relOf(index, p, count)) < 0.5
-      ? '0 24px 70px rgba(0,0,0,0.55), 0 0 0 1.5px rgba(16, 185, 129, 0.4)'
-      : '0 14px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.06)'
+    Math.abs(relOf(index, p, count)) < 0.4
+      ? '0 20px 50px rgba(0,0,0,0.6), 0 0 0 2px #10B981'
+      : '0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px #334155'
   );
 
-  // Active details fade in ONLY on center card, smoothly fading out as it slides to slat
+  // Active details fade in ONLY on center card
   const activeDetailsOpacity = useTransform(pos, (p: number) => {
     const ar = Math.abs(relOf(index, p, count));
-    return ar < 0.35 ? 1 : ar > 0.7 ? 0 : 1 - (ar - 0.35) / 0.35;
+    return ar < 0.3 ? 1 : ar > 0.6 ? 0 : 1 - (ar - 0.3) / 0.3;
   });
 
-  // Slat minimal label fades in on side cards
+  // Slat minimal label on side cards
   const slatLabelOpacity = useTransform(pos, (p: number) => {
     const ar = Math.abs(relOf(index, p, count));
-    return ar >= 0.5 ? 1 : 0;
+    return ar >= 0.4 ? 1 : 0;
   });
 
   return (
@@ -140,13 +141,13 @@ function Card({
           height,
           borderRadius,
           overflow: 'hidden',
-          background: gradient,
+          backgroundColor: solidBg,
           boxShadow,
           position: 'relative',
         }}
-        className="group select-none"
+        className="group select-none border border-slate-700"
       >
-        {/* Background Image / Silhouette */}
+        {/* Background Headshot / Silhouette (Clean Solid Container) */}
         {player.photo_url && !imgError ? (
           <img
             src={player.photo_url}
@@ -165,35 +166,32 @@ function Card({
           />
         ) : (
           <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-900">
-            <User className="w-16 h-16 text-slate-500 mb-2" />
-            <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Verified Star</span>
+            <User className="w-12 h-12 text-slate-500 mb-2" />
+            <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">Verified Star</span>
           </div>
         )}
 
-        {/* Cinematic Vignette Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent pointer-events-none" />
-
-        {/* Top Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-slate-950/80 text-emerald-400 border border-emerald-500/40 backdrop-blur-md">
+        {/* Top Badges (Solid Pills) */}
+        <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none z-10">
+          <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-slate-950 text-emerald-400 border border-emerald-500/50">
             🇳🇬 Super Eagles
           </span>
-          <span className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#D9541E] text-white shadow-sm">
+          <span className="px-2 py-0.5 rounded-md text-[9px] font-black uppercase tracking-wider bg-[#D9541E] text-white">
             {player.region.toUpperCase().replace('_', ' ')}
           </span>
         </div>
 
-        {/* 1. ACTIVE CENTER CARD: Full Details & CTA Button */}
+        {/* 1. ACTIVE CENTER CARD: Solid Dark Footer Block */}
         <motion.div
           style={{ opacity: activeDetailsOpacity }}
-          className="absolute bottom-0 inset-x-0 p-5 text-white z-10 space-y-2 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent pointer-events-auto"
+          className="absolute bottom-0 inset-x-0 p-3.5 sm:p-4 bg-slate-950 border-t border-slate-800 text-white z-10 space-y-1.5 pointer-events-auto"
         >
-          <div className="flex items-center gap-1.5 text-[11px] font-extrabold text-emerald-400 uppercase tracking-wider">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-            <span>{player.position}</span>
+          <div className="flex items-center gap-1.5 text-[10px] font-black text-emerald-400 uppercase tracking-wider">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+            <span className="truncate">{player.position}</span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white drop-shadow">
+          <h3 className="text-base sm:text-lg font-black uppercase tracking-tight text-white truncate">
             {player.name}
           </h3>
 
@@ -203,16 +201,16 @@ function Card({
               {player.current_club}
             </span>
             <span className="text-slate-500">•</span>
-            <span className="flex items-center gap-1 text-slate-300 shrink-0">
+            <span className="flex items-center gap-1 text-slate-400 shrink-0">
               <Globe className="w-3 h-3 text-slate-400" />
               {player.club_country}
             </span>
           </div>
 
-          <div className="pt-2 flex items-center justify-between">
+          <div className="pt-1.5 flex items-center justify-between gap-2">
             <span className="text-[10px] font-mono text-slate-400 font-bold flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-amber-400" />
-              {seasonString} Scope
+              <Sparkles className="w-3 h-3 text-amber-400 shrink-0" />
+              <span>{seasonString}</span>
             </span>
 
             <button
@@ -221,7 +219,7 @@ function Card({
                 e.stopPropagation();
                 onOpenDossier(player);
               }}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-black shadow-lg shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-[#10B981] hover:bg-emerald-400 text-slate-950 text-xs font-black shadow transition-all hover:scale-105 active:scale-95 cursor-pointer"
             >
               <span>View Dossier</span>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -229,15 +227,15 @@ function Card({
           </div>
         </motion.div>
 
-        {/* 2. SIDE SLAT: Clean, uncluttered name label */}
+        {/* 2. SIDE SLAT: Minimal Solid Label */}
         <motion.div
           style={{ opacity: slatLabelOpacity }}
-          className="absolute bottom-0 inset-x-0 p-3 text-white z-10 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent pointer-events-none text-center"
+          className="absolute bottom-0 inset-x-0 p-2 bg-slate-950/95 border-t border-slate-800 text-white z-10 pointer-events-none text-center"
         >
-          <p className="text-xs font-black uppercase tracking-tight text-white truncate drop-shadow">
+          <p className="text-[10px] sm:text-xs font-black uppercase tracking-tight text-white truncate">
             {player.name}
           </p>
-          <p className="text-[9px] text-slate-400 font-bold truncate">
+          <p className="text-[8px] sm:text-[9px] text-slate-400 font-bold truncate">
             {player.current_club}
           </p>
         </motion.div>
@@ -280,9 +278,9 @@ function ArrowButton({
         transform: 'translateY(-50%)',
         width: size,
         height: size,
-        borderRadius: '50%',
-        border: '1.5px solid rgba(255, 255, 255, 0.25)',
-        background,
+        borderRadius: '8px', // Solid square/rounded button
+        border: '1px solid #475569',
+        backgroundColor: background,
         color,
         display: 'flex',
         alignItems: 'center',
@@ -290,14 +288,14 @@ function ArrowButton({
         cursor: 'pointer',
         padding: 0,
         zIndex: 2000,
-        boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
         WebkitTapHighlightColor: 'transparent',
       }}
-      className="hover:scale-110 active:scale-95 transition-transform"
+      className="hover:bg-[#D9541E] transition-colors"
     >
       <svg
-        width={size * 0.4}
-        height={size * 0.4}
+        width={size * 0.45}
+        height={size * 0.45}
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -316,12 +314,6 @@ interface DiasporaCoverflowCarouselProps {
   players: DiasporaPlayer[];
   seasonString: string;
   onOpenDossier: (player: DiasporaPlayer) => void;
-  activeWidth?: number;
-  activeHeight?: number;
-  restWidth?: number;
-  restHeight?: number;
-  gap?: number;
-  radius?: number;
   showArrows?: boolean;
   autoplay?: boolean;
   autoplayDirection?: 'leftToRight' | 'rightToLeft';
@@ -331,23 +323,56 @@ export function DiasporaCoverflowCarousel({
   players,
   seasonString,
   onOpenDossier,
-  activeWidth = 560,
-  activeHeight = 380,
-  restWidth = 175,
-  restHeight = 280,
-  gap = 24,
-  radius = 16,
   showArrows = true,
   autoplay = true,
   autoplayDirection = 'rightToLeft',
 }: DiasporaCoverflowCarouselProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [containerWidth, setContainerWidth] = useState(800);
+
+  // Responsive mobile measurement
+  useEffect(() => {
+    const handleResize = () => {
+      if (containerRef.current) {
+        const w = containerRef.current.clientWidth;
+        setContainerWidth(w);
+        setIsMobile(w < 640);
+      } else {
+        const isMob = typeof window !== 'undefined' && window.innerWidth < 640;
+        setIsMobile(isMob);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const prefersReducedMotion = useReducedMotion();
   const count = Math.max(1, players.length);
 
-  const sizing: Sizing = useMemo(
-    () => ({ restWidth, restHeight, activeWidth, activeHeight }),
-    [restWidth, restHeight, activeWidth, activeHeight]
-  );
+  // Dynamic Mobile vs Desktop Sizing
+  const sizing: Sizing = useMemo(() => {
+    if (isMobile) {
+      const activeW = Math.min(containerWidth - 32, 300);
+      return {
+        activeWidth: activeW,
+        activeHeight: 330,
+        restWidth: 55,
+        restHeight: 250,
+      };
+    }
+    return {
+      activeWidth: Math.min(containerWidth - 100, 480),
+      activeHeight: 360,
+      restWidth: 160,
+      restHeight: 270,
+    };
+  }, [isMobile, containerWidth]);
+
+  const gap = isMobile ? 12 : 22;
+  const radius = 12;
 
   const R = Math.max(1, Math.min(RENDER_RANGE, Math.floor(count / 2) - 1));
 
@@ -370,7 +395,7 @@ export function DiasporaCoverflowCarousel({
 
       const cur = pos.get();
       const diff = targetRef.current - cur;
-      const dur = 0.45;
+      const dur = 0.4;
       const step = (1 / dur) * dt;
       const arriving = reducedRef.current || Math.abs(diff) <= step;
 
@@ -378,15 +403,13 @@ export function DiasporaCoverflowCarousel({
         pos.set(targetRef.current);
         if (autoplayingRef.current && !isHoveredRef.current) {
           dwellAccRef.current += dt;
-          // 2.2 seconds dwell time between automatic slides
-          if (dwellAccRef.current >= 2.2) {
+          if (dwellAccRef.current >= 2.4) {
             dwellAccRef.current = 0;
             targetRef.current += dirRef.current;
           }
           rafRef.current = requestAnimationFrame(tick);
           return;
         } else if (autoplayingRef.current && isHoveredRef.current) {
-          // Keep ticking while hovered so timer resets smoothly
           rafRef.current = requestAnimationFrame(tick);
           return;
         }
@@ -446,6 +469,25 @@ export function DiasporaCoverflowCarousel({
     };
   }, [autoplay, autoplayDirection, count, ensureRunning]);
 
+  // Touch Swipe Gesture for Mobile
+  const touchStartX = useRef(0);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    isHoveredRef.current = true;
+  };
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    isHoveredRef.current = false;
+    dwellAccRef.current = 0;
+    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(deltaX) > 40) {
+      if (deltaX < 0) {
+        goNext();
+      } else {
+        goPrev();
+      }
+    }
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -464,6 +506,7 @@ export function DiasporaCoverflowCarousel({
 
   return (
     <div
+      ref={containerRef}
       tabIndex={0}
       onMouseEnter={() => {
         isHoveredRef.current = true;
@@ -473,7 +516,9 @@ export function DiasporaCoverflowCarousel({
         dwellAccRef.current = 0;
         ensureRunning();
       }}
-      className="relative w-full h-[420px] sm:h-[450px] overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl select-none outline-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      className="relative w-full h-[370px] sm:h-[420px] overflow-hidden rounded-2xl bg-slate-950 border border-slate-800 shadow-xl select-none outline-none"
     >
       <div
         style={{
@@ -495,7 +540,7 @@ export function DiasporaCoverflowCarousel({
             sizing={sizing}
             gap={gap}
             radius={radius}
-            gradient={GRADIENT_FALLBACKS[i % GRADIENT_FALLBACKS.length]}
+            solidBg={SOLID_FALLBACKS[i % SOLID_FALLBACKS.length]}
             seasonString={seasonString}
             onSelect={goTo}
             onOpenDossier={onOpenDossier}
@@ -510,16 +555,16 @@ export function DiasporaCoverflowCarousel({
             onClick={goPrev}
             color="#FFFFFF"
             background="#2A2E7F"
-            size={46}
-            position={94}
+            size={isMobile ? 36 : 42}
+            position={isMobile ? 96 : 94}
           />
           <ArrowButton
             side="right"
             onClick={goNext}
             color="#FFFFFF"
             background="#2A2E7F"
-            size={46}
-            position={94}
+            size={isMobile ? 36 : 42}
+            position={isMobile ? 96 : 94}
           />
         </>
       )}
