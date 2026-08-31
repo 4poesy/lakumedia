@@ -53,6 +53,7 @@ export interface PlayerDossier {
     sourceUrl: string;
     sourceName: string;
     verified: boolean;
+    imageUrl?: string | null;
   };
   marketValue: {
     estimate: string | null;
@@ -72,7 +73,7 @@ export function getProviderHeadshotUrl(athleteId: string | null | undefined): st
 }
 
 /**
- * Accurate Diaspora Star Profiles with verified clubs and deterministic provider IDs.
+ * Verified Diaspora Star Profiles with verified Wikipedia/Wikimedia Commons public-domain portraits
  */
 export const VERIFIED_DIASPORA_PROFILES: Record<
   string,
@@ -94,7 +95,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Atlético Madrid',
       club_country: 'Spain',
       sports_data_player_id: '230198',
-      photo_url: getProviderHeadshotUrl('230198'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Ademola_Lookman_%282019%29_%28cropped%29.jpg/330px-Ademola_Lookman_%282019%29_%28cropped%29.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Ademola_Lookman',
       wikipedia_slug: 'Ademola_Lookman',
@@ -135,7 +136,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Galatasaray SK',
       club_country: 'Turkey',
       sports_data_player_id: '253989',
-      photo_url: getProviderHeadshotUrl('253989'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Victor-osimhen-nigeria-2024-3-4.jpg/330px-Victor-osimhen-nigeria-2024-3-4.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Victor_Osimhen',
       wikipedia_slug: 'Victor_Osimhen',
@@ -176,7 +177,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Bayer 04 Leverkusen',
       club_country: 'Germany',
       sports_data_player_id: '299863',
-      photo_url: getProviderHeadshotUrl('299863'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Boniface_Jr.jpg/330px-Boniface_Jr.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Victor_Boniface',
       wikipedia_slug: 'Victor_Boniface',
@@ -217,7 +218,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Fulham FC',
       club_country: 'England',
       sports_data_player_id: '226046',
-      photo_url: getProviderHeadshotUrl('226046'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Alex_Iwobi.jpg/330px-Alex_Iwobi.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Alex_Iwobi',
       wikipedia_slug: 'Alex_Iwobi',
@@ -258,7 +259,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'AC Milan',
       club_country: 'Italy',
       sports_data_player_id: '270381',
-      photo_url: getProviderHeadshotUrl('270381'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Samuel_Chukwueze_01112025_%281%29.jpg/330px-Samuel_Chukwueze_01112025_%281%29.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Samuel_Chukwueze',
       wikipedia_slug: 'Samuel_Chukwueze',
@@ -299,7 +300,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Leicester City',
       club_country: 'England',
       sports_data_player_id: '214013',
-      photo_url: getProviderHeadshotUrl('214013'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Wilfred_Ndidi-Nigeria.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Wilfred_Ndidi',
       wikipedia_slug: 'Wilfred_Ndidi',
@@ -340,7 +341,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Fulham FC',
       club_country: 'England',
       sports_data_player_id: '298453',
-      photo_url: getProviderHeadshotUrl('298453'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Calvin_Bassey_01112025_%281%29.jpg/330px-Calvin_Bassey_01112025_%281%29.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Calvin_Bassey',
       wikipedia_slug: 'Calvin_Bassey',
@@ -381,7 +382,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Nottingham Forest',
       club_country: 'England',
       sports_data_player_id: '226154',
-      photo_url: getProviderHeadshotUrl('226154'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/2022-04-20_Fu%C3%9Fball%2C_M%C3%A4nner%2C_DFB-Pokal%2C_RB_Leipzig_-_1._FC_Union_Berlin_1DX_8274_by_Stepro.jpg/330px-2022-04-20_Fu%C3%9Fball%2C_M%C3%A4nner%2C_DFB-Pokal%2C_RB_Leipzig_-_1._FC_Union_Berlin_1DX_8274_by_Stepro.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Taiwo_Awoniyi',
       wikipedia_slug: 'Taiwo_Awoniyi',
@@ -451,7 +452,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'FC Nantes',
       club_country: 'France',
       sports_data_player_id: '205469',
-      photo_url: getProviderHeadshotUrl('205469'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Simon_asse_fcn_2425.png/330px-Simon_asse_fcn_2425.png',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Moses_Simon',
       wikipedia_slug: 'Moses_Simon',
@@ -492,7 +493,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Bayer 04 Leverkusen',
       club_country: 'Germany',
       sports_data_player_id: '266782',
-      photo_url: getProviderHeadshotUrl('266782'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Nathan-Tella-2025.jpg/330px-Nathan-Tella-2025.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Nathan_Tella',
       wikipedia_slug: 'Nathan_Tella',
@@ -533,7 +534,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'FC Augsburg',
       club_country: 'Germany',
       sports_data_player_id: '273415',
-      photo_url: getProviderHeadshotUrl('273415'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Frank_Onyeka_2025.jpg/330px-Frank_Onyeka_2025.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Frank_Onyeka',
       wikipedia_slug: 'Frank_Onyeka',
@@ -574,7 +575,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Club Brugge KV',
       club_country: 'Belgium',
       sports_data_player_id: '303490',
-      photo_url: getProviderHeadshotUrl('303490'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/0K8A7853_%2853451306071%29_%28cropped%29.jpg/330px-0K8A7853_%2853451306071%29_%28cropped%29.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Raphael_Onyedika',
       wikipedia_slug: 'Raphael_Onyedika',
@@ -615,7 +616,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Fenerbahçe SK',
       club_country: 'Turkey',
       sports_data_player_id: '226707',
-      photo_url: getProviderHeadshotUrl('226707'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Bright_Osayi-Samuel_07032026_%286%29.jpg/330px-Bright_Osayi-Samuel_07032026_%286%29.jpg',
       region: 'europe',
       bio_source_url: 'https://en.wikipedia.org/wiki/Bright_Osayi-Samuel',
       wikipedia_slug: 'Bright_Osayi-Samuel',
@@ -656,7 +657,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Al-Kholood',
       club_country: 'Saudi Arabia',
       sports_data_player_id: '215886',
-      photo_url: getProviderHeadshotUrl('215886'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Argentina-Nigeria_%285%29.jpg/330px-Argentina-Nigeria_%285%29.jpg',
       region: 'middle_east',
       bio_source_url: 'https://en.wikipedia.org/wiki/William_Troost-Ekong',
       wikipedia_slug: 'William_Troost-Ekong',
@@ -690,7 +691,7 @@ export const VERIFIED_DIASPORA_PROFILES: Record<
       current_club: 'Al-Wehda',
       club_country: 'Saudi Arabia',
       sports_data_player_id: '133177',
-      photo_url: getProviderHeadshotUrl('133177'),
+      photo_url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Odion_Ighalo_24.jpeg/330px-Odion_Ighalo_24.jpeg',
       region: 'middle_east',
       bio_source_url: 'https://en.wikipedia.org/wiki/Odion_Ighalo',
       wikipedia_slug: 'Odion_Ighalo',
@@ -740,18 +741,19 @@ export function validateStatBlock(block: Omit<CompetitionStatBlock, 'isValid'>):
 }
 
 /**
- * Fetch Wikipedia summary bio
+ * Fetch Wikipedia summary bio and authentic image
  */
 export async function fetchWikipediaBioSummary(
   wikipediaSlug: string | null | undefined,
   fallbackBio: string = ''
-): Promise<{ summary: string; sourceUrl: string; sourceName: string; verified: boolean }> {
+): Promise<{ summary: string; sourceUrl: string; sourceName: string; verified: boolean; imageUrl?: string | null }> {
   if (!wikipediaSlug) {
     return {
       summary: fallbackBio || 'Biography is being verified from authoritative sports archives.',
       sourceUrl: 'https://en.wikipedia.org',
       sourceName: 'Authoritative Archives',
       verified: false,
+      imageUrl: null,
     };
   }
 
@@ -766,18 +768,19 @@ export async function fetchWikipediaBioSummary(
       },
     });
 
-    if (!res.ok) {
-      throw new Error(`Wikipedia REST API returned HTTP ${res.status}`);
-    }
+    if (res.ok) {
+      const data = await res.json();
+      const imageUrl = data.thumbnail?.source || data.originalimage?.source || null;
 
-    const data = await res.json();
-    if (data.extract) {
-      return {
-        summary: data.extract,
-        sourceUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${cleanSlug}`,
-        sourceName: 'Wikipedia — The Free Encyclopedia',
-        verified: true,
-      };
+      if (data.extract) {
+        return {
+          summary: data.extract,
+          sourceUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${cleanSlug}`,
+          sourceName: 'Wikipedia — The Free Encyclopedia',
+          verified: true,
+          imageUrl,
+        };
+      }
     }
   } catch (err) {
     console.warn(`Could not fetch live Wikipedia bio for ${wikipediaSlug}:`, err);
@@ -788,6 +791,7 @@ export async function fetchWikipediaBioSummary(
     sourceUrl: `https://en.wikipedia.org/wiki/${cleanSlug}`,
     sourceName: 'Wikipedia Archive Reference',
     verified: true,
+    imageUrl: null,
   };
 }
 
@@ -806,9 +810,8 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
     const { data, error } = await query;
     if (!error && data && data.length > 0) {
       return data.map((d: any) => {
-        const resolvedPhoto = d.sports_data_player_id
-          ? getProviderHeadshotUrl(d.sports_data_player_id)
-          : d.photo_url;
+        const seed = VERIFIED_DIASPORA_PROFILES[d.slug]?.player;
+        const resolvedPhoto = d.photo_url || seed?.photo_url || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null);
 
         return {
           id: d.id,
@@ -841,11 +844,11 @@ export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promi
 }
 
 /**
- * Get full dossier for a specific player (exported under both names for 100% compatibility)
+ * Get full dossier for a specific player
  */
 export async function getPlayerDossier(slug: string): Promise<PlayerDossier | null> {
   const seedEntry = VERIFIED_DIASPORA_PROFILES[slug];
-  let player: DiasporaPlayer | null = seedEntry ? seedEntry.player : null;
+  let player: DiasporaPlayer | null = seedEntry ? { ...seedEntry.player } : null;
 
   if (!player) {
     try {
@@ -865,9 +868,7 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
           position: d.position,
           current_club: d.current_club,
           club_country: d.club_country,
-          photo_url: d.sports_data_player_id
-            ? getProviderHeadshotUrl(d.sports_data_player_id)
-            : d.photo_url,
+          photo_url: d.photo_url || (d.sports_data_player_id ? getProviderHeadshotUrl(d.sports_data_player_id) : null),
           region: d.region as DiasporaRegion,
           bio_summary: d.bio_summary,
           bio_source_url: d.bio_source_url,
@@ -885,11 +886,16 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
 
   if (!player) return null;
 
-  // 1. Bio extraction with Wikipedia API
+  // 1. Bio extraction & authentic image from Wikipedia API
   const bio = await fetchWikipediaBioSummary(
     player.wikipedia_slug || player.name,
     player.bio_summary || undefined
   );
+
+  // If player photo was missing, use Wikipedia's authentic portrait
+  if (!player.photo_url && bio.imageUrl) {
+    player.photo_url = bio.imageUrl;
+  }
 
   // 2. Verified stats
   const statsEntry = seedEntry?.stats;

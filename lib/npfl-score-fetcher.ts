@@ -45,19 +45,25 @@ export async function fetchAutomatedNpflScores(): Promise<ApiMatchFixture[]> {
         const matched = title.match(scorePattern);
 
         if (matched) {
-          const rawHome = matched[1].trim();
+          const rawHome = matched[1].trim().toLowerCase();
           const homeScoreParsed = parseInt(matched[2], 10);
           const awayScoreParsed = parseInt(matched[3], 10);
-          const rawAway = matched[4].trim();
+          const rawAway = matched[4].trim().toLowerCase();
 
-          const homeKnown = NPFL_2025_26_CLUBS.find((c) => rawHome.toLowerCase().includes(c.toLowerCase()));
-          const awayKnown = NPFL_2025_26_CLUBS.find((c) => rawAway.toLowerCase().includes(c.toLowerCase()));
+          const homeKnown = NPFL_2025_26_CLUBS.find((c) =>
+            c.keywords.some((k) => rawHome.includes(k.toLowerCase())) ||
+            rawHome.includes(c.clubName.toLowerCase())
+          );
+          const awayKnown = NPFL_2025_26_CLUBS.find((c) =>
+            c.keywords.some((k) => rawAway.includes(k.toLowerCase())) ||
+            rawAway.includes(c.clubName.toLowerCase())
+          );
 
           if (homeKnown && awayKnown) {
             extractedFixtures.push({
               id: `npfl-feed-${extractedFixtures.length + 1}`,
-              homeTeam: homeKnown,
-              awayTeam: awayKnown,
+              homeTeam: homeKnown.clubName,
+              awayTeam: awayKnown.clubName,
               homeScore: !isNaN(homeScoreParsed) ? homeScoreParsed : null,
               awayScore: !isNaN(awayScoreParsed) ? awayScoreParsed : null,
               status: 'finished',
