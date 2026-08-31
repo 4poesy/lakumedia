@@ -9,6 +9,10 @@ import { RealtimeScoreCard } from '@/components/sports/realtime-score-card';
 import { FanPredictionsWidget } from '@/components/sports/fan-predictions-widget';
 import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingStoriesWidget } from '@/components/sports/sidebar-widgets';
 import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
+import { LeaderboardAdBanner } from '@/components/ads/leaderboard-ad-banner';
+import { SidebarAdBox } from '@/components/ads/sidebar-ad-box';
+import { PlayerComparisonWidget } from '@/components/sports/player-comparison-widget';
+import { getDiasporaPlayers } from '@/lib/diaspora-service';
 import { getAggregatedNews } from '@/lib/rss-service';
 import { Activity, Flame, Globe } from 'lucide-react';
 
@@ -20,6 +24,7 @@ export default async function SportsRootHomePage() {
   let fixturesData: any[] = [];
   let mediaData: any[] = [];
   let aggregatedNewsItems: any[] = [];
+  let diasporaPlayers: any[] = [];
 
   try {
     const supabase = await createClient();
@@ -52,8 +57,9 @@ export default async function SportsRootHomePage() {
 
     if (media) mediaData = media;
 
-    // Fetch Live RSS Aggregated News
+    // Fetch Live RSS Aggregated News & Diaspora Stars
     aggregatedNewsItems = await getAggregatedNews();
+    diasporaPlayers = await getDiasporaPlayers();
   } catch (error) {
     console.error('Supabase query error on page.tsx:', error);
     aggregatedNewsItems = await getAggregatedNews();
@@ -205,6 +211,9 @@ export default async function SportsRootHomePage() {
             }}
           />
 
+          {/* Leaderboard Commercial Ad Banner */}
+          <LeaderboardAdBanner />
+
           {/* Featured Video Spotlight */}
           <FeaturedVideoSpotlight videos={mediaData.length > 0 ? mediaData : demoVideosFallback} />
 
@@ -213,6 +222,9 @@ export default async function SportsRootHomePage() {
 
           {/* Around the Web Media Rail */}
           <AroundTheWebRail items={aggregatedNewsItems} />
+
+          {/* Player Head-to-Head Comparison Engine */}
+          <PlayerComparisonWidget players={diasporaPlayers} />
 
         </div>
 
@@ -246,6 +258,9 @@ export default async function SportsRootHomePage() {
               </p>
             </div>
           )}
+
+          {/* Commercial Sidebar Ad Box */}
+          <SidebarAdBox />
 
           {/* Trending Stories Widget */}
           <TrendingStoriesWidget />
