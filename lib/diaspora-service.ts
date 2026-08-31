@@ -64,13 +64,7 @@ export interface PlayerDossier {
   relatedNews: AggregatedNewsItem[];
 }
 
-/**
- * Deterministic provider headshot builder from sports data athlete ID.
- */
-export function getProviderHeadshotUrl(athleteId: string | null | undefined): string | null {
-  if (!athleteId || athleteId.trim() === '') return null;
-  return `https://a.espncdn.com/combiner/i?img=/i/headshots/soccer/players/full/${athleteId.trim()}.png&w=500&h=500`;
-}
+export { getProviderHeadshotUrl } from '@/lib/player-headshot';
 
 /**
  * Verified Diaspora Star Profiles with verified Wikipedia/Wikimedia Commons public-domain portraits

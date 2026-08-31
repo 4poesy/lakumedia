@@ -1,4 +1,4 @@
-import { getProviderHeadshotUrl } from '@/lib/diaspora-service';
+import { getProviderHeadshotUrl } from '@/lib/player-headshot';
 
 export interface PlayerLineupItem {
   id: string;
