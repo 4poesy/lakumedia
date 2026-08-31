@@ -11,6 +11,7 @@ import { NewsletterWidget, SocialCountersWidget, LatestCommentsWidget, TrendingS
 import { AroundTheWebRail } from '@/components/sports/around-the-web-rail';
 import { LeaderboardAdBanner } from '@/components/ads/leaderboard-ad-banner';
 import { SidebarAdBox } from '@/components/ads/sidebar-ad-box';
+import { OfficialPartnersBar } from '@/components/ads/official-partners-bar';
 import { PlayerComparisonWidget } from '@/components/sports/player-comparison-widget';
 import { BookmakerOddsWidget } from '@/components/sports/bookmaker-odds-widget';
 import { LeagueFormGuide } from '@/components/sports/league-form-guide';
@@ -230,6 +231,9 @@ export default async function SportsRootHomePage() {
 
           {/* Around the Web Media Rail */}
           <AroundTheWebRail items={aggregatedNewsItems} />
+
+          {/* Official Commercial Partners & Sponsors Bar */}
+          <OfficialPartnersBar />
 
           {/* Player Head-to-Head Comparison Engine */}
           <PlayerComparisonWidget players={diasporaPlayers} />
