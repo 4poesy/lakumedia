@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server';
 import { getCurrentSeasonString } from '@/lib/season';
 import { getAggregatedNews } from '@/lib/rss-service';
 import { AggregatedNewsItem } from '@/lib/types/rss';
+import { getProviderHeadshotUrl } from '@/lib/player-headshot';
 
 export type DiasporaRegion = 'europe' | 'middle_east' | 'africa_npfl' | 'other';
 
