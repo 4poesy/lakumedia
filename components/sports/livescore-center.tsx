@@ -53,7 +53,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
   const [activeStandingsLeague, setActiveStandingsLeague] = useState<'npfl' | 'epl' | 'laliga' | 'seriea' | 'bundesliga' | 'ligue1' | 'saudi' | 'ucl' | 'afcon'>('epl');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedMatchId, setExpandedMatchId] = useState<string | null>(null);
-  const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'lineups' | 'h2h'>>({});
+  const [activeDrawerTab, setActiveDrawerTab] = useState<Record<string, 'summary' | 'lineups' | 'h2h' | 'table'>>({});
   const [favorites, setFavorites] = useState<string[]>([]);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const [realStandings, setRealStandings] = useState<RealStandingsTeam[]>([]);
@@ -256,7 +256,7 @@ export function LiveScoreCenter({ initialFixtures }: LiveScoreCenterProps) {
     setExpandedMatchId((prev) => (prev === id ? null : id));
   };
 
-  const setDrawerTab = (matchId: string, tab: 'summary' | 'h2h' | 'table') => {
+  const setDrawerTab = (matchId: string, tab: 'summary' | 'lineups' | 'h2h' | 'table') => {
     setActiveDrawerTab((prev) => ({ ...prev, [matchId]: tab }));
   };
 
