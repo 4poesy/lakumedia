@@ -113,8 +113,8 @@ export function HeroSlider({ slides }: HeroSliderProps) {
       </div>
 
       {/* Solid Sharp Bottom Content Box */}
-      <div className="p-5 sm:p-8 space-y-3 bg-[#0F172A] text-white border-t border-slate-800">
-        <div className="flex items-center space-x-3 text-xs text-slate-300 font-bold">
+      <div className="p-4 sm:p-8 space-y-2.5 sm:space-y-3 bg-[#0F172A] text-white border-t border-slate-800">
+        <div className="flex items-center space-x-3 text-[11px] sm:text-xs text-slate-300 font-bold">
           <span className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5 text-amber-400" />
             {new Date(currentSlide.publishedAt).toLocaleDateString('en-US', {
@@ -126,33 +126,33 @@ export function HeroSlider({ slides }: HeroSliderProps) {
         </div>
 
         {/* Title */}
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-white leading-tight border-l-4 border-[#D9541E] pl-4 hover:text-[#D9541E] transition-colors">
+        <h2 className="text-base sm:text-2xl lg:text-3xl font-extrabold text-white leading-snug sm:leading-tight border-l-4 border-[#D9541E] pl-3 sm:pl-4 hover:text-[#D9541E] transition-colors line-clamp-2">
           <Link href={`/article/${currentSlide.slug}`} prefetch={true}>
             {currentSlide.title}
           </Link>
         </h2>
 
-        <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed font-medium pl-5 hidden sm:block">
+        <p className="text-xs sm:text-sm text-slate-300 line-clamp-2 leading-relaxed font-medium pl-4 sm:pl-5 hidden sm:block">
           {currentSlide.excerpt}
         </p>
 
-        <div className="pt-2 flex items-center justify-between pl-5">
+        <div className="pt-1.5 sm:pt-2 flex items-center justify-between pl-3 sm:pl-5">
           <Link
             href={`/article/${currentSlide.slug}`}
             prefetch={true}
-            className="px-5 py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-md transition-colors border border-orange-400"
+            className="px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-black text-[11px] sm:text-xs flex items-center gap-1.5 sm:gap-2 shadow-md transition-all active:scale-95 border border-orange-400"
           >
-            <span>Read Full Story</span> <ArrowRight className="w-4 h-4" />
+            <span>Read Story</span> <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
           </Link>
 
           {/* Slide Indicator Dots */}
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1.5 sm:space-x-2">
             {slideData.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={`h-2.5 rounded-full transition-all ${
-                  currentIndex === idx ? 'w-8 bg-[#D9541E]' : 'w-2.5 bg-slate-600 hover:bg-slate-400'
+                className={`h-2 sm:h-2.5 rounded-full transition-all ${
+                  currentIndex === idx ? 'w-6 sm:w-8 bg-[#D9541E]' : 'w-2 sm:w-2.5 bg-slate-600 hover:bg-slate-400'
                 }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />

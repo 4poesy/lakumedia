@@ -87,20 +87,20 @@ export function MultimediaHeroSlider() {
       ))}
 
       {/* Foreground Hero Content Card */}
-      <div className="relative z-20 max-w-3xl p-6 sm:p-12 space-y-4 sm:space-y-6">
-        <div className="flex flex-wrap items-center gap-2">
+      <div className="relative z-20 max-w-3xl p-5 sm:p-12 space-y-3 sm:space-y-6">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           <span className={`px-2.5 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-md ${active.badgeColor} shadow-md`}>
             {active.badge}
           </span>
           <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-widest rounded-md bg-[#2A2E7F] text-[#10B981] border border-slate-700">
             {active.category}
           </span>
-          <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-md bg-emerald-950 text-emerald-400 border border-emerald-500/40">
+          <span className="px-2.5 py-1 text-[9px] sm:text-[10px] font-black uppercase tracking-widest rounded-md bg-emerald-950 text-emerald-400 border border-emerald-500/40 hidden sm:inline-flex">
             8K ULTRA HD CINEMA
           </span>
         </div>
 
-        <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-white leading-tight tracking-tight uppercase drop-shadow-2xl">
+        <h1 className="text-xl sm:text-4xl lg:text-5xl font-black text-white leading-snug sm:leading-tight tracking-tight uppercase drop-shadow-2xl">
           {active.title}
         </h1>
 
@@ -108,18 +108,18 @@ export function MultimediaHeroSlider() {
           {active.synopsis}
         </p>
 
-        <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-3">
+        <div className="pt-1.5 sm:pt-4 flex flex-wrap items-center gap-2.5 sm:gap-3">
           <Link
             href={`/multimedia/watch/${active.slug}`}
-            className="px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs sm:text-sm flex items-center gap-2 shadow-2xl transition-transform hover:scale-105 active:scale-95 border border-orange-400"
+            className="px-4 py-2.5 sm:px-8 sm:py-4 rounded-xl sm:rounded-2xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs sm:text-sm flex items-center gap-1.5 sm:gap-2 shadow-2xl transition-transform hover:scale-105 active:scale-95 border border-orange-400"
           >
-            <Play className="w-4 h-4 sm:w-5 sm:h-5 fill-white" /> <span>Watch Trailer & Reel</span>
+            <Play className="w-3.5 h-3.5 sm:w-5 sm:h-5 fill-white" /> <span>Watch Trailer</span>
           </Link>
           <Link
             href="/multimedia/services"
-            className="px-5 sm:px-6 py-3.5 sm:py-4 rounded-2xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 backdrop-blur-md transition-colors flex items-center gap-1.5"
+            className="px-4 py-2.5 sm:px-6 sm:py-4 rounded-xl sm:rounded-2xl bg-slate-900/90 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm border border-slate-700 backdrop-blur-md transition-colors flex items-center gap-1.5"
           >
-            <span>Book Studio</span> <ArrowRight className="w-4 h-4 text-emerald-400" />
+            <span>Book Studio</span> <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#10B981]" />
           </Link>
         </div>
       </div>
