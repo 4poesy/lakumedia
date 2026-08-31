@@ -103,13 +103,13 @@ export function StudioLocationMapSection() {
 
           <div className="pt-4 border-t border-slate-800 space-y-2">
             <a
-              href="https://wa.me/2348103285303"
+              href="https://wa.me/2348108285303"
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full py-3 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 border border-emerald-400 uppercase tracking-wider"
+              className="w-full py-3.5 px-5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 transition-all duration-300 hover:scale-[1.02] active:scale-95 border border-emerald-300/80 uppercase tracking-wider group"
             >
-              <MessageSquare className="w-4 h-4" />
-              <span>WhatsApp CEO (+234 810 328 5303)</span>
+              <MessageSquare className="w-4 h-4 fill-slate-950 text-slate-950 group-hover:scale-110 transition-transform" />
+              <span>Chat Directly on WhatsApp</span>
             </a>
 
             <a

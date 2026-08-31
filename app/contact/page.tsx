@@ -103,10 +103,10 @@ export default function ContactPage() {
                 href="https://wa.me/2348108285303"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-4 rounded-2xl bg-[#10B981] hover:bg-emerald-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-xl transition-all active:scale-95 uppercase tracking-wider border border-emerald-400"
+                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-3 shadow-lg shadow-emerald-500/20 border border-emerald-300/80 transition-all duration-300 hover:scale-[1.02] active:scale-95 uppercase tracking-wider group"
               >
-                <MessageSquare className="w-5 h-5 fill-slate-950" />
-                <span>Chat on WhatsApp (+234 810 828 5303)</span>
+                <MessageSquare className="w-5 h-5 fill-slate-950 text-slate-950 group-hover:scale-110 transition-transform" />
+                <span>Chat Directly on WhatsApp</span>
               </a>
             </div>
           </div>
