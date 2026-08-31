@@ -797,7 +797,7 @@ export async function fetchWikipediaBioSummary(
 export async function getDiasporaPlayers(region?: DiasporaRegion | 'all'): Promise<DiasporaPlayer[]> {
   try {
     const supabase = await createClient();
-    let query = supabase.from('diaspora_players').select('*');
+    let query = (supabase.from('diaspora_players' as any) as any).select('*');
 
     if (region && region !== 'all') {
       query = query.eq('region', region);
@@ -850,31 +850,32 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
   if (!player) {
     try {
       const supabase = await createClient();
-      const { data, error } = await supabase
-        .from('diaspora_players')
+      const { data, error } = await (supabase
+        .from('diaspora_players' as any) as any)
         .select('*')
         .eq('slug', slug)
         .single();
 
       if (!error && data) {
+        const d = data as any;
         player = {
-          id: data.id,
-          name: data.name,
-          slug: data.slug,
-          position: data.position,
-          current_club: data.current_club,
-          club_country: data.club_country,
-          photo_url: data.sports_data_player_id
-            ? getProviderHeadshotUrl(data.sports_data_player_id)
-            : data.photo_url,
-          region: data.region as DiasporaRegion,
-          bio_summary: data.bio_summary,
-          bio_source_url: data.bio_source_url,
-          market_value_estimate: data.market_value_estimate,
-          market_value_source: data.market_value_source,
-          market_value_as_of: data.market_value_as_of,
-          sports_data_player_id: data.sports_data_player_id,
-          wikipedia_slug: data.wikipedia_slug,
+          id: d.id,
+          name: d.name,
+          slug: d.slug,
+          position: d.position,
+          current_club: d.current_club,
+          club_country: d.club_country,
+          photo_url: d.sports_data_player_id
+            ? getProviderHeadshotUrl(d.sports_data_player_id)
+            : d.photo_url,
+          region: d.region as DiasporaRegion,
+          bio_summary: d.bio_summary,
+          bio_source_url: d.bio_source_url,
+          market_value_estimate: d.market_value_estimate,
+          market_value_source: d.market_value_source,
+          market_value_as_of: d.market_value_as_of,
+          sports_data_player_id: d.sports_data_player_id,
+          wikipedia_slug: d.wikipedia_slug,
         };
       }
     } catch (dbErr) {
