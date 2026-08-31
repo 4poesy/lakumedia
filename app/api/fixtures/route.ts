@@ -25,54 +25,15 @@ export async function GET(req: NextRequest) {
     const leagueFilter = req.nextUrl.searchParams.get('league')?.toLowerCase();
     const statusFilter = req.nextUrl.searchParams.get('status')?.toLowerCase();
 
-    // 1. Try querying Database Fixtures first
-    let dbFixtures: MatchTickerFixture[] = [];
+    // 1. Fetch real-time live scoreboard feed directly from ESPN (23 global leagues) + NPFL feeds
+    let liveFixtures: MatchTickerFixture[] = [];
     try {
-      const supabase = await createClient();
-      const { data, error } = await supabase
-        .from('fixtures')
-        .select(`
-          id,
-          kickoff_at,
-          home_score,
-          away_score,
-          status,
-          external_ref_id,
-          home_team:teams!home_team_id(name),
-          away_team:teams!away_team_id(name),
-          league:leagues!league_id(name)
-        `)
-        .order('kickoff_at', { ascending: true })
-        .limit(25);
-
-      if (!error && data && data.length > 0) {
-        dbFixtures = data.map((item: any) => ({
-          id: item.id,
-          homeTeam: item.home_team?.name || 'Home Team',
-          awayTeam: item.away_team?.name || 'Away Team',
-          homeScore: item.status === 'scheduled' ? null : (item.home_score !== null && !isNaN(item.home_score) ? item.home_score : null),
-          awayScore: item.status === 'scheduled' ? null : (item.away_score !== null && !isNaN(item.away_score) ? item.away_score : null),
-          status: item.status,
-          kickoffAt: item.kickoff_at,
-          leagueName: item.league?.name || 'Football',
-          leagueSlug: 'football',
-          countryFlag: '⚽',
-        }));
-      }
-    } catch (dbErr) {
-      // Fall through to real-time verified scoreboard fetcher
-    }
-
-    // 2. If database has no entries yet, fetch from live verified score engine (NPFL + ESPN)
-    let finalFixtures = dbFixtures;
-
-    if (finalFixtures.length === 0) {
       const [npfl, espnToday] = await Promise.all([
-        fetchAutomatedNpflScores(),
-        fetchLiveScoreboardForDateOffset('today'),
+        fetchAutomatedNpflScores().catch(() => []),
+        fetchLiveScoreboardForDateOffset('today').catch(() => []),
       ]);
 
-      finalFixtures = [...npfl, ...espnToday].map((f) => {
+      liveFixtures = [...npfl, ...espnToday].map((f) => {
         const isSched = f.status === 'scheduled';
         return {
           id: f.id,
@@ -85,9 +46,51 @@ export async function GET(req: NextRequest) {
           matchMinute: f.matchMinute,
           leagueName: f.leagueName,
           leagueSlug: f.leagueSlug,
-          countryFlag: f.countryFlag,
+          countryFlag: f.countryFlag || '⚽',
         };
       });
+    } catch (liveErr) {
+      console.warn('Real-time live scoreboard fetch warning:', liveErr);
+    }
+
+    // 2. If live scoreboard returns no matches, fall back to Database Fixtures
+    let finalFixtures = liveFixtures;
+
+    if (finalFixtures.length === 0) {
+      try {
+        const supabase = await createClient();
+        const { data, error } = await (supabase.from('fixtures' as any) as any)
+          .select(`
+            id,
+            kickoff_at,
+            home_score,
+            away_score,
+            status,
+            external_ref_id,
+            home_team:teams!home_team_id(name),
+            away_team:teams!away_team_id(name),
+            league:leagues!league_id(name)
+          `)
+          .order('kickoff_at', { ascending: true })
+          .limit(25);
+
+        if (!error && data && data.length > 0) {
+          finalFixtures = data.map((item: any) => ({
+            id: item.id,
+            homeTeam: item.home_team?.name || 'Home Team',
+            awayTeam: item.away_team?.name || 'Away Team',
+            homeScore: item.status === 'scheduled' ? null : (item.home_score !== null && !isNaN(item.home_score) ? item.home_score : null),
+            awayScore: item.status === 'scheduled' ? null : (item.away_score !== null && !isNaN(item.away_score) ? item.away_score : null),
+            status: item.status,
+            kickoffAt: item.kickoff_at,
+            leagueName: item.league?.name || 'Football',
+            leagueSlug: 'football',
+            countryFlag: '⚽',
+          }));
+        }
+      } catch (dbErr) {
+        console.warn('Database fallback query error:', dbErr);
+      }
     }
 
     // Apply filters
