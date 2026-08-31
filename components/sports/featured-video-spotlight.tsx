@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Play, Film, ChevronRight, Clock, Youtube, X, ExternalLink } from 'lucide-react';
+import { Play, Film, Youtube, X, ExternalLink } from 'lucide-react';
 
 interface VideoItem {
   id: string;
@@ -22,31 +22,42 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
   const FOOTBALL_FOCUS_VIDEOS: VideoItem[] = [
     {
       id: 'ff-1',
-      title: 'Football Focus Extra — Exclusive Match Highlights & Tactical Breakdown',
+      title: 'Football Focus Extra — Tactical Analysis & Premier Highlights',
       youtubeId: 'r6KHfURs22I',
       thumbnail_url: 'https://img.youtube.com/vi/r6KHfURs22I/hqdefault.jpg',
     },
     {
       id: 'ff-2',
-      title: 'Super Eagles & Global Football Analysis | Football Focus Extra',
+      title: 'Super Eagles & Global Football Debates | Football Focus Extra',
       youtubeId: 'W069gYjEYiA',
       thumbnail_url: 'https://img.youtube.com/vi/W069gYjEYiA/hqdefault.jpg',
     },
     {
       id: 'ff-3',
-      title: 'Top Transfers & League Debates | Football Focus Extra Edition',
+      title: 'League Standings & Player Spotlights | Football Focus Extra',
       youtubeId: 'xHzmsKX0-gY',
       thumbnail_url: 'https://img.youtube.com/vi/xHzmsKX0-gY/hqdefault.jpg',
     },
     {
       id: 'ff-4',
-      title: 'Football Focus Extra Live Studio Discussion & Expert Insights',
+      title: 'Football Focus Extra Live Studio Discussion & Analysis',
       youtubeId: 'OuY70arpOy4',
       thumbnail_url: 'https://img.youtube.com/vi/OuY70arpOy4/hqdefault.jpg',
     },
   ];
 
-  const activeVideoList = videos && videos.length > 0 ? videos : FOOTBALL_FOCUS_VIDEOS;
+  // Filter out placeholder videos (like "Lagos Afrobeat Concert", "Gala", etc.)
+  const validVideos = (videos || []).filter(
+    (v) =>
+      v &&
+      v.title &&
+      !v.title.toLowerCase().includes('afrobeat') &&
+      !v.title.toLowerCase().includes('gala') &&
+      !v.title.toLowerCase().includes('comedy') &&
+      !v.title.toLowerCase().includes('night lights')
+  );
+
+  const activeVideoList = validVideos.length >= 4 ? validVideos : FOOTBALL_FOCUS_VIDEOS;
 
   const [activeVideoId, setActiveVideoId] = useState<string | null>(null);
   const [activeVideoTitle, setActiveVideoTitle] = useState<string>('');
@@ -104,14 +115,14 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
         </div>
       )}
 
-      {/* Main Video Layout */}
+      {/* Main Video Playlist Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        {/* Main Featured Lead Video */}
+        {/* Main Featured Lead Video (Left) */}
         <div className="lg:col-span-7 flex flex-col rounded-2xl overflow-hidden shadow-lg group border border-slate-800 bg-slate-950">
           <div className="relative h-64 sm:h-72 w-full overflow-hidden bg-slate-900">
             <Image
-              src={leadVideo.thumbnail_url || `https://img.youtube.com/vi/${leadVideo.youtubeId}/hqdefault.jpg`}
+              src={leadVideo.thumbnail_url || `https://img.youtube.com/vi/${leadVideo.youtubeId || 'r6KHfURs22I'}/hqdefault.jpg`}
               alt={leadVideo.title}
               fill
               className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -153,19 +164,19 @@ export function FeaturedVideoSpotlight({ videos }: FeaturedVideoSpotlightProps) 
           </div>
         </div>
 
-        {/* Side Playlist Video Items */}
+        {/* Side Playlist Video Items (Right - 3 Videos) */}
         <div className="lg:col-span-5 space-y-3 flex flex-col justify-between">
           {sideVideos.map((vid) => (
             <div
               key={vid.id}
               className="flex items-center space-x-3 p-3 rounded-2xl bg-slate-950 border border-slate-800 hover:border-[#D9541E] transition-all group cursor-pointer"
               onClick={() =>
-                handlePlayInline(vid.youtubeId || 'r6KHfURs22I', vid.title)
+                handlePlayInline(vid.youtubeId || 'W069gYjEYiA', vid.title)
               }
             >
               <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-900 shrink-0 border border-slate-800">
                 <Image
-                  src={vid.thumbnail_url || `https://img.youtube.com/vi/${vid.youtubeId}/hqdefault.jpg`}
+                  src={vid.thumbnail_url || `https://img.youtube.com/vi/${vid.youtubeId || 'W069gYjEYiA'}/hqdefault.jpg`}
                   alt={vid.title}
                   fill
                   className="object-cover group-hover:scale-105 transition-transform"
