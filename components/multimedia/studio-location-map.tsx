@@ -63,12 +63,12 @@ export function StudioLocationMapSection() {
                 <Phone className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">CEO Direct Line & WhatsApp</span>
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Phone Line 1 & WhatsApp</span>
                 <p className="text-amber-300 font-mono font-extrabold text-sm">
-                  +234 810 328 5303
+                  +234 810 828 5303
                 </p>
-                <p className="text-slate-400 font-mono text-[11px]">
-                  Studio Hotline: +234 800 525 86334
+                <p className="text-emerald-400 font-mono font-bold text-xs pt-1">
+                  Phone Line 2: +234 916 039 5269
                 </p>
               </div>
             </div>
@@ -79,9 +79,9 @@ export function StudioLocationMapSection() {
                 <Mail className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Executive Contact Email</span>
+                <span className="font-extrabold text-slate-200 block uppercase tracking-wider">Official Email</span>
                 <p className="text-slate-300 font-mono font-bold">
-                  studio@lakumedia.com / executive@lakumedia.com
+                  lakumediaconcept@gmail.com
                 </p>
               </div>
             </div>

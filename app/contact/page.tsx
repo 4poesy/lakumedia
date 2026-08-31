@@ -1,131 +1,175 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Mail, Phone, MapPin, UserCheck, MessageSquare } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, MessageSquare, Send, ShieldCheck } from 'lucide-react';
 
 export const metadata = {
-  title: 'Contact Us | Laku Media',
-  description: 'Get in touch with Laku Media production desk and executive office.',
+  title: 'Contact Us | Laku Media Concepts',
+  description: 'Get in touch with Laku Media Concepts executive desk and production team.',
 };
 
 export default function ContactPage() {
   return (
-    <div className="max-w-4xl mx-auto space-y-8 theme-sports py-6">
-      <div>
-        <Link
-          href="/"
-          className="inline-flex items-center text-xs font-bold text-slate-400 hover:text-emerald-400 gap-1.5 transition-colors"
-        >
-          <ArrowLeft className="w-4 h-4" /> Return to Homepage
-        </Link>
-      </div>
+    <div className="min-h-screen bg-[#090A0F] text-white py-10 px-4 sm:px-6 lg:px-8 font-sans">
+      <div className="max-w-5xl mx-auto space-y-8">
+        
+        {/* Navigation Return Button */}
+        <div>
+          <Link
+            href="/"
+            className="inline-flex items-center text-xs font-black uppercase tracking-wider text-slate-400 hover:text-[#10B981] gap-2 transition-colors bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800"
+          >
+            <ArrowLeft className="w-4 h-4 text-[#10B981]" /> Return to Home
+          </Link>
+        </div>
 
-      <div className="space-y-4 pb-6 border-b border-slate-800">
-        <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-            <Mail className="w-6 h-6" />
+        {/* Page Header */}
+        <div className="bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="flex items-center space-x-4">
+            <div className="w-14 h-14 rounded-2xl bg-[#10B981]/20 border border-[#10B981]/50 flex items-center justify-center text-[#10B981] shrink-0">
+              <Mail className="w-7 h-7" />
+            </div>
+            <div>
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Laku Media</h1>
+              <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1">
+                Executive Desk, Studio Bookings & Editorial Press Enquiries
+              </p>
+            </div>
           </div>
-          <div>
-            <h1 className="text-3xl font-extrabold text-white">Contact Laku Media</h1>
-            <p className="text-xs text-slate-400">Executive Office, Studio Bookings & Editorial Press Desk</p>
+          
+          <div className="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-slate-950 border border-slate-800 text-[11px] text-emerald-400 font-bold">
+            <ShieldCheck className="w-4 h-4" />
+            <span>Official Communications Channel</span>
           </div>
         </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass-panel p-8 rounded-2xl border border-slate-800 space-y-6">
-          <h2 className="text-xl font-bold text-white flex items-center gap-2">
-            <UserCheck className="w-5 h-5 text-[#D9541E]" /> Executive Desk
-          </h2>
+        {/* Two-Column Grid: Executive Info + Contact Form */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+          
+          {/* Executive Desk Info Card (5 cols) */}
+          <div className="lg:col-span-5 bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl space-y-6 flex flex-col justify-between">
+            <div className="space-y-6">
+              <div className="border-b border-slate-800 pb-4">
+                <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-[#D9541E]/20 text-[#D9541E] border border-[#D9541E]/40">
+                  Laku Media Concepts
+                </span>
+                <h2 className="text-xl font-extrabold text-white mt-2">Executive Desk</h2>
+                <p className="text-xs text-slate-400 font-medium">Samuel Adebayo Olaku (CEO)</p>
+              </div>
 
-          <div className="space-y-5 text-xs text-slate-300">
-            <div className="flex items-start space-x-3">
-              <UserCheck className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-white text-sm">Adebayo Samuel Olaku</p>
-                <p className="text-slate-400 font-medium">Chief Executive Officer (CEO)</p>
+              {/* Phone Numbers Block */}
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3 p-3.5 rounded-2xl bg-slate-950 border border-slate-800">
+                  <Phone className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Phone Line 1 & WhatsApp</p>
+                    <a
+                      href="tel:+2348108285303"
+                      className="text-base font-mono font-extrabold text-white hover:text-[#10B981] transition-colors block"
+                    >
+                      +234 810 828 5303
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start space-x-3 p-3.5 rounded-2xl bg-slate-950 border border-slate-800">
+                  <Phone className="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Phone Line 2</p>
+                    <a
+                      href="tel:+2349160395269"
+                      className="text-base font-mono font-extrabold text-white hover:text-[#10B981] transition-colors block"
+                    >
+                      +234 916 039 5269
+                    </a>
+                  </div>
+                </div>
+
+                {/* Email Address Block */}
+                <div className="flex items-start space-x-3 p-3.5 rounded-2xl bg-slate-950 border border-slate-800">
+                  <Mail className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+                  <div className="min-w-0">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Official Email</p>
+                    <a
+                      href="mailto:lakumediaconcept@gmail.com"
+                      className="text-sm font-mono font-extrabold text-white hover:text-[#10B981] transition-colors block truncate"
+                    >
+                      lakumediaconcept@gmail.com
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="flex items-start space-x-3">
-              <Phone className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-white">CEO Direct Line & WhatsApp</p>
-                <p className="text-amber-300 font-mono font-extrabold text-sm">+234 810 328 5303</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <Mail className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-white">Production & Studio Booking Email</p>
-                <p className="text-slate-300 font-mono font-medium">studio@lakumedia.com / executive@lakumedia.com</p>
-              </div>
-            </div>
-
-            <div className="flex items-start space-x-3">
-              <MapPin className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-              <div>
-                <p className="font-bold text-white">Studio Headquarters</p>
-                <p className="text-slate-300 leading-relaxed font-medium">
-                  Laku Media Studio Complex, Km 12 Lagos-Ibadan Expressway / Abeokuta Road, Ogun State, Nigeria.
-                </p>
-              </div>
-            </div>
-
-            <div className="pt-2">
+            {/* Direct WhatsApp Action Button */}
+            <div className="pt-4">
               <a
-                href="https://wa.me/2348103285303"
+                href="https://wa.me/2348108285303"
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-3 rounded-xl bg-[#10B981] hover:bg-emerald-600 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg transition-transform active:scale-95 uppercase tracking-wider"
+                className="w-full py-4 rounded-2xl bg-[#10B981] hover:bg-emerald-500 text-slate-950 font-black text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-xl transition-all active:scale-95 uppercase tracking-wider border border-emerald-400"
               >
-                <MessageSquare className="w-4 h-4" />
-                <span>Chat directly on WhatsApp (+234 810 328 5303)</span>
+                <MessageSquare className="w-5 h-5 fill-slate-950" />
+                <span>Chat on WhatsApp (+234 810 828 5303)</span>
               </a>
             </div>
           </div>
+
+          {/* Contact Inquiry Form (7 cols) */}
+          <div className="lg:col-span-7 bg-slate-900/90 rounded-3xl p-6 sm:p-8 border border-slate-800 shadow-2xl">
+            <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+              <div className="border-b border-slate-800 pb-3">
+                <h2 className="text-xl font-extrabold text-white">Send a Message</h2>
+                <p className="text-xs text-slate-400 font-medium">Fill out the form below and our team will get back to you promptly.</p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1.5">
+                  Your Full Name <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Enter your full name"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-all font-medium"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1.5">
+                  Email Address <span className="text-rose-500">*</span>
+                </label>
+                <input
+                  type="email"
+                  placeholder="lakumediaconcept@gmail.com"
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-all font-medium"
+                  required
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-black uppercase tracking-wider text-slate-300 mb-1.5">
+                  Message / Inquiry <span className="text-rose-500">*</span>
+                </label>
+                <textarea
+                  rows={5}
+                  placeholder="Write your message or studio inquiry here..."
+                  className="w-full px-4 py-3.5 rounded-xl bg-slate-950 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-[#10B981] focus:ring-1 focus:ring-[#10B981] transition-all font-medium"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full py-4 rounded-xl bg-[#10B981] hover:bg-emerald-500 text-slate-950 font-black text-sm uppercase tracking-wider shadow-xl flex items-center justify-center gap-2 transition-transform active:scale-98"
+              >
+                <Send className="w-4 h-4 fill-slate-950" />
+                <span>Send Inquiry</span>
+              </button>
+            </form>
+          </div>
+
         </div>
 
-        <form className="glass-panel p-8 rounded-2xl border border-slate-800 space-y-4">
-          <h2 className="text-xl font-bold text-white">Send a Direct Message</h2>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">Your Name</label>
-            <input
-              type="text"
-              placeholder="Full name"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">Email Address</label>
-            <input
-              type="email"
-              placeholder="email@example.com"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">Message</label>
-            <textarea
-              rows={4}
-              placeholder="How can we assist you?"
-              className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white focus:outline-none focus:border-emerald-500"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full py-3 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-xs shadow"
-          >
-            Send Inquiry
-          </button>
-        </form>
       </div>
     </div>
   );
