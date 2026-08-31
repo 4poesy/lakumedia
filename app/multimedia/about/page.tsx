@@ -31,13 +31,13 @@ export default function MultimediaAboutPage() {
       image: {
         src: '/assest/team/akinola-olujobi.jpg',
       },
-      title: 'OLUJOBI AKINOLA\nSoftware Developer',
+      title: 'AKINOLA OLUJOBI\nSoftware Developer',
     },
     {
       image: {
         src: '/assest/team/oluwarotimi-ajayi.jpg',
       },
-      title: 'OLUWAROTIMI AJAYI\nHead of Production',
+      title: 'OLUWAROTIMI AJAYI\nHead of Operations',
     },
   ];
 
