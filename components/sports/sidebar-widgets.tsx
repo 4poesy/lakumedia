@@ -71,7 +71,7 @@ export function NewsletterWidget() {
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
       <div className="space-y-1">
         <h3 className="text-sm font-extrabold text-[#2A2E7F] flex items-center gap-1.5">
-          <Mail className="w-4 h-4 text-[#D9541E]" /> Sign up to Laku Media Sports Update!
+          <Mail className="w-4 h-4 text-[#D9541E]" /> Sign up to Laku Media Concept Sports Update!
         </h3>
         <p className="text-xs text-slate-600 font-medium">
           Top sports stories, live match alerts & transfer news delivered straight to your inbox.
@@ -100,7 +100,7 @@ export function SocialCountersWidget() {
   return (
     <div className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm space-y-3">
       <h3 className="text-xs font-extrabold uppercase tracking-wider text-[#2A2E7F]">
-        Follow Official Laku Media
+        Follow Official Laku Media Concept
       </h3>
       <div className="grid grid-cols-2 gap-2 text-xs font-extrabold">
         <a

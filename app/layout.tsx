@@ -8,10 +8,10 @@ import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
 import { ThemeProviderWrapper } from '@/components/ui/theme-provider-wrapper';
 
 export const metadata: Metadata = {
-  title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
-  description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media. Discover our world-class OB satellite uplink, cinematic film production, and original multimedia content.",
+  title: "Laku Media Concept — All Round Sports & Creative Multimedia Platform",
+  description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media Concept. Discover our world-class OB satellite uplink, cinematic film production, and original multimedia content.",
   keywords: [
-    'Laku Media',
+    'Laku Media Concept',
     'NPFL Live Scores',
     'Nigeria Premier Football League',
     'Super Eagles News',
@@ -22,23 +22,23 @@ export const metadata: Metadata = {
     'Creative Studio Nigeria',
     'OB Satellite Uplink',
   ],
-  authors: [{ name: 'Laku Media Desk' }],
+  authors: [{ name: 'Laku Media Concept Desk' }],
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon.ico',
     apple: '/brand/laku-media/laku-media-logo-symbol.jpeg',
   },
   openGraph: {
-    title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
-    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media.",
-    url: 'https://lakumedia.vercel.app',
-    siteName: 'Laku Media',
+    title: "Laku Media Concept — All Round Sports & Creative Multimedia Platform",
+    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media Concept.",
+    url: 'https://lakumediaconcept.com',
+    siteName: 'Laku Media Concept',
     images: [
       {
-        url: 'https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-light.jpeg',
+        url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
         width: 1200,
         height: 630,
-        alt: 'Laku Media Sports & Multimedia Platform',
+        alt: 'Laku Media Concept Sports & Multimedia Platform',
       },
     ],
     locale: 'en_NG',
@@ -46,9 +46,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "Laku Media — Nigeria's Premier Sports & Creative Multimedia Platform",
-    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media.",
-    images: ['https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-light.jpeg'],
+    title: "Laku Media Concept — All Round Sports & Creative Multimedia Platform",
+    description: "Follow NPFL live scores, Super Eagles match reports, Premier League transfers, and UEFA Champions League analysis on Laku Media Concept.",
+    images: ['https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg'],
   },
 };
 

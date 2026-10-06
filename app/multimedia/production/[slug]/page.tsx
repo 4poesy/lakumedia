@@ -153,7 +153,7 @@ export default async function ProductionDetailPage({ params }: ProductionSlugPro
 
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href={`mailto:production@lakumedia.com?subject=Inquiry: ${encodeURIComponent(service.title)}`}
+            href={`mailto:production@lakumediaconcept.com?subject=Inquiry: ${encodeURIComponent(service.title)}`}
             className="px-6 py-3 rounded-xl bg-[#D9541E] hover:bg-[#b84315] text-white font-extrabold text-xs flex items-center gap-2 shadow-lg"
           >
             <Mail className="w-4 h-4" /> Book Via Email Inquiry

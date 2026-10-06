@@ -17,7 +17,7 @@ export default function SignInPage() {
           <div className="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 mx-auto flex items-center justify-center font-extrabold text-xl text-emerald-400">
             L
           </div>
-          <h1 className="text-2xl font-bold text-white">Sign In to Lakumedia</h1>
+          <h1 className="text-2xl font-bold text-white">Sign In to Lakumedia Concept</h1>
           <p className="text-xs text-slate-400">
             Access live match updates, watch history, and article comments.
           </p>
@@ -31,7 +31,7 @@ export default function SignInPage() {
             <div className="relative">
               <input
                 type="email"
-                placeholder="reader@lakumedia.com"
+                placeholder="reader@lakumediaconcept.com"
                 className="w-full px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500"
                 required
               />

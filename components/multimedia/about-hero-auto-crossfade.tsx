@@ -73,7 +73,7 @@ export function AboutHeroAutoCrossfade({
 
         <CinematicHeroItem>
           <p className="text-sm sm:text-lg text-slate-100 max-w-3xl mx-auto font-medium leading-relaxed drop-shadow-md">
-            Under executive leadership, Laku Media operates multi-camera satellite OB vans, 8K RED cinema rigs, Dolby Atmos audio suites, and a premier sports publishing portal.
+            Under executive leadership, Laku Media Concept operates multi-camera satellite OB vans, 8K RED cinema rigs, Dolby Atmos audio suites, and a premier sports publishing portal.
           </p>
         </CinematicHeroItem>
 

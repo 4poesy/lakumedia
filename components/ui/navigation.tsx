@@ -24,18 +24,18 @@ export function Navigation() {
     { href: '/world-football', label: 'World Football', icon: Globe, active: pathname === '/world-football' },
     { href: '/transfers', label: 'Transfers', icon: Flame, active: pathname === '/transfers' },
     { href: '/live-scores', label: 'Live Scores', icon: Activity, active: pathname === '/live-scores', badge: 'LIVE' },
-    { href: '/multimedia', label: 'LAKU MEDIA', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
+    { href: '/multimedia', label: 'LAKU MEDIA CONCEPT', icon: Camera, active: isMultimedia, badge: 'STUDIO' },
   ];
 
   // Exact requested order for Laku Media Studio: Laku Media Hub, About Us, Services, Portfolio, Pricing, Laku Media Sport
   const multimediaNavLinks = [
-    { href: '/multimedia', label: 'Laku Media Hub', icon: Film, active: pathname === '/multimedia' },
+    { href: '/multimedia', label: 'Laku Media Concept Hub', icon: Film, active: pathname === '/multimedia' },
     { href: '/multimedia/about', label: 'About Us', icon: Info, active: pathname === '/multimedia/about' },
     { href: '/multimedia/services', label: 'Services', icon: Camera, active: pathname === '/multimedia/services' },
     { href: '/multimedia/portfolio', label: 'Portfolio', icon: Briefcase, active: pathname === '/multimedia/portfolio' },
     { href: '/multimedia/pricing', label: 'Pricing', icon: DollarSign, active: pathname === '/multimedia/pricing' },
     { href: '/multimedia/blog', label: 'Blog', icon: BookOpen, active: pathname.startsWith('/multimedia/blog'), badge: 'NEW' },
-    { href: '/', label: '⚽ LAKU MEDIA SPORT', icon: Trophy, active: false, badge: 'SPORTS HOME' },
+    { href: '/', label: '⚽ LAKU MEDIA CONCEPT SPORT', icon: Trophy, active: false, badge: 'SPORTS HOME' },
   ];
 
   const currentNavLinks = isMultimedia ? multimediaNavLinks : sportsNavLinks;
@@ -117,7 +117,7 @@ export function Navigation() {
               <div className="relative w-10 h-10 rounded-2xl overflow-hidden bg-white p-1 shadow-lg shrink-0 border border-slate-200">
                 <Image
                   src="/brand/laku-media/laku-media-logo-symbol.jpeg"
-                  alt="Laku Media Official Logo Mark"
+                  alt="Laku Media Concept Official Logo Mark"
                   width={40}
                   height={40}
                   className="object-cover w-full h-full rounded-xl"
@@ -125,11 +125,11 @@ export function Navigation() {
                 />
               </div>
               <span className="font-black text-2xl sm:text-3xl tracking-tight text-white">
-                LAKU<span className="text-[#D9541E]">MEDIA</span>
+                LAKU<span className="text-[#D9541E]">MEDIA</span> <span className="text-white text-lg">CONCEPT</span>
               </span>
             </div>
             <span className="text-[10px] uppercase tracking-widest text-amber-300 font-black mt-0.5">
-              {isMultimedia ? 'Entertainment & Production' : "Nigeria's Premier Sports & Media Hub"}
+              {isMultimedia ? 'Entertainment & Production' : "All Round Sports & Media Hub"}
             </span>
           </Link>
 
@@ -149,14 +149,14 @@ export function Navigation() {
                 <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-2xl border border-slate-200 p-2 space-y-1 z-50 text-slate-900 animate-in fade-in zoom-in-95">
                   <button
                     onClick={() => {
-                      alert('📻 Laku Media Radio is streaming 24/7 live sports commentary!');
+                      alert('📻 Laku Media Concept Radio is streaming 24/7 live sports commentary!');
                       setAccountMenuOpen(false);
                     }}
                     className="w-full text-left px-3.5 py-2.5 rounded-xl hover:bg-amber-50 text-xs font-extrabold text-slate-900 flex items-center space-x-2.5 transition-colors border border-transparent hover:border-amber-300"
                   >
                     <Radio className="w-4 h-4 text-[#D9541E] animate-pulse shrink-0" />
                     <div className="flex flex-col">
-                      <span className="text-slate-900 font-black">LAKU RADIO 📻</span>
+                      <span className="text-slate-900 font-black">LAKU MEDIA CONCEPT RADIO 📻</span>
                       <span className="text-[10px] text-amber-700 font-bold">24/7 Live Commentary</span>
                     </div>
                   </button>
@@ -377,13 +377,13 @@ export function Navigation() {
           <div className="pt-4 border-t border-slate-200 space-y-2">
             <button
               onClick={() => {
-                alert('📻 Laku Media Radio is streaming live sports commentary 24/7!');
+                alert('📻 Laku Media Concept Radio is streaming live sports commentary 24/7!');
                 setMobileMenuOpen(false);
               }}
               className="w-full text-center px-4 py-2.5 rounded-lg text-sm font-black bg-amber-400 text-slate-950 flex items-center justify-center space-x-2 shadow-sm"
             >
               <Radio className="w-4 h-4 text-slate-950 animate-pulse" />
-              <span>LISTEN TO LAKU RADIO 📻</span>
+              <span>LISTEN TO LAKU MEDIA CONCEPT RADIO 📻</span>
             </button>
 
             <Link

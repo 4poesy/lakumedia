@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ArrowLeft, Shield } from 'lucide-react';
 
 export const metadata = {
-  title: 'Privacy Policy | Laku Media',
-  description: 'Privacy policy and data protection guidelines for Laku Media platform.',
+  title: 'Privacy Policy | Laku Media Concept',
+  description: 'Privacy policy and data protection guidelines for Laku Media Concept platform.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -35,7 +35,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">1. Introduction</h2>
           <p>
-            Welcome to Laku Media. We respect your privacy and are committed to protecting personal data collected through our sports coverage and multimedia streaming platform.
+            Welcome to Laku Media Concept. We respect your privacy and are committed to protecting personal data collected through our sports coverage and multimedia streaming platform.
           </p>
         </section>
 
@@ -63,7 +63,7 @@ export default function PrivacyPolicyPage() {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">5. Contact Us</h2>
           <p>
-            For privacy inquiries or data removal requests, please contact our privacy desk at privacy@lakumedia.com.
+            For privacy inquiries or data removal requests, please contact our privacy desk at privacy@lakumediaconcept.com.
           </p>
         </section>
       </div>

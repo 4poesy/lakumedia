@@ -25,7 +25,7 @@ export async function fetchAutomatedNpflScores(): Promise<ApiMatchFixture[]> {
     // 1. Query verified Nigerian sports feeds for real-time match results
     const response = await fetch('https://www.completesports.com/category/nigeria-premier-league/feed/', {
       headers: {
-        'User-Agent': 'LakumediaScoreEngine/1.0',
+        'User-Agent': 'LakumediaConceptScoreEngine/1.0',
       },
       next: { revalidate: 120 },
     });

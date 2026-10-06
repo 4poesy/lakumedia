@@ -16,7 +16,7 @@ export function AboutCeoStatement() {
             <div className="lg:col-span-5 relative h-[400px] sm:h-[480px] rounded-2xl overflow-hidden border-2 border-slate-700 shadow-2xl group">
               <Image
                 src="/assest/team/samuel-adebayo-olaku.jpg"
-                alt="Samuel Adebayo Olaku - CEO Laku Media"
+                alt="Samuel Adebayo Olaku - CEO Laku Media Concept"
                 fill
                 className="object-cover object-top group-hover:scale-105 transition-transform duration-700"
                 unoptimized
@@ -28,7 +28,7 @@ export function AboutCeoStatement() {
                   FOUNDER & CHIEF EXECUTIVE OFFICER
                 </span>
                 <h3 className="text-lg font-black text-white uppercase tracking-tight">Samuel Adebayo Olaku</h3>
-                <p className="text-[11px] text-slate-300 font-bold">Laku Media & Creative Studios Group</p>
+                <p className="text-[11px] text-slate-300 font-bold">Laku Media Concept & Creative Studios Group</p>
               </div>
             </div>
 
@@ -48,7 +48,7 @@ export function AboutCeoStatement() {
               <div className="relative">
                 <Quote className="w-12 h-12 text-[#D9541E]/20 absolute -top-4 -left-4 pointer-events-none" />
                 <p className="text-sm sm:text-base text-slate-200 font-medium leading-relaxed italic relative z-10 pl-4 border-l-2 border-[#D9541E]">
-                  &ldquo;At Laku Media, our goal is clear: to establish Africa&apos;s most formidable media powerhouse. We refuse to settle for standard video production. Every film we produce, every sports event we broadcast via satellite, and every commercial campaign we launch is engineered to world-class 8K standards.
+                  &ldquo;At Laku Media Concept, our goal is clear: to establish Africa&apos;s most formidable media powerhouse. We refuse to settle for standard video production. Every film we produce, every sports event we broadcast via satellite, and every commercial campaign we launch is engineered to world-class 8K standards.
                   <br /><br />
                   By combining deep cultural storytelling with state-of-the-art OB satellite vans and RED cinema rigs, we give African creators and global brands a platform to captivate millions of viewers worldwide.&rdquo;
                 </p>

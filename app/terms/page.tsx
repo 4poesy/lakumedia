@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { ArrowLeft, Shield } from 'lucide-react';
 
 export const metadata = {
-  title: 'Terms of Service | Laku Media',
-  description: 'Terms of service and platform usage guidelines for Laku Media.',
+  title: 'Terms of Service | Laku Media Concept',
+  description: 'Terms of service and platform usage guidelines for Laku Media Concept.',
 };
 
 export default function TermsOfServicePage() {
@@ -35,21 +35,21 @@ export default function TermsOfServicePage() {
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">1. Acceptance of Terms</h2>
           <p>
-            By accessing or using Laku Media, you agree to comply with and be bound by these Terms of Service.
+            By accessing or using Laku Media Concept, you agree to comply with and be bound by these Terms of Service.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">2. Intellectual Property</h2>
           <p>
-            All content, sports reporting, logos, video streams, and media assets published on Laku Media are the intellectual property of Laku Media or its content licensors.
+            All content, sports reporting, logos, video streams, and media assets published on Laku Media Concept are the intellectual property of Laku Media Concept or its content licensors.
           </p>
         </section>
 
         <section className="space-y-2">
           <h2 className="text-lg font-bold text-white">3. User Code of Conduct</h2>
           <p>
-            Users engaging in comment threads must refrain from posting offensive, defamatory, or abusive content. Laku Media reserves the right to moderate or delete any content violating these guidelines.
+            Users engaging in comment threads must refrain from posting offensive, defamatory, or abusive content. Laku Media Concept reserves the right to moderate or delete any content violating these guidelines.
           </p>
         </section>
 

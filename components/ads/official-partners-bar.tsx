@@ -49,7 +49,7 @@ export function OfficialPartnersBar() {
             Powered by Leading Global Brands
           </h3>
           <p className="text-xs text-slate-400 font-medium">
-            Laku Media partners with industry leaders to deliver top-tier sports broadcasting and digital experiences.
+            Laku Media Concept partners with industry leaders to deliver top-tier sports broadcasting and digital experiences.
           </p>
         </div>
 

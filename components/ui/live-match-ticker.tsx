@@ -55,13 +55,13 @@ export function LiveMatchTicker() {
     {
       id: 'sn4',
       badge: 'STUDIO BLOG',
-      title: 'Behind the Scenes: How Laku Media Deploys OB Van Satellite Uplinks',
+      title: 'Behind the Scenes: How Laku Media Concept Deploys OB Van Satellite Uplinks',
       slug: 'about',
     },
     {
       id: 'sn5',
       badge: '24/7 RADIO',
-      title: 'Laku Media Sports & Entertainment Podcast Live Stream',
+      title: 'Laku Media Concept Sports & Entertainment Podcast Live Stream',
       slug: 'services',
     },
   ];

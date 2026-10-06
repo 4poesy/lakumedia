@@ -28,13 +28,13 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-xs text-slate-300 leading-relaxed font-medium">
-              Nigeria&apos;s premier dual-vertical platform combining real-time sports coverage with immersive streaming multimedia entertainment & production services.
+              The all round dual-vertical platform combining real-time sports coverage with immersive streaming multimedia entertainment & production services.
             </p>
             
             {/* Show CEO credit ONLY on Multimedia pages as requested */}
             {isMultimedia && (
               <div className="text-[11px] text-[#D9541E] font-extrabold flex items-center gap-1.5 bg-slate-900 p-2.5 rounded-lg border border-slate-700">
-                <UserCheck className="w-4 h-4 text-[#D9541E]" /> Laku Media — Adebayo Samuel Olaku, CEO
+                <UserCheck className="w-4 h-4 text-[#D9541E]" /> Laku Media Concept — Adebayo Samuel Olaku, CEO
               </div>
             )}
           </div>
@@ -56,10 +56,10 @@ export function Footer() {
           {/* Laku Media Multimedia Links */}
           <div>
             <h4 className="text-xs font-extrabold uppercase tracking-wider text-[#D9541E] mb-4 flex items-center gap-1.5 border-l-4 border-[#D9541E] pl-2">
-              <Film className="w-3.5 h-3.5 text-[#D9541E]" /> Laku Media Production
+              <Film className="w-3.5 h-3.5 text-[#D9541E]" /> Laku Media Concept Production
             </h4>
             <ul className="space-y-2.5 text-xs font-semibold text-slate-300">
-              <li><Link href="/multimedia/about" prefetch={true} className="hover:text-white hover:underline transition-colors">About Laku Media</Link></li>
+              <li><Link href="/multimedia/about" prefetch={true} className="hover:text-white hover:underline transition-colors">About Laku Media Concept</Link></li>
               <li><Link href="/multimedia/production" prefetch={true} className="hover:text-white hover:underline transition-colors">Production Services & Portfolio</Link></li>
               <li><Link href="/multimedia/live" prefetch={true} className="hover:text-white hover:underline transition-colors">Live Concerts & Streams</Link></li>
               <li><Link href="/multimedia" prefetch={true} className="hover:text-white hover:underline transition-colors">On-Demand Catalog</Link></li>
@@ -81,7 +81,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-slate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 font-medium">
-          <p>© {new Date().getFullYear()} Laku Media Platform. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Laku Media Concept Platform. All rights reserved.</p>
           <p className="flex items-center gap-1 mt-2 sm:mt-0">
             Engineered with <Heart className="w-3.5 h-3.5 text-[#D9541E] fill-[#D9541E]" /> for Nigerian Sports & Entertainment.
           </p>

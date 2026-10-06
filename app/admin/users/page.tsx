@@ -33,7 +33,7 @@ export default function UserRolesAdminPage() {
         },
         {
           id: 'u2',
-          display_name: 'Lakumedia Desk Editor',
+          display_name: 'Lakumedia Concept Desk Editor',
           role: 'editor',
           created_at: new Date().toISOString(),
         },

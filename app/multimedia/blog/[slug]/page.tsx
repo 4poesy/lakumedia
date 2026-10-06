@@ -33,11 +33,11 @@ export async function generateMetadata({ params }: SingleBlogPageProps): Promise
     openGraph: {
       title: post.seoTitle,
       description: post.metaDescription,
-      url: `https://lakumedia.vercel.app/multimedia/blog/${post.slug}`,
+      url: `https://lakumediaconcept.com/multimedia/blog/${post.slug}`,
       siteName: 'Laku Media Studio',
       images: [
         {
-          url: `https://lakumedia.vercel.app${post.coverImage}`,
+          url: `https://lakumediaconcept.com${post.coverImage}`,
           width: 1200,
           height: 630,
           alt: post.title,
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: SingleBlogPageProps): Promise
       card: 'summary_large_image',
       title: post.seoTitle,
       description: post.metaDescription,
-      images: [`https://lakumedia.vercel.app${post.coverImage}`],
+      images: [`https://lakumediaconcept.com${post.coverImage}`],
     },
   };
 }
@@ -72,12 +72,12 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.metaDescription,
-    image: `https://lakumedia.vercel.app${post.coverImage}`,
+    image: `https://lakumediaconcept.com${post.coverImage}`,
     datePublished: post.publishedAt,
     dateModified: post.publishedAt,
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://lakumedia.vercel.app/multimedia/blog/${post.slug}`,
+      '@id': `https://lakumediaconcept.com/multimedia/blog/${post.slug}`,
     },
     author: {
       '@type': 'Person',
@@ -93,7 +93,7 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
       name: 'Laku Media Studio',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-symbol.jpeg',
+        url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-symbol.jpeg',
       },
     },
     keywords: post.tags.join(', '),
@@ -107,25 +107,25 @@ export default async function SingleStudioBlogPage({ params }: SingleBlogPagePro
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://lakumedia.vercel.app',
+        item: 'https://lakumediaconcept.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Multimedia Studio',
-        item: 'https://lakumedia.vercel.app/multimedia',
+        item: 'https://lakumediaconcept.com/multimedia',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: 'Blog',
-        item: 'https://lakumedia.vercel.app/multimedia/blog',
+        item: 'https://lakumediaconcept.com/multimedia/blog',
       },
       {
         '@type': 'ListItem',
         position: 4,
         name: post.title,
-        item: `https://lakumedia.vercel.app/multimedia/blog/${post.slug}`,
+        item: `https://lakumediaconcept.com/multimedia/blog/${post.slug}`,
       },
     ],
   };

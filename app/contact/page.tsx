@@ -26,7 +26,7 @@ export default function ContactPage() {
               <Mail className="w-7 h-7" />
             </div>
             <div>
-              <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Laku Media</h1>
+              <h1 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight">Contact Laku Media Concept</h1>
               <p className="text-xs sm:text-sm text-slate-400 font-medium mt-1">
                 Executive Desk, Studio Bookings & Editorial Press Enquiries
               </p>

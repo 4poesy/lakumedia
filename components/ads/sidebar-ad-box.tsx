@@ -74,7 +74,7 @@ export function SidebarAdBox({
         <Link
           href="/advertise"
           className="p-3 rounded-xl bg-slate-950 hover:bg-slate-800 text-slate-300 border border-slate-800 transition-colors shrink-0"
-          title="Advertise on Laku Media"
+          title="Advertise on Laku Media Concept"
         >
           <Sparkles className="w-4 h-4 text-emerald-400" />
         </Link>

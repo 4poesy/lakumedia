@@ -236,7 +236,7 @@ export function DiasporaPlayerDossierModal({
                 </p>
 
                 <div className="text-[10px] text-slate-500 italic pt-1">
-                  Public open knowledge cited under CC BY-SA 4.0. Lakumedia verifies player entries for accuracy.
+                  Public open knowledge cited under CC BY-SA 4.0. Lakumedia Concept verifies player entries for accuracy.
                 </div>
               </div>
 

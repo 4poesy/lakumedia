@@ -40,7 +40,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </div>
             <div>
               <span className="font-extrabold text-sm text-slate-900 tracking-tight block">
-                LAKUMEDIA <span className="text-emerald-700">CMS</span>
+                LAKUMEDIA CONCEPT <span className="text-emerald-700">CMS</span>
               </span>
               <span className="text-[10px] text-slate-500 font-bold block uppercase tracking-wider">
                 Editorial Suite

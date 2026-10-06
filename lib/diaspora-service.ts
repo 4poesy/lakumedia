@@ -759,7 +759,7 @@ export async function fetchWikipediaBioSummary(
     const res = await fetch(endpoint, {
       next: { revalidate: 86400 },
       headers: {
-        'User-Agent': 'LakumediaSports/1.0 (info@lakumedia.com)',
+        'User-Agent': 'LakumediaConceptSports/1.0 (info@lakumediaconcept.com)',
       },
     });
 
@@ -972,7 +972,7 @@ export async function getPlayerDossier(slug: string): Promise<PlayerDossier | nu
     source: player.market_value_source || null,
     asOf: player.market_value_as_of || null,
     policyNote:
-      'Lakumedia adheres to strict journalistic data integrity: player market values and salary figures are only displayed when accompanied by a licensed, dated, and cited transfer authority source.',
+      'Lakumedia Concept adheres to strict journalistic data integrity: player market values and salary figures are only displayed when accompanied by a licensed, dated, and cited transfer authority source.',
   };
 
   return {

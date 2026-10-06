@@ -69,7 +69,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
     cover_image_url: '/assest/user_enyimba_news_hero.jpg',
     category_id: '22222222-2222-2222-2222-222222222222',
     sports_categories: { name: 'NPFL' },
-    profiles: { display_name: 'Lakumedia Editorial Team', avatar_url: null },
+    profiles: { display_name: 'Lakumedia Concept Editorial Team', avatar_url: null },
     published_at: new Date().toISOString(),
     is_ai_generated: false,
   };
@@ -121,14 +121,14 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
     datePublished: article.published_at,
     author: {
       '@type': article.is_ai_generated ? 'Organization' : 'Person',
-      name: article.is_ai_generated ? 'Laku Media Sports Desk' : article.profiles?.display_name || 'Lakumedia Editorial Team',
+      name: article.is_ai_generated ? 'Laku Media Concept Sports Desk' : article.profiles?.display_name || 'Lakumedia Concept Editorial Team',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Laku Media',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://lakumedia.com/brand/laku-media/laku-media-logo-light.jpeg',
+        url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
       },
     },
   };
@@ -175,7 +175,7 @@ Speaking after the final whistle, the head coach praised his squad's resilience 
             </div>
             <div>
               <p className="font-extrabold text-slate-900 flex items-center gap-1.5">
-                <span>{article.is_ai_generated ? 'Laku Media Sports Desk' : article.profiles?.display_name || 'Lakumedia Desk'}</span>
+                <span>{article.is_ai_generated ? 'Laku Media Concept Sports Desk' : article.profiles?.display_name || 'Lakumedia Concept Desk'}</span>
                 {article.is_ai_generated && (
                   <span className="px-2 py-0.5 rounded text-[9px] font-black uppercase bg-emerald-100 text-emerald-800 border border-emerald-300">
                     Data-Verified

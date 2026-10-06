@@ -215,7 +215,7 @@ export default async function MultimediaHomePage() {
             </h2>
 
             <p className="text-xs sm:text-sm text-slate-300 font-medium max-w-2xl leading-relaxed drop-shadow-md">
-              Nigeria&apos;s premier dual-vertical studio: Delivering theatrical Nollywood blockbusters, OB satellite concert broadcasts, and commercial brand advertising.
+              The all round dual-vertical studio: Delivering theatrical Nollywood blockbusters, OB satellite concert broadcasts, and commercial brand advertising.
             </p>
           </div>
         </div>

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Laku Media Blog — Broadcast Engineering, Film & Technology Insights',
     description: 'Expert insights on 4K HDR live satellite broadcasting, OB Van engineering, cinematography, and film production.',
-    url: 'https://lakumedia.vercel.app/multimedia/blog',
+    url: 'https://lakumediaconcept.com/multimedia/blog',
     siteName: 'Laku Media',
     type: 'website',
   },
@@ -33,13 +33,13 @@ export default function StudioBlogMainPage() {
     '@type': 'Blog',
     name: 'Laku Media Blog',
     description: 'Official production blog of Laku Media Studio Complex covering 4K HDR live satellite broadcasting and film production.',
-    url: 'https://lakumedia.vercel.app/multimedia/blog',
+    url: 'https://lakumediaconcept.com/multimedia/blog',
     publisher: {
       '@type': 'Organization',
       name: 'Laku Media',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://lakumedia.vercel.app/brand/laku-media/laku-media-logo-symbol.jpeg',
+        url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-symbol.jpeg',
       },
     },
   };

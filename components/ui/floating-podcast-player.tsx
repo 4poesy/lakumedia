@@ -9,8 +9,8 @@ export function FloatingPodcastPlayer() {
   const [isMinimized, setIsMinimized] = useState(false);
 
   const podcastEpisode = {
-    title: 'Laku Media Sports Radio: NPFL Derby Analysis & Super Eagles AFCON Squad',
-    host: 'Adebayo Samuel Olaku & Laku Media Sports Team',
+    title: 'Laku Media Concept Sports Radio: NPFL Derby Analysis & Super Eagles AFCON Squad',
+    host: 'Adebayo Samuel Olaku & Laku Media Concept Sports Team',
     duration: '24:15',
     youtubeId: '3Q06g9O0J-Y',
   };

@@ -61,7 +61,7 @@ export default function DeveloperPortalPage() {
 
   const codeSnippets = {
     javascript: (path: string) => `// JavaScript (Fetch API)
-const response = await fetch('https://lakumedia.vercel.app${path}', {
+const response = await fetch('https://lakumediaconcept.com${path}', {
   headers: {
     'x-api-key': '${userApiKey}',
     'Accept': 'application/json'
@@ -70,13 +70,13 @@ const response = await fetch('https://lakumedia.vercel.app${path}', {
 const data = await response.json();
 console.log(data);`,
     curl: (path: string) => `# cURL Command
-curl -X GET "https://lakumedia.vercel.app${path}" \\
+curl -X GET "https://lakumediaconcept.com${path}" \\
   -H "x-api-key: ${userApiKey}" \\
   -H "Accept: application/json"`,
     python: (path: string) => `# Python (Requests)
 import requests
 
-url = "https://lakumedia.vercel.app${path}"
+url = "https://lakumediaconcept.com${path}"
 headers = {
     "x-api-key": "${userApiKey}",
     "Accept": "application/json"
