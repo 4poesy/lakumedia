@@ -42,7 +42,7 @@ export function AiArticleGeneratorModal({
       ],
       possession: { home: 58, away: 42 },
       shotsOnTarget: { home: 7, away: 3 },
-      coverImageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop&q=80',
+      coverImageUrl: '/assest/user_enyimba_news_hero.jpg',
     },
     {
       fixtureId: 'fix-102',
@@ -67,7 +67,7 @@ export function AiArticleGeneratorModal({
       ],
       possession: { home: 62, away: 38 },
       shotsOnTarget: { home: 9, away: 4 },
-      coverImageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop&q=80',
+      coverImageUrl: '/assest/user_kane_musiala_bayern.jpg',
     },
     {
       fixtureId: 'fix-103',
@@ -78,7 +78,7 @@ export function AiArticleGeneratorModal({
       matchDate: '2026-08-28',
       stadium: 'Adokiye Amiesimaka Stadium, Port Harcourt',
       status: 'scheduled',
-      coverImageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop&q=80',
+      coverImageUrl: '/assest/user_npfl_hero_team_celebration.jpg',
     },
   ];
 

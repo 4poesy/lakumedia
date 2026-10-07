@@ -52,11 +52,11 @@ export default async function MultimediaHomePage() {
   const genres = genresData.length > 0 ? genresData : defaultGenres;
 
   const sampleThumbnails = [
-    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=800&auto=format&fit=crop&q=75',
-    'https://images.unsplash.com/photo-1543351611-c823945f1007?w=800&auto=format&fit=crop&q=75',
+    '/assest/cinema_house_hero.jpg',
+    '/assest/hero_slide_cinema.jpg',
+    '/assest/hero_slide_recording.jpg',
+    '/assest/portfolio_crew_set.jpg',
+    '/assest/hero_slide_broadcast.jpg',
   ];
 
   const teamSlides = [

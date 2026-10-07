@@ -60,8 +60,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
     synopsis:
       'An inspiring documentary tracing the evolution of Nigerian football from grassroot academies to the world stage. Features exclusive archival footage and locker room interviews with legendary stars.',
     video_url: 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8',
-    thumbnail_url:
-      'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
+    thumbnail_url: '/assest/cinema_house_hero.jpg',
     media_genres: { name: 'Documentaries', slug: 'documentaries' },
     media_type: 'documentary' as const,
     duration_seconds: 3240,
@@ -86,7 +85,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
       title: 'The Golden Boot: Season 1 Episode 1 - The Trials',
       slug: 'golden-boot-s1e1',
       synopsis: 'Series Premiere: Young striker Kelvin travels from Enugu to Aba for his first professional trials.',
-      thumbnail_url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop',
+      thumbnail_url: '/assest/hero_slide_cinema.jpg',
       season_number: 1,
       episode_number: 1,
       duration_seconds: 2400,
@@ -152,7 +151,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
             <video
               src={item.video_url || 'https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8'}
               controls
-              poster={item.thumbnail_url || 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop'}
+              poster={item.thumbnail_url || '/assest/cinema_house_hero.jpg'}
               className="w-full h-full object-cover"
             />
           </div>
@@ -213,7 +212,7 @@ export default async function WatchPage({ params }: WatchPageProps) {
               >
                 <div className="relative w-28 h-20 rounded-xl overflow-hidden bg-slate-100 shrink-0">
                   <Image
-                    src={ep.thumbnail_url || 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=400&auto=format&fit=crop'}
+                    src={ep.thumbnail_url || '/assest/hero_slide_cinema.jpg'}
                     alt={ep.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform"

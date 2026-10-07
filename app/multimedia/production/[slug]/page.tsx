@@ -32,12 +32,11 @@ export default async function ProductionDetailPage({ params }: ProductionSlugPro
     slug: slug,
     description:
       'Laku Media provides full end-to-end production capabilities including scriptwriting, set design, multi-angle camera direction, 4K/8K filming, color grading, theatrical sound engineering, and post-production editorial mastering.',
-    cover_image_url:
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop',
+    cover_image_url: '/assest/portfolio_hero_stage.jpg',
     gallery: [
-      'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=800&auto=format&fit=crop',
+      '/assest/portfolio_crew_set.jpg',
+      '/assest/service_drone_auto_1.jpg',
+      '/assest/portfolio_lighting_setup.jpg',
     ],
     service_type: 'music_video_production' as const,
   };
@@ -45,8 +44,8 @@ export default async function ProductionDetailPage({ params }: ProductionSlugPro
   const galleryImages = Array.isArray(service.gallery)
     ? service.gallery
     : [
-        'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&auto=format&fit=crop',
-        'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=800&auto=format&fit=crop',
+        '/assest/portfolio_crew_set.jpg',
+        '/assest/service_drone_auto_1.jpg',
       ];
 
   const typeLabel = service.service_type
@@ -85,8 +84,7 @@ export default async function ProductionDetailPage({ params }: ProductionSlugPro
       <div className="relative h-80 sm:h-[420px] w-full rounded-3xl overflow-hidden border border-slate-800 glass-panel shadow-2xl">
         <Image
           src={
-            service.cover_image_url ||
-            'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop'
+            service.cover_image_url || '/assest/portfolio_hero_stage.jpg'
           }
           alt={service.title}
           fill

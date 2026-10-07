@@ -1,4 +1,6 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Play, Clock, ShieldCheck, Film } from 'lucide-react';
@@ -25,8 +27,8 @@ export function VideoCard({
   durationSeconds,
   isKidSafe = false,
 }: VideoCardProps) {
-  const defaultImage =
-    'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop';
+  const defaultImage = '/assest/hero_slide_cinema.jpg';
+  const [imgSrc, setImgSrc] = useState(thumbnailUrl || defaultImage);
 
   const formattedDuration = durationSeconds
     ? `${Math.floor(durationSeconds / 60)} min`
@@ -41,10 +43,11 @@ export function VideoCard({
       {/* Thumbnail + Overlay */}
       <div className="relative h-48 w-full overflow-hidden bg-slate-100 shrink-0">
         <Image
-          src={thumbnailUrl || defaultImage}
+          src={imgSrc}
           alt={title}
           fill
           className="object-cover group-hover:scale-105 transition-transform duration-500"
+          onError={() => setImgSrc(defaultImage)}
         />
         
         {/* Play Button Overlay */}

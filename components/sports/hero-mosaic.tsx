@@ -23,8 +23,7 @@ export function HeroMosaic({ articles }: HeroMosaicProps) {
   const leadArticle = articles[0];
   const secondaryArticles = articles.slice(1, 5);
 
-  const defaultImage =
-    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop';
+  const defaultImage = '/assest/user_enyimba_news_hero.jpg';
 
   const formatDate = (dateStr?: string | null) => {
     if (!dateStr) return 'Recently';

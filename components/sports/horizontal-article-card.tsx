@@ -22,8 +22,7 @@ export function HorizontalArticleCard({
   publishedAt,
   commentCount = 0,
 }: HorizontalArticleCardProps) {
-  const defaultImage =
-    'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=400&auto=format&fit=crop';
+  const defaultImage = '/assest/user_npfl_blue_player.jpg';
 
   const [imgSrc, setImgSrc] = useState(coverImageUrl || defaultImage);
 

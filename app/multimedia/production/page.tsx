@@ -32,7 +32,7 @@ export default function ProductionServicesPage() {
             title: 'Music Video Production',
             slug: 'music-video-production',
             description: 'Full 4K/8K music video concept creation, set design, multi-angle camera direction, color grading, and visual effects editing.',
-            cover_image_url: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/hero_slide_recording.jpg',
             service_type: 'music_video_production',
             is_featured: true,
           },
@@ -41,7 +41,7 @@ export default function ProductionServicesPage() {
             title: 'Feature Film & Movie Editing',
             slug: 'movie-editing',
             description: 'Professional post-production, theatrical sound design, color mastering, and editorial cutting for feature films.',
-            cover_image_url: 'https://images.unsplash.com/photo-1485846234645-a62644f84728?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/hero_slide_cinema.jpg',
             service_type: 'movie_editing',
             is_featured: true,
           },
@@ -50,7 +50,7 @@ export default function ProductionServicesPage() {
             title: 'Television Programme Broadcast Production',
             slug: 'television-programme',
             description: 'End-to-end television studio show production, talk show recording, sports magazine programming, and multi-cam switching.',
-            cover_image_url: 'https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/hero_slide_broadcast.jpg',
             service_type: 'television_programme',
             is_featured: true,
           },
@@ -59,7 +59,7 @@ export default function ProductionServicesPage() {
             title: 'Professional Commercial Photography',
             slug: 'photography',
             description: 'High-end studio photography, event red carpet portraits, corporate executive headshots, and editorial sports photography.',
-            cover_image_url: 'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/portfolio_lighting_setup.jpg',
             service_type: 'photography',
             is_featured: true,
           },
@@ -68,7 +68,7 @@ export default function ProductionServicesPage() {
             title: 'NPFL Super 8 Broadcast Production',
             slug: 'npfl-super-8-broadcast',
             description: 'Outside Broadcast OB truck multi-cam setup for national league matches with VAR graphics integration.',
-            cover_image_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/service_satellite_ob_dish.jpg',
             service_type: 'broadcast_production',
             is_featured: true,
           },
@@ -77,7 +77,7 @@ export default function ProductionServicesPage() {
             title: 'Lagos Tech & Media Summit Coverage',
             slug: 'lagos-tech-media-summit-coverage',
             description: 'Corporate event coverage, live multi-stage audio streaming, and high-impact executive recap video reels.',
-            cover_image_url: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/user_about_control_room_2.jpg',
             service_type: 'corporate_event_coverage',
             is_featured: true,
           },
@@ -86,7 +86,7 @@ export default function ProductionServicesPage() {
             title: 'Afro-Fusion Arena Concert Filming',
             slug: 'afro-fusion-arena-concert-filming',
             description: 'Full stadium lighting, 4K camera rig filming, live stream encoding, and concert film editing.',
-            cover_image_url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=1200&auto=format&fit=crop',
+            cover_image_url: '/assest/service_drone_auto_1.jpg',
             service_type: 'concert_coverage',
             is_featured: true,
           },
@@ -190,7 +190,7 @@ export default function ProductionServicesPage() {
                 <Image
                   src={
                     item.cover_image_url ||
-                    'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop'
+                    '/assest/portfolio_hero_stage.jpg'
                   }
                   alt={item.title}
                   fill

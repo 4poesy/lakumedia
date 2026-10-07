@@ -67,7 +67,7 @@ export default async function GenreListingPage({ params }: GenrePageProps) {
       title: `Featured ${genreName} Release`,
       slug: `${genreSlug}-featured-release`,
       synopsis: `Top-rated stream available in the ${genreName} catalog. High definition 4K audio and visuals.`,
-      thumbnail_url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=800&auto=format&fit=crop',
+      thumbnail_url: '/assest/hero_slide_cinema.jpg',
       media_type: 'film' as const,
       duration_seconds: 4500,
       is_kid_safe: genreSlug === 'kids-shows',

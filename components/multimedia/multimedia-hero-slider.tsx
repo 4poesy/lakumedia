@@ -15,7 +15,7 @@ export function MultimediaHeroSlider() {
       title: 'GIANTS OF AFRICA: THE STORY OF NIGERIAN FOOTBALL',
       category: 'DOCUMENTARY FILM',
       synopsis: 'An inspiring 8K documentary tracing the evolution of Nigerian football from grassroots street academies in Aba to world cup stardom.',
-      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=2400&auto=format&fit=crop&q=95',
+      imageUrl: '/assest/cinema_house_hero.jpg',
       badge: 'FEATURED ORIGINAL',
       slug: 'giants-of-africa-nigerian-football',
       badgeColor: 'bg-[#D9541E] text-white',

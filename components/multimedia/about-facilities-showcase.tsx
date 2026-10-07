@@ -14,7 +14,7 @@ export function AboutFacilitiesShowcase() {
       badge: 'MAIN SOUNDSTAGE & SATELLITE MCR',
       badgeColor: 'bg-[#10B981] text-slate-950',
       description: 'Features a 12,000 sq.ft acoustically-treated soundstage, Dolby Atmos audio mixing suite, 8K RED post-production bay, and dual C/Ku-band satellite teleport dishes.',
-      imageUrl: 'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&auto=format&fit=crop&q=75',
+      imageUrl: '/assest/user_about_control_room_2.jpg',
     },
     {
       id: 'fac-lagos',
@@ -23,7 +23,7 @@ export function AboutFacilitiesShowcase() {
       badge: 'REALTIME SPORTS NEWSDESK & EDITORIAL',
       badgeColor: 'bg-[#D9541E] text-white',
       description: 'Houses the 24/7 Laku Sports newsroom, live scores aggregation center, executive podcast recording studio, and client strategy suites.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=800&auto=format&fit=crop&q=75',
+      imageUrl: '/assest/user_about_satellite_dish_1.jpg',
     },
   ];
 

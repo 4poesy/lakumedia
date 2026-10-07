@@ -17,7 +17,7 @@ export default function MultimediaPortfolioPage() {
       category: 'LIVE CONCERT BROADCAST',
       client: 'Laku Media Concepts Network',
       description: 'Full multi-camera satellite OB van live stream to viewers across YouTube and African television networks.',
-      imageUrl: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/user_portfolio_hero_stage.jpg',
       youtubeId: 'MFAejiCKDjk',
     },
     {
@@ -26,7 +26,7 @@ export default function MultimediaPortfolioPage() {
       category: 'DOCUMENTARY FILM',
       client: 'Laku Media Originals',
       description: 'Feature length 4K theatrical commercial exploring brand storytelling and visual direction.',
-      imageUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/user_portfolio_crew_set.jpg',
       youtubeId: 'szV-YWVJ5aY',
     },
     {
@@ -35,7 +35,7 @@ export default function MultimediaPortfolioPage() {
       category: 'MUSIC VIDEO DIRECTION',
       client: 'Starboy Entertainment',
       description: 'Hollywood-grade RED Cinema 8K music video production shot on location.',
-      imageUrl: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/portfolio_lighting_setup.jpg',
       youtubeId: 'zZHbLPiXAos',
     },
     {
@@ -44,7 +44,7 @@ export default function MultimediaPortfolioPage() {
       category: 'CORPORATE EVENT STAGING',
       client: 'Corporate Brand Network',
       description: 'Stage lighting choreography, 4K multi-cam live LED wall feed, and executive keynote video production.',
-      imageUrl: 'https://images.unsplash.com/photo-1522778119026-d647f0596c20?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/portfolio_hero_stage.jpg',
       youtubeId: 'mJag5F0ASqQ',
     },
     {
@@ -53,7 +53,7 @@ export default function MultimediaPortfolioPage() {
       category: 'BROADCAST ADVERTISING',
       client: 'Global Music Labels',
       description: 'High-impact broadcast TV advert with 3D CGI animation and Dolby sound mixing.',
-      imageUrl: 'https://images.unsplash.com/photo-1543351611-c823945f1007?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/user_portfolio_lighting_crew.jpg',
       youtubeId: 'CwZLn1s0q-k',
     },
     {
@@ -62,7 +62,7 @@ export default function MultimediaPortfolioPage() {
       category: 'DRONE & VISUAL EFFECTS',
       client: 'Laku Media Creative Studio',
       description: 'FPV high-speed drone aerial filming across landmarks and coastal infrastructure.',
-      imageUrl: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1200&auto=format&fit=crop',
+      imageUrl: '/assest/service_drone_auto_1.jpg',
       youtubeId: 'BIiwifY-41I',
     },
   ];

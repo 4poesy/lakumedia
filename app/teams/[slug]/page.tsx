@@ -25,7 +25,7 @@ export default async function TeamPage({ params }: TeamPageProps) {
   const team = (teamsData as any[])?.find((t: any) => t.name.toLowerCase().includes(slug.toLowerCase())) || {
     id: '20000000-0000-0000-0000-000000000001',
     name: formattedName.includes('Enyimba') ? 'Enyimba FC' : formattedName,
-    logo_url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=200&auto=format&fit=crop',
+    logo_url: '/brand/laku-media/laku-media-logo-symbol.jpeg',
     leagues: { name: 'Nigeria Premier Football League (NPFL)' },
   };
 
@@ -69,7 +69,14 @@ export default async function TeamPage({ params }: TeamPageProps) {
           <div className="w-16 h-16 rounded-full bg-slate-800 border-2 border-emerald-500/40 flex items-center justify-center font-bold text-xl text-white overflow-hidden shadow-lg">
             {team.logo_url ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={team.logo_url} alt={team.name} className="w-full h-full object-cover" />
+              <img
+                src={team.logo_url}
+                alt={team.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = '/brand/laku-media/laku-media-logo-symbol.jpeg';
+                }}
+              />
             ) : (
               <Shield className="w-8 h-8 text-emerald-400" />
             )}

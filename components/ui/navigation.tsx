@@ -330,6 +330,10 @@ export function Navigation() {
                         src={filter.icon}
                         alt={filter.label}
                         className="w-4 h-4 object-contain rounded-full bg-white shrink-0 border border-slate-100"
+                        loading="lazy"
+                        onError={(e) => {
+                          e.currentTarget.style.display = 'none';
+                        }}
                       />
                     )}
                     <span>{filter.label}</span>
