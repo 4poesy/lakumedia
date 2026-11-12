@@ -1,14 +1,62 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ArrowLeft, Camera, Award, Mail, Phone, UserCheck, CheckCircle2, Image as ImageIcon } from 'lucide-react';
+import { StructuredData } from '@/components/seo/structured-data';
 
 export const revalidate = 60;
 
 interface ProductionSlugProps {
   params: {
     slug: string;
+  };
+}
+
+export async function generateMetadata({ params }: ProductionSlugProps): Promise<Metadata> {
+  const { slug } = params;
+  const formattedTitle = slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+
+  const title = `${formattedTitle} — Broadcast & Production Services | Laku Media`;
+  const description = `Professional ${formattedTitle} by Laku Media Concept. 4K/8K cameras, OB satellite uplink, sound engineering, and creative direction led by Samuel Adebayo Olaku.`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      formattedTitle,
+      `${formattedTitle} Nigeria`,
+      'OB Satellite Uplink Nigeria',
+      'Laku Media Concept',
+      'Samuel Adebayo Olaku',
+      'Video production Lagos',
+    ],
+    alternates: {
+      canonical: `/multimedia/production/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://lakumediaconcept.com/multimedia/production/${slug}`,
+      siteName: 'Laku Media Concept',
+      type: 'website',
+      images: [
+        {
+          url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
+          width: 1200,
+          height: 630,
+          alt: formattedTitle,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
   };
 }
 
@@ -52,8 +100,32 @@ export default async function ProductionDetailPage({ params }: ProductionSlugPro
     ? service.service_type.replace(/_/g, ' ').replace(/\b\w/g, (l: string) => l.toUpperCase())
     : 'Production Service';
 
+  const serviceSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: service.title,
+    serviceType: typeLabel,
+    description: service.description,
+    provider: {
+      '@type': 'LocalBusiness',
+      name: 'Laku Media Concept',
+      telephone: '+234-810-828-5303',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Lagos',
+        addressCountry: 'NG',
+      },
+      founder: {
+        '@type': 'Person',
+        name: 'Samuel Adebayo Olaku',
+      },
+    },
+    areaServed: ['Nigeria', 'West Africa', 'United Kingdom', 'Global'],
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-8 theme-multimedia">
+      <StructuredData data={serviceSchema} />
       {/* Back Link */}
       <div>
         <Link

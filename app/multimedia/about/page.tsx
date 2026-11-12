@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { Metadata } from 'next';
 import { Award, UserCheck, Shield, Film, Sparkles, ArrowRight, Target, Eye, Heart, Users, Star, CheckCircle2, Zap, Radio, Camera, Tv, Globe } from 'lucide-react';
 import { StudioSubscriberSection } from '@/components/multimedia/newsletter-popup-modal';
 import { Smooth3DSlideshow } from '@/components/ui/smooth-3d-slideshow';
@@ -12,6 +13,42 @@ import { LakuMediaYoutubeShowcase } from '@/components/multimedia/laku-media-you
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'About Laku Media Concept — Leadership, CEO Samuel Adebayo Olaku & Studio Vision',
+  description: 'Learn about Laku Media Concept, our executive leadership led by CEO Samuel Adebayo Olaku, broadcast OB satellite fleet, and world-class multimedia production capabilities in Nigeria.',
+  keywords: [
+    'Samuel Adebayo Olaku CEO',
+    'Laku Media Concept leadership',
+    'Media production company Nigeria',
+    'OB satellite uplink Lagos',
+    'Outside broadcast fleet Africa',
+    'Laku Media',
+  ],
+  alternates: {
+    canonical: '/multimedia/about',
+  },
+  openGraph: {
+    title: 'About Laku Media Concept — CEO Samuel Adebayo Olaku & Studio Facilities',
+    description: 'Learn about Laku Media Concept, executive leadership led by CEO Samuel Adebayo Olaku, and broadcast capabilities.',
+    url: 'https://lakumediaconcept.com/multimedia/about',
+    siteName: 'Laku Media Concept',
+    type: 'profile',
+    images: [
+      {
+        url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
+        width: 1200,
+        height: 630,
+        alt: 'Laku Media Executive Leadership',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'About Laku Media Concept — CEO Samuel Adebayo Olaku',
+    description: 'Executive leadership, OB satellite fleet, and multimedia studio vision.',
+  },
+};
 
 export default function MultimediaAboutPage() {
   const teamSlides = [

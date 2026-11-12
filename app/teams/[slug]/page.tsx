@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ScoreCard } from '@/components/sports/score-card';
-import { Shield, ArrowLeft, Calendar, Trophy } from 'lucide-react';
+import { Shield, ArrowLeft, Calendar, Trophy, HelpCircle, Layers } from 'lucide-react';
+import { StructuredData } from '@/components/seo/structured-data';
 
 export const revalidate = 60;
 
@@ -12,12 +14,64 @@ interface TeamPageProps {
   };
 }
 
+export async function generateMetadata({ params }: TeamPageProps): Promise<Metadata> {
+  const { slug } = params;
+  const formattedName = slug
+    .replace(/-/g, ' ')
+    .replace(/\b\w/g, (l) => l.toUpperCase());
+
+  const supabase = await createClient();
+  const { data: teamsData } = await supabase.from('teams').select('*, leagues(name)');
+  const team = (teamsData as any[])?.find((t: any) => t.name.toLowerCase().includes(slug.toLowerCase()));
+  const teamName = team?.name || formattedName;
+  const leagueName = team?.leagues?.name || 'Football League';
+
+  const title = `${teamName} — Fixtures, Live Scores, Results & News`;
+  const description = `Follow ${teamName} in the ${leagueName}. Real-time match scores, upcoming fixtures, results, head-to-head records, and news on Laku Media Concept.`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      teamName,
+      `${teamName} fixtures`,
+      `${teamName} live score`,
+      `${teamName} results`,
+      leagueName,
+      'Laku Media Concept',
+    ],
+    alternates: {
+      canonical: `/teams/${slug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://lakumediaconcept.com/teams/${slug}`,
+      siteName: 'Laku Media Concept',
+      type: 'website',
+      images: [
+        {
+          url: team?.logo_url || 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
+          width: 800,
+          height: 800,
+          alt: `${teamName} Official Club Crest`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+    },
+  };
+}
+
 export default async function TeamPage({ params }: TeamPageProps) {
   const { slug } = params;
   const supabase = await createClient();
 
   const formattedName = slug
-    .replace('-', ' ')
+    .replace(/-/g, ' ')
     .replace(/\b\w/g, (l) => l.toUpperCase());
 
   // Query team details
@@ -54,8 +108,74 @@ export default async function TeamPage({ params }: TeamPageProps) {
         },
       ];
 
+  const leagueTitle = team.leagues?.name || 'Football League';
+
+  // Schema.org Structured Data
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'SportsTeam',
+        name: team.name,
+        sport: 'Soccer',
+        logo: team.logo_url || 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-symbol.jpeg',
+        url: `https://lakumediaconcept.com/teams/${slug}`,
+        memberOf: {
+          '@type': 'SportsOrganization',
+          name: leagueTitle,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://lakumediaconcept.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Teams',
+            item: 'https://lakumediaconcept.com/live-scores',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: team.name,
+            item: `https://lakumediaconcept.com/teams/${slug}`,
+          },
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: `What league does ${team.name} compete in?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `${team.name} competes in the ${leagueTitle}. Match statistics and live scores are tracked on Laku Media Concept.`,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `Where can I see live match updates for ${team.name}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `You can follow real-time scores, lineups, and match commentaries for ${team.name} at Laku Media Concept Match Center (https://lakumediaconcept.com/teams/${slug}).`,
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="space-y-8 theme-sports">
+      <StructuredData data={structuredData} />
+
       {/* Header */}
       <div className="space-y-4 pb-6 border-b border-slate-800">
         <Link
@@ -83,11 +203,22 @@ export default async function TeamPage({ params }: TeamPageProps) {
           </div>
           <div>
             <div className="flex items-center space-x-2 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1">
-              <Trophy className="w-3.5 h-3.5" /> {team.leagues?.name || 'Football League'}
+              <Trophy className="w-3.5 h-3.5" /> {leagueTitle}
             </div>
             <h1 className="text-3xl font-extrabold text-white">{team.name}</h1>
           </div>
         </div>
+      </div>
+
+      {/* AEO Quick Fact Block */}
+      <div className="p-5 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-300 text-xs sm:text-sm leading-relaxed space-y-1 shadow-sm">
+        <div className="flex items-center gap-2 text-xs font-black uppercase text-emerald-400 tracking-wider">
+          <HelpCircle className="w-4 h-4" /> CLUB OVERVIEW
+        </div>
+        <p>
+          <strong className="text-white">{team.name}</strong> is a professional football club competing in the{' '}
+          <strong className="text-emerald-400">{leagueTitle}</strong>. Follow upcoming kickoff times, confirmed matchday scores, and seasonal fixtures below.
+        </p>
       </div>
 
       {/* Team Fixtures */}
@@ -111,6 +242,33 @@ export default async function TeamPage({ params }: TeamPageProps) {
               awayLogo={fix.away_team?.logo_url}
             />
           ))}
+        </div>
+      </div>
+
+      {/* Internal Navigation Bar */}
+      <div className="bg-slate-900 text-white p-5 rounded-2xl border border-slate-800 space-y-3">
+        <div className="flex items-center gap-2 text-xs font-black uppercase text-[#D9541E] tracking-widest">
+          <Layers className="w-4 h-4 text-emerald-400" /> EXPLORE MORE CLUBS & MATCHES
+        </div>
+        <div className="flex flex-wrap items-center gap-2 text-xs font-bold pt-1">
+          <Link
+            href="/live-scores"
+            className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700"
+          >
+            ⚡ Live Match Center
+          </Link>
+          <Link
+            href="/leagues/npfl"
+            className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700"
+          >
+            🇳🇬 NPFL League Table
+          </Link>
+          <Link
+            href="/transfers"
+            className="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-[#D9541E] text-white transition-colors border border-slate-700"
+          >
+            ⚽ Transfer News
+          </Link>
         </div>
       </div>
     </div>

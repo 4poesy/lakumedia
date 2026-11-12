@@ -130,7 +130,7 @@ export default function ProductionServicesPage() {
             <div className="relative w-14 h-14 rounded-2xl bg-slate-50 p-1 overflow-hidden shadow-sm border border-slate-200 shrink-0">
               <Image
                 src="/brand/laku-media/laku-media-logo-symbol.jpeg"
-                alt="Laku Media"
+                alt="Laku Media Concept Official Crest & Production Emblem"
                 fill
                 className="object-cover"
               />

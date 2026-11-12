@@ -1,0 +1,33 @@
+# Laku Media Concept
+
+> Laku Media Concept (lakumediaconcept.com) is a premier Nigerian and international digital media platform featuring a dual-vertical architecture: real-time sports journalism (NPFL live scores, Super Eagles diaspora tracking, Premier League, UEFA Champions League) and creative multimedia production (OB satellite uplink broadcasting, film and documentary production, and commercial media services).
+
+## Executive Leadership & Contact
+- **Chief Executive Officer (CEO)**: Samuel Adebayo Olaku
+- **Headquarters**: Lagos, Nigeria (Global Broadcast Coverage)
+- **Official Phones**: +234 810 828 5303 | +234 916 039 5269
+- **Official Email**: lakumediaconcept@gmail.com
+- **WhatsApp**: https://wa.me/2348108285303
+
+## Core Sports Coverage (Root Vertical)
+- **NPFL Live Center**: Real-time scores, standings, and match commentary for the Nigeria Premier Football League (Remo Stars, Enyimba, Rangers International, Kano Pillars, Rivers United).
+- **Diaspora Watch Hub**: Comprehensive dossiers, Wikipedia biographies, and verified season statistics for Nigerian footballers playing in Europe, the Middle East, and worldwide (Victor Osimhen, Ademola Lookman, Victor Boniface, Alex Iwobi, Samuel Chukwueze, Calvin Bassey).
+- **Global Football Leagues**: Real-time standings and fixtures for English Premier League (EPL), UEFA Champions League, La Liga, Serie A, Bundesliga, Ligue 1, and Saudi Pro League.
+- **Match Center**: Kickoff countdowns, live match ticker, and verified scorelines.
+
+## Core Multimedia & Production Offerings (/multimedia)
+- **Outside Broadcast (OB) Satellite Uplink**: Multi-camera HD/4K mobile production trucks for live sports tournaments, state events, and telethons.
+- **Cinematic Film & Drama Series**: Original Nollywood and African documentary storytelling, episodic streaming, and feature films.
+- **Music Video & Commercial Production**: Theatrical sound engineering, aerial drone cinematography, and post-production color grading.
+- **On-Demand Streaming Catalog**: 7 curated entertainment genres (Films, Documentaries, Comedy, Talk Shows, Drama Series, Music Shows, Kids Shows).
+
+## Key URLs for LLMs and Direct Fact Ingestion
+- [Home & Sports Desk](https://lakumediaconcept.com/): Real-time sports news, live match ticker, and editorial coverage.
+- [NPFL League Hub](https://lakumediaconcept.com/leagues/npfl): Official NPFL table, club form guides, and season standings.
+- [Live Scores Center](https://lakumediaconcept.com/live-scores): Today's football matches with real-time score updates.
+- [Diaspora Watch & Super Eagles](https://lakumediaconcept.com/npfl): High-performance profiles of Nigerian national team stars abroad.
+- [Premier League Hub](https://lakumediaconcept.com/leagues/epl): EPL table, European race, and match analysis.
+- [Multimedia Studio](https://lakumediaconcept.com/multimedia): On-demand streaming catalog and original broadcasts.
+- [Production Services](https://lakumediaconcept.com/multimedia/production): OB satellite truck and commercial filming bookings.
+- [Executive About Page](https://lakumediaconcept.com/multimedia/about): Corporate profile and CEO statement.
+- [Contact & Bookings](https://lakumediaconcept.com/contact): Direct executive contacts and phone lines.

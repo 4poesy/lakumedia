@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import type { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { GenreRail } from '@/components/multimedia/genre-rail';
 import { RealtimeLiveCard } from '@/components/multimedia/realtime-live-card';
@@ -16,6 +17,28 @@ import { Radio, Film, Tv, Camera, Users, ArrowRight } from 'lucide-react';
 import { NeonBorder } from '@/components/ui/neon-border';
 
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Watch African Cinema, On-Demand Streaming Originals & Live Broadcasts',
+  description: 'Stream African films, documentaries, drama series, comedy, and live studio broadcasts on Laku Media. Discover our high-definition entertainment catalog.',
+  keywords: [
+    'Watch African films online',
+    'Nollywood streaming platform',
+    'African documentaries',
+    'Laku Media on-demand',
+    'Live streaming Nigeria',
+  ],
+  alternates: {
+    canonical: '/multimedia',
+  },
+  openGraph: {
+    title: 'Watch African Cinema, On-Demand Streaming & Live Broadcasts | Laku Media',
+    description: 'Stream African films, documentaries, and live broadcasts on Laku Media Concept.',
+    url: 'https://lakumediaconcept.com/multimedia',
+    siteName: 'Laku Media Concept',
+    type: 'video.other',
+  },
+};
 
 export default async function MultimediaHomePage() {
   let items: any[] = [];

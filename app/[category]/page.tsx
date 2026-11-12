@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { ArticleCard } from '@/components/sports/article-card';
 import { HorizontalArticleCard } from '@/components/sports/horizontal-article-card';
@@ -12,6 +13,7 @@ import { getDiasporaPlayers } from '@/lib/diaspora-service';
 import { getCurrentSeasonString } from '@/lib/season';
 import { Trophy, ChevronRight, Layers, Activity, Flame, Newspaper } from 'lucide-react';
 import { isNpflStory } from '@/lib/npfl-keywords';
+import { StructuredData } from '@/components/seo/structured-data';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -38,6 +40,50 @@ function humanizeCategorySlug(slug: string): string {
   return slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
+  const { category: categorySlug } = params;
+  const humanized = humanizeCategorySlug(categorySlug);
+  const season = getCurrentSeasonString();
+
+  const title = `${humanized} News, Scores & Updates (${season})`;
+  const description = `Follow the latest ${humanized} match reports, live score highlights, breaking transfer rumours, and expert analysis on Laku Media Concept.`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      humanized,
+      `${categorySlug} football news`,
+      `${categorySlug} scores ${season}`,
+      'Nigeria sports journalism',
+      'Laku Media Concept',
+    ],
+    alternates: {
+      canonical: `/${categorySlug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://lakumediaconcept.com/${categorySlug}`,
+      siteName: 'Laku Media Concept',
+      type: 'website',
+      images: [
+        {
+          url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
+          width: 1200,
+          height: 630,
+          alt: `${humanized} Coverage on Laku Media`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
 }
 
 export default async function CategoryPage({ params }: CategoryPageProps) {
@@ -266,8 +312,38 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   const isNpfl = categorySlug.toLowerCase() === 'npfl';
   const diasporaPlayers = isNpfl ? await getDiasporaPlayers() : [];
 
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: `${humanizedTitle} Coverage (${currentSeason})`,
+        description: `Latest ${humanizedTitle} headlines, match reports, and live coverage on Laku Media Concept.`,
+        url: `https://lakumediaconcept.com/${categorySlug}`,
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://lakumediaconcept.com',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: humanizedTitle,
+            item: `https://lakumediaconcept.com/${categorySlug}`,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="space-y-8 theme-sports max-w-7xl mx-auto">
+      <StructuredData data={structuredData} />
       {/* Breadcrumbs */}
       <nav className="flex items-center space-x-2 text-xs font-bold text-slate-500">
         <Link href="/" className="hover:text-slate-900">Home</Link>

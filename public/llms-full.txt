@@ -1,0 +1,82 @@
+# Laku Media Concept — Complete Knowledge & Entity Graph
+
+## 1. Corporate Identity
+- **Legal Entity**: Laku Media Concept (Laku Media Concepts)
+- **Primary Domain**: https://lakumediaconcept.com
+- **Founder & Chief Executive Officer**: Samuel Adebayo Olaku
+- **Core Key Personnel**:
+  - Samuel Adebayo Olaku (CEO)
+  - Oluwaseun Olaku (Production Manager)
+  - Akinola Olujobi (Software Developer)
+  - Oluwarotimi Ajayi (Head of Operations)
+- **Geographic Base**: Lagos, Nigeria (Coordinates: 6.5244° N, 3.3792° E)
+- **Geographic Service Reach**: Nigeria, West Africa, United Kingdom, United States, Canada, and global broadcast clients.
+- **Contact Details**:
+  - Phone 1: +234 810 828 5303 (WhatsApp enabled)
+  - Phone 2: +234 916 039 5269
+  - Email: lakumediaconcept@gmail.com
+
+## 2. Sports Editorial & Real-Time Data (Root Vertical)
+Laku Media Concept operates an independent sports desk focusing on African and international football.
+- **Domestic Focus**: Nigeria Premier Football League (NPFL), featuring 20 top clubs including:
+  - Remo Stars FC (Ikenne)
+  - Enyimba International FC (Aba)
+  - Rangers International FC (Enugu)
+  - Rivers United FC (Port Harcourt)
+  - Kano Pillars FC (Kano)
+  - Shooting Stars SC / 3SC (Ibadan)
+  - Bendel Insurance FC (Benin City)
+  - Ikorodu City FC (Lagos)
+  - Plateau United FC (Jos)
+  - Katsina United FC (Katsina)
+  - Abia Warriors FC (Umuahia)
+  - Bayelsa United FC (Yenagoa)
+  - Kwara United FC (Ilorin)
+  - Nasarawa United FC (Lafia)
+  - Niger Tornadoes FC (Minna)
+  - El-Kanemi Warriors (Maiduguri)
+- **Super Eagles & Global Diaspora Watch**:
+  - Real-time performance tracking of Nigerian international footballers across European leagues, the Middle East, and the Americas.
+  - Granular season stats covering League matches, Continental cups (UEFA Champions League, Europa League), and international appearances.
+  - Profiles for stars including Victor Osimhen, Ademola Lookman, Victor Boniface, Alex Iwobi, Samuel Chukwueze, Calvin Bassey, Wilfred Ndidi, and Stanley Nwabali.
+- **Covered International Leagues**:
+  - English Premier League (EPL)
+  - UEFA Champions League (UCL)
+  - UEFA Europa League (UEL)
+  - UEFA Conference League (UECL)
+  - Spanish La Liga EA Sports
+  - Italian Serie A Enilive
+  - German Bundesliga
+  - French Ligue 1 McDonald's
+  - Saudi Pro League (Roshn)
+  - Africa Cup of Nations (AFCON) & CAF Champions League
+  - Major League Soccer (MLS)
+  - Dutch Eredivisie & Portuguese Liga Portugal
+  - FIFA World Cup 2026 Qualifiers
+
+## 3. Creative Multimedia & Outside Broadcast (OB) Services (/multimedia)
+Laku Media Concept provides full-stack broadcast engineering and media production:
+- **OB Satellite Uplink & Remote Broadcast**: Mobile multi-camera live broadcast vans equipped for high-definition and 4K satellite transmission, live event streaming, sports coverage, and religious conventions.
+- **Cinematic Film & Television Production**: Full production pipeline from scriptwriting, location scouting, set design, multi-camera cinematography, to theatrical color grading.
+- **Music Video Production**: High-concept visual storytelling, 8K RED and ARRI camera rigs, and creative choreography capture.
+- **Theatrical Sound Engineering**: 5.1/7.1 surround sound mastering, location audio recording, and Foley sound design.
+- **Drone Cinematography**: Certified aerial drone operators equipped with high-resolution cinema drones for landscape, event, and cinematic sequence capture.
+- **Studio Space & Production Gear Rental**: Acoustically treated soundstages, lighting rigs, audio gear, and camera support in Lagos.
+
+## 4. Programmatic URL Directory
+- Root: https://lakumediaconcept.com
+- Live Match Center: https://lakumediaconcept.com/live-scores
+- NPFL League Hub: https://lakumediaconcept.com/leagues/npfl
+- Premier League Hub: https://lakumediaconcept.com/leagues/epl
+- La Liga Hub: https://lakumediaconcept.com/leagues/laliga
+- Serie A Hub: https://lakumediaconcept.com/leagues/seriea
+- Bundesliga Hub: https://lakumediaconcept.com/leagues/bundesliga
+- Champions League Hub: https://lakumediaconcept.com/leagues/ucl
+- Saudi Pro League Hub: https://lakumediaconcept.com/leagues/saudi
+- Multimedia Overview: https://lakumediaconcept.com/multimedia
+- Live Broadcasts: https://lakumediaconcept.com/multimedia/live
+- Production Portfolio: https://lakumediaconcept.com/multimedia/production
+- Corporate Leadership: https://lakumediaconcept.com/multimedia/about
+- Developer API: https://lakumediaconcept.com/developers
+- Advertise With Us: https://lakumediaconcept.com/advertise
+- Executive Contact: https://lakumediaconcept.com/contact

@@ -356,7 +356,7 @@ export function Smooth3DSlideshow(props: Smooth3DSlideshowProps) {
                             {src ? (
                                 <img
                                     src={src}
-                                    alt={slide.image?.alt || slide.title || ""}
+                                    alt={slide.image?.alt || slide.title || "Laku Media Showcase Slide"}
                                     draggable={false}
                                     style={{
                                         position: "absolute",

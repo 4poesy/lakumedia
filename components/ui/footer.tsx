@@ -21,7 +21,7 @@ export function Footer() {
               <div className="relative w-44 h-12 overflow-hidden bg-transparent">
                 <Image
                   src="/brand/laku-media/laku-media-logo-dark.jpeg"
-                  alt="Laku Media Logo"
+                  alt="Laku Media Concept Official Logo — Sports Journalism & Multimedia Production"
                   fill
                   className="object-contain"
                 />

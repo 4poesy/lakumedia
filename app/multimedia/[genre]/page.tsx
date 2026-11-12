@@ -1,8 +1,10 @@
 import React from 'react';
 import Link from 'next/link';
+import { Metadata } from 'next';
 import { createClient } from '@/lib/supabase/server';
 import { VideoCard } from '@/components/multimedia/video-card';
 import { Film, ChevronRight, Filter } from 'lucide-react';
+import { StructuredData } from '@/components/seo/structured-data';
 
 export const revalidate = 60;
 
@@ -32,6 +34,49 @@ function humanizeGenreSlug(slug: string): string {
   return slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (char) => char.toUpperCase());
+}
+
+export async function generateMetadata({ params }: GenrePageProps): Promise<Metadata> {
+  const { genre: genreSlug } = params;
+  const genreTitle = humanizeGenreSlug(genreSlug);
+
+  const title = `Watch ${genreTitle} — Stream African Originals & Shows | Laku Media`;
+  const description = `Stream high-definition ${genreTitle.toLowerCase()} and original productions on Laku Media Concept. Discover compelling African stories, documentaries, and drama series.`;
+
+  return {
+    title,
+    description,
+    keywords: [
+      genreTitle,
+      `African ${genreTitle}`,
+      'Nollywood films online',
+      'Laku Media streaming',
+      'Watch video',
+    ],
+    alternates: {
+      canonical: `/multimedia/${genreSlug}`,
+    },
+    openGraph: {
+      title,
+      description,
+      url: `https://lakumediaconcept.com/multimedia/${genreSlug}`,
+      siteName: 'Laku Media Concept',
+      type: 'video.other',
+      images: [
+        {
+          url: 'https://lakumediaconcept.com/brand/laku-media/laku-media-logo-light.jpeg',
+          width: 1200,
+          height: 630,
+          alt: `${genreTitle} on Laku Media`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+    },
+  };
 }
 
 export default async function GenreListingPage({ params }: GenrePageProps) {
