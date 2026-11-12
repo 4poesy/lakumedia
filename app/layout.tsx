@@ -6,7 +6,7 @@ import { Footer } from '@/components/ui/footer';
 import { FooterLiveScoreTicker } from '@/components/ui/footer-live-score-ticker';
 import { ScrollToTopButton } from '@/components/ui/scroll-to-top-button';
 import { ThemeProviderWrapper } from '@/components/ui/theme-provider-wrapper';
-import { GoogleAnalytics } from '@/components/analytics/google-analytics';
+import { GoogleAnalytics, GoogleTagManagerNoscript } from '@/components/analytics/google-analytics';
 import { SiteStructuredData } from '@/components/seo/site-structured-data';
 
 export const metadata: Metadata = {
@@ -89,6 +89,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className="antialiased selection:bg-[#10B981] selection:text-white">
+        <GoogleTagManagerNoscript />
         <GoogleAnalytics />
         <SiteStructuredData />
         <ThemeProviderWrapper>
